@@ -1,65 +1,148 @@
 import Image from "next/image";
+import Link from "next/link";
+import ProcessSection from "@/components/ProcessSection";
+import ContactForm from "@/components/ContactForm";
+import TestimonialsSection from "@/components/TestimonialsSection";
+import ServiceTabs from "@/components/ServiceTabs";
+import FAQSection from "@/components/FAQSection";
+import HeroCarousel from "@/components/HeroCarousel";
+import AboutTeaser from "@/components/AboutTeaser";
+import PartnersSection from "@/components/PartnersSection";
+import InteractiveProjectGrid from "@/components/InteractiveProjectGrid";
+
+
+const metrics = [
+  { value: "12+", label: "High-stakes product and platform transformations delivered with senior-led precision." },
+  { value: "4-8 wks", label: "Average velocity to move from strategic discovery into a production-ready release." },
+  { value: "100%", label: "Centered on direct collaboration with founders, operators, and enterprise leadership." },
+] as const;
+
+const insights = [
+  {
+    image: "/images/blog-software.png",
+    tag: "Software systems",
+    title: "What a premium service homepage borrows from product storytelling.",
+    text: "Large typography, disciplined spacing, and clearer proof blocks do more work than extra copy ever will.",
+  },
+  {
+    image: "/images/blog-consulting.png",
+    tag: "Consulting",
+    title: "How to make a consulting offer feel more tangible in under thirty seconds.",
+    text: "Frame the decision, show the operating model, and reveal enough confidence that the next click feels obvious.",
+  },
+  {
+    image: "/images/blog-ai-automation.png",
+    tag: "AI agents",
+    title: "Where AI automation belongs in a premium company narrative.",
+    text: "Not as hype, but as a concrete extension of delivery quality, workflow leverage, and operational speed.",
+  },
+] as const;
+
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main className="site-shell squarespace-home">
+      <section className="hero-section hero-full-bg">
+        <HeroCarousel />
+        <div className="hero-container relative z-10">
+          <div className="hero-copy-centered">
+
+            <h1 className="hero-title">AUTONOMOUS AI ORCHESTRATION.</h1>
+            <p className="hero-description text-center max-w-2xl mx-auto">
+              Senior-led engineering for high-stakes digital transformation and institutional continuity. Built for speed, precision, and architectural excellence.
+            </p>
+
+            <div className="hero-actions hero-actions-centered">
+              <Link href="#contact" className="button-primary">
+                Book discovery
+              </Link>
+              <Link href="#proof" className="button-secondary">
+                See the structure
+              </Link>
+            </div>
+
+            <div className="hero-visual-compact hidden">
+              <div className="hero-visual-inner">
+                <div className="visual-card">
+                  <strong>Scalable product engineering for senior teams.</strong>
+                </div>
+                <div className="visual-card visual-card-accent">
+                  <strong>93% client retention on strategic work.</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+      <section className="metrics-section reveal" aria-label="Company highlights">
+
+        <div className="metrics-grid section-shell">
+          {metrics.map((metric) => (
+            <article key={metric.label} className="metric-card">
+              <strong>{metric.value}</strong>
+              <p>{metric.label}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <PartnersSection />
+
+      <ProcessSection />
+      <ServiceTabs />
+
+      <InteractiveProjectGrid />
+      <section className="insights-section reveal" id="insights">
+
+        <div className="section-shell">
+          <h2 className="section-title">Institutional Continuity.</h2>
+          <p className="section-subtitle">
+            Engagement governance, architectural standards, and systemic delivery models.
           </p>
+
+          <div className="insights-grid">
+            {insights.map((item) => (
+              <article key={item.title} className="insight-card">
+                <div className="insight-media">
+                  <Image src={item.image} alt="" fill sizes="(max-width: 820px) 100vw, 33vw" />
+                </div>
+                <span className="blog-tag">{item.tag}</span>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </article>
+            ))}
+          </div>
+          <div className="flex justify-center mt-16">
+            <Link href="/blogs" className="button-secondary">
+              View all articles
+            </Link>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      <TestimonialsSection />
+      <AboutTeaser />
+      <FAQSection />
+
+      <section id="contact" className="contact-section scroll-mt-24 reveal">
+
+        <div className="section-shell">
+          <div className="max-w-3xl mx-auto text-center mb-16">
+            <h2 className="section-title">Engineered for operational scale.</h2>
+            <p className="section-subtitle mt-4">High-output solutions for senior product and engineering leadership.</p>
+            <p className="text-xl text-slate-500 leading-relaxed">
+              Share your project goals and timeline. You&apos;ll receive a response and a clear next step within 24 hours.
+            </p>
+          </div>
+
+          <div className="max-w-7xl mx-auto">
+            <ContactForm />
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+    </main>
   );
 }
