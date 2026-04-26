@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import gsap from "gsap";
 import { useRouter } from "next/navigation";
+import { ArrowUpRight } from "lucide-react";
 
 interface MockSite {
   id: number;
@@ -70,7 +71,7 @@ export default function InteractiveProjectGrid() {
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const groupRef = useRef<THREE.Group | null>(null);
   const [activeSite, setActiveSite] = useState(mockSites[0]);
-  const [hoveredLink, setHoveredLink] = useState<string | null>(null);
+  const [hoveredData, setHoveredData] = useState<{ link: string; title: string } | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -148,7 +149,10 @@ export default function InteractiveProjectGrid() {
 
       card.position.set(Math.sin(angle) * radius, y, Math.cos(angle) * radius);
       card.lookAt(0, y, 0);
-      card.userData = { link: `/projects/${mockSites[siteIndex].id}` };
+      card.userData = { 
+        link: `/projects/${mockSites[siteIndex].id}`,
+        title: mockSites[siteIndex].title
+      };
       carouselGroup.add(card);
     });
 
@@ -252,10 +256,10 @@ export default function InteractiveProjectGrid() {
 
               if (intersects.length > 0) {
                 const card = intersects[0].object as THREE.Mesh;
-                setHoveredLink(card.userData.link);
+                setHoveredData(card.userData as { link: string; title: string });
                 stageRef.current!.style.cursor = "pointer";
               } else {
-                setHoveredLink(null);
+                setHoveredData(null);
                 stageRef.current!.style.cursor = pointerRef.current.active ? "grabbing" : "grab";
               }
             }
@@ -328,27 +332,32 @@ export default function InteractiveProjectGrid() {
             Drag to rotate
           </div>
 
-          {hoveredLink && (
+          {hoveredData && (
             <div
               style={{
                 position: 'fixed',
-                left: mousePos.x + 15,
-                top: mousePos.y + 15,
-                padding: '6px 12px',
-                background: 'rgba(0,0,0,0.8)',
-                color: 'white',
-                borderRadius: '6px',
-                fontSize: '11px',
-                fontWeight: 600,
+                left: mousePos.x,
+                top: mousePos.y,
+                transform: 'translate(-50%, -140%)',
+                padding: '10px 20px',
+                background: '#ffffff',
+                color: '#000000',
+                borderRadius: '999px',
+                fontSize: '13px',
+                fontWeight: 700,
                 pointerEvents: 'none',
                 zIndex: 9999,
-                fontFamily: 'Poppins, sans-serif',
-                letterSpacing: '0.05em',
-                backdropFilter: 'blur(4px)',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
+                fontFamily: 'Inter, sans-serif',
+                display: 'flex',
+                align-items: 'center',
+                gap: '8px',
+                boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
+                whiteSpace: 'nowrap',
+                letterSpacing: '-0.01em'
               }}
             >
-              {hoveredLink}
+              <span>{hoveredData.title.toLowerCase().replace(/\s+/g, '-') + '.com'}</span>
+              <ArrowUpRight size={16} strokeWidth={2.5} />
             </div>
           )}
         </div>
