@@ -1,413 +1,277 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
 import gsap from "gsap";
+import * as THREE from "three";
 
-type Project = {
+type MockSite = {
   id: number;
   title: string;
-  category: string;
-  image: string;
-  link: string;
-  summary: string;
-  result: string;
-  year: string;
+  accent: string;
+  surface: string;
+  ink: string;
+  layout: "editorial" | "catalog" | "poster" | "minimal";
 };
 
-const projects: readonly Project[] = [
-  {
-    id: 1,
-    title: "Lattice AI",
-    category: "Agentic Systems",
-    image: "/images/blog-software.png",
-    link: "/products",
-    summary: "An operations layer that routes approvals, summaries, and decision support across multiple teams.",
-    result: "Reduced executive review time by 63%.",
-    year: "2026",
-  },
-  {
-    id: 2,
-    title: "Prism Dashboard",
-    category: "Data Visualization",
-    image: "/images/blog-consulting.png",
-    link: "/products",
-    summary: "A premium command center for live reporting, forecasting, and commercial performance tracking.",
-    result: "Unified 7 reporting streams into one view.",
-    year: "2025",
-  },
-  {
-    id: 3,
-    title: "Orbit Protocol",
-    category: "Infrastructure",
-    image: "/images/blog-ai-automation.png",
-    link: "/products",
-    summary: "A resilient backbone for product teams shipping regulated workflows under tight delivery constraints.",
-    result: "Cut deployment risk with staged release controls.",
-    year: "2025",
-  },
-  {
-    id: 4,
-    title: "Nexus Flow",
-    category: "Automation",
-    image: "/images/hero/clean.png",
-    link: "/products",
-    summary: "Service operations automation that routes requests, exceptions, and approvals with full auditability.",
-    result: "Moved repetitive service work out of inboxes.",
-    year: "2026",
-  },
-  {
-    id: 5,
-    title: "Aura Intelligence",
-    category: "Enterprise AI",
-    image: "/images/blog-software.png",
-    link: "/products",
-    summary: "An AI-enabled internal platform for knowledge retrieval, drafting, and high-confidence execution support.",
-    result: "Improved response consistency across support teams.",
-    year: "2024",
-  },
-  {
-    id: 6,
-    title: "Vector Vault",
-    category: "Cybersecurity",
-    image: "/images/blog-consulting.png",
-    link: "/products",
-    summary: "A secure data surface for leadership teams needing high-trust access patterns and clear governance.",
-    result: "Centralized access without losing oversight.",
-    year: "2025",
-  },
-  {
-    id: 7,
-    title: "Strategic Edge",
-    category: "Analytics",
-    image: "/images/blog-ai-automation.png",
-    link: "/products",
-    summary: "An operating dashboard that turns fragmented reporting into weekly commercial decisions.",
-    result: "Brought planning cycles down from days to hours.",
-    year: "2026",
-  },
-  {
-    id: 8,
-    title: "Institutional Core",
-    category: "Resilience",
-    image: "/images/hero/clean.png",
-    link: "/products",
-    summary: "A continuity-focused platform designed for operational clarity, permissions, and long-term maintainability.",
-    result: "Stabilized a critical internal workflow during migration.",
-    year: "2024",
-  },
+const mockSites: readonly MockSite[] = [
+  { id: 1, title: "Editorial Suite", accent: "#6a7f5c", surface: "#d4d0b7", ink: "#1d1f17", layout: "editorial" },
+  { id: 2, title: "Catalog System", accent: "#4ca58f", surface: "#d9c9cd", ink: "#241e25", layout: "catalog" },
+  { id: 3, title: "Minimal Commerce", accent: "#9f7c51", surface: "#332c27", ink: "#f2e8da", layout: "minimal" },
+  { id: 4, title: "Poster Landing", accent: "#b81a1a", surface: "#b8b0aa", ink: "#151515", layout: "poster" },
+  { id: 5, title: "Launch Narrative", accent: "#4250d0", surface: "#f1f0ec", ink: "#161616", layout: "minimal" },
+  { id: 6, title: "Premium Grid", accent: "#111111", surface: "#e9e4df", ink: "#1a1a1a", layout: "catalog" },
+  { id: 7, title: "Luxury Studio", accent: "#efadc7", surface: "#f2e4eb", ink: "#201d1d", layout: "catalog" },
+  { id: 8, title: "Dark Poster", accent: "#d1d6ce", surface: "#5a635d", ink: "#f4f1eb", layout: "poster" },
+  { id: 9, title: "Story Commerce", accent: "#ceb89d", surface: "#eee7df", ink: "#201816", layout: "editorial" },
+  { id: 10, title: "Clean Dashboard", accent: "#2ba68c", surface: "#eef2eb", ink: "#1b211e", layout: "minimal" },
+  { id: 11, title: "Quiet Portfolio", accent: "#d8d8d3", surface: "#ece9e2", ink: "#171717", layout: "minimal" },
+  { id: 12, title: "Founders Brief", accent: "#1f1f1f", surface: "#efeee8", ink: "#111111", layout: "editorial" },
+  { id: 13, title: "Brand Agency", accent: "#c45e3a", surface: "#f0ebe4", ink: "#1a1410", layout: "poster" },
+  { id: 14, title: "Studio Mono", accent: "#3d3d3d", surface: "#fafaf8", ink: "#0e0e0e", layout: "minimal" },
+  { id: 15, title: "Heritage Craft", accent: "#7a6b4e", surface: "#e8e0d2", ink: "#1c1812", layout: "editorial" },
+  { id: 16, title: "Motion Lab", accent: "#5c6bc0", surface: "#e3e6f0", ink: "#181a24", layout: "catalog" },
+  { id: 17, title: "Civic Platform", accent: "#2e7d5a", surface: "#e4ede8", ink: "#121e18", layout: "minimal" },
+  { id: 18, title: "Archive Press", accent: "#8d6e63", surface: "#ede8e2", ink: "#1e1814", layout: "editorial" },
+  { id: 19, title: "Signal Design", accent: "#e65100", surface: "#2a2522", ink: "#f5efe8", layout: "poster" },
+  { id: 20, title: "Atelier View", accent: "#ab47bc", surface: "#f0e8f2", ink: "#1a141e", layout: "catalog" },
+  { id: 21, title: "Nova Digital", accent: "#00838f", surface: "#e0f2f3", ink: "#0a1a1c", layout: "minimal" },
+  { id: 22, title: "Apex Studio", accent: "#bf360c", surface: "#fbe9e7", ink: "#1a0e0a", layout: "poster" },
+  { id: 23, title: "Drift Agency", accent: "#546e7a", surface: "#eceff1", ink: "#1a2024", layout: "editorial" },
+  { id: 24, title: "Monolith Co", accent: "#212121", surface: "#f5f5f5", ink: "#0a0a0a", layout: "catalog" },
+  { id: 25, title: "Ember Works", accent: "#e64a19", surface: "#3e2723", ink: "#ffccbc", layout: "poster" },
+  { id: 26, title: "Craft Bureau", accent: "#6d4c41", surface: "#efebe9", ink: "#1c1412", layout: "editorial" },
+  { id: 27, title: "Pulse Media", accent: "#7b1fa2", surface: "#f3e5f5", ink: "#1a0e20", layout: "catalog" },
+  { id: 28, title: "Core Systems", accent: "#0277bd", surface: "#e1f5fe", ink: "#0a1820", layout: "minimal" },
+  { id: 29, title: "Forge Studio", accent: "#ff6f00", surface: "#fff8e1", ink: "#1a1408", layout: "poster" },
+  { id: 30, title: "Slate Digital", accent: "#455a64", surface: "#f4f6f7", ink: "#0e1418", layout: "editorial" },
+  { id: 31, title: "Prism Labs", accent: "#00695c", surface: "#e0f2f1", ink: "#081a18", layout: "minimal" },
+  { id: 32, title: "Grain Press", accent: "#4e342e", surface: "#d7ccc8", ink: "#1a1210", layout: "catalog" },
 ] as const;
 
-function normalizeDegrees(value: number) {
-  return ((value % 360) + 360) % 360;
-}
-
-function shortestAngleDelta(from: number, to: number) {
-  return ((to - from + 540) % 360) - 180;
-}
-
-function indexForFrontFace(rotation: number) {
-  const step = 360 / projects.length;
-  const normalized = normalizeDegrees(-rotation);
-  return Math.round(normalized / step) % projects.length;
-}
+const webImages = Array.from({ length: 32 }).map((_, i) => `/projects/${i + 1}.jpg`);
 
 export default function InteractiveProjectGrid() {
-  const sceneRef = useRef<HTMLDivElement>(null);
-  const ringRef = useRef<HTMLDivElement>(null);
-  const currentRotationRef = useRef(0);
-  const snapTargetRef = useRef<number | null>(0);
-  const resumeAutoAtRef = useRef(0);
-  const hoveringRef = useRef(false);
-  const reducedMotionRef = useRef(false);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [radius, setRadius] = useState(420);
+  const stageRef = useRef<HTMLDivElement | null>(null);
+  const viewportRef = useRef<HTMLDivElement | null>(null);
+  const pointerRef = useRef({
+    active: false,
+    startX: 0,
+    startY: 0,
+    startRotation: 0,
+    startVertical: 0,
+  });
+  // Initialize with a slight ~3% rotation offset to the right
+  const rotationRef = useRef({ current: 0.2, target: 0.2 });
+  const verticalOffsetRef = useRef({ current: 0, target: 0 });
+  const activeIndexRef = useRef(0);
+  const [activeSite, setActiveSite] = useState(mockSites[0]);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const stage = stageRef.current;
+    const viewport = viewportRef.current;
 
-    const updateMotionPreference = () => {
-      reducedMotionRef.current = mediaQuery.matches;
+    if (!stage || !viewport) {
+      return;
+    }
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
+    camera.position.set(0, 0, 54);
+    camera.lookAt(0, 0, 0);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.1;
+    renderer.domElement.className = "work-sphere-webgl";
+    viewport.appendChild(renderer.domElement);
+
+    const carouselGroup = new THREE.Group();
+    scene.add(carouselGroup);
+
+    scene.add(new THREE.AmbientLight(0xffffff, 1.45));
+
+    const keyLight = new THREE.DirectionalLight(0xf7f2e7, 1.8);
+    keyLight.position.set(6, 8, 10);
+    scene.add(keyLight);
+
+    const rimLight = new THREE.PointLight(0xaad3ff, 1.7, 50);
+    rimLight.position.set(-10, 2, -8);
+    scene.add(rimLight);
+
+
+    const planeGeometry = new THREE.PlaneGeometry(16.2, 10.8);
+    const radius = 42; // Keeping cylinder wide for ultra-wide edge coverage
+    const itemsPerRow = 10;
+    const totalCards = 60; // 6 rows of 10 cards
+    const rowCount = Math.ceil(totalCards / itemsPerRow);
+    const verticalStep = 15.6;
+    const angleStep = (Math.PI * 2) / itemsPerRow;
+
+    const textureLoader = new THREE.TextureLoader();
+    const siteTextures = mockSites.map((_, index) => {
+      const url = webImages[index % webImages.length];
+      const texture = textureLoader.load(url);
+      texture.colorSpace = THREE.SRGBColorSpace;
+      texture.generateMipmaps = true;
+      texture.minFilter = THREE.LinearMipmapLinearFilter;
+      return texture;
+    });
+
+    Array.from({ length: totalCards }).forEach((_, index) => {
+      const siteIndex = index % mockSites.length;
+
+      const material = new THREE.MeshStandardMaterial({
+        map: siteTextures[siteIndex],
+        metalness: 0.04,
+        roughness: 0.84,
+      });
+
+      const card = new THREE.Mesh(planeGeometry, material);
+      const row = Math.floor(index / itemsPerRow);
+      const col = index % itemsPerRow;
+
+      const angle = col * angleStep;
+      // Stagger odd columns downwards by half a row
+      const staggerOffset = col % 2 === 1 ? -(verticalStep / 2) : 0;
+      const y = ((rowCount - 1) / 2 - row) * verticalStep + staggerOffset;
+
+      card.position.set(Math.sin(angle) * radius, y, Math.cos(angle) * radius);
+      card.lookAt(0, y, 0);
+      carouselGroup.add(card);
+    });
+
+    const resize = () => {
+      const width = viewport.clientWidth;
+      const height = viewport.clientHeight;
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height, false);
     };
 
-    const updateRadius = () => {
-      if (window.innerWidth < 640) {
-        setRadius(210);
-        return;
+    resize();
+    const resizeObserver = new ResizeObserver(resize);
+    resizeObserver.observe(viewport);
+
+    const updateActiveSite = () => {
+      const normalized = THREE.MathUtils.euclideanModulo(-rotationRef.current.current, Math.PI * 2);
+      const col = Math.round(normalized / angleStep) % itemsPerRow;
+
+      // Select the site from the middle row
+      const centerRow = Math.floor(rowCount / 2);
+      const index = Math.min((centerRow * itemsPerRow) + col, totalCards - 1);
+      const siteIndex = index % mockSites.length;
+
+      if (index !== activeIndexRef.current && mockSites[siteIndex]) {
+        activeIndexRef.current = index;
+        setActiveSite(mockSites[siteIndex]);
       }
-
-      if (window.innerWidth < 1024) {
-        setRadius(300);
-        return;
-      }
-
-      setRadius(420);
     };
-
-    updateMotionPreference();
-    updateRadius();
-
-    mediaQuery.addEventListener("change", updateMotionPreference);
-    window.addEventListener("resize", updateRadius);
-
-    return () => {
-      mediaQuery.removeEventListener("change", updateMotionPreference);
-      window.removeEventListener("resize", updateRadius);
-    };
-  }, []);
-
-  useEffect(() => {
-    const ring = ringRef.current;
-    if (!ring) return;
-
-    let frameId = 0;
 
     const tick = () => {
-      const shouldAutoRotate =
-        !reducedMotionRef.current &&
-        !hoveringRef.current &&
-        performance.now() > resumeAutoAtRef.current;
+      // Smooth interpolation for both rotation and vertical panning
+      rotationRef.current.current += (rotationRef.current.target - rotationRef.current.current) * 0.08;
+      verticalOffsetRef.current.current += (verticalOffsetRef.current.target - verticalOffsetRef.current.current) * 0.08;
 
-      if (snapTargetRef.current !== null) {
-        const delta = shortestAngleDelta(currentRotationRef.current, snapTargetRef.current);
-        currentRotationRef.current += delta * 0.085;
+      carouselGroup.rotation.y = rotationRef.current.current;
+      carouselGroup.position.y = verticalOffsetRef.current.current;
 
-        if (Math.abs(delta) < 0.15) {
-          currentRotationRef.current = snapTargetRef.current;
-          snapTargetRef.current = null;
-        }
-      } else if (shouldAutoRotate) {
-        currentRotationRef.current += 0.14;
-      }
-
-      gsap.set(ring, { rotateY: currentRotationRef.current });
-
-      const nextIndex = indexForFrontFace(currentRotationRef.current);
-      setActiveIndex((currentIndex) => (currentIndex === nextIndex ? currentIndex : nextIndex));
-
-      frameId = window.requestAnimationFrame(tick);
+      updateActiveSite();
+      renderer.render(scene, camera);
     };
 
-    frameId = window.requestAnimationFrame(tick);
-
-    return () => window.cancelAnimationFrame(frameId);
-  }, []);
-
-  useEffect(() => {
-    const scene = sceneRef.current;
-    if (!scene) return;
-
-    const handlePointerMove = (event: PointerEvent) => {
-      const rect = scene.getBoundingClientRect();
-      const relativeX = (event.clientX - rect.left) / rect.width - 0.5;
-      const relativeY = (event.clientY - rect.top) / rect.height - 0.5;
-
-      gsap.to(scene, {
-        rotateY: relativeX * 10,
-        rotateX: relativeY * -8,
-        duration: 0.6,
-        ease: "power3.out",
-      });
-    };
-
-    const handlePointerEnter = () => {
-      hoveringRef.current = true;
-    };
-
-    const handlePointerLeave = () => {
-      hoveringRef.current = false;
-      gsap.to(scene, {
-        rotateX: 0,
-        rotateY: 0,
-        duration: 0.9,
-        ease: "power3.out",
-      });
-    };
-
-    scene.addEventListener("pointermove", handlePointerMove);
-    scene.addEventListener("pointerenter", handlePointerEnter);
-    scene.addEventListener("pointerleave", handlePointerLeave);
+    gsap.ticker.add(tick);
 
     return () => {
-      scene.removeEventListener("pointermove", handlePointerMove);
-      scene.removeEventListener("pointerenter", handlePointerEnter);
-      scene.removeEventListener("pointerleave", handlePointerLeave);
+      resizeObserver.disconnect();
+      gsap.ticker.remove(tick);
+      renderer.dispose();
+      planeGeometry.dispose();
+      siteTextures.forEach(t => t.dispose());
+      viewport.removeChild(renderer.domElement);
+
+      scene.traverse((object: THREE.Object3D) => {
+        const mesh = object as THREE.Mesh;
+        if (!("geometry" in mesh) || !("material" in mesh)) {
+          return;
+        }
+
+        mesh.geometry?.dispose?.();
+        if (Array.isArray(mesh.material)) {
+          mesh.material.forEach((material: THREE.Material) => material.dispose());
+        } else {
+          mesh.material?.dispose?.();
+        }
+      });
     };
   }, []);
 
-  const activeProject = projects[activeIndex];
-
-  function focusProject(index: number) {
-    const step = 360 / projects.length;
-    snapTargetRef.current = -(index * step);
-    resumeAutoAtRef.current = performance.now() + 3200;
-    setActiveIndex(index);
-  }
-
-  function focusNext(direction: 1 | -1) {
-    const nextIndex = (activeIndex + direction + projects.length) % projects.length;
-    focusProject(nextIndex);
-  }
-
   return (
-    <section
-      className="relative overflow-hidden bg-[radial-gradient(circle_at_top,rgba(61,95,172,0.18),transparent_28%),linear-gradient(180deg,#09111c_0%,#0d1724_48%,#081018_100%)] py-24 text-white"
-      aria-labelledby="project-showcase-title"
-    >
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-1/2 top-20 h-56 w-56 -translate-x-1/2 rounded-full bg-cyan-400/10 blur-3xl" />
-        <div className="absolute right-12 top-32 h-72 w-72 rounded-full bg-blue-500/10 blur-3xl" />
-        <div className="absolute left-1/2 top-[58%] h-40 w-[60rem] -translate-x-1/2 rounded-full border border-white/8" />
-        <div className="absolute left-1/2 top-[61%] h-10 w-[42rem] -translate-x-1/2 rounded-full bg-white/5 blur-2xl" />
-      </div>
+    <section className="work-sphere-section" aria-labelledby="project-showcase-title">
+      <div className="section-shell work-sphere-shell">
 
-      <div className="section-shell relative z-10">
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="text-[11px] font-bold uppercase tracking-[0.45em] text-white/45">Selected Work</p>
-          <h2 id="project-showcase-title" className="mt-5 text-4xl font-black tracking-tight text-white md:text-6xl">
-            Project showcase in motion.
-          </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/65 md:text-lg">
-            A cylindrical gallery for flagship work, designed to feel immersive without losing clarity.
-          </p>
-        </div>
+        <div
+          ref={stageRef}
+          className="work-sphere-stage"
+          onPointerDown={(event) => {
+            pointerRef.current.active = true;
+            pointerRef.current.startX = event.clientX;
+            pointerRef.current.startY = event.clientY;
+            pointerRef.current.startRotation = rotationRef.current.target;
+            pointerRef.current.startVertical = verticalOffsetRef.current.target;
+            event.currentTarget.setPointerCapture(event.pointerId);
+          }}
+          onPointerMove={(event) => {
+            if (!pointerRef.current.active || !stageRef.current) {
+              return;
+            }
 
-        <div className="mt-16 grid items-center gap-12 lg:grid-cols-[1.35fr_0.9fr] lg:gap-8">
-          <div className="relative">
-            <div className="flex items-center justify-between px-2 pb-6">
-              <button
-                type="button"
-                onClick={() => focusNext(-1)}
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/6 text-sm font-bold text-white transition hover:border-white/30 hover:bg-white/10"
-                aria-label="Previous project"
-              >
-                &#8592;
-              </button>
-              <p className="text-[11px] font-bold uppercase tracking-[0.32em] text-white/35">
-                Click any panel to bring it forward
-              </p>
-              <button
-                type="button"
-                onClick={() => focusNext(1)}
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/6 text-sm font-bold text-white transition hover:border-white/30 hover:bg-white/10"
-                aria-label="Next project"
-              >
-                &#8594;
-              </button>
-            </div>
+            const rect = stageRef.current.getBoundingClientRect();
 
-            <div className="relative mx-auto flex h-[29rem] w-full max-w-[52rem] items-center justify-center [perspective:1800px] sm:h-[34rem] lg:h-[40rem]">
-              <div
-                ref={sceneRef}
-                className="relative flex h-full w-full items-center justify-center [transform-style:preserve-3d]"
-              >
-                <div
-                  ref={ringRef}
-                  className="relative h-[18rem] w-[18rem] [transform-style:preserve-3d] sm:h-[22rem] sm:w-[22rem] lg:h-[24rem] lg:w-[24rem]"
-                >
-                  {projects.map((project, index) => {
-                    const angle = (360 / projects.length) * index;
-                    const isActive = activeIndex === index;
+            // Calculate horizontal rotation
+            const dx = event.clientX - pointerRef.current.startX;
+            rotationRef.current.target = pointerRef.current.startRotation + (dx / rect.width) * Math.PI * 1.4;
 
-                    return (
-                      <button
-                        key={project.id}
-                        type="button"
-                        onClick={() => focusProject(index)}
-                        className="absolute left-1/2 top-1/2 block h-[13rem] w-[10rem] -translate-x-1/2 -translate-y-1/2 rounded-[1.8rem] text-left outline-none transition-transform duration-500 focus-visible:ring-2 focus-visible:ring-cyan-300/70 sm:h-[16rem] sm:w-[12rem] lg:h-[18rem] lg:w-[13.5rem]"
-                        style={{
-                          transform: `translate(-50%, -50%) rotateY(${angle}deg) translateZ(${radius}px)`,
-                          transformStyle: "preserve-3d",
-                        }}
-                        aria-pressed={isActive}
-                      >
-                        <span
-                          className={`absolute inset-0 overflow-hidden rounded-[1.8rem] border ${
-                            isActive ? "border-cyan-300/70" : "border-white/10"
-                          } bg-slate-900 shadow-[0_28px_80px_rgba(0,0,0,0.45)]`}
-                        >
-                          <Image
-                            src={project.image}
-                            alt={project.title}
-                            fill
-                            sizes="(max-width: 1024px) 220px, 260px"
-                            className="object-cover"
-                          />
-                          <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,12,22,0.08),rgba(6,12,22,0.26)_35%,rgba(6,12,22,0.94)_100%)]" />
-                          <span className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.18),transparent_35%)]" />
-                          <span className="absolute inset-x-0 bottom-0 block px-5 pb-5 pt-10">
-                            <span className="block text-[10px] font-bold uppercase tracking-[0.24em] text-white/55">
-                              {project.category}
-                            </span>
-                            <span className="mt-3 block text-xl font-black leading-tight tracking-tight text-white">
-                              {project.title}
-                            </span>
-                          </span>
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
+            // Calculate vertical panning (clamped to prevent scrolling past the grid)
+            const dy = event.clientY - pointerRef.current.startY;
+            // Dragging down (positive dy) pulls the group down (negative y)
+            const rawVertical = pointerRef.current.startVertical - (dy / rect.height) * 45;
+            verticalOffsetRef.current.target = THREE.MathUtils.clamp(rawVertical, -26, 26);
+          }}
+          onPointerUp={(event) => {
+            pointerRef.current.active = false;
+            try {
+              event.currentTarget.releasePointerCapture(event.pointerId);
+            } catch {
+              // Ignore capture release failures when the pointer is already gone.
+            }
+          }}
+          onPointerCancel={(event) => {
+            pointerRef.current.active = false;
+            try {
+              event.currentTarget.releasePointerCapture(event.pointerId);
+            } catch {
+              // Ignore capture release failures when the pointer is already gone.
+            }
+          }}
+        >
+          <div className="work-sphere-stage-shell work-sphere-stage-shell-left" aria-hidden="true" />
+          <div className="work-sphere-stage-shell work-sphere-stage-shell-right" aria-hidden="true" />
+          <div className="work-sphere-stage-shell work-sphere-stage-shell-top" aria-hidden="true" />
+          <div className="work-sphere-stage-glow" aria-hidden="true" />
+          <div className="work-sphere-stage-vignette" aria-hidden="true" />
+
+          <div ref={viewportRef} className="work-sphere-viewport work-sphere-canvas" />
+
+          <div className="work-sphere-stage-copy" aria-live="polite">
+            <h4 id="project-showcase-title" className="work-sphere-stage-title">
+              DIPPA
+            </h4>
           </div>
 
-          <div className="rounded-[2rem] border border-white/10 bg-white/6 p-7 shadow-[0_24px_90px_rgba(0,0,0,0.28)] backdrop-blur-xl md:p-8">
-            <div className="flex items-center justify-between gap-4">
-              <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-cyan-200/70">
-                  {activeProject.category}
-                </p>
-                <h3 className="mt-3 text-3xl font-black tracking-tight text-white md:text-4xl">
-                  {activeProject.title}
-                </h3>
-              </div>
-              <span className="rounded-full border border-white/12 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.2em] text-white/45">
-                {activeProject.year}
-              </span>
-            </div>
-
-            <p className="mt-6 text-base leading-relaxed text-white/68">{activeProject.summary}</p>
-
-            <div className="mt-8 rounded-[1.5rem] border border-white/10 bg-black/18 p-5">
-              <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-white/40">Outcome</p>
-              <p className="mt-3 text-lg font-semibold leading-relaxed text-white">{activeProject.result}</p>
-            </div>
-
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <Link href={activeProject.link} className="button-primary">
-                Explore project
-              </Link>
-              <button
-                type="button"
-                onClick={() => focusNext(1)}
-                className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/14 px-6 text-sm font-semibold text-white transition hover:border-white/28 hover:bg-white/8"
-              >
-                View next
-              </button>
-            </div>
-
-            <div className="mt-8 flex flex-wrap gap-3">
-              {projects.map((project, index) => {
-                const isActive = index === activeIndex;
-
-                return (
-                  <button
-                    key={project.id}
-                    type="button"
-                    onClick={() => focusProject(index)}
-                    className={`rounded-full border px-4 py-2 text-[10px] font-bold uppercase tracking-[0.18em] transition ${
-                      isActive
-                        ? "border-cyan-300/70 bg-cyan-300/12 text-cyan-100"
-                        : "border-white/12 bg-white/4 text-white/45 hover:border-white/22 hover:text-white/70"
-                    }`}
-                  >
-                    {project.title}
-                  </button>
-                );
-              })}
-            </div>
+          <div className="work-sphere-drag-hint" aria-hidden="true">
+            Drag to rotate
           </div>
         </div>
       </div>

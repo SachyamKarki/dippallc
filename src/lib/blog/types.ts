@@ -17,7 +17,7 @@ export type BlogPost = {
   source: BlogPostSource;
   cover?: {
     kind: "gradient";
-    className: string;
+    background: string;
   };
   readingTimeMinutes?: number;
   initialUpvotes: number;
@@ -30,3 +30,6 @@ export type BlogPostSummary = Pick<
   "slug" | "title" | "tag" | "excerpt" | "createdAt" | "source" | "cover" | "readingTimeMinutes"
 >;
 
+export type BlogPreview = BlogPostSummary & {
+  imageUrl?: string;
+};

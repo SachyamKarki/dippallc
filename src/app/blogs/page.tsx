@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { getExamplePostSummaries } from "@/lib/blog/examplePosts";
+import type { BlogPreview } from "@/lib/blog/types";
 
 interface Post {
   id: number;
@@ -14,21 +15,79 @@ interface Post {
   created_at: string;
 }
 
-type ArticleCard = {
-  slug: string;
-  title: string;
-  tag: string;
-  excerpt: string;
-  imageUrl?: string;
-  coverClassName?: string;
-  createdAt: string;
-  source: "backend" | "example";
-  readingTimeMinutes?: number;
-};
+const BLOG_FILTERS = [
+  { label: "All", value: "all" },
+  { label: "Software systems", value: "Software systems" },
+  { label: "AI orchestration", value: "AI orchestration" },
+  { label: "Operating model", value: "Operating model" },
+  { label: "Consulting", value: "Consulting" },
+] as const;
+
+function formatDate(date: string) {
+  return new Date(date).toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
+function normalizeWhitespace(value: string) {
+  return value.replace(/\s+/g, " ").trim();
+}
+
+function stripMarkup(value: string) {
+  return (
+    value
+      // Remove HTML tags.
+      .replace(/<[^>]+>/g, " ")
+      // Remove Markdown images.
+      .replace(/!\[[^\]]*]\([^)]+\)/g, " ")
+      // Replace Markdown links with link text.
+      .replace(/\[([^\]]+)]\([^)]+\)/g, "$1")
+      // Remove inline code backticks.
+      .replace(/`([^`]+)`/g, "$1")
+  );
+}
+
+function firstParagraph(value: string) {
+  const normalized = value.replace(/\r/g, "").trim();
+  const paragraphs = normalized
+    .split(/\n\s*\n/g)
+    .map((part) => part.trim())
+    .filter(Boolean);
+  return paragraphs[0] ?? "";
+}
+
+function toCardExcerpt(raw: string, maxLen = 180) {
+  const base = normalizeWhitespace(stripMarkup(firstParagraph(raw || "")));
+  if (!base) return "";
+  if (base.length <= maxLen) return base;
+  const clipped = base.slice(0, maxLen);
+  const safe = clipped.replace(/[,\s]+$/g, "");
+  return `${safe}…`;
+}
+
+function toCardTitle(raw: string) {
+  const base = normalizeWhitespace(stripMarkup(raw || ""));
+  return base.replace(/[.!?]+$/g, "");
+}
+
+function estimateReadingTimeMinutes(raw: string) {
+  const plain = normalizeWhitespace(stripMarkup(raw || ""));
+  const words = plain ? plain.split(" ").filter(Boolean).length : 0;
+  // Conservative: 200 wpm, minimum of 3 minutes so cards don't show "1 min".
+  return Math.max(3, Math.round(words / 200));
+}
+
+function safeTime(date: string) {
+  const ms = new Date(date).getTime();
+  return Number.isFinite(ms) ? ms : 0;
+}
 
 export default function BlogsPage() {
   const [remotePosts, setRemotePosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
+  const [activeFilter, setActiveFilter] = useState<(typeof BLOG_FILTERS)[number]["value"]>("all");
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -42,132 +101,117 @@ export default function BlogsPage() {
         setLoading(false);
       }
     };
+
     fetchPosts();
   }, []);
 
-  const exampleSummaries = getExamplePostSummaries();
-  const cards: ArticleCard[] = [
+  const cards: BlogPreview[] = [
     ...remotePosts.map((post) => ({
       slug: String(post.id),
-      title: post.title,
-      tag: post.tag,
-      excerpt: post.text,
+      title: toCardTitle(post.title),
+      tag: normalizeWhitespace(post.tag || "Insights"),
+      excerpt: toCardExcerpt(post.text),
       imageUrl: post.image_url || undefined,
       createdAt: post.created_at,
+      readingTimeMinutes: estimateReadingTimeMinutes(post.text),
       source: "backend" as const,
     })),
-    ...exampleSummaries.map((post) => ({
+    ...getExamplePostSummaries().map((post) => ({
       slug: post.slug,
-      title: post.title,
-      tag: post.tag,
-      excerpt: post.excerpt,
-      coverClassName: post.cover?.className,
+      title: toCardTitle(post.title),
+      tag: normalizeWhitespace(post.tag || "Insights"),
+      excerpt: toCardExcerpt(post.excerpt, 200),
+      cover: post.cover,
       createdAt: post.createdAt,
       readingTimeMinutes: post.readingTimeMinutes,
       source: "example" as const,
     })),
   ]
     .filter((post, index, list) => list.findIndex((other) => other.slug === post.slug) === index)
-    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    .sort((a, b) => safeTime(b.createdAt) - safeTime(a.createdAt));
+
+  const visibleCards =
+    activeFilter === "all" ? cards : cards.filter((post) => post.tag.toLowerCase() === activeFilter.toLowerCase());
 
   return (
-    <main className="min-h-screen bg-white text-slate-900">
-      <header className="pt-24 pb-12 md:pt-28 md:pb-14">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.22em] text-slate-600">
-            Dippa Insights
-          </div>
-          <h1 className="mt-6 max-w-4xl text-[clamp(2.75rem,5vw,5rem)] font-bold tracking-[-0.06em] text-slate-950 leading-[0.96]">
-            Articles built for operators.
-          </h1>
-          <p className="mt-5 max-w-3xl text-[1.05rem] md:text-xl text-slate-600 leading-relaxed">
-            Practical notes on delivery systems, AI orchestration, and product engineering, written with the same clarity and precision we bring to client work.
+    <main className="blogs-page">
+      <section className="blogs-gallery-hero">
+        <div className="blogs-gallery-shell section-shell">
+          <h1 className="blogs-gallery-title">BLOG</h1>
+          <p className="blogs-gallery-summary">
+            Explore practical writing on software systems, AI orchestration, consulting, and operating models for modern delivery teams.
           </p>
+
+          <div className="blogs-gallery-tabs" role="tablist" aria-label="Blog categories">
+            {BLOG_FILTERS.map((filter) => (
+              <button
+                key={filter.value}
+                type="button"
+                className={`blogs-gallery-tab ${activeFilter === filter.value ? "blogs-gallery-tab-active" : ""}`}
+                onClick={() => setActiveFilter(filter.value)}
+                aria-pressed={activeFilter === filter.value}
+              >
+                {filter.label}
+              </button>
+            ))}
+          </div>
         </div>
-      </header>
+      </section>
 
-      <section className="pb-24 md:pb-28">
-        <div className="max-w-[1500px] mx-auto px-6">
+      <section className="blogs-gallery-section">
+        <div className="blogs-gallery-shell section-shell">
           {loading ? (
-            <div className="flex justify-center py-24">
-              <div className="w-8 h-8 border-2 border-slate-200 border-t-slate-800 rounded-full animate-spin" />
+            <div className="blogs-loading">
+              <div className="blogs-loading-spinner" />
             </div>
-          ) : cards.length > 0 ? (
-            <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-6 xl:gap-7">
-              {cards.map((post) => (
-                <Link
-                  key={`${post.source}:${post.slug}`}
-                  href={`/blogs/${post.slug}`}
-                  className="group flex h-full flex-col rounded-[2rem] border border-slate-200/80 bg-white p-4 shadow-[0_18px_55px_rgba(15,23,42,0.05)] transition duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-[0_26px_80px_rgba(15,23,42,0.08)] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/30"
-                >
-                  <div className="relative aspect-[4/3] overflow-hidden rounded-[1.6rem] bg-slate-100">
-                    {post.imageUrl ? (
-                      <Image
-                        src={post.imageUrl}
-                        alt={post.title}
-                        fill
-                        unoptimized
-                        sizes="(max-width: 640px) 100vw, (max-width: 1279px) 50vw, 25vw"
-                        className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                      />
-                    ) : (
-                      <div
-                        className={`absolute inset-0 bg-linear-to-br ${post.coverClassName ?? "from-slate-900/5 via-white to-blue-600/10"}`}
-                      />
-                    )}
-                    <div className="absolute inset-0 bg-linear-to-t from-slate-950/10 via-transparent to-transparent" />
-                    <div className="absolute inset-0 ring-1 ring-inset ring-slate-900/5" />
-                  </div>
+          ) : visibleCards.length > 0 ? (
+            <div className="blogs-gallery-grid">
+              {visibleCards.map((article, index) => {
+                const href = `/blogs/${article.slug}`;
 
-                  <div className="flex h-full flex-col px-1 pt-5">
-                    <div className="flex items-center justify-between gap-3">
-                      <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-blue-700">
-                        {post.tag}
-                      </span>
-                      <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-400">
-                        {new Date(post.createdAt).toLocaleDateString(undefined, {
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric",
-                        })}
-                      </span>
+                return (
+                  <Link
+                    key={`${article.source}:${article.slug}`}
+                    href={href}
+                    className="blogs-gallery-card"
+                    style={{ animationDelay: `${index * 70}ms` }}
+                  >
+                    <div className="blogs-gallery-image-shell">
+                      {article.imageUrl ? (
+                        <Image
+                          src={article.imageUrl}
+                          alt={article.title}
+                          fill
+                          unoptimized
+                          sizes="(max-width: 767px) 100vw, (max-width: 1100px) 50vw, 25vw"
+                          className="blogs-gallery-image"
+                        />
+                      ) : (
+                        <div className="blogs-gallery-image-fallback" style={{ backgroundImage: article.cover?.background }} />
+                      )}
                     </div>
 
-                    <h2 className="mt-4 text-[1.35rem] font-bold tracking-[-0.04em] leading-[1.12] text-slate-950 text-left transition-colors group-hover:text-blue-700">
-                      {post.title}
-                    </h2>
+                    <div className="blogs-gallery-card-body">
+                      <div className="blogs-gallery-meta">
+                        <span>{article.tag}</span>
+                        <span>{formatDate(article.createdAt)}</span>
+                      </div>
 
-                    <p className="mt-4 line-clamp-4 text-[0.98rem] leading-7 text-slate-600">
-                      {post.excerpt}
-                    </p>
+                      <h2 className="blogs-gallery-card-title">{article.title}</h2>
+                      <p className="blogs-gallery-card-excerpt">{article.excerpt}</p>
 
-                    <div className="mt-auto flex items-center justify-between border-t border-slate-100 pt-6">
-                      <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">
-                        {post.readingTimeMinutes ? `${post.readingTimeMinutes} min read` : "Article"}
-                      </span>
-                      <span className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.18em] text-slate-900">
-                        Read article
-                        <svg
-                          width="14"
-                          height="14"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                      </span>
+                      <div className="blogs-gallery-card-footer">
+                        <span>{article.readingTimeMinutes ? `${article.readingTimeMinutes} min read` : "Article"}</span>
+                        <span className="blogs-gallery-card-link">Read article</span>
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                );
+              })}
             </div>
           ) : (
-            <div className="text-center py-32 rounded-[3rem] bg-slate-50 border border-slate-100">
-              <p className="text-slate-400 font-medium">No blogs published yet.</p>
+            <div className="blogs-empty-state">
+              <p className="blogs-empty-copy">No articles are published yet.</p>
             </div>
           )}
         </div>

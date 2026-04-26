@@ -5,9 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import ArticleVote from "@/components/blog/ArticleVote";
+import BlogCard from "@/components/blog/BlogCard";
+import BlogContentRenderer from "@/components/blog/BlogContentRenderer";
 import { getExamplePost, getExamplePostSummaries } from "@/lib/blog/examplePosts";
 import { recommendPosts } from "@/lib/blog/recommendations";
-import type { BlogContentBlock } from "@/lib/blog/types";
 
 interface Post {
   id: number;
@@ -18,69 +19,19 @@ interface Post {
   created_at: string;
 }
 
-function renderBlocks(blocks: readonly BlogContentBlock[]) {
-  return blocks.map((block, index) => {
-    if (block.type === "h2") {
-      return (
-        <h2 key={index} className="mt-12 text-2xl md:text-3xl font-black tracking-tight text-slate-900">
-          {block.text}
-        </h2>
-      );
-    }
-
-    if (block.type === "h3") {
-      return (
-        <h3 key={index} className="mt-10 text-xl md:text-2xl font-bold tracking-tight text-slate-900">
-          {block.text}
-        </h3>
-      );
-    }
-
-    if (block.type === "ul") {
-      return (
-        <ul key={index} className="mt-6 space-y-2 pl-5 text-slate-700">
-          {block.items.map((item) => (
-            <li key={item} className="list-disc leading-relaxed">
-              {item}
-            </li>
-          ))}
-        </ul>
-      );
-    }
-
-    if (block.type === "quote") {
-      return (
-        <figure key={index} className="mt-10 rounded-4xl border border-slate-200 bg-slate-50 px-6 py-6">
-          <blockquote className="text-slate-800 text-lg leading-relaxed">“{block.text}”</blockquote>
-          {block.attribution ? (
-            <figcaption className="mt-3 text-[10px] font-bold uppercase tracking-widest text-slate-500">
-              {block.attribution}
-            </figcaption>
-          ) : null}
-        </figure>
-      );
-    }
-
-    if (block.type === "code") {
-      return (
-        <pre key={index} className="mt-8 overflow-x-auto rounded-4xl bg-slate-950 px-6 py-6 text-slate-100 text-sm leading-relaxed">
-          <code>{block.code}</code>
-        </pre>
-      );
-    }
-
-    return (
-      <p key={index} className="mt-6 text-slate-700 text-lg leading-relaxed">
-        {block.text}
-      </p>
-    );
-  });
+function formatDate(date?: string) {
+  return date
+    ? new Date(date).toLocaleDateString(undefined, {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      })
+    : "";
 }
 
 export default function BlogArticlePage() {
   const params = useParams<{ id: string }>();
   const id = params?.id;
-
   const examplePost = id ? getExamplePost(id) : undefined;
 
   const [post, setPost] = useState<Post | null>(null);
@@ -90,21 +41,25 @@ export default function BlogArticlePage() {
   useEffect(() => {
     const fetchPost = async () => {
       if (!id) return;
+
       if (examplePost) {
         setPost(null);
         setNotFound(false);
         setLoading(false);
         return;
       }
+
       setLoading(true);
       setNotFound(false);
 
       try {
         const res = await fetch(`http://localhost:8000/api/posts/${encodeURIComponent(id)}/`);
+
         if (!res.ok) {
           setNotFound(true);
           return;
         }
+
         const data = (await res.json()) as Post;
         setPost(data);
       } catch {
@@ -119,21 +74,22 @@ export default function BlogArticlePage() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-white text-slate-900">
-        <div className="max-w-3xl mx-auto px-6 pt-32 pb-24">
+      <main className="min-h-screen bg-[#fcfbf8] text-slate-900">
+        <div className="mx-auto max-w-3xl px-6 pb-24 pt-28">
           <div className="flex justify-center py-24">
-            <div className="w-8 h-8 border-2 border-slate-200 border-t-slate-800 rounded-full animate-spin" />
+            <div className="h-8 w-8 animate-spin rounded-full border-2 border-slate-200 border-t-slate-800" />
           </div>
         </div>
       </main>
     );
   }
 
-  const articleTitle = examplePost?.title ?? post?.title;
-  const articleTag = examplePost?.tag ?? post?.tag;
+  const articleTitle = examplePost?.title ?? post?.title ?? "Article";
+  const articleTag = examplePost?.tag ?? post?.tag ?? "Insights";
   const articleDate = examplePost?.createdAt ?? post?.created_at;
-  const articleExcerpt = examplePost?.excerpt ?? post?.text ?? "";
   const articleSlug = id ?? "article";
+  const articleExcerpt = examplePost?.excerpt ?? post?.text ?? "";
+  const readingTime = examplePost?.readingTimeMinutes;
 
   const recommended = recommendPosts({
     currentSlug: articleSlug,
@@ -144,33 +100,30 @@ export default function BlogArticlePage() {
 
   if (notFound || (!examplePost && !post)) {
     return (
-      <main className="min-h-screen bg-white text-slate-900">
-        <div className="max-w-3xl mx-auto px-6 pt-32 pb-24 text-center">
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Blog not found.</h1>
-          <p className="mt-4 text-slate-500">The link may be broken, or the blog has been unpublished.</p>
+      <main className="min-h-screen bg-[#fcfbf8] text-slate-900">
+        <div className="mx-auto max-w-4xl px-6 pb-24 pt-28 text-center">
+          <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-slate-500">Article</p>
+          <h1 className="mt-5 text-4xl font-bold tracking-[-0.05em] text-slate-950 md:text-5xl">Article not found.</h1>
+          <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-600">
+            The article may have been moved or removed. You can return to the archive or continue with a recommended read.
+          </p>
           <div className="mt-10 flex justify-center">
             <Link href="/blogs" className="button-secondary">
-              Back to Blogs
+              Back to articles
             </Link>
           </div>
 
           {recommended.length > 0 ? (
-            <div className="mt-14 text-left">
-              <h2 className="text-xl font-black tracking-tight text-slate-900">Recommended articles</h2>
-              <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {recommended.map((rec) => (
-                  <Link
-                    key={rec.slug}
-                    href={`/blogs/${rec.slug}`}
-                    className="rounded-4xl border border-slate-200 bg-white px-5 py-5 hover:border-slate-300 transition"
-                  >
-                    <div className="text-[10px] font-bold uppercase tracking-[0.15em] text-blue-600">{rec.tag}</div>
-                    <div className="mt-3 font-bold text-slate-900 leading-snug">{rec.title}</div>
-                    <div className="mt-3 text-sm text-slate-600 line-clamp-3">{rec.excerpt}</div>
-                  </Link>
+            <section className="mt-16 text-left">
+              <div className="mb-6 text-center">
+                <h2 className="text-2xl font-bold tracking-[-0.04em] text-slate-950">Recommended reading</h2>
+              </div>
+              <div className="grid gap-6 md:grid-cols-3">
+                {recommended.map((article) => (
+                  <BlogCard key={article.slug} article={article} variant="compact" />
                 ))}
               </div>
-            </div>
+            </section>
           ) : null}
         </div>
       </main>
@@ -178,114 +131,124 @@ export default function BlogArticlePage() {
   }
 
   return (
-    <main className="min-h-screen bg-white text-slate-900">
-      <article className="pt-28 pb-24">
-        <div className="max-w-3xl mx-auto px-6">
-          <div className="flex items-center justify-between gap-4">
-            <Link href="/blogs" className="text-xs font-black uppercase tracking-widest text-slate-500 hover:text-slate-900 transition">
-              ← Back to Blogs
-            </Link>
-            <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
-              {articleDate
-                ? new Date(articleDate).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })
-                : null}
-            </span>
-          </div>
+    <main className="min-h-screen bg-[#fcfbf8] text-slate-900">
+      <article className="pb-24 pt-20 md:pb-28 md:pt-24">
+        <div className="mx-auto max-w-7xl px-6">
+          <Link
+            href="/blogs"
+            className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 transition hover:text-slate-900"
+          >
+            <span>&larr;</span>
+            Back to articles
+          </Link>
 
-          <div className="mt-10">
-            <span className="inline-flex text-[10px] font-bold uppercase tracking-[0.15em] text-blue-600">
-              {articleTag}
-            </span>
-            <h1 className="mt-4 text-4xl md:text-5xl font-black tracking-tight leading-[1.05]">{articleTitle}</h1>
-            {examplePost?.readingTimeMinutes ? (
-              <div className="mt-4 text-[10px] font-bold uppercase tracking-widest text-slate-400">
-                {examplePost.readingTimeMinutes} min read
+          <div className="mt-8 grid gap-12 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-14">
+            <div>
+              <header className="border-b border-stone-200 pb-10">
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="inline-flex rounded-full border border-stone-200 bg-white px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-700">
+                    {articleTag}
+                  </span>
+                  <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-400">{formatDate(articleDate)}</span>
+                  {readingTime ? (
+                    <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-400">{readingTime} min read</span>
+                  ) : null}
+                </div>
+
+                <h1 className="mt-6 max-w-5xl text-left text-[clamp(2.7rem,5vw,4.9rem)] font-bold leading-[0.98] tracking-[-0.065em] text-slate-950">
+                  {articleTitle}
+                </h1>
+
+                <p className="mt-6 max-w-3xl text-[1.04rem] leading-8 text-slate-600 md:text-[1.12rem]">
+                  {articleExcerpt}
+                </p>
+              </header>
+
+              <div className="mt-8 overflow-hidden rounded-[1.4rem] border border-stone-200 bg-stone-100">
+                <div className="relative aspect-[16/8]">
+                  {post?.image_url ? (
+                    <Image
+                      src={post.image_url}
+                      alt={post.title}
+                      fill
+                      unoptimized
+                      sizes="(max-width: 1280px) 100vw, 1040px"
+                      className="object-cover"
+                      priority
+                    />
+                  ) : examplePost?.cover?.background ? (
+                    <div className="absolute inset-0" style={{ backgroundImage: examplePost.cover.background }} />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center text-xs font-bold uppercase tracking-[0.2em] text-slate-400">
+                      No preview available
+                    </div>
+                  )}
+                </div>
               </div>
-            ) : null}
-          </div>
 
-          <div className="mt-10 relative aspect-video overflow-hidden rounded-4xl bg-slate-100">
-            {post?.image_url ? (
-              <Image
-                src={post.image_url}
-                alt={post.title}
-                fill
-                unoptimized
-                sizes="(max-width: 900px) 100vw, 900px"
-                className="object-cover"
-                priority
-              />
-            ) : examplePost?.cover?.className ? (
-              <div className={`absolute inset-0 bg-linear-to-br ${examplePost.cover.className}`} />
-            ) : (
-              <div className="absolute inset-0 flex items-center justify-center text-slate-300 font-bold uppercase tracking-widest text-xs">
-                No Preview Available
+              <div className="mt-12 max-w-3xl">
+                <BlogContentRenderer blocks={examplePost?.content} fallbackText={post?.text} />
+
+                <div className="mt-14 border-t border-stone-200 pt-8">
+                  <a
+                    href={`mailto:hello@dippa.com?subject=${encodeURIComponent(`Re: ${articleTitle}`)}`}
+                    className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.18em] text-slate-900 transition hover:text-blue-700"
+                  >
+                    Discuss this article
+                    <span>&rarr;</span>
+                  </a>
+                </div>
               </div>
-            )}
-            <div className="absolute inset-0 ring-1 ring-inset ring-slate-900/5" />
-          </div>
+            </div>
 
-          <div className="mt-10">
-            <ArticleVote
-              slug={articleSlug}
-              initialUpvotes={examplePost?.initialUpvotes ?? 0}
-              initialDownvotes={examplePost?.initialDownvotes ?? 0}
-            />
-          </div>
+            <aside>
+              <div className="space-y-5 lg:sticky lg:top-24">
+                <div className="rounded-[1.4rem] border border-stone-200 bg-white p-6">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">Article details</p>
+                  <dl className="mt-4 space-y-4">
+                    <div className="border-b border-stone-100 pb-4">
+                      <dt className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-400">Published</dt>
+                      <dd className="mt-1 text-sm font-semibold text-slate-800">{formatDate(articleDate)}</dd>
+                    </div>
+                    <div className="border-b border-stone-100 pb-4">
+                      <dt className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-400">Category</dt>
+                      <dd className="mt-1 text-sm font-semibold text-slate-800">{articleTag}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-400">Reading time</dt>
+                      <dd className="mt-1 text-sm font-semibold text-slate-800">{readingTime ? `${readingTime} minutes` : "Article"}</dd>
+                    </div>
+                  </dl>
+                </div>
 
-          <div className="mt-12">
-            {examplePost ? (
-              renderBlocks(examplePost.content)
-            ) : (
-              <>
-                {articleExcerpt
-                  .split(/\n\s*\n/g)
-                  .map((paragraph) => paragraph.trim())
-                  .filter(Boolean)
-                  .map((paragraph, idx) => (
-                    <p key={idx} className="mt-6 text-slate-700 text-lg leading-relaxed whitespace-pre-wrap">
-                      {paragraph}
-                    </p>
-                  ))}
-              </>
-            )}
+                <div className="rounded-[1.4rem] border border-stone-200 bg-white p-6">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">Reader signal</p>
+                  <div className="mt-4">
+                    <ArticleVote
+                      slug={articleSlug}
+                      initialUpvotes={examplePost?.initialUpvotes ?? 0}
+                      initialDownvotes={examplePost?.initialDownvotes ?? 0}
+                    />
+                  </div>
+                </div>
+              </div>
+            </aside>
           </div>
 
           {recommended.length > 0 ? (
-            <section className="mt-20 pt-12 border-t border-slate-100">
-              <h2 className="text-2xl md:text-3xl font-black tracking-tight text-slate-900">Recommended articles</h2>
-              <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {recommended.map((rec) => (
-                  <Link
-                    key={rec.slug}
-                    href={`/blogs/${rec.slug}`}
-                    className="group rounded-4xl border border-slate-200 bg-white px-5 py-5 hover:border-slate-300 transition"
-                  >
-                    <div className="text-[10px] font-bold uppercase tracking-[0.15em] text-blue-600">{rec.tag}</div>
-                    <div className="mt-3 font-bold text-slate-900 leading-snug group-hover:text-blue-600 transition-colors">
-                      {rec.title}
-                    </div>
-                    <div className="mt-3 text-sm text-slate-600 line-clamp-3">{rec.excerpt}</div>
-                    <div className="mt-5 text-[10px] font-black uppercase tracking-widest text-slate-900">
-                      Read →
-                    </div>
-                  </Link>
+            <section className="mt-20 border-t border-stone-200 pt-12">
+              <div className="max-w-3xl">
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">Continue reading</p>
+                <h2 className="mt-4 text-left text-3xl font-bold tracking-[-0.05em] text-slate-950">More articles from the archive</h2>
+              </div>
+
+              <div className="mt-8 grid gap-6 md:grid-cols-3">
+                {recommended.map((article) => (
+                  <BlogCard key={article.slug} article={article} variant="compact" />
                 ))}
               </div>
             </section>
           ) : null}
-
-          <div className="mt-16 pt-10 border-t border-slate-100 flex justify-between items-center gap-4">
-            <Link href="/blogs" className="button-secondary">
-              Back to Blogs
-            </Link>
-            <a
-              href={`mailto:hello@dippa.com?subject=${encodeURIComponent(`Re: ${articleTitle ?? "Article"}`)}`}
-              className="text-xs font-black uppercase tracking-widest text-slate-900 hover:underline underline-offset-4"
-            >
-              Discuss this
-            </a>
-          </div>
         </div>
       </article>
     </main>

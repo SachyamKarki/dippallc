@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const NAVBAR_HIDDEN_PATHS = new Set(["/products", "/blogs", "/careers"]);
+const NAVBAR_HIDDEN_PATHS = new Set(["/products", "/careers"]);
 
 export default function Chrome({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -20,4 +20,3 @@ export default function Chrome({ children }: { children: ReactNode }) {
     </>
   );
 }
-
