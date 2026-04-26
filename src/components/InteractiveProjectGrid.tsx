@@ -1,17 +1,18 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
+import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
+import gsap from "gsap";
+import { useRouter } from "next/navigation";
 
-type MockSite = {
+interface MockSite {
   id: number;
   title: string;
   accent: string;
   surface: string;
   ink: string;
-  layout: "editorial" | "catalog" | "poster" | "minimal";
-};
+  layout: string;
+}
 
 const mockSites: readonly MockSite[] = [
   { id: 1, title: "Editorial Suite", accent: "#6a7f5c", surface: "#d4d0b7", ink: "#1d1f17", layout: "editorial" },
@@ -51,6 +52,7 @@ const mockSites: readonly MockSite[] = [
 const webImages = Array.from({ length: 32 }).map((_, i) => `/projects/${i + 1}.jpg`);
 
 export default function InteractiveProjectGrid() {
+  const router = useRouter();
   const stageRef = useRef<HTMLDivElement | null>(null);
   const viewportRef = useRef<HTMLDivElement | null>(null);
   const pointerRef = useRef({
@@ -59,12 +61,17 @@ export default function InteractiveProjectGrid() {
     startY: 0,
     startRotation: 0,
     startVertical: 0,
+    startTime: 0,
   });
   // Initialize with a slight ~3% rotation offset to the right
   const rotationRef = useRef({ current: 0.2, target: 0.2 });
   const verticalOffsetRef = useRef({ current: 0, target: 0 });
   const activeIndexRef = useRef(0);
+  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
+  const groupRef = useRef<THREE.Group | null>(null);
   const [activeSite, setActiveSite] = useState(mockSites[0]);
+  const [hoveredLink, setHoveredLink] = useState<string | null>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const stage = stageRef.current;
@@ -75,8 +82,9 @@ export default function InteractiveProjectGrid() {
     }
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
-    camera.position.set(0, 0, 54);
+    const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 500);
+    // Adjusted camera further back to increase visible 3D depth and curvature
+    camera.position.set(0, 0, 64);
     camera.lookAt(0, 0, 0);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -102,11 +110,12 @@ export default function InteractiveProjectGrid() {
 
 
     const planeGeometry = new THREE.PlaneGeometry(16.2, 10.8);
-    const radius = 42; // Keeping cylinder wide for ultra-wide edge coverage
-    const itemsPerRow = 10;
-    const totalCards = 60; // 6 rows of 10 cards
+    // Expand cylinder radius to fill entire width of modern ultra-wide screens
+    const radius = 48;
+    const itemsPerRow = 12;
+    const totalCards = 84;
     const rowCount = Math.ceil(totalCards / itemsPerRow);
-    const verticalStep = 15.6;
+    const verticalStep = 18.0;
     const angleStep = (Math.PI * 2) / itemsPerRow;
 
     const textureLoader = new THREE.TextureLoader();
@@ -139,8 +148,12 @@ export default function InteractiveProjectGrid() {
 
       card.position.set(Math.sin(angle) * radius, y, Math.cos(angle) * radius);
       card.lookAt(0, y, 0);
+      card.userData = { link: `/projects/${mockSites[siteIndex].id}` };
       carouselGroup.add(card);
     });
+
+    cameraRef.current = camera;
+    groupRef.current = carouselGroup;
 
     const resize = () => {
       const width = viewport.clientWidth;
@@ -210,7 +223,6 @@ export default function InteractiveProjectGrid() {
   return (
     <section className="work-sphere-section" aria-labelledby="project-showcase-title">
       <div className="section-shell work-sphere-shell">
-
         <div
           ref={stageRef}
           className="work-sphere-stage"
@@ -220,14 +232,35 @@ export default function InteractiveProjectGrid() {
             pointerRef.current.startY = event.clientY;
             pointerRef.current.startRotation = rotationRef.current.target;
             pointerRef.current.startVertical = verticalOffsetRef.current.target;
+            pointerRef.current.startTime = Date.now();
             event.currentTarget.setPointerCapture(event.pointerId);
           }}
           onPointerMove={(event) => {
-            if (!pointerRef.current.active || !stageRef.current) {
-              return;
+            const rect = stageRef.current?.getBoundingClientRect();
+            if (!rect) return;
+
+            setMousePos({ x: event.clientX, y: event.clientY });
+
+            // Raycasting for hover state
+            if (cameraRef.current && groupRef.current) {
+              const mouseX = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+              const mouseY = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+              const raycaster = new THREE.Raycaster();
+              raycaster.setFromCamera(new THREE.Vector2(mouseX, mouseY), cameraRef.current);
+              const intersects = raycaster.intersectObjects(groupRef.current.children);
+
+              if (intersects.length > 0) {
+                const card = intersects[0].object as THREE.Mesh;
+                setHoveredLink(card.userData.link);
+                stageRef.current!.style.cursor = "pointer";
+              } else {
+                setHoveredLink(null);
+                stageRef.current!.style.cursor = pointerRef.current.active ? "grabbing" : "grab";
+              }
             }
 
-            const rect = stageRef.current.getBoundingClientRect();
+            if (!pointerRef.current.active) return;
 
             // Calculate horizontal rotation
             const dx = event.clientX - pointerRef.current.startX;
@@ -243,8 +276,29 @@ export default function InteractiveProjectGrid() {
             pointerRef.current.active = false;
             try {
               event.currentTarget.releasePointerCapture(event.pointerId);
-            } catch {
-              // Ignore capture release failures when the pointer is already gone.
+            } catch { }
+
+            // Detect if this was a click (not a drag)
+            const dx = Math.abs(event.clientX - pointerRef.current.startX);
+            const dy = Math.abs(event.clientY - pointerRef.current.startY);
+            const dt = Date.now() - pointerRef.current.startTime;
+
+            if (dx < 5 && dy < 5 && dt < 400 && stageRef.current && cameraRef.current && groupRef.current) {
+              const rect = stageRef.current.getBoundingClientRect();
+              const mouseX = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+              const mouseY = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+              const raycaster = new THREE.Raycaster();
+              raycaster.setFromCamera(new THREE.Vector2(mouseX, mouseY), cameraRef.current);
+              const intersects = raycaster.intersectObjects(groupRef.current.children);
+
+              if (intersects.length > 0) {
+                const clickedCard = intersects[0].object as THREE.Mesh;
+                const link = clickedCard.userData.link;
+                if (link) {
+                  router.push(link);
+                }
+              }
             }
           }}
           onPointerCancel={(event) => {
@@ -273,6 +327,30 @@ export default function InteractiveProjectGrid() {
           <div className="work-sphere-drag-hint" aria-hidden="true">
             Drag to rotate
           </div>
+
+          {hoveredLink && (
+            <div
+              style={{
+                position: 'fixed',
+                left: mousePos.x + 15,
+                top: mousePos.y + 15,
+                padding: '6px 12px',
+                background: 'rgba(0,0,0,0.8)',
+                color: 'white',
+                borderRadius: '6px',
+                fontSize: '11px',
+                fontWeight: 600,
+                pointerEvents: 'none',
+                zIndex: 9999,
+                fontFamily: 'Poppins, sans-serif',
+                letterSpacing: '0.05em',
+                backdropFilter: 'blur(4px)',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
+              }}
+            >
+              {hoveredLink}
+            </div>
+          )}
         </div>
       </div>
     </section>
