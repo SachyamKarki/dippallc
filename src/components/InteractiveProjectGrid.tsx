@@ -254,7 +254,7 @@ export default function InteractiveProjectGrid() {
               raycaster.setFromCamera(new THREE.Vector2(mouseX, mouseY), cameraRef.current);
               const intersects = raycaster.intersectObjects(groupRef.current.children);
 
-              if (intersects.length > 0) {
+              if (intersects.length > 0 && !pointerRef.current.active) {
                 const card = intersects[0].object as THREE.Mesh;
                 setHoveredData(card.userData as { link: string; title: string });
                 stageRef.current!.style.cursor = "pointer";
@@ -278,6 +278,7 @@ export default function InteractiveProjectGrid() {
           }}
           onPointerUp={(event) => {
             pointerRef.current.active = false;
+            setHoveredData(null);
             try {
               event.currentTarget.releasePointerCapture(event.pointerId);
             } catch { }
@@ -307,11 +308,15 @@ export default function InteractiveProjectGrid() {
           }}
           onPointerCancel={(event) => {
             pointerRef.current.active = false;
+            setHoveredData(null);
             try {
               event.currentTarget.releasePointerCapture(event.pointerId);
             } catch {
               // Ignore capture release failures when the pointer is already gone.
             }
+          }}
+          onPointerLeave={() => {
+            setHoveredData(null);
           }}
         >
           <div className="work-sphere-stage-shell work-sphere-stage-shell-left" aria-hidden="true" />
@@ -349,7 +354,7 @@ export default function InteractiveProjectGrid() {
                 zIndex: 9999,
                 fontFamily: 'Inter, sans-serif',
                 display: 'flex',
-                align-items: 'center',
+                alignItems: 'center',
                 gap: '8px',
                 boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
                 whiteSpace: 'nowrap',
