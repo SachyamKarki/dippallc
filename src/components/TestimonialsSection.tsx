@@ -86,7 +86,7 @@ export default function TestimonialsSection() {
     <section className="testimonials-section reveal" id="testimonials">
 
       <div className="section-shell">
-        <div className="section-heading-block">
+        <div className="section-heading-block mb-20">
           <h2 className="section-title">Built for scale. Trusted by visionary operators.</h2>
         </div>
 

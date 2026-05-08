@@ -70,7 +70,7 @@ export default function PartnersSection() {
   return (
     <section className="partners-section reveal">
       <div className="section-shell">
-        <div className="partners-heading text-center mb-16">
+        <div className="partners-heading text-center mb-24">
           <h2 className="section-title">OUR PARTNERS.</h2>
         </div>
       </div>

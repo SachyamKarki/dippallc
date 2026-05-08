@@ -46,14 +46,16 @@ export default function Home() {
             Engagement governance, architectural standards, and research-led systemic delivery.
           </p>
 
-          <InsightsCarousel
-            articles={[
-              { slug: "stake-high-delivery", title: "What great delivery looks like when stakes are high", tag: "Software Systems", excerpt: "A practical look at senior-led execution, decision cadence, and the signals that separate busy work from real progress." },
-              { slug: "ai-automation-leverage", title: "Where AI automation belongs inside modern operations", tag: "AI Orchestration", excerpt: "Not hype — leverage. How to introduce AI safely, measure outcomes, and keep systems legible as they evolve." },
-              { slug: "shipping-strategy", title: "Turning strategy into shipping: a simple operating model", tag: "Consulting", excerpt: "How we reduce ambiguity, align stakeholders, and keep delivery velocity high without sacrificing quality." },
-              { slug: "decision-cadence", title: "The anatomy of institutional decision cadence", tag: "Management", excerpt: "How systems-first companies handle rapid iteration without compromising architectural integrity." },
-            ]}
-          />
+          <div className="mt-24">
+            <InsightsCarousel
+              articles={[
+                { slug: "stake-high-delivery", title: "What great delivery looks like when stakes are high", tag: "Software Systems", excerpt: "A practical look at senior-led execution, decision cadence, and the signals that separate busy work from real progress." },
+                { slug: "ai-automation-leverage", title: "Where AI automation belongs inside modern operations", tag: "AI Orchestration", excerpt: "Not hype — leverage. How to introduce AI safely, measure outcomes, and keep systems legible as they evolve." },
+                { slug: "shipping-strategy", title: "Turning strategy into shipping: a simple operating model", tag: "Consulting", excerpt: "How we reduce ambiguity, align stakeholders, and keep delivery velocity high without sacrificing quality." },
+                { slug: "decision-cadence", title: "The anatomy of institutional decision cadence", tag: "Management", excerpt: "How systems-first companies handle rapid iteration without compromising architectural integrity." },
+              ]}
+            />
+          </div>
 
           <div className="flex justify-center mt-16">
             <Link
@@ -81,8 +83,8 @@ export default function Home() {
           className="relative rounded-[3rem] py-16 md:py-24 px-8 md:px-16 text-center w-full max-w-[1800px] mx-auto flex flex-col items-center justify-center overflow-hidden"
           style={{ 
             backgroundColor: '#FAF9F6',
-            backgroundImage: 'radial-gradient(#e5e1d8 1.5px, transparent 1.5px)',
-            backgroundSize: '32px 32px'
+            backgroundImage: 'radial-gradient(rgba(0,0,0,0.12) 1px, transparent 0)',
+            backgroundSize: '24px 24px'
           }}
         >
           <h2 className="section-title !mb-6">
