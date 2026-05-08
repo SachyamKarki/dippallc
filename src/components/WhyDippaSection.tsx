@@ -4,32 +4,32 @@ import { CheckCircle2, Cpu, Globe, MessageSquare, ShieldCheck, Zap } from "lucid
 
 const reasons = [
   {
-    icon: <Zap size={24} className="text-[var(--accent)]" />,
+    icon: <Zap size={24} className="text-white" />,
     title: "Senior-led execution",
     text: "Every project is directed by principals who stay in the code. No dilution of quality via handoffs to junior executors.",
   },
   {
-    icon: <Cpu size={24} className="text-[var(--accent)]" />,
+    icon: <Cpu size={24} className="text-white" />,
     title: "Autonomous Ops",
     text: "We design AI agent systems that reason, route work, and stay observable enough for serious businesses to trust.",
   },
   {
-    icon: <ShieldCheck size={24} className="text-[var(--accent)]" />,
+    icon: <ShieldCheck size={24} className="text-white" />,
     title: "Architectural Discipline",
     text: "Systems built for institutional continuity, high observability, and the ability to scale without technical debt.",
   },
   {
-    icon: <MessageSquare size={24} className="text-[var(--accent)]" />,
+    icon: <MessageSquare size={24} className="text-white" />,
     title: "Direct Communication",
     text: "The process is clear, the recommendations are practical, and the conversations stay honest and evidence-based.",
   },
   {
-    icon: <Globe size={24} className="text-[var(--accent)]" />,
+    icon: <Globe size={24} className="text-white" />,
     title: "Business-first thinking",
     text: "We connect software decisions to real company goals so the work supports growth instead of adding more noise.",
   },
   {
-    icon: <CheckCircle2 size={24} className="text-[var(--accent)]" />,
+    icon: <CheckCircle2 size={24} className="text-white" />,
     title: "Long-term leverage",
     text: "We focus on building systems that remain useful after launch, not just short-term output that looks good in the moment.",
   },

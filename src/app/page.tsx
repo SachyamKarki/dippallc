@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import WhyDippaSection from "@/components/WhyDippaSection";
-import ContactForm from "@/components/ContactForm";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import ServiceTabs from "@/components/ServiceTabs";
 import FAQSection from "@/components/FAQSection";
@@ -27,7 +26,7 @@ export default function Home() {
             </p>
 
             <div className="hero-actions flex justify-start gap-6">
-              <Link href="#contact" className="button-primary text-sm font-bold">
+              <Link href="/contact" className="button-primary text-sm font-bold">
                 Book discovery
               </Link>
               <Link href="#proof" className="button-secondary text-sm font-bold">
@@ -39,14 +38,10 @@ export default function Home() {
       </section>
 
 
+      <ServiceTabs />
       <PartnersSection />
 
-      <WhyDippaSection />
-      <ServiceTabs />
-
-      <InteractiveProjectGrid />
       <section className="insights-section reveal" id="insights">
-
         <div className="section-shell">
           <h2 className="section-title">Engineering Intelligence.</h2>
           <p className="section-subtitle">
@@ -70,17 +65,39 @@ export default function Home() {
         </div>
       </section>
 
-      <TestimonialsSection />
-
       <JourneySection />
 
+      <WhyDippaSection />
+
+      <InteractiveProjectGrid />
+
       <FAQSection />
+      <TestimonialsSection />
 
-      <section id="contact" className="contact-section scroll-mt-24 reveal">
-
+      <section className="py-[12rem] bg-white reveal">
         <div className="section-shell">
-          <div className="max-w-7xl mx-auto pt-16">
-            <ContactForm />
+          <div 
+            className="relative rounded-[3rem] py-24 px-8 md:px-16 text-center max-w-[1200px] mx-auto flex flex-col items-center justify-center overflow-hidden"
+            style={{ 
+              backgroundColor: '#F3F0EB',
+              backgroundImage: 'radial-gradient(#dcd7ce 1.5px, transparent 1.5px)',
+              backgroundSize: '32px 32px'
+            }}
+          >
+            <h2 className="relative z-10 text-4xl md:text-6xl font-black mb-6 text-[#1e1b26] tracking-tight" style={{ fontFamily: 'var(--font-playfair), serif' }}>
+              Ready to start your journey?
+            </h2>
+            <p className="relative z-10 text-lg md:text-xl text-[#4a4a4a] max-w-2xl mx-auto mb-10 font-medium leading-relaxed">
+              Book a discovery call and let's map your technical landscape into a clear, institutional-grade architectural plan.
+            </p>
+            <div className="relative z-10 mt-4">
+              <Link 
+                href="/contact" 
+                className="journey-btn"
+              >
+                Get Started
+              </Link>
+            </div>
           </div>
         </div>
       </section>

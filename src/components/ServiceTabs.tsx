@@ -53,11 +53,11 @@ export default function ServiceTabs() {
   const activeService = services.find(s => s.id === activeTab) || services[0];
 
   return (
-    <section className="service-tabs-section !py-0 bg-white reveal" id="capabilities">
+    <section className="py-[12rem] bg-white relative overflow-hidden" id="strategic-capability">
       <div className="max-w-[1700px] mx-auto px-6 lg:px-12">
-        <div className="text-center mb-12 pt-24">
-          <h2 className="why-dippa-title mb-4">Strategic Capability.</h2>
-          <p className="max-w-2xl mx-auto text-xl font-medium text-slate-600 font-subtitle">
+        <div className="text-center mb-12">
+          <h2 className="section-title mb-4">Strategic Capability.</h2>
+          <p className="max-w-2xl mx-auto text-xl font-medium text-slate-600">
             Disciplined execution for companies that require technical excellence and systemic operational clarity.
           </p>
         </div>
@@ -101,7 +101,7 @@ export default function ServiceTabs() {
               </ul>
 
               <div className="pt-8">
-                <button className="button-primary px-10 py-5 bg-[var(--accent)] text-white text-xs font-black uppercase tracking-widest hover:scale-105 transition-all shadow-xl">
+                <button className="button-primary px-10 py-5 font-black uppercase tracking-widest hover:scale-105 transition-all shadow-xl">
                   Start your project
                 </button>
               </div>

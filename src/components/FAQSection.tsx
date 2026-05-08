@@ -30,12 +30,14 @@ const faqs = [
 export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const faqRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const titleRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     contentRefs.current.forEach((el, index) => {
       if (!el) return;
       const isOpen = openIndex === index;
-      
+
       gsap.to(el, {
         height: isOpen ? "auto" : 0,
         opacity: isOpen ? 1 : 0,
@@ -45,18 +47,38 @@ export default function FAQSection() {
         force3D: true,
       });
     });
+
+    // Move title to active FAQ position
+    if (openIndex !== null && titleRef.current && faqRefs.current[openIndex]) {
+      const faqEl = faqRefs.current[openIndex];
+      const offsetTop = faqEl?.offsetTop || 0;
+      gsap.to(titleRef.current, {
+        y: offsetTop,
+        duration: 0.8,
+        ease: "power3.inOut"
+      });
+    } else if (openIndex === null && titleRef.current) {
+      gsap.to(titleRef.current, {
+        y: 0,
+        duration: 0.8,
+        ease: "power3.inOut"
+      });
+    }
   }, [openIndex]);
 
   return (
-    <section className="faq-section py-32 bg-white text-zinc-900" id="faq">
+    <section className="faq-section py-[12rem] bg-white text-zinc-900" id="faq">
       <div className="section-shell">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-32">
 
           {/* FAQ Intro - Left Sticky */}
-          <div className="lg:col-span-4">
-            <div className="lg:sticky lg:top-32 space-y-8 text-left">
-              <h2 className="text-2xl lg:text-3xl font-black text-zinc-900 leading-[0.85] tracking-tighter">
-                Frequently Asked <br /> Questions <span className="text-zinc-600 font-medium">(FAQs)</span>
+          <div className="lg:col-span-4 relative h-full">
+            <div
+              ref={titleRef}
+              className="lg:sticky lg:top-32 space-y-8 text-left"
+            >
+              <h2 className="section-title !text-left !mb-0 !leading-[1.1]">
+                Frequently Asked <br /> Questions <span className="text-zinc-400 font-medium">(FAQs)</span>
               </h2>
             </div>
           </div>
@@ -66,6 +88,7 @@ export default function FAQSection() {
             {faqs.map((faq, index) => (
               <div
                 key={index}
+                ref={el => { faqRefs.current[index] = el; }}
                 className={cn(
                   "group relative p-[1px] rounded-[2.1rem] transition-all duration-700",
                   openIndex === index ? "shadow-2xl shadow-zinc-200" : "bg-zinc-100 hover:bg-zinc-200"

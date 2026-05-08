@@ -346,8 +346,8 @@ export default function InteractiveProjectGrid() {
                 top: mousePos.y,
                 transform: 'translate(-50%, -140%)',
                 padding: '10px 20px',
-                background: '#ffffff',
-                color: '#000000',
+                background: 'rgba(10, 10, 10, 0.9)',
+                color: '#ffffff',
                 borderRadius: '999px',
                 fontSize: '13px',
                 fontWeight: 700,
@@ -357,7 +357,8 @@ export default function InteractiveProjectGrid() {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
-                boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+                border: '1px solid rgba(255,255,255,0.1)',
                 whiteSpace: 'nowrap',
                 letterSpacing: '0.01em'
               }}

@@ -28,13 +28,13 @@ const steps = [
 
 export default function JourneySection() {
   return (
-    <section className="journey-section reveal" id="journey">
+    <section id="journey" className="section py-[12rem] bg-zinc-50 overflow-hidden reveal">
       <div className="section-shell">
         <div className="journey-grid">
           <div className="journey-image-col">
             <div className="journey-image-wrapper">
               <Image
-                src="/images/journey-person.png"
+                src="/images/journey-person-v3.png"
                 alt="Start your journey with Dippa"
                 fill
                 className="object-contain object-bottom"
@@ -59,7 +59,7 @@ export default function JourneySection() {
             </div>
 
             <div className="journey-cta">
-              <Link href="#contact" className="journey-btn">
+              <Link href="/contact" className="journey-btn">
                 Get Started
               </Link>
             </div>

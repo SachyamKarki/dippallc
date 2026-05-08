@@ -55,8 +55,13 @@ def remove_background(input_path, output_path):
     print(f"Saved edge-refined image to {output_path}")
 
 if __name__ == "__main__":
-    input_file = "/Users/shakshamkarki/Desktop/dippa/public/images/hero-person.png"
-    output_file = "/Users/shakshamkarki/Desktop/dippa/public/images/hero-person.png"
+    import sys
+    if len(sys.argv) < 3:
+        input_file = "/Users/shakshamkarki/Desktop/dippa/public/images/hero-person.png"
+        output_file = "/Users/shakshamkarki/Desktop/dippa/public/images/hero-person.png"
+    else:
+        input_file = sys.argv[1]
+        output_file = sys.argv[2]
     
     if os.path.exists(input_file):
         remove_background(input_file, output_file)

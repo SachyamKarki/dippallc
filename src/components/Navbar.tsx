@@ -46,7 +46,7 @@ export default function Navbar({ sticky = true, theme = "dark" }: { sticky?: boo
               ))}
               <li className="site-nav-cta">
                 <Link 
-                  href="#contact" 
+                  href="/contact" 
                   className="site-nav-cta-link" 
                   onClick={closeMenu}
                 >
@@ -80,7 +80,7 @@ export default function Navbar({ sticky = true, theme = "dark" }: { sticky?: boo
               </li>
             ))}
             <li className="mt-8">
-              <Link href="#contact" className="button-primary w-full uppercase text-xs font-bold tracking-widest" onClick={closeMenu}>
+              <Link href="/contact" className="button-primary w-full uppercase text-xs font-bold tracking-widest" onClick={closeMenu}>
                 Request a Consultation
               </Link>
             </li>
