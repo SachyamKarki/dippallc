@@ -75,8 +75,8 @@ export default function FAQSection() {
                 key={index}
                 ref={el => { faqRefs.current[index] = el; }}
                 className={cn(
-                  "group relative p-[1px] rounded-[2.1rem] transition-all duration-700",
-                  openIndex === index ? "shadow-2xl shadow-zinc-200" : "bg-zinc-100 hover:bg-zinc-200"
+                  "group relative rounded-[2.1rem] transition-all duration-700",
+                  openIndex === index ? "" : ""
                 )}
               >
                 {/* Background Mask - Ensures content has a solid background */}
@@ -88,16 +88,16 @@ export default function FAQSection() {
                     className="w-full px-8 py-8 flex items-center justify-between gap-8 text-left"
                   >
                     <div className="flex items-start gap-8">
-                      <span className="text-xs font-black text-zinc-400 mt-1.5 shrink-0">
+                      <span className="text-xs font-black text-black mt-1.5 shrink-0 opacity-40">
                         {String(index + 1).padStart(2, '0')}.
                       </span>
-                      <span className="text-xl lg:text-2xl font-bold text-black tracking-tight leading-tight">
+                      <span className="text-xl lg:text-2xl font-extrabold text-black tracking-tight leading-tight">
                         {faq.question}
                       </span>
                     </div>
                     <div className={cn(
-                      "w-10 h-10 rounded-full border border-zinc-200 flex items-center justify-center shrink-0 transition-transform duration-500",
-                      openIndex === index && "rotate-45 bg-[#364835] text-white border-[#364835]"
+                      "w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition-transform duration-500",
+                      openIndex === index && "rotate-45 bg-[#364835] text-white"
                     )}>
                       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M7 0V14" stroke="currentColor" strokeWidth="2" />
@@ -111,7 +111,7 @@ export default function FAQSection() {
                     className="overflow-hidden h-0 opacity-0"
                   >
                     <div className="px-10 lg:pl-24 pr-12 pb-12">
-                      <p className="text-lg lg:text-xl text-[#1a1a1a] leading-relaxed">
+                      <p className="text-base lg:text-lg text-[#0a0a0a] leading-relaxed">
                         {faq.answer}
                       </p>
                     </div>

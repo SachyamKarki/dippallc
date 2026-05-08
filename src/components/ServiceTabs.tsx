@@ -71,12 +71,12 @@ export default function ServiceTabs() {
       <div className="max-w-[1700px] mx-auto px-6 lg:px-12">
         <div className="text-center mb-12">
           <h2 className="section-title mb-4">WHAT WE OFFER ?</h2>
-          <p className="max-w-2xl mx-auto text-xl font-medium text-[#1a1a1a]">
+          <p className="max-w-2xl mx-auto text-lg font-medium text-[#1a1a1a]">
             Disciplined execution for companies that require technical excellence and systemic operational clarity.
           </p>
         </div>
 
-        <div className="relative flex overflow-x-auto no-scrollbar md:flex-wrap justify-start md:justify-center items-center p-2 bg-slate-100/80 backdrop-blur-sm rounded-[2.5rem] max-w-full md:w-fit mx-auto mb-0 border border-slate-200">
+        <div className="relative flex overflow-x-auto no-scrollbar md:flex-wrap justify-start md:justify-center items-center p-2 bg-slate-100/80 backdrop-blur-sm rounded-[2.5rem] max-w-full md:w-fit mx-auto mb-0">
           {/* Sliding Indicator */}
           <div 
             className="absolute h-[calc(100%-16px)] bg-white rounded-full shadow-md transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]"
@@ -105,34 +105,38 @@ export default function ServiceTabs() {
         </div>
       </div>
 
-      <div className="w-full bg-white border-y border-slate-100 py-16 lg:py-24 transition-all duration-1000 mt-16">
+      <div className="w-full bg-white py-16 lg:py-24 transition-all duration-1000 mt-16">
         <div className="section-shell">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-            <div className="space-y-8">
-              <h3 className="text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.1] text-slate-900 font-title" style={{ fontFamily: 'var(--font-playfair), serif' }}>
-                {activeService.title}
-              </h3>
-              <p className="text-lg lg:text-xl text-slate-500 leading-relaxed font-sans">
-                {activeService.description}
-              </p>
+            <div className="space-y-14">
+              <div className="space-y-8">
+                <h3 className="text-3xl lg:text-4xl font-extrabold tracking-tight leading-[1.15] text-black" style={{ fontFamily: 'var(--font-playfair), serif' }}>
+                  {activeService.title}
+                </h3>
+                <p className="text-sm lg:text-base text-[#0a0a0a] leading-relaxed">
+                  {activeService.description}
+                </p>
+              </div>
               
-              <ul className="space-y-5">
-                {activeService.points.map(point => (
-                  <li key={point} className="flex items-center gap-4 text-sm font-bold text-slate-800 uppercase tracking-wide font-subtitle">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
-                    {point}
-                  </li>
-                ))}
-              </ul>
+              <div className="space-y-10">
+                <ul className="space-y-7">
+                  {activeService.points.map((point, index) => (
+                    <li key={index} className="flex items-center gap-5 text-xs lg:text-sm font-bold text-black uppercase tracking-[0.06em]">
+                      <div className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
+                      {point}
+                    </li>
+                  ))}
+                </ul>
 
-              <div className="pt-8">
-                <button className="button-primary px-10 py-5 font-black uppercase tracking-widest hover:scale-105 transition-all shadow-xl">
-                  Start your project
-                </button>
+                <div className="pt-4">
+                  <button className="button-primary px-10 py-5 text-xs font-black uppercase tracking-widest hover:scale-105 transition-all shadow-xl">
+                    Start your project
+                  </button>
+                </div>
               </div>
             </div>
 
-            <div className="relative h-[400px] overflow-hidden rounded-[3rem] border border-slate-100 bg-white lg:h-[600px] shadow-2xl transition-all duration-700">
+            <div className="relative h-[400px] overflow-hidden rounded-[3rem] lg:h-[600px] transition-all duration-700">
               <Image
                 src={activeService.image}
                 alt={activeService.name}

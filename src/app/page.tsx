@@ -79,9 +79,9 @@ export default function Home() {
       <section className="py-32 bg-white reveal px-4 md:px-8">
         <div
           className="relative rounded-[3rem] py-16 md:py-24 px-8 md:px-16 text-center w-full max-w-[1800px] mx-auto flex flex-col items-center justify-center overflow-hidden"
-          style={{
-            backgroundColor: '#F3F0EB',
-            backgroundImage: 'radial-gradient(#dcd7ce 1.5px, transparent 1.5px)',
+          style={{ 
+            backgroundColor: '#FAF9F6',
+            backgroundImage: 'radial-gradient(#e5e1d8 1.5px, transparent 1.5px)',
             backgroundSize: '32px 32px'
           }}
         >

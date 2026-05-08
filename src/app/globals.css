@@ -642,7 +642,7 @@ section {
 
 .hero-description {
   font-family: var(--font-lato), sans-serif;
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   line-height: 1.6;
   color: #1a1a1a;
   margin-bottom: 2.5rem;
@@ -2922,25 +2922,26 @@ section {
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.12em;
-  color: #94a3b8;
+  color: #1a1a1a;
   margin-bottom: 0.75rem;
   display: block;
 }
 
 .news-project-title {
-  font-family: var(--font-title) !important;
+  font-family: var(--font-playfair), serif !important;
   font-size: 1.5rem;
-  line-height: 1.25;
-  margin-bottom: 1rem;
-  color: #0f172a;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+  color: #0a0a0a;
   letter-spacing: -0.02em;
 }
 
 .news-project-excerpt {
-  font-family: var(--font-subtitle);
+  font-family: var(--font-main), sans-serif;
   font-size: 0.95rem;
   line-height: 1.6;
-  color: #475569;
+  color: #1a1a1a;
   margin-bottom: auto;
 }
 

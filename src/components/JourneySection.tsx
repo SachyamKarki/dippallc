@@ -28,7 +28,7 @@ const steps = [
 
 export default function JourneySection() {
   return (
-    <section id="journey" className="section py-32 bg-zinc-50 overflow-hidden reveal">
+    <section id="journey" className="section py-32 overflow-hidden reveal">
       <div className="section-shell">
         <div className="journey-grid">
           <div className="journey-image-col">
