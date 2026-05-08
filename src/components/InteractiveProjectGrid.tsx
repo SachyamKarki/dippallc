@@ -13,41 +13,42 @@ interface MockSite {
   surface: string;
   ink: string;
   layout: string;
+  slug?: string;
 }
 
 const mockSites: readonly MockSite[] = [
-  { id: 1, title: "Editorial Suite", accent: "#6a7f5c", surface: "#d4d0b7", ink: "#1d1f17", layout: "editorial" },
-  { id: 2, title: "Catalog System", accent: "#4ca58f", surface: "#d9c9cd", ink: "#241e25", layout: "catalog" },
-  { id: 3, title: "Minimal Commerce", accent: "#9f7c51", surface: "#332c27", ink: "#f2e8da", layout: "minimal" },
-  { id: 4, title: "Poster Landing", accent: "#b81a1a", surface: "#b8b0aa", ink: "#151515", layout: "poster" },
-  { id: 5, title: "Launch Narrative", accent: "#4250d0", surface: "#f1f0ec", ink: "#161616", layout: "minimal" },
-  { id: 6, title: "Premium Grid", accent: "#111111", surface: "#e9e4df", ink: "#1a1a1a", layout: "catalog" },
-  { id: 7, title: "Luxury Studio", accent: "#efadc7", surface: "#f2e4eb", ink: "#201d1d", layout: "catalog" },
-  { id: 8, title: "Dark Poster", accent: "#d1d6ce", surface: "#5a635d", ink: "#f4f1eb", layout: "poster" },
-  { id: 9, title: "Story Commerce", accent: "#ceb89d", surface: "#eee7df", ink: "#201816", layout: "editorial" },
-  { id: 10, title: "Clean Dashboard", accent: "#2ba68c", surface: "#eef2eb", ink: "#1b211e", layout: "minimal" },
-  { id: 11, title: "Quiet Portfolio", accent: "#d8d8d3", surface: "#ece9e2", ink: "#171717", layout: "minimal" },
-  { id: 12, title: "Founders Brief", accent: "#1f1f1f", surface: "#efeee8", ink: "#111111", layout: "editorial" },
-  { id: 13, title: "Brand Agency", accent: "#c45e3a", surface: "#f0ebe4", ink: "#1a1410", layout: "poster" },
-  { id: 14, title: "Studio Mono", accent: "#3d3d3d", surface: "#fafaf8", ink: "#0e0e0e", layout: "minimal" },
-  { id: 15, title: "Heritage Craft", accent: "#7a6b4e", surface: "#e8e0d2", ink: "#1c1812", layout: "editorial" },
-  { id: 16, title: "Motion Lab", accent: "#5c6bc0", surface: "#e3e6f0", ink: "#181a24", layout: "catalog" },
-  { id: 17, title: "Civic Platform", accent: "#2e7d5a", surface: "#e4ede8", ink: "#121e18", layout: "minimal" },
-  { id: 18, title: "Archive Press", accent: "#8d6e63", surface: "#ede8e2", ink: "#1e1814", layout: "editorial" },
-  { id: 19, title: "Signal Design", accent: "#e65100", surface: "#2a2522", ink: "#f5efe8", layout: "poster" },
-  { id: 20, title: "Atelier View", accent: "#ab47bc", surface: "#f0e8f2", ink: "#1a141e", layout: "catalog" },
-  { id: 21, title: "Nova Digital", accent: "#00838f", surface: "#e0f2f3", ink: "#0a1a1c", layout: "minimal" },
-  { id: 22, title: "Apex Studio", accent: "#bf360c", surface: "#fbe9e7", ink: "#1a0e0a", layout: "poster" },
-  { id: 23, title: "Drift Agency", accent: "#546e7a", surface: "#eceff1", ink: "#1a2024", layout: "editorial" },
-  { id: 24, title: "Monolith Co", accent: "#212121", surface: "#f5f5f5", ink: "#0a0a0a", layout: "catalog" },
-  { id: 25, title: "Ember Works", accent: "#e64a19", surface: "#3e2723", ink: "#ffccbc", layout: "poster" },
-  { id: 26, title: "Craft Bureau", accent: "#6d4c41", surface: "#efebe9", ink: "#1c1412", layout: "editorial" },
-  { id: 27, title: "Pulse Media", accent: "#7b1fa2", surface: "#f3e5f5", ink: "#1a0e20", layout: "catalog" },
-  { id: 28, title: "Core Systems", accent: "#0277bd", surface: "#e1f5fe", ink: "#0a1820", layout: "minimal" },
-  { id: 29, title: "Forge Studio", accent: "#ff6f00", surface: "#fff8e1", ink: "#1a1408", layout: "poster" },
-  { id: 30, title: "Slate Digital", accent: "#455a64", surface: "#f4f6f7", ink: "#0e1418", layout: "editorial" },
-  { id: 31, title: "Prism Labs", accent: "#00695c", surface: "#e0f2f1", ink: "#081a18", layout: "minimal" },
-  { id: 32, title: "Grain Press", accent: "#4e342e", surface: "#d7ccc8", ink: "#1a1210", layout: "catalog" },
+  { id: 1, title: "Ops Canvas", accent: "#6a7f5c", surface: "#d4d0b7", ink: "#1d1f17", layout: "editorial", slug: "ops-canvas" },
+  { id: 2, title: "Agent Desk", accent: "#4ca58f", surface: "#d9c9cd", ink: "#241e25", layout: "catalog", slug: "agent-desk" },
+  { id: 3, title: "Synthesis Engine", accent: "#9f7c51", surface: "#332c27", ink: "#f2e8da", layout: "minimal", slug: "clarity-sprint" },
+  { id: 4, title: "Neural Lattice", accent: "#b81a1a", surface: "#b8b0aa", ink: "#151515", layout: "poster" },
+  { id: 5, title: "Quant Vector", accent: "#4250d0", surface: "#f1f0ec", ink: "#161616", layout: "minimal" },
+  { id: 6, title: "Systemic Core", accent: "#111111", surface: "#e9e4df", ink: "#1a1a1a", layout: "catalog" },
+  { id: 7, title: "Logic Gateway", accent: "#efadc7", surface: "#f2e4eb", ink: "#201d1d", layout: "catalog" },
+  { id: 8, title: "Neural Hub", accent: "#d1d6ce", surface: "#5a635d", ink: "#f4f1eb", layout: "poster" },
+  { id: 9, title: "Vector Flow", accent: "#ceb89d", surface: "#eee7df", ink: "#201816", layout: "editorial" },
+  { id: 10, title: "Agentic Ops", accent: "#2ba68c", surface: "#eef2eb", ink: "#1b211e", layout: "minimal" },
+  { id: 11, title: "Continuity OS", accent: "#d8d8d3", surface: "#ece9e2", ink: "#171717", layout: "minimal" },
+  { id: 12, title: "System Architect", accent: "#1f1f1f", surface: "#efeee8", ink: "#111111", layout: "editorial" },
+  { id: 13, title: "Neural Archive", accent: "#c45e3a", surface: "#f0ebe4", ink: "#1a1410", layout: "poster" },
+  { id: 14, title: "Vector Base", accent: "#3d3d3d", surface: "#fafaf8", ink: "#0e0e0e", layout: "minimal" },
+  { id: 15, title: "Logic Stream", accent: "#7a6b4e", surface: "#e8e0d2", ink: "#1c1812", layout: "editorial" },
+  { id: 16, title: "AI Orchestrator", accent: "#5c6bc0", surface: "#e3e6f0", ink: "#181a24", layout: "catalog" },
+  { id: 17, title: "Systemic Layer", accent: "#2e7d5a", surface: "#e4ede8", ink: "#121e18", layout: "minimal" },
+  { id: 18, title: "Neural Bridge", accent: "#8d6e63", surface: "#ede8e2", ink: "#1e1814", layout: "editorial" },
+  { id: 19, title: "Quant Signal", accent: "#e65100", surface: "#2a2522", ink: "#f5efe8", layout: "poster" },
+  { id: 20, title: "Lattice View", accent: "#ab47bc", surface: "#f0e8f2", ink: "#1a141e", layout: "catalog" },
+  { id: 21, title: "Neural Ops", accent: "#00838f", surface: "#e0f2f3", ink: "#0a1a1c", layout: "minimal" },
+  { id: 22, title: "Systemic Hub", accent: "#bf360c", surface: "#fbe9e7", ink: "#1a0e0a", layout: "poster" },
+  { id: 23, title: "Vector Strategy", accent: "#546e7a", surface: "#eceff1", ink: "#1a2024", layout: "editorial" },
+  { id: 24, title: "Monolith Neural", accent: "#212121", surface: "#f5f5f5", ink: "#0a0a0a", layout: "catalog" },
+  { id: 25, title: "Systemic Forge", accent: "#e64a19", surface: "#3e2723", ink: "#ffccbc", layout: "poster" },
+  { id: 26, title: "Logic Bureau", accent: "#6d4c41", surface: "#efebe9", ink: "#1c1412", layout: "editorial" },
+  { id: 27, title: "Neural Media", accent: "#7b1fa2", surface: "#f3e5f5", ink: "#1a0e20", layout: "catalog" },
+  { id: 28, title: "Core Intelligence", accent: "#0277bd", surface: "#e1f5fe", ink: "#0a1820", layout: "minimal" },
+  { id: 29, title: "Systemic Forge", accent: "#ff6f00", surface: "#fff8e1", ink: "#1a1408", layout: "poster" },
+  { id: 30, title: "Neural Digital", accent: "#455a64", surface: "#f4f6f7", ink: "#0e1418", layout: "editorial" },
+  { id: 31, title: "Agentic Labs", accent: "#00695c", surface: "#e0f2f1", ink: "#081a18", layout: "minimal" },
+  { id: 32, title: "Systemic Press", accent: "#4e342e", surface: "#d7ccc8", ink: "#1a1210", layout: "catalog" },
 ] as const;
 
 const webImages = Array.from({ length: 32 }).map((_, i) => `/projects/${i + 1}.jpg`);
@@ -149,7 +150,7 @@ export default function InteractiveProjectGrid() {
 
       card.position.set(Math.sin(angle) * radius, y, Math.cos(angle) * radius);
       card.lookAt(0, y, 0);
-      card.userData = { 
+      card.userData = {
         link: `/projects/${mockSites[siteIndex].id}`,
         title: mockSites[siteIndex].title
       };
@@ -352,13 +353,13 @@ export default function InteractiveProjectGrid() {
                 fontWeight: 700,
                 pointerEvents: 'none',
                 zIndex: 9999,
-                fontFamily: 'Inter, sans-serif',
+                fontFamily: 'var(--font-lato), sans-serif',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
                 boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
                 whiteSpace: 'nowrap',
-                letterSpacing: '-0.01em'
+                letterSpacing: '0.01em'
               }}
             >
               <span>{hoveredData.title.toLowerCase().replace(/\s+/g, '-') + '.com'}</span>

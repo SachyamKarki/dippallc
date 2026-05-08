@@ -2,13 +2,16 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { DippaLogo } from "./Icons";
 
 import { navLinks } from "@/lib/data";
 
-export default function Navbar({ sticky = true }: { sticky?: boolean }) {
+export default function Navbar({ sticky = true, theme = "dark" }: { sticky?: boolean; theme?: "dark" | "light" }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
+  const isProjectPage = pathname?.startsWith("/projects/");
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 24);
@@ -19,15 +22,16 @@ export default function Navbar({ sticky = true }: { sticky?: boolean }) {
 
   const closeMenu = () => setIsMenuOpen(false);
 
+  if (isProjectPage) return null;
+
   return (
     <>
       <nav
-        className={`site-nav${sticky ? "" : " site-nav-static"}${isScrolled ? " site-nav-scrolled" : ""}`}
+        className={`site-nav${sticky ? "" : " site-nav-static"}${theme === "light" ? " theme-light" : ""}${isScrolled && sticky ? " site-nav-scrolled" : ""}`}
       >
         <div className="site-nav-inner">
-          <Link href="/" className="site-logo flex items-center gap-3" onClick={closeMenu}>
-            <DippaLogo className="w-9 h-9" />
-            <span className="font-bold text-xl tracking-[0.25em] text-zinc-900 uppercase">DIPPA</span>
+          <Link href="/" className="site-logo" onClick={closeMenu}>
+            <span className="font-black text-lg tracking-[0.35em] uppercase text-inherit leading-none">DIPPA</span>
           </Link>
 
 
@@ -41,8 +45,12 @@ export default function Navbar({ sticky = true }: { sticky?: boolean }) {
                 </li>
               ))}
               <li className="site-nav-cta">
-                <Link href="#contact" className="site-nav-cta-link" onClick={closeMenu}>
-                  Contact Us
+                <Link 
+                  href="#contact" 
+                  className="site-nav-cta-link" 
+                  onClick={closeMenu}
+                >
+                  Request a Consultation
                 </Link>
               </li>
             </ul>
@@ -73,7 +81,7 @@ export default function Navbar({ sticky = true }: { sticky?: boolean }) {
             ))}
             <li className="mt-8">
               <Link href="#contact" className="button-primary w-full uppercase text-xs font-bold tracking-widest" onClick={closeMenu}>
-                Contact Us
+                Request a Consultation
               </Link>
             </li>
           </ul>

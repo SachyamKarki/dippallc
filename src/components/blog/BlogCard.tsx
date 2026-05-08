@@ -24,29 +24,27 @@ export default function BlogCard(props: {
   href?: string;
   variant?: Variant;
 }) {
-  const href = props.href ?? `/blogs/${props.article.slug}`;
+  const href = props.href ?? `/news/${props.article.slug}`;
   const variant = props.variant ?? "standard";
   const label = articleLabel(props.article.tag);
   const coverStyle = props.article.cover ? { backgroundImage: props.article.cover.background } : undefined;
 
   if (variant === "compact") {
     return (
-      <Link href={href} className="blog-card blog-card-compact">
-        <div className="blog-card-compact-meta">
-          <span className="blog-card-tag blog-card-tag-muted">{props.article.tag}</span>
-          <span className="blog-card-date blog-card-date-muted">{formatDate(props.article.createdAt)}</span>
+      <Link href={href} className="flex flex-col group rounded-lg border-t border-gray-100 px-2 py-6 transition-all hover:bg-gray-50 first:border-0">
+        <div className="flex items-center gap-3 mb-3">
+          <span className="text-[9px] font-bold uppercase tracking-widest text-gray-500">{props.article.tag}</span>
+          <span className="w-1 h-1 rounded-full bg-gray-200"></span>
+          <span className="text-[9px] font-bold uppercase tracking-widest text-gray-500">{formatDate(props.article.createdAt)}</span>
         </div>
 
-        <h3 className="blog-card-title blog-card-title-compact">{props.article.title}</h3>
-        <p className="blog-card-excerpt blog-card-excerpt-compact">{props.article.excerpt}</p>
+        <h3 className="text-xl font-bold tracking-tight text-[#111] mb-3 group-hover:text-[#364835] transition-colors">{props.article.title}</h3>
+        <p className="mb-4 line-clamp-2 text-sm leading-relaxed text-[#4b5563]">{props.article.excerpt}</p>
 
-        <div className="blog-card-footer blog-card-footer-compact">
-          <span className="blog-card-footer-note">{label}</span>
-          <span className="blog-card-cta">
-            Read more
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
+        <div className="flex items-center justify-between mt-auto">
+          <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-gray-500">{label}</span>
+          <span className="text-[10px] font-bold uppercase tracking-widest text-[#111] flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+            Read Archive &rarr;
           </span>
         </div>
       </Link>

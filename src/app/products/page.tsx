@@ -7,7 +7,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { allProducts } from "@/lib/data";
 
 const FILTER_ALL = "all" as const;
-const PAGE_SIZE = 8;
+const PAGE_SIZE = 12;
 
 function normalizeWhitespace(value: string) {
   return value.replace(/\s+/g, " ").trim();

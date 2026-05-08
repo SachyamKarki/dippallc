@@ -125,11 +125,11 @@ export const examplePosts: readonly BlogPost[] = [
     ],
   },
   {
-    slug: "building-a-premium-design-system",
-    title: "Building a premium design system without slowing delivery",
-    tag: "Product engineering",
+    slug: "building-premium-engineering-systems",
+    title: "Building premium engineering systems for scale",
+    tag: "Technical Architecture",
     excerpt:
-      "A lightweight approach to tokens, components, and interaction patterns that improves consistency without becoming a governance project.",
+      "A lightweight approach to primitives, state management, and interaction patterns that improves consistency without becoming a governance project.",
     createdAt: "2026-03-21T00:00:00.000Z",
     source: "example",
     cover: { kind: "gradient", background: "linear-gradient(135deg, rgba(217, 70, 239, 0.12) 0%, rgba(255, 255, 255, 1) 52%, rgba(15, 23, 42, 0.12) 100%)" },
@@ -137,11 +137,11 @@ export const examplePosts: readonly BlogPost[] = [
     initialUpvotes: 142,
     initialDownvotes: 11,
     content: [
-      { type: "p", text: "The best design systems feel invisible: products look consistent, teams move faster, and nobody argues about button padding." },
-      { type: "h2", text: "Start with tokens, not a component catalog" },
+      { type: "p", text: "The best engineering systems feel invisible: products look consistent, teams move faster, and technical debt stays low." },
+      { type: "h2", text: "Start with primitives, not a component catalog" },
       {
         type: "p",
-        text: "Define a small set of tokens (colors, spacing, radius, typography) and use them everywhere. Components become easier when the primitives are stable.",
+        text: "Define a small set of primitives (primitives, spacing, radius, typography) and use them everywhere. Components become easier when the system is stable.",
       },
       { type: "h2", text: "Components should encode decisions" },
       {
@@ -152,7 +152,7 @@ export const examplePosts: readonly BlogPost[] = [
           "A form input that always includes validation affordances.",
         ],
       },
-      { type: "quote", text: "A component is a decision you no longer need to remake.", attribution: "Design system principle" },
+      { type: "quote", text: "A component is a decision you no longer need to remake.", attribution: "Engineering principle" },
     ],
   },
   {

@@ -1,7 +1,26 @@
 import type { Metadata } from "next";
+import { Poppins, Lato, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import ScrollRevealProvider from "@/components/ScrollRevealProvider";
 import Chrome from "@/components/Chrome";
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-poppins",
+});
+
+const lato = Lato({
+  subsets: ["latin"],
+  weight: ["100", "300", "400", "700", "900"],
+  variable: "--font-lato",
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-playfair",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://dippa.group"),
@@ -49,7 +68,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className="antialiased">
+      <body className={`${poppins.variable} ${lato.variable} ${playfair.variable} antialiased`}>
         <ScrollRevealProvider>
           <Chrome>{children}</Chrome>
         </ScrollRevealProvider>

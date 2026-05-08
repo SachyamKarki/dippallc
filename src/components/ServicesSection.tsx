@@ -78,21 +78,21 @@ export default function ServicesSection() {
   }, []);
 
   return (
-    <section className="services-section" ref={sectionRef} id="services">
+    <section className="services-section bg-black py-32" ref={sectionRef} id="services">
       <div className="section-shell">
-        <div className="services-grid">
+        <div className="services-grid space-y-32">
           {services.map((service, index) => (
             <article 
               key={service.id} 
-              className={`service-row${index % 2 === 1 ? " service-row-reverse" : ""}`}
+              className={`service-row${index % 2 === 1 ? " service-row-reverse" : ""} flex flex-col lg:flex-row items-center gap-20`}
             >
-              <div className="service-content">
-                <span className="service-kicker">{service.kicker}</span>
-                <h3>{service.title}</h3>
-                <p>{service.description}</p>
+              <div className="service-content lg:w-1/2 space-y-6">
+                <span className="text-xs font-black uppercase tracking-[0.2em] text-white/40">{service.kicker}</span>
+                <h3 className="text-4xl lg:text-6xl font-black text-white tracking-tighter leading-none">{service.title}</h3>
+                <p className="text-xl lg:text-2xl text-white leading-relaxed font-medium">{service.description}</p>
               </div>
 
-              <div className="service-visual">
+              <div className="service-visual lg:w-1/2 h-[500px] relative rounded-[3rem] overflow-hidden grayscale hover:grayscale-0 transition-all duration-700">
                 <Image
                   src={service.image}
                   alt={service.title}

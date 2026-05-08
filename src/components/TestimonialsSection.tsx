@@ -90,31 +90,36 @@ export default function TestimonialsSection() {
           <h2 className="section-title">Senior-led execution. Trusted by bold operators.</h2>
         </div>
 
-        <div 
-          ref={containerRef}
-          className="testimonials-animation-wrapper overflow-hidden transition-all duration-300"
-          style={{ height: '400px' }} // Fallback
-        >
-          <div ref={gridRef} className="testimonials-grid">
-            {testimonials.map((testimonial, idx) => (
-              <article key={testimonial.name + idx} className="testimonial-card">
-                <div className="testimonial-person">
-                  <Image
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    width={56}
-                    height={56}
-                    className="testimonial-avatar"
-                  />
-                  <div>
-                    <strong>{testimonial.name}</strong>
-                    <span>{testimonial.role}</span>
+        <div className="relative">
+          <div 
+            ref={containerRef}
+            className="testimonials-animation-wrapper overflow-hidden"
+            style={{ height: '400px' }} // Fallback
+          >
+            <div ref={gridRef} className="testimonials-grid">
+              {testimonials.map((testimonial, idx) => (
+                <article key={testimonial.name + idx} className="testimonial-card">
+                  <div className="testimonial-person">
+                    <Image
+                      src={testimonial.image}
+                      alt={testimonial.name}
+                      width={56}
+                      height={56}
+                      className="testimonial-avatar"
+                    />
+                    <div>
+                      <strong>{testimonial.name}</strong>
+                      <span>{testimonial.role}</span>
+                    </div>
                   </div>
-                </div>
-                <p>{testimonial.quote}</p>
-              </article>
-            ))}
+                  <p>{testimonial.quote}</p>
+                </article>
+              ))}
+            </div>
           </div>
+          
+          {/* Glassy Overlay for Collapsed State */}
+          <div className={`absolute bottom-0 left-0 w-full h-32 pointer-events-none transition-opacity duration-700 bg-gradient-to-t from-[#fcfcfc] to-transparent z-10 ${showAll ? 'opacity-0' : 'opacity-100'}`} />
         </div>
 
         <div className="flex justify-center mt-16">

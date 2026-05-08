@@ -2,8 +2,8 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.core.mail import send_mail
-from .models import Post, Testimonial
-from .serializers import PostSerializer, TestimonialSerializer
+from .models import Post, Testimonial, JobOpening
+from .serializers import PostSerializer, TestimonialSerializer, JobOpeningSerializer
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all().order_by('-created_at')
@@ -12,6 +12,10 @@ class PostViewSet(viewsets.ModelViewSet):
 class TestimonialViewSet(viewsets.ModelViewSet):
     queryset = Testimonial.objects.all()
     serializer_class = TestimonialSerializer
+
+class JobOpeningViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = JobOpening.objects.filter(is_active=True)
+    serializer_class = JobOpeningSerializer
 
 @api_view(['POST'])
 def contact_view(request):
@@ -35,4 +39,3 @@ def contact_view(request):
     # )
     
     return Response({'success': 'Message received!'}, status=status.HTTP_200_OK)
-

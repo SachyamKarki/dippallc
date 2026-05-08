@@ -58,23 +58,19 @@ export default function ArticleVote(props: {
   }
 
   const baseButton =
-    "inline-flex items-center gap-2 rounded-2xl border px-4 py-2 text-xs font-black uppercase tracking-widest transition focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/30";
+    "inline-flex min-h-12 items-center gap-2 rounded-full border px-5 text-[9px] font-bold uppercase tracking-widest transition focus:outline-none";
 
   return (
     <div className="flex flex-wrap items-center gap-3">
-      <div className="mr-2 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500">
-        Score <span className="font-black text-slate-900">{totals.score}</span>
-      </div>
-
       <button
         type="button"
         onClick={onUpvote}
         aria-pressed={vote === 1}
         className={`${baseButton} ${
-          vote === 1 ? "border-blue-200 bg-blue-50 text-blue-700" : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"
+          vote === 1 ? "border-[#364835] bg-[#364835] text-white shadow-lg" : "border-gray-200 bg-white text-[#475569] hover:border-gray-400"
         }`}
       >
-        <span className="text-sm leading-none">↑</span> Upvote <span className="text-slate-400 font-bold">({totals.upvotes})</span>
+        <span className="text-sm leading-none">↑</span> Helpful <span className={vote === 1 ? "text-white/70" : "text-gray-500"}>({totals.upvotes})</span>
       </button>
 
       <button
@@ -83,14 +79,12 @@ export default function ArticleVote(props: {
         aria-pressed={vote === -1}
         className={`${baseButton} ${
           vote === -1
-            ? "border-rose-200 bg-rose-50 text-rose-700"
-            : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"
+            ? "border-black bg-black text-white"
+            : "border-gray-200 bg-white text-[#475569] hover:border-gray-400"
         }`}
       >
-        <span className="text-sm leading-none">↓</span> Downvote{" "}
-        <span className="text-slate-400 font-bold">({totals.downvotes})</span>
+        <span className="text-sm leading-none">↓</span> Not for me <span className={vote === -1 ? "text-white/70" : "text-gray-500"}>({totals.downvotes})</span>
       </button>
     </div>
   );
 }
-

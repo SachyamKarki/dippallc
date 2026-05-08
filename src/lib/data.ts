@@ -12,7 +12,7 @@ export const serviceLines = [
       "Premium internal platforms, customer-facing apps, and operational software built with senior product judgment from day one.",
     deliverables: [
       "Web apps and internal tools",
-      "Platform architecture and design systems",
+      "Platform architecture and engineering systems",
       "Launch-ready engineering teams",
     ],
     icon: "code",
@@ -83,13 +83,13 @@ export const operatingModel = [
   },
   {
     step: "02",
-    title: "Design the control layer",
+    title: "Architect the control layer",
     text: "Every system gets a clear operating model: permissions, human approvals, analytics, failure states, and governance.",
   },
   {
     step: "03",
     title: "Ship with senior craft",
-    text: "Design, engineering, and AI orchestration move together so the first release looks premium and works under real pressure.",
+    text: "High-end engineering and AI orchestration move together so the first release looks premium and works under real pressure.",
   },
   {
     step: "04",
@@ -101,7 +101,7 @@ export const operatingModel = [
 export const engagementModes = [
   "Launch a new premium product or client portal",
   "Modernize an outdated internal system",
-  "Design AI agents for operations or support",
+  "Engineer AI agents for operations or support",
   "Add senior execution to a transformation initiative",
 ] as const;
 
@@ -148,9 +148,8 @@ export const insights = [
 ] as const;
 
 export const navLinks = [
-  { label: "About", href: "/about" },
   { label: "Products", href: "/products" },
-  { label: "Blogs", href: "/blogs" },
+  { label: "News", href: "/news" },
   { label: "Careers", href: "/careers" },
 ] as const;
 
@@ -159,7 +158,7 @@ export const footerLinks = [
   { label: "Proof", href: "/#proof" },
   { label: "Process", href: "/#process" },
   { label: "Insights", href: "/#insights" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Request a Consultation", href: "/#contact" },
 ] as const;
 
 export const socialLinks = [
@@ -186,7 +185,7 @@ export const principles = [
 export const capabilities = [
   "Custom web applications and internal operating platforms",
   "AI agent orchestration, copilots, and workflow automation",
-  "Product design systems and launch-ready brand execution",
+  "Technical engineering systems and launch-ready product execution",
   "Transformation advisory with embedded technical delivery",
 ] as const;
 
@@ -204,7 +203,7 @@ export const careers = [
     location: "Remote",
   },
   {
-    title: "Design Technologist",
+    title: "AI Solutions Architect",
     department: "Creative Engineering",
     type: "Contract",
     location: "Kathmandu",
@@ -213,28 +212,163 @@ export const careers = [
 
 export const allProducts = [
   {
+    slug: "ops-canvas",
     name: "Ops Canvas",
     description:
       "A premium web operations cockpit for leadership teams that need unified visibility across delivery, finance, and growth.",
-    category: "Software",
+    category: "Software Engineering",
     image: "/images/blog-software.png",
-    href: "/#services",
+    href: "/projects/ops-canvas",
+    stack: ["Next.js", "PostgreSQL", "Real-time WebSockets", "Redis", "Custom Analytics Engine"],
+    stats: [
+      { label: "Data Latency", value: "85", suffix: "ms" },
+      { label: "Reporting Efficiency", value: "92", suffix: "%" },
+    ],
+    timeline: "14 weeks",
+    liveLink: "https://ops-canvas.dippa.group",
+    details: [
+      {
+        type: "narrative",
+        title: "The Objective",
+        body: "Standardizing the flow of multi-regional internal data for a logistics firm that was struggling with 14-day delays in financial reporting. The goal was to reach sub-second visibility across all operational nodes.",
+      },
+      {
+        type: "media",
+        image: "/projects/1.jpg",
+        caption: "Data Normalization Layer Architecture",
+      },
+      {
+        type: "narrative",
+        title: "The Challenge",
+        body: "Legacy ERP systems lacked modern API endpoints, requiring the development of custom middleware that could poll, transform, and stream data without impacting the performance of the source databases.",
+      },
+      {
+        type: "media",
+        image: "/projects/5.jpg",
+        caption: "Middleware Performance Monitoring Dashboard",
+      },
+      {
+        type: "narrative",
+        title: "The Execution",
+        body: "We implemented a custom event-bus architecture that normalizes incoming telemetry from legacy SAP systems and real-time GPS trackers into a unified Postgres layer, served via high-frequency WebSockets.",
+      },
+      {
+        type: "media",
+        image: "/projects/6.jpg",
+        caption: "Real-time Geospatial Visualization Layer",
+      },
+      {
+        type: "narrative",
+        title: "The User Experience",
+        body: "The final interface was designed as a high-density 'command center' for logistics coordinators, reducing the number of dashboard switches by 70% and placing critical intervention tools exactly where they are needed.",
+      },
+      {
+        type: "impact",
+        title: "Final Impact",
+        body: "Stakeholders now operate on zero-delay data, resulting in a documented $1.2M reduction in yearly operational waste through proactive anomaly detection.",
+      }
+    ]
   },
   {
+    slug: "agent-desk",
     name: "Agent Desk",
     description:
       "A controlled AI support system that routes work, drafts resolutions, and escalates only what truly needs human attention.",
-    category: "AI Automation",
+    category: "AI & Automation",
     image: "/images/blog-ai-automation.png",
-    href: "/#proof",
+    href: "/projects/agent-desk",
+    stack: ["LangChain", "OpenAI GPT-4", "Pinecone DB", "Node.js", "Python"],
+    stats: [
+      { label: "Auto-Resolution", value: "61", suffix: "%" },
+      { label: "Agent Handling Time", value: "-40", suffix: "%" },
+    ],
+    timeline: "8 weeks",
+    liveLink: "https://agent-desk.dippa.group",
+    details: [
+      {
+        type: "narrative",
+        title: "The Problem",
+        body: "A scaling SaaS enterprise was experiencing a 300% increase in technical support volume. Response times were degrading, and the support team was burning out on repetitive queries.",
+      },
+      {
+        type: "media",
+        image: "/projects/2.jpg",
+        caption: "Automated Workflows & RAG Implementation",
+      },
+      {
+        type: "narrative",
+        title: "The Strategy",
+        body: "Instead of a simple chatbot, we designed a multi-agent system where one agent categorizes the intent, another retrieves relevant documentation, and a third synthesizes a highly contextual resolution draft for human review.",
+      },
+      {
+        type: "media",
+        image: "/projects/7.jpg",
+        caption: "Agent Reasoning Chain & Tool Calling Logs",
+      },
+      {
+        type: "narrative",
+        title: "The Infrastructure",
+        body: "By building a Retrieval Augmented Generation (RAG) system grounded in their actual technical documentation (1,500+ pages), we enabled AI agents to resolve L1/L2 tickets with 89% accuracy.",
+      },
+      {
+        type: "media",
+        image: "/projects/8.jpg",
+        caption: "Vector Database Performance & Embedding Analysis",
+      },
+      {
+        type: "impact",
+        title: "Final Impact",
+        body: "61% of all incoming tickets are now closed without human intervention, allowing the core team to focus exclusively on complex architectural consulting for clients.",
+      }
+    ]
   },
   {
+    slug: "clarity-sprint",
     name: "Clarity Sprint",
     description:
       "A transformation engagement that combines diagnostics, product direction, and execution planning with a fast implementation start.",
-    category: "Consulting",
-    image: "/images/blog-consulting.png",
-    href: "/#process",
+    category: "Strategic Consulting",
+    image: "/projects/3.jpg",
+    href: "/projects/clarity-sprint",
+    stack: ["Diagnostic Audit", "Execution Roadmap", "Rapid Prototyping", "Stakeholder Governance"],
+    stats: [
+      { label: "Diagnostic Phase", value: "15", suffix: " days" },
+      { label: "Deployment Cycle", value: "-72", suffix: "%" },
+    ],
+    timeline: "3 weeks",
+    liveLink: "https://clarity-sprint.dippa.group",
+    details: [
+      {
+        type: "narrative",
+        title: "The Strategy",
+        body: "Most digital transformations fail due to analysis paralysis. We replaced traditional multi-month consulting cycles with a high-velocity 15-day diagnostic pulse.",
+      },
+      {
+        type: "media",
+        image: "/projects/4.jpg",
+        caption: "Tactical Execution Planning Session",
+      },
+      {
+        type: "narrative",
+        title: "The Approach",
+        body: "We conducted over 40 hours of stakeholder interviews and technical audits in the first 5 days, identifying critical friction points that were costing the organization $50k per week in lost developer productivity.",
+      },
+      {
+        type: "media",
+        image: "/projects/9.jpg",
+        caption: "Technical Debt Mapping & Prioritization Matrix",
+      },
+      {
+        type: "narrative",
+        title: "The Delivery",
+        body: "We identified over $400k in annual software licensing overlap within the first 10 days and delivered a functional prototype of a consolidated platform by the end of week three.",
+      },
+      {
+        type: "impact",
+        title: "Final Impact",
+        body: "The client successfully pivoted their entire IT budget toward growth-focused internal engineering, abandoning three legacy vendors and shipping their first unified platform in 18 days.",
+      }
+    ]
   },
 ] as const;
 
