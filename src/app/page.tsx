@@ -74,30 +74,29 @@ export default function Home() {
       <FAQSection />
       <TestimonialsSection />
 
-      <section className="py-[12rem] bg-white reveal">
-        <div className="section-shell">
-          <div 
-            className="relative rounded-[3rem] py-24 px-8 md:px-16 text-center max-w-[1200px] mx-auto flex flex-col items-center justify-center overflow-hidden"
-            style={{ 
-              backgroundColor: '#F3F0EB',
-              backgroundImage: 'radial-gradient(#dcd7ce 1.5px, transparent 1.5px)',
-              backgroundSize: '32px 32px'
-            }}
-          >
-            <h2 className="relative z-10 text-4xl md:text-6xl font-black mb-6 text-[#1e1b26] tracking-tight" style={{ fontFamily: 'var(--font-playfair), serif' }}>
-              Ready to start your journey?
-            </h2>
-            <p className="relative z-10 text-lg md:text-xl text-[#4a4a4a] max-w-2xl mx-auto mb-10 font-medium leading-relaxed">
-              Book a discovery call and let's map your technical landscape into a clear, institutional-grade architectural plan.
-            </p>
-            <div className="relative z-10 mt-4">
-              <Link 
-                href="/contact" 
-                className="journey-btn"
-              >
-                Get Started
-              </Link>
-            </div>
+      <section className="py-[12rem] bg-white reveal px-4 md:px-8">
+        <div 
+          className="relative rounded-[3rem] py-6 md:py-8 px-8 md:px-16 text-center w-full max-w-[1800px] mx-auto flex flex-col items-center justify-center overflow-hidden"
+          style={{ 
+            backgroundColor: '#F3F0EB',
+            backgroundImage: 'radial-gradient(#dcd7ce 1.5px, transparent 1.5px)',
+            backgroundSize: '32px 32px'
+          }}
+        >
+          <h2 className="relative z-10 text-5xl md:text-[4.5rem] font-black mb-2 text-[#1e1b26] tracking-tight leading-tight" style={{ fontFamily: 'var(--font-playfair), serif' }}>
+            Start your journey
+          </h2>
+          <p className="relative z-10 text-base md:text-lg text-[#4a4a4a] max-w-2xl mx-auto mb-4 font-medium">
+            Book a discovery call and let's map your technical landscape into a clear, institutional-grade architectural plan.
+          </p>
+          <div className="relative z-10 mt-2">
+            <Link 
+              href="/contact" 
+              className="journey-btn"
+              style={{ backgroundColor: '#364835' }}
+            >
+              Get Started
+            </Link>
           </div>
         </div>
       </section>

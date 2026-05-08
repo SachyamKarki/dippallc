@@ -23,8 +23,8 @@ body::-webkit-scrollbar,
   --border: rgba(0, 0, 0, 0.08);
   --surface: #ffffff;
   --surface-strong: #f8fafc;
-  --accent: #9b51e0;
-  --primary: #3b82f6;
+  --accent: #364835;
+  --primary: #364835;
 
   --shadow-lg: 0 24px 70px rgba(0, 0, 0, 0.06);
   --shadow-md: 0 16px 38px rgba(0, 0, 0, 0.04);
@@ -177,19 +177,17 @@ section {
   letter-spacing: -0.01em;
   transition: all 0.3s ease;
   display: inline-block;
-  background: #ffffff;
-  color: #0f172a;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  border: 1.5px solid #0f172a;
+  background: var(--accent);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(54, 72, 53, 0.2);
+  border: 1.5px solid var(--accent);
 }
 
 .button-primary:hover,
 .navbar-cta:hover {
-  background: var(--accent);
-  color: white;
+  filter: brightness(1.1);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(155, 81, 224, 0.2);
-  border-color: var(--accent);
+  box-shadow: 0 8px 25px rgba(54, 72, 53, 0.3);
 }
 
 .button-secondary {
@@ -581,7 +579,7 @@ section {
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
-  padding: 7vh 8vw !important;
+  padding: 7vh 18vw 7vh 8vw !important;
   background: #ffffff;
   color: #0f172a;
   overflow: hidden;
@@ -589,9 +587,9 @@ section {
 
 .hero-person-container {
   position: absolute;
-  left: 12%;
+  left: 25%;
   bottom: 0;
-  width: 50%;
+  width: 45%;
   height: 90%;
   z-index: 2;
   pointer-events: none;

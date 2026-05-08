@@ -3,7 +3,7 @@ import { DippaLogo } from "./Icons";
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-[#0a0a0a] text-[#e4e7e4] relative z-10 overflow-hidden border-t border-white/5">
+    <footer className="w-full bg-[#364835] text-[#e4e7e4] relative z-10 overflow-hidden border-t border-white/5">
       <div className="section-shell pt-24 pb-12">
         {/* Top Grid: Info & Navigation */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-8 mb-20">
