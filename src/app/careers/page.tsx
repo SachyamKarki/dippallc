@@ -99,7 +99,7 @@ export default function CareersPage() {
                   </div>
                   <h4>Excellence</h4>
                 </div>
-                <p>We're committed to developing our talent and building great things.</p>
+                <p>We&apos;re committed to developing our talent and building great things.</p>
               </div>
             </div>
 
@@ -228,7 +228,7 @@ export default function CareersPage() {
               </p>
             </div>
             <div className="cta-banner-action">
-              <a href="#contact" className="cta-banner-btn">LET'S CONNECT</a>
+              <a href="#contact" className="cta-banner-btn">LET&apos;S CONNECT</a>
             </div>
           </div>
         </div>

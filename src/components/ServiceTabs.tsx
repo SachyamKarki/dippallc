@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
@@ -49,29 +49,54 @@ const services = [
 
 export default function ServiceTabs() {
   const [activeTab, setActiveTab] = useState(services[0].id);
+  const [sliderStyle, setSliderStyle] = useState({ left: 0, width: 0, opacity: 0 });
+  const tabsRef = useRef<(HTMLButtonElement | null)[]>([]);
+
+  useEffect(() => {
+    const activeIndex = services.findIndex(s => s.id === activeTab);
+    const activeButton = tabsRef.current[activeIndex];
+    if (activeButton) {
+      setSliderStyle({
+        left: activeButton.offsetLeft,
+        width: activeButton.offsetWidth,
+        opacity: 1
+      });
+    }
+  }, [activeTab]);
 
   const activeService = services.find(s => s.id === activeTab) || services[0];
 
   return (
-    <section className="py-[12rem] bg-white relative overflow-hidden" id="strategic-capability">
+    <section className="py-32 bg-white relative overflow-hidden" id="strategic-capability">
       <div className="max-w-[1700px] mx-auto px-6 lg:px-12">
         <div className="text-center mb-12">
-          <h2 className="section-title mb-4">Strategic Capability.</h2>
-          <p className="max-w-2xl mx-auto text-xl font-medium text-slate-600">
+          <h2 className="section-title mb-4">WHAT WE OFFER ?</h2>
+          <p className="max-w-2xl mx-auto text-xl font-medium text-[#1a1a1a]">
             Disciplined execution for companies that require technical excellence and systemic operational clarity.
           </p>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-3 mb-0 px-6">
-          {services.map((service) => (
+        <div className="relative flex overflow-x-auto no-scrollbar md:flex-wrap justify-start md:justify-center items-center p-2 bg-slate-100/80 backdrop-blur-sm rounded-[2.5rem] max-w-full md:w-fit mx-auto mb-0 border border-slate-200">
+          {/* Sliding Indicator */}
+          <div 
+            className="absolute h-[calc(100%-16px)] bg-white rounded-full shadow-md transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]"
+            style={{
+              left: `${sliderStyle.left}px`,
+              width: `${sliderStyle.width}px`,
+              opacity: sliderStyle.opacity
+            }}
+          />
+
+          {services.map((service, index) => (
             <button
               key={service.id}
+              ref={el => { tabsRef.current[index] = el; }}
               onClick={() => setActiveTab(service.id)}
               className={cn(
-                "px-8 py-3 text-sm font-bold tracking-tight transition-all duration-500 border",
+                "relative z-10 px-6 py-3 text-xs md:text-sm uppercase tracking-widest font-bold transition-colors duration-300 rounded-full",
                 activeTab === service.id 
-                  ? "bg-[var(--accent)] text-white border-[var(--accent)] shadow-lg scale-105" 
-                  : "bg-white text-slate-400 border-slate-100 hover:border-slate-300 hover:text-slate-900"
+                  ? "text-slate-900" 
+                  : "text-slate-500 hover:text-slate-800"
               )}
             >
               {service.name}

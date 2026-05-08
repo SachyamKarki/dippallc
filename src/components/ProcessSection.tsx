@@ -158,7 +158,7 @@ export default function ProcessSection() {
       <div className="process-layout">
         <div className="process-intro" ref={introRef}>
 
-          <h2 ref={titleRef}>{introContent.approach.title}</h2>
+          <h2 className="process-title" ref={titleRef}>{introContent.approach.title}</h2>
           <p className="process-description" ref={descriptionRef}>
             {introContent.approach.description}
           </p>

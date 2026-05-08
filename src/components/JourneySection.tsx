@@ -28,14 +28,14 @@ const steps = [
 
 export default function JourneySection() {
   return (
-    <section id="journey" className="section py-[12rem] bg-zinc-50 overflow-hidden reveal">
+    <section id="journey" className="section py-32 bg-zinc-50 overflow-hidden reveal">
       <div className="section-shell">
         <div className="journey-grid">
           <div className="journey-image-col">
             <div className="journey-image-wrapper">
               <Image
                 src="/images/journey-person-v3.png"
-                alt="Start your journey with Dippa"
+                alt="Start Your Journey with Dippa"
                 fill
                 className="object-contain object-bottom"
                 priority
@@ -44,15 +44,16 @@ export default function JourneySection() {
           </div>
 
           <div className="journey-content-col">
-            <h2 className="journey-title">Start your journey</h2>
-
+            <h2 className="journey-title md:-ml-24 mb-12">Start Your Journey</h2>
             <div className="journey-steps">
               {steps.map((step) => (
-                <div key={step.number} className="journey-step">
-                  <span className="journey-step-number">{step.number}</span>
-                  <div className="journey-step-body">
-                    <h3 className="journey-step-title">{step.title}</h3>
-                    <p className="journey-step-text">{step.text}</p>
+                <div key={step.number} className="journey-step flex flex-col gap-0.5">
+                  <div className="flex items-center gap-6">
+                    <span className="journey-step-number !min-w-[1.5rem] !text-right !pt-0 !mb-0">{step.number}</span>
+                    <h3 className="journey-step-title !m-0">{step.title}</h3>
+                  </div>
+                  <div className="pl-12">
+                    <p className="journey-step-text m-0">{step.text}</p>
                   </div>
                 </div>
               ))}

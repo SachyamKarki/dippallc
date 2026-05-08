@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import WhyDippaSection from "@/components/WhyDippaSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
@@ -12,17 +11,16 @@ import InsightsCarousel from "@/components/InsightsCarousel";
 import { getExamplePostSummaries } from "@/lib/blog/examplePosts";
 
 export default function Home() {
-  const latestInsights = getExamplePostSummaries().slice(0, 3);
 
   return (
     <main className="site-shell squarespace-home">
       <section className="hero-section hero-full-bg">
         <HeroCarousel />
         <div className="hero-container relative z-10 py-32">
-          <div className="hero-copy-right max-w-5xl">
-            <h1 className="hero-title">Autonomous <br /> Systems.</h1>
+          <div className="hero-copy-right max-w-3xl">
+            <h1 className="hero-title">Engineering <br className="hidden md:block" /> High-Stakes AI.</h1>
             <p className="hero-description max-w-xl">
-              Senior-led engineering for high-stakes systemic orchestration and institutional continuity.
+              Senior-led systemic orchestration and institutional continuity for modern enterprise leadership.
             </p>
 
             <div className="hero-actions flex justify-start gap-6">
@@ -43,7 +41,7 @@ export default function Home() {
 
       <section className="insights-section reveal" id="insights">
         <div className="section-shell">
-          <h2 className="section-title">Engineering Intelligence.</h2>
+          <h2 className="section-title">DIPPA ARTICLES.</h2>
           <p className="section-subtitle">
             Engagement governance, architectural standards, and research-led systemic delivery.
           </p>
@@ -58,7 +56,11 @@ export default function Home() {
           />
 
           <div className="flex justify-center mt-16">
-            <Link href="/news" className="button-secondary">
+            <Link
+              href="/news"
+              className="button-secondary"
+              style={{ backgroundColor: '#364835', color: '#ffffff', borderColor: '#364835' }}
+            >
               View all news
             </Link>
           </div>
@@ -74,28 +76,30 @@ export default function Home() {
       <FAQSection />
       <TestimonialsSection />
 
-      <section className="py-[12rem] bg-white reveal px-4 md:px-8">
-        <div 
-          className="relative rounded-[3rem] py-6 md:py-8 px-8 md:px-16 text-center w-full max-w-[1800px] mx-auto flex flex-col items-center justify-center overflow-hidden"
-          style={{ 
+      <section className="py-32 bg-white reveal px-4 md:px-8">
+        <div
+          className="relative rounded-[3rem] py-16 md:py-24 px-8 md:px-16 text-center w-full max-w-[1800px] mx-auto flex flex-col items-center justify-center overflow-hidden"
+          style={{
             backgroundColor: '#F3F0EB',
             backgroundImage: 'radial-gradient(#dcd7ce 1.5px, transparent 1.5px)',
             backgroundSize: '32px 32px'
           }}
         >
-          <h2 className="relative z-10 text-5xl md:text-[4.5rem] font-black mb-2 text-[#1e1b26] tracking-tight leading-tight" style={{ fontFamily: 'var(--font-playfair), serif' }}>
-            Start your journey
+          <h2 className="section-title !mb-6">
+            Start Your Journey
           </h2>
-          <p className="relative z-10 text-base md:text-lg text-[#4a4a4a] max-w-2xl mx-auto mb-4 font-medium">
-            Book a discovery call and let's map your technical landscape into a clear, institutional-grade architectural plan.
+
+          <p className="relative z-10 text-base md:text-lg text-[#4a4a4a] max-w-2xl mx-auto mb-12 font-medium">
+            Book a discovery call and let&apos;s map your technical landscape into a clear, institutional-grade architectural plan.
           </p>
-          <div className="relative z-10 mt-2">
-            <Link 
-              href="/contact" 
+
+          <div className="relative z-10">
+            <Link
+              href="/contact"
               className="journey-btn"
               style={{ backgroundColor: '#364835' }}
             >
-              Get Started
+              Book Discovery Call
             </Link>
           </div>
         </div>

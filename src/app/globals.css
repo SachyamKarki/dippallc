@@ -18,7 +18,7 @@ body::-webkit-scrollbar,
 /* 1. Variables & Design Tokens */
 :root {
   --background: #ffffff;
-  --foreground: #0f172a;
+  --foreground: #0a0a0a;
   --muted: #64748b;
   --border: rgba(0, 0, 0, 0.08);
   --surface: #ffffff;
@@ -43,7 +43,7 @@ body::-webkit-scrollbar,
   --color-foreground: var(--foreground);
   --color-white: #ffffff;
   --font-main: var(--font-lato), "Inter", system-ui, sans-serif;
-  --font-title: var(--font-poppins), "Avenir Next", system-ui, sans-serif;
+  --font-title: var(--font-playfair), "Playfair Display", serif;
   --font-sans: var(--font-main);
 }
 
@@ -85,9 +85,9 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: var(--font-title);
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  font-family: var(--font-playfair), serif;
+  font-weight: 800;
+  letter-spacing: -0.04em;
   line-height: 1.05;
   margin: 0;
 }
@@ -237,7 +237,7 @@ section {
   text-transform: uppercase;
   letter-spacing: 0.25em;
   color: #94a3b8;
-  font-family: var(--font-poppins), sans-serif;
+  font-family: var(--font-lato), sans-serif;
 }
 
 .partners-title {
@@ -298,7 +298,7 @@ section {
 }
 
 .partners-logo-name {
-  font-family: var(--font-poppins), sans-serif;
+  font-family: var(--font-lato), sans-serif;
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: -0.01em;
@@ -579,7 +579,7 @@ section {
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
-  padding: 7vh 18vw 7vh 8vw !important;
+  padding: 7vh 12vw 7vh 8vw !important;
   background: #ffffff;
   color: #0f172a;
   overflow: hidden;
@@ -587,9 +587,9 @@ section {
 
 .hero-person-container {
   position: absolute;
-  left: 25%;
+  left: 12%;
   bottom: 0;
-  width: 45%;
+  width: 40%;
   height: 90%;
   z-index: 2;
   pointer-events: none;
@@ -610,23 +610,29 @@ section {
 
 .section-title,
 .why-dippa-title,
-.work-sphere-title {
+.work-sphere-title,
+.journey-title,
+.news-grid-title,
+.values-main-title,
+.cta-banner-title,
+.process-title,
+.section-title-serif {
   font-family: var(--font-playfair), serif !important;
-  font-size: clamp(2.5rem, 5vw, 4rem) !important;
+  font-size: clamp(2.2rem, 4vw, 3.2rem) !important;
   font-weight: 800 !important;
-  letter-spacing: -0.02em !important;
-  color: inherit;
-  margin-bottom: 1.5rem;
-  line-height: 1.1 !important;
+  letter-spacing: -0.03em !important;
+  color: #1e1b26;
+  margin-bottom: 1.25rem;
+  line-height: 1 !important;
 }
 
 .hero-title {
   font-family: var(--font-playfair), serif;
-  font-size: clamp(2.5rem, 5vw, 4.2rem);
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
   font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 0.95;
-  margin-bottom: 2rem;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 1.5rem;
   text-align: left;
   max-width: 1400px;
   margin-left: 0;
@@ -638,8 +644,8 @@ section {
   font-family: var(--font-lato), sans-serif;
   font-size: 1.05rem;
   line-height: 1.6;
-  color: #475569;
-  margin-bottom: 3.5rem;
+  color: #1a1a1a;
+  margin-bottom: 2.5rem;
   font-weight: 500;
   max-width: 600px;
   margin-left: 0;
@@ -878,12 +884,12 @@ section {
 
 .work-sphere-stage-title {
   margin: 0;
-  font-family: var(--font-title);
+  font-family: var(--font-playfair), serif;
   color: rgba(255, 255, 255, 0.95);
   font-size: clamp(1.2rem, 3.5vw, 2.5rem);
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1;
-  letter-spacing: 0.12em;
+  letter-spacing: -0.02em;
   text-transform: uppercase;
   pointer-events: none;
 }
@@ -1535,10 +1541,9 @@ section {
   font-family: var(--font-subtitle) !important;
 }
 
-.blogs-hero-title,
-.section-title {
+.blogs-hero-title {
   font-family: var(--font-title) !important;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.04em;
 }
 
 .blog-tag-pill {
@@ -2523,6 +2528,8 @@ section {
 .journey-image-wrapper {
   position: relative;
   width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
   aspect-ratio: 4 / 5;
   overflow: hidden;
 }
@@ -2534,11 +2541,7 @@ section {
 }
 
 .journey-title {
-  font-family: var(--font-playfair), serif !important;
-  font-size: clamp(2.5rem, 4vw, 3.5rem);
-  font-weight: 800;
-  color: #111827;
-  letter-spacing: -0.02em;
+  /* Inherits from global section-title styles */
 }
 
 .journey-steps {
@@ -2572,17 +2575,18 @@ section {
 }
 
 .journey-step-title {
-  font-family: var(--font-poppins), sans-serif;
+  font-family: var(--font-playfair), serif;
   font-size: 1rem;
-  font-weight: 700;
-  color: #111827;
+  font-weight: 800;
+  color: #0a0a0a;
+  letter-spacing: -0.02em;
 }
 
 .journey-step-text {
-  font-family: var(--font-sans), sans-serif;
+  font-family: var(--font-main), sans-serif;
   font-size: 0.9rem;
+  color: #1a1a1a;
   line-height: 1.6;
-  color: #6b7280;
 }
 
 .journey-cta {
@@ -2671,7 +2675,7 @@ section {
 .why-dippa-card {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 2.5rem;
+  padding: 2rem;
   border-radius: 1.5rem;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -2778,7 +2782,7 @@ section {
 /* Testimonials */
 .testimonials-section {
   background: #fcfcfc;
-  font-family: var(--font-poppins), sans-serif !important;
+  font-family: var(--font-lato), sans-serif !important;
 }
 
 .testimonials-grid {
@@ -2795,7 +2799,7 @@ section {
   height: 100%;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.02);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  font-family: var(--font-poppins), sans-serif !important;
+  font-family: var(--font-lato), sans-serif !important;
 }
 
 .testimonial-card:hover {
@@ -2809,7 +2813,7 @@ section {
   line-height: 1.7;
   color: #2d3748;
   margin-top: 1.5rem;
-  font-family: var(--font-poppins), sans-serif !important;
+  font-family: var(--font-lato), sans-serif !important;
 }
 
 .testimonial-person {
@@ -2830,14 +2834,14 @@ section {
   font-size: 1rem;
   font-weight: 700;
   color: #1a202c;
-  font-family: var(--font-poppins), sans-serif !important;
+  font-family: var(--font-lato), sans-serif !important;
 }
 
 .testimonial-person span {
   display: block;
   font-size: 0.85rem;
   color: #718096;
-  font-family: var(--font-poppins), sans-serif !important;
+  font-family: var(--font-lato), sans-serif !important;
 }
 
 /* News & Blogs Specific Gaps */
@@ -3816,12 +3820,9 @@ section {
   background: white;
 }
 
+/* Standardized via global section-title styles */
 .section-title-serif {
-  font-family: var(--font-title);
-  font-size: 2.8rem;
-  font-weight: 500;
   text-align: left;
-  color: #1a1a1a;
   margin-bottom: 60px;
 }
 
@@ -4334,5 +4335,42 @@ section {
   .careers-culture-break {
     height: 50vh;
     min-height: 300px;
+  }
+}
+/* --- GLOBAL RESPONSIVENESS FIXES --- */
+@media (max-width: 768px) {
+  .section, .py-\[12rem\] {
+    padding-top: 6rem !important;
+    padding-bottom: 6rem !important;
+  }
+
+  .hero-title {
+    font-size: 2.8rem !important;
+    line-height: 1.1 !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .hero-description {
+    font-size: 1.1rem !important;
+    max-width: 100% !important;
+  }
+
+  .journey-image-wrapper {
+    max-height: 400px;
+    margin-bottom: 2rem;
+  }
+
+  .journey-title {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }

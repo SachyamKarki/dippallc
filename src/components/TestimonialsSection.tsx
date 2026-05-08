@@ -87,7 +87,7 @@ export default function TestimonialsSection() {
 
       <div className="section-shell">
         <div className="section-heading-block">
-          <h2 className="section-title">Senior-led execution. Trusted by bold operators.</h2>
+          <h2 className="section-title">Built for scale. Trusted by visionary operators.</h2>
         </div>
 
         <div className="relative">
@@ -142,7 +142,7 @@ export default function TestimonialsSection() {
               }
               setShowAll(!showAll);
             }}
-            className="button-secondary"
+            className="button-primary"
           >
             {showAll ? "Show less" : "View more testimonials"}
           </button>

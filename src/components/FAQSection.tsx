@@ -48,26 +48,11 @@ export default function FAQSection() {
       });
     });
 
-    // Move title to active FAQ position
-    if (openIndex !== null && titleRef.current && faqRefs.current[openIndex]) {
-      const faqEl = faqRefs.current[openIndex];
-      const offsetTop = faqEl?.offsetTop || 0;
-      gsap.to(titleRef.current, {
-        y: offsetTop,
-        duration: 0.8,
-        ease: "power3.inOut"
-      });
-    } else if (openIndex === null && titleRef.current) {
-      gsap.to(titleRef.current, {
-        y: 0,
-        duration: 0.8,
-        ease: "power3.inOut"
-      });
-    }
+    // Removed title follow animation to keep title fixed on the left
   }, [openIndex]);
 
   return (
-    <section className="faq-section py-[12rem] bg-white text-zinc-900" id="faq">
+    <section className="faq-section py-32 bg-white text-zinc-900" id="faq">
       <div className="section-shell">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-32">
 
@@ -77,8 +62,8 @@ export default function FAQSection() {
               ref={titleRef}
               className="lg:sticky lg:top-32 space-y-8 text-left"
             >
-              <h2 className="section-title !text-left !mb-0 !leading-[1.1]">
-                Frequently Asked <br /> Questions <span className="text-zinc-400 font-medium">(FAQs)</span>
+              <h2 className="section-title !text-left !mb-0">
+                Frequently Asked <br /> Questions <span className="text-[#364835] font-medium">(FAQs)</span>
               </h2>
             </div>
           </div>
@@ -100,19 +85,19 @@ export default function FAQSection() {
                 <div className="relative z-20">
                   <button
                     onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                    className="w-full px-10 py-10 flex items-center justify-between gap-8 text-left"
+                    className="w-full px-8 py-8 flex items-center justify-between gap-8 text-left"
                   >
                     <div className="flex items-start gap-8">
                       <span className="text-xs font-black text-zinc-400 mt-1.5 shrink-0">
                         {String(index + 1).padStart(2, '0')}.
                       </span>
-                      <span className="text-xl lg:text-2xl font-bold text-zinc-900 tracking-tight leading-tight">
+                      <span className="text-xl lg:text-2xl font-bold text-black tracking-tight leading-tight">
                         {faq.question}
                       </span>
                     </div>
                     <div className={cn(
                       "w-10 h-10 rounded-full border border-zinc-200 flex items-center justify-center shrink-0 transition-transform duration-500",
-                      openIndex === index && "rotate-45 bg-zinc-900 text-white border-zinc-900"
+                      openIndex === index && "rotate-45 bg-[#364835] text-white border-[#364835]"
                     )}>
                       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M7 0V14" stroke="currentColor" strokeWidth="2" />
@@ -126,7 +111,7 @@ export default function FAQSection() {
                     className="overflow-hidden h-0 opacity-0"
                   >
                     <div className="px-10 lg:pl-24 pr-12 pb-12">
-                      <p className="text-lg lg:text-xl text-zinc-600 leading-relaxed">
+                      <p className="text-lg lg:text-xl text-[#1a1a1a] leading-relaxed">
                         {faq.answer}
                       </p>
                     </div>
