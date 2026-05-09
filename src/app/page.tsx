@@ -55,11 +55,23 @@ export default function Home() {
 
       <JourneySection />
 
-      <WhyDippaSection />
-      
-      <NewsletterSection />
+      <div style={{ background: 'linear-gradient(to bottom, #ffffff 50%, #000000 50%)' }}>
+        <WhyDippaSection />
+      </div>
 
-      <InteractiveProjectGrid />
+      <div className="bg-[#000000] overflow-hidden">
+        <NewsletterSection />
+
+        <InteractiveProjectGrid />
+      </div>
+
+      {/* Professional Gradient Blend into FAQ Section */}
+      <div
+        className="w-full h-32 md:h-56 pointer-events-none -mb-16 md:-mb-24 relative z-10"
+        style={{
+          background: 'linear-gradient(to bottom, #000000 0%, rgba(0,0,0,0.85) 25%, rgba(0,0,0,0) 100%)'
+        }}
+      />
 
       <FAQSection />
       <TestimonialsSection />
@@ -67,7 +79,7 @@ export default function Home() {
       <section className="py-32 bg-white reveal px-4 md:px-8">
         <div
           className="relative rounded-[3rem] py-12 md:py-16 px-8 md:px-16 text-center w-full max-w-[1200px] mx-auto flex flex-col items-center justify-center overflow-hidden"
-          style={{ 
+          style={{
             backgroundColor: '#FAF9F6',
             backgroundImage: 'radial-gradient(rgba(0,0,0,0.12) 1px, transparent 0)',
             backgroundSize: '24px 24px'

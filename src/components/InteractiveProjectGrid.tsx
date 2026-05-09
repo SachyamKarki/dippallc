@@ -334,10 +334,6 @@ export default function InteractiveProjectGrid() {
             </h4>
           </div>
 
-          <div className="work-sphere-drag-hint" aria-hidden="true">
-            Drag to rotate
-          </div>
-
           {hoveredData && (
             <div
               style={{

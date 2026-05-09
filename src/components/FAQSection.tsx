@@ -7,23 +7,23 @@ import gsap from "gsap";
 const faqs = [
   {
     question: "What is the typical timeframe for discovery and deployment?",
-    answer: "Our standard engagement cycles move from strategic discovery to a functional first release within 4 to 8 weeks. We prioritize deploying high-integrity prototypes early so your team can pivot based on market evidence rather than internal assumptions.",
+    answer: "Our standard engagement cycles move from strategic discovery to a functional first release within 4 to 8 weeks. We prioritize deploying high integrity prototypes early so your team can pivot based on market evidence rather than internal assumptions.",
   },
   {
     question: "How do you coordinate with internal engineering and product leadership?",
-    answer: "We function as both a standalone execution unit and an embedded leadership partner. Regardless of the model, we enforce strict architectural legibility and comprehensive documentation to ensure the system remains a long-term asset for your internal team.",
+    answer: "We function as both a standalone execution unit and an embedded leadership partner. Regardless of the model, we enforce strict architectural legibility and comprehensive documentation to ensure the system remains a long term asset for your internal team.",
   },
   {
     question: "What defines your methodology for autonomous agent orchestration?",
-    answer: "We implement AI as a strategic extension of your operational logic. Our agents are engineered with rigorous observability, human-in-the-loop governance, and precise tool-calling boundaries to ensure they are dependable in production environments.",
+    answer: "We implement AI as a strategic extension of your operational logic. Our agents are engineered with rigorous observability, human in the loop governance, and precise tool calling boundaries to ensure they are dependable in production environments.",
   },
   {
-    question: "What is the structure of your post-delivery continuity model?",
+    question: "What is the structure of your post delivery continuity model?",
     answer: "Sustainability is managed through our Embedded Partner framework. This provides ongoing engineering leadership, workflow evolution, and systemic scaling to ensure the software evolves alongside your business objectives.",
   },
   {
     question: "Do you provide technical advisory and systemic due diligence?",
-    answer: "Yes. Through our Advisory Sprints, we deliver deep-tier audits of existing architectures. We identify structural technical debt and provide actionable, senior-led roadmaps for modernization or scaling.",
+    answer: "Yes. Through our Advisory Sprints, we deliver deep tier audits of existing architectures. We identify structural technical debt and provide actionable, senior led roadmaps for modernization or scaling.",
   },
 ];
 
@@ -52,7 +52,7 @@ export default function FAQSection() {
   }, [openIndex]);
 
   return (
-    <section className="faq-section py-32 bg-white text-zinc-900" id="faq">
+    <section className="faq-section pt-56 pb-32 lg:pt-[24rem] lg:pb-32 bg-white text-zinc-900" id="faq">
       <div className="section-shell">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-32">
 
@@ -88,7 +88,7 @@ export default function FAQSection() {
                     className="w-full px-8 py-8 flex items-center justify-between gap-8 text-left"
                   >
                     <div className="flex items-start gap-8">
-                      <span className="text-xs font-black text-black mt-1.5 shrink-0 opacity-40">
+                      <span className="text-xs font-black text-black mt-1.5 shrink-0">
                         {String(index + 1).padStart(2, '0')}.
                       </span>
                       <span className="text-xl lg:text-2xl font-extrabold text-black tracking-tight leading-tight">
@@ -111,7 +111,7 @@ export default function FAQSection() {
                     className="overflow-hidden h-0 opacity-0"
                   >
                     <div className="px-10 lg:pl-24 pr-12 pb-12">
-                      <p className="text-base lg:text-lg text-[#0a0a0a] leading-relaxed">
+                      <p className="text-base lg:text-lg text-black font-medium leading-relaxed">
                         {faq.answer}
                       </p>
                     </div>

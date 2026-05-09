@@ -40,7 +40,7 @@ export default function Navbar({ sticky = true, theme = "dark" }: { sticky?: boo
       >
         <div className="site-nav-inner">
           <Link href="/" className="site-logo" onClick={closeMenu}>
-            <span className="font-black text-lg tracking-[0.35em] uppercase text-inherit leading-none">DIPPA</span>
+            <span className="font-black text-2xl tracking-[0.25em] uppercase text-inherit leading-none" style={{ fontFamily: 'var(--font-playfair), serif' }}>DIPPA</span>
           </Link>
 
 
