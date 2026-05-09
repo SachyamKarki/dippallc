@@ -56,6 +56,26 @@ export default function ProductsPage() {
     setPage(1);
   }
 
+  const isComingSoon = true;
+
+  if (isComingSoon) {
+    return (
+      <main className="projects-page flex flex-col items-center justify-center min-h-[80vh] bg-white">
+        <div className="text-center px-6 section-shell">
+          <h1 className="text-5xl lg:text-7xl font-black tracking-tight text-[#0a0a0a] mb-6" style={{ fontFamily: 'var(--font-playfair), serif' }}>
+            COMING SOON
+          </h1>
+          <p className="text-lg text-[#0a0a0a]/70 font-medium max-w-xl mx-auto mb-12">
+            We are currently curating a selection of our most impactful institutional engagements. Our full project portfolio will be available shortly.
+          </p>
+          <Link href="/" className="button-primary px-8 py-4 text-xs font-black uppercase tracking-widest hover:scale-105 transition-all shadow-xl">
+            Return to Home
+          </Link>
+        </div>
+      </main>
+    );
+  }
+
   return (
     <main className="projects-page">
       <section className="projects-hero">

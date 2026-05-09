@@ -33,7 +33,7 @@ export default function BlogCard(props: {
     return (
       <Link href={href} className="flex flex-col group rounded-lg border-t border-gray-100 px-2 py-6 transition-all hover:bg-gray-50 first:border-0">
         <div className="flex items-center gap-3 mb-3">
-          <span className="text-[9px] font-bold uppercase tracking-widest text-gray-500">{props.article.tag}</span>
+          <span className="text-[9px] font-bold uppercase tracking-widest text-white bg-[#364835] px-3 py-1.5 rounded-md">#{props.article.tag}</span>
           <span className="w-1 h-1 rounded-full bg-gray-200"></span>
           <span className="text-[9px] font-bold uppercase tracking-widest text-gray-500">{formatDate(props.article.createdAt)}</span>
         </div>
@@ -73,7 +73,7 @@ export default function BlogCard(props: {
 
       <div className={`blog-card-body ${isFeatured ? "blog-card-body-featured" : "blog-card-body-standard"}`}>
         <div className="blog-card-meta-row">
-          <span className="blog-card-tag blog-card-tag-muted">{props.article.tag}</span>
+          <span className="text-[9px] font-bold uppercase tracking-widest text-white bg-[#364835] px-3 py-1.5 rounded-md">#{props.article.tag}</span>
           <span className="blog-card-date">{formatDate(props.article.createdAt)}</span>
         </div>
 

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -27,39 +28,70 @@ const steps = [
 ];
 
 export default function JourneySection() {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="journey" className="section py-32 overflow-hidden reveal">
+    <section id="journey" className="section py-32 overflow-hidden reveal" ref={sectionRef}>
+      {/* Floating Orbs */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="journey-orb journey-orb-1" />
+        <div className="journey-orb journey-orb-2" />
+      </div>
+
       <div className="section-shell">
+        <h2 className={`section-title mb-20 lg:mb-28 ${isVisible ? 'journey-heading-enter' : 'opacity-0'}`}>
+          Start Your Journey
+        </h2>
+        
         <div className="journey-grid">
           <div className="journey-image-col">
-            <div className="journey-image-wrapper">
+            <div className={`journey-image-wrapper ${isVisible ? 'journey-image-enter' : 'opacity-0'}`}>
               <Image
                 src="/images/journey-person-v3.png"
                 alt="Start Your Journey with Dippa"
                 fill
-                className="object-contain object-bottom"
+                className="object-contain object-bottom journey-image-float"
                 priority
               />
             </div>
           </div>
 
           <div className="journey-content-col">
-            <h2 className="journey-title md:-ml-24 mb-12">Start Your Journey</h2>
             <div className="journey-steps">
-              {steps.map((step) => (
-                <div key={step.number} className="journey-step flex flex-col gap-0.5">
-                  <div className="flex items-center gap-6">
-                    <span className="journey-step-number !min-w-[1.5rem] !text-right !pt-0 !mb-0">{step.number}</span>
-                    <h3 className="journey-step-title !m-0">{step.title}</h3>
-                  </div>
-                  <div className="pl-12">
-                    <p className="journey-step-text m-0">{step.text}</p>
+              {steps.map((step, index) => (
+                <div 
+                  key={step.number} 
+                  className={`journey-step ${isVisible ? 'journey-step-enter' : 'opacity-0'}`}
+                  style={{ animationDelay: isVisible ? `${0.3 + index * 0.5}s` : '0s' }}
+                >
+                  <span className="journey-step-number journey-number-glow">{step.number}</span>
+                  <div className="journey-step-body">
+                    <h3 className="journey-step-title">{step.title}</h3>
+                    <p className="journey-step-text">{step.text}</p>
                   </div>
                 </div>
               ))}
             </div>
 
-            <div className="journey-cta">
+            <div className={`journey-cta ${isVisible ? 'journey-cta-enter' : 'opacity-0'}`}>
               <Link href="/contact" className="journey-btn">
                 Get Started
               </Link>
@@ -67,6 +99,79 @@ export default function JourneySection() {
           </div>
         </div>
       </div>
+
+      {/* Motion Graphics Styles */}
+      <style jsx>{`
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInLeft {
+          from { opacity: 0; transform: translateX(-40px); }
+          to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes scaleInRight {
+          from { opacity: 0; transform: translateX(60px) scale(0.9); }
+          to { opacity: 1; transform: translateX(0) scale(1); }
+        }
+        @keyframes gentleFloat {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-12px); }
+        }
+        @keyframes orbDrift1 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          33% { transform: translate(40px, -30px) scale(1.06); }
+          66% { transform: translate(-25px, 15px) scale(0.94); }
+        }
+        @keyframes orbDrift2 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          50% { transform: translate(-35px, -45px) scale(1.08); }
+        }
+        @keyframes numberPulse {
+          0%, 100% { text-shadow: 0 0 0 transparent; }
+          50% { text-shadow: 0 0 20px rgba(54, 72, 53, 0.15); }
+        }
+
+        .journey-heading-enter {
+          animation: fadeInUp 0.6s ease-out both;
+        }
+        .journey-step-enter {
+          animation: fadeInLeft 0.5s ease-out both;
+        }
+        .journey-cta-enter {
+          animation: fadeInUp 0.5s ease-out both;
+          animation-delay: 2.5s;
+        }
+        .journey-image-enter {
+          animation: scaleInRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+          animation-delay: 0.3s;
+        }
+        .journey-image-float {
+          animation: gentleFloat 6s ease-in-out infinite;
+        }
+        .journey-number-glow {
+          animation: numberPulse 3s ease-in-out infinite;
+        }
+
+        .journey-orb {
+          position: absolute;
+          border-radius: 50%;
+          filter: blur(80px);
+          opacity: 0.035;
+        }
+        .journey-orb-1 {
+          width: 400px; height: 400px;
+          background: #364835;
+          bottom: 10%; left: -5%;
+          animation: orbDrift1 22s ease-in-out infinite;
+        }
+        .journey-orb-2 {
+          width: 300px; height: 300px;
+          background: #5a7d59;
+          top: 15%; right: 5%;
+          animation: orbDrift2 18s ease-in-out infinite;
+        }
+      `}</style>
     </section>
   );
 }

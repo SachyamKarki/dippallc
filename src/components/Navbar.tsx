@@ -20,6 +20,15 @@ export default function Navbar({ sticky = true, theme = "dark" }: { sticky?: boo
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [isMenuOpen]);
+
   const closeMenu = () => setIsMenuOpen(false);
 
   if (isProjectPage) return null;
@@ -69,6 +78,15 @@ export default function Navbar({ sticky = true, theme = "dark" }: { sticky?: boo
         </div>
       </nav>
 
+      {/* Mobile Backdrop */}
+      {isMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/30 z-[99] backdrop-blur-sm"
+          style={{ top: '72px' }}
+          onClick={closeMenu}
+        />
+      )}
+
       <div className={`mobile-drawer${isMenuOpen ? " mobile-drawer-open" : ""}`}>
         <div className="mobile-drawer-panel">
           <ul className="mobile-drawer-links">
@@ -80,12 +98,11 @@ export default function Navbar({ sticky = true, theme = "dark" }: { sticky?: boo
               </li>
             ))}
             <li className="mt-8">
-              <Link href="/contact" className="button-primary w-full uppercase text-xs font-bold tracking-widest" onClick={closeMenu}>
+              <Link href="/contact" className="button-primary w-full uppercase text-xs font-bold tracking-widest text-center" onClick={closeMenu}>
                 Request a Consultation
               </Link>
             </li>
           </ul>
-
         </div>
       </div>
     </>

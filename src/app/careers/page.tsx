@@ -215,21 +215,31 @@ export default function CareersPage() {
       </section>
 
       {/* ═══ CTA BANNER ═══ */}
-      <section className="careers-cta-section">
-        <div className="cta-banner-wrapper">
-          <div className="cta-banner-bg"></div>
-          <div className="cta-banner-content">
-            <div className="cta-banner-text">
-              <h2 className="cta-banner-title">
-                Get started <span className="cta-title-highlight">today</span>
-              </h2>
-              <p className="cta-banner-desc">
-                Connect with us now to learn how we can streamline your contract review process
-              </p>
-            </div>
-            <div className="cta-banner-action">
-              <a href="#contact" className="cta-banner-btn">LET&apos;S CONNECT</a>
-            </div>
+      <section className="py-32 bg-white reveal px-4 md:px-8">
+        <div
+          className="relative rounded-[3rem] py-12 md:py-16 px-8 md:px-16 text-center w-full max-w-[1200px] mx-auto flex flex-col items-center justify-center overflow-hidden"
+          style={{ 
+            backgroundColor: '#FAF9F6',
+            backgroundImage: 'radial-gradient(rgba(0,0,0,0.12) 1px, transparent 0)',
+            backgroundSize: '24px 24px'
+          }}
+        >
+          <h2 className="section-title !mb-6">
+            Join The Team
+          </h2>
+
+          <p className="relative z-10 text-base md:text-lg text-[#4a4a4a] max-w-2xl mx-auto mb-12 font-medium">
+            Connect with us today and help build high-performance institutional platforms.
+          </p>
+
+          <div className="relative z-10">
+            <Link
+              href="/contact"
+              className="journey-btn"
+              style={{ backgroundColor: '#364835' }}
+            >
+              Let&apos;s Connect
+            </Link>
           </div>
         </div>
       </section>

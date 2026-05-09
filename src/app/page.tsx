@@ -1,5 +1,6 @@
 import Link from "next/link";
 import WhyDippaSection from "@/components/WhyDippaSection";
+import NewsletterSection from "@/components/NewsletterSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import ServiceTabs from "@/components/ServiceTabs";
 import FAQSection from "@/components/FAQSection";
@@ -14,25 +15,8 @@ export default function Home() {
 
   return (
     <main className="site-shell squarespace-home">
-      <section className="hero-section hero-full-bg">
+      <section className="hero-section-new">
         <HeroCarousel />
-        <div className="hero-container relative z-10 py-32">
-          <div className="hero-copy-right max-w-3xl">
-            <h1 className="hero-title">Engineering <br className="hidden md:block" /> High-Stakes AI.</h1>
-            <p className="hero-description max-w-xl">
-              Senior-led systemic orchestration and institutional continuity for modern enterprise leadership.
-            </p>
-
-            <div className="hero-actions flex justify-start gap-6">
-              <Link href="/contact" className="button-primary text-sm font-bold">
-                Book discovery
-              </Link>
-              <Link href="#proof" className="button-secondary text-sm font-bold">
-                See the structure
-              </Link>
-            </div>
-          </div>
-        </div>
       </section>
 
 
@@ -72,6 +56,8 @@ export default function Home() {
       <JourneySection />
 
       <WhyDippaSection />
+      
+      <NewsletterSection />
 
       <InteractiveProjectGrid />
 
@@ -80,7 +66,7 @@ export default function Home() {
 
       <section className="py-32 bg-white reveal px-4 md:px-8">
         <div
-          className="relative rounded-[3rem] py-16 md:py-24 px-8 md:px-16 text-center w-full max-w-[1800px] mx-auto flex flex-col items-center justify-center overflow-hidden"
+          className="relative rounded-[3rem] py-12 md:py-16 px-8 md:px-16 text-center w-full max-w-[1200px] mx-auto flex flex-col items-center justify-center overflow-hidden"
           style={{ 
             backgroundColor: '#FAF9F6',
             backgroundImage: 'radial-gradient(rgba(0,0,0,0.12) 1px, transparent 0)',
