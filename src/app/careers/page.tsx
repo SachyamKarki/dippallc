@@ -18,40 +18,21 @@ export default function CareersPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchJobs() {
-      try {
-        const res = await fetch("http://localhost:8000/api/jobs/");
-        if (res.ok) {
-          const data = await res.json();
-          setJobs(data);
-        }
-      } catch {
-        // Fallback for demonstration if API is unavailable
-        setJobs([
-          { id: 1, title: 'Head of Marketing', category: 'Sales & Marketing', location: 'San Francisco, CA', job_type: 'Full-time' },
-          { id: 2, title: 'Senior Software Engineer', category: 'Software Development', location: 'San Francisco, CA', job_type: 'Full-time' },
-          { id: 3, title: 'Software Engineer', category: 'Software Development', location: 'San Francisco, CA', job_type: 'Full-time' },
-          { id: 4, title: 'Founding Account Executive', category: 'Sales & Marketing', location: 'San Francisco, CA', job_type: 'Full-time' },
-        ]);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchJobs();
+    setJobs([]);
+    setLoading(false);
   }, []);
 
   return (
     <main className="careers-page-v2">
-      <Navbar sticky={false} theme="light" />
 
       {/* ═══ HERO SECTION ═══ */}
       <section className="careers-hero-v2">
-        <div className="careers-title-wrap">
+        <div className="careers-title-wrap max-w-4xl">
           <h1 className="careers-title-main">
-            <span className="careers-title-highlight">Careers.</span>
+            <span className="careers-title-highlight font-black tracking-tighter">Careers.</span>
           </h1>
-          <p className="careers-hero-sub">
-            Join us to reshape the future of Technology.
+          <p className="careers-hero-sub text-xl opacity-80 max-w-lg">
+            We are building a culture of senior product judgment, architectural precision, and high-velocity execution.
           </p>
         </div>
 
@@ -85,7 +66,7 @@ export default function CareersPage() {
             <div className="value-box">
               <div className="value-img-wrap">
                 <div className="value-img-inner">
-                  <Image src="/images/value-excellence.png" fill className="object-cover" alt="Excellence" draggable={false} />
+                  <Image src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop" fill className="object-cover" alt="Excellence" draggable={false} unoptimized />
                 </div>
               </div>
               <div className="value-content">
@@ -107,7 +88,7 @@ export default function CareersPage() {
             <div className="value-box">
               <div className="value-img-wrap">
                 <div className="value-img-inner">
-                  <Image src="/images/value-lean.png" fill className="object-cover" alt="Keep it lean" draggable={false} />
+                  <Image src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2070&auto=format&fit=crop" fill className="object-cover" alt="Keep it lean" draggable={false} unoptimized />
                 </div>
               </div>
               <div className="value-content">
@@ -129,7 +110,7 @@ export default function CareersPage() {
             <div className="value-box">
               <div className="value-img-wrap">
                 <div className="value-img-inner">
-                  <Image src="/images/value-courage.png" fill className="object-cover" alt="Courage" draggable={false} />
+                  <Image src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop" fill className="object-cover" alt="Courage" draggable={false} unoptimized />
                 </div>
               </div>
               <div className="value-content">
@@ -151,7 +132,7 @@ export default function CareersPage() {
             <div className="value-box">
               <div className="value-img-wrap">
                 <div className="value-img-inner">
-                  <Image src="/images/value-impatience.png" fill className="object-cover" alt="Impatience" draggable={false} />
+                  <Image src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" fill className="object-cover" alt="Impatience" draggable={false} unoptimized />
                 </div>
               </div>
               <div className="value-content">
@@ -179,12 +160,14 @@ export default function CareersPage() {
           <h2 className="section-title-serif">Current Openings</h2>
 
           <div className="openings-table">
-            <div className="openings-header">
-              <span className="opening-label">Role</span>
-              <span className="opening-label">Team</span>
-              <span className="opening-label">Location</span>
-              <span></span>
-            </div>
+            {jobs.length > 0 && (
+              <div className="openings-header">
+                <span className="opening-label">Role</span>
+                <span className="opening-label">Team</span>
+                <span className="opening-label">Location</span>
+                <span></span>
+              </div>
+            )}
 
             {loading ? (
               <div className="py-20 text-center text-zinc-400">Loading opportunities...</div>
@@ -206,8 +189,26 @@ export default function CareersPage() {
                 </div>
               ))
             ) : (
-              <div className="py-20 text-center text-zinc-400">
-                No current openings. Check back soon!
+              <div className="py-32 px-8 text-center bg-[#f9f9f9] rounded-[2rem] border border-dashed border-[#d1d1d1]">
+                <div className="max-w-md mx-auto">
+                  <div className="mb-6 inline-flex items-center justify-center w-16 h-16 bg-white rounded-full shadow-sm">
+                    <svg className="w-8 h-8 text-[#364835]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-2xl font-bold text-[#1a1a1a] mb-3" style={{ fontFamily: 'var(--font-playfair), serif' }}>
+                    No Active Openings
+                  </h3>
+                  <p className="text-[#4a4a4a] mb-8 leading-relaxed">
+                    We aren&apos;t currently hiring for any specific roles, but we&apos;re always looking for senior-level talent to join our network.
+                  </p>
+                  <Link 
+                    href="/contact" 
+                    className="inline-flex items-center justify-center px-8 py-4 bg-[#364835] text-white text-xs font-black uppercase tracking-widest rounded-lg hover:scale-105 transition-all shadow-md"
+                  >
+                    Open Application
+                  </Link>
+                </div>
               </div>
             )}
           </div>

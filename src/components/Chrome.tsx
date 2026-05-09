@@ -5,13 +5,20 @@ import { usePathname } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const NAVBAR_HIDDEN_PATHS = new Set(["/products", "/careers"]);
+const NAVBAR_HIDDEN_PATHS = new Set([]);
 
 export default function Chrome({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const hideNavbar = pathname ? NAVBAR_HIDDEN_PATHS.has(pathname) : false;
-  const navbarSticky = pathname !== "/" && !pathname?.startsWith("/news");
-  const navbarTheme = pathname?.startsWith("/news") ? "light" : "dark";
+  
+  // Make it sticky everywhere, use light theme for pages with white heroes
+  const navbarSticky = true;
+  const navbarTheme = (
+    pathname === "/" || 
+    pathname?.startsWith("/news") || 
+    pathname?.startsWith("/careers") || 
+    pathname?.startsWith("/products")
+  ) ? "light" : "dark";
 
   return (
     <>

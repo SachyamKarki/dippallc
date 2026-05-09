@@ -89,7 +89,7 @@ export default function Home() {
             Start Your Journey
           </h2>
 
-          <p className="relative z-10 text-base md:text-lg text-[#4a4a4a] max-w-2xl mx-auto mb-12 font-medium">
+          <p className="relative z-10 text-base md:text-lg text-black max-w-2xl mx-auto mb-12 font-medium">
             Book a discovery call and let&apos;s map your technical landscape into a clear, institutional-grade architectural plan.
           </p>
 
@@ -97,7 +97,7 @@ export default function Home() {
             <Link
               href="/contact"
               className="journey-btn"
-              style={{ backgroundColor: '#364835' }}
+              style={{ backgroundColor: '#364835', color: '#ffffff' }}
             >
               Book Discovery Call
             </Link>

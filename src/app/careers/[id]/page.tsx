@@ -57,7 +57,6 @@ export default function JobDetailPage() {
   if (loading) {
     return (
       <main className="careers-page-v2 flex items-center justify-center min-h-screen">
-        <Navbar sticky={true} theme="light" />
         <div className="text-zinc-400">Loading job details...</div>
       </main>
     );
@@ -66,7 +65,6 @@ export default function JobDetailPage() {
   if (!job) {
     return (
       <main className="careers-page-v2 flex items-center justify-center min-h-screen">
-        <Navbar sticky={true} theme="light" />
         <div className="text-zinc-400">Job not found.</div>
       </main>
     );
@@ -74,7 +72,6 @@ export default function JobDetailPage() {
 
   return (
     <main className="careers-page-v2 pb-32">
-      <Navbar sticky={true} theme="light" />
 
       <section className="pt-40 max-w-4xl mx-auto px-6">
         <div className="mb-8 border-b border-[#e5e5e5] pb-8">

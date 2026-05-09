@@ -95,16 +95,17 @@ export default function BlogsPage() {
   };
 
   return (
-    <main className="blogs-page bg-white min-h-screen">
+    <main className="blogs-page min-h-screen">
       <NewsHero 
         searchQuery={searchQuery} 
         onSearchChange={(q) => {
           setSearchQuery(q);
           setCurrentPage(1);
-        }} 
+        }}
+        resultsTitle={searchQuery ? `Search results for "${searchQuery}"` : undefined}
       />
 
-      <section className="blogs-gallery-section" style={{ paddingBottom: '4rem' }}>
+      <section className="blogs-gallery-section pt-12 pb-32">
         <div className="blogs-gallery-shell section-shell">
           {loading ? (
             <div className="blogs-loading">
@@ -116,7 +117,8 @@ export default function BlogsPage() {
               
               <NewsGrid 
                 articles={paginatedCards} 
-                title={searchQuery ? `Search results for "${searchQuery}"` : "All news articles"} 
+                title={searchQuery ? `Search results for "${searchQuery}"` : "All news articles"}
+                hideHeader={Boolean(searchQuery)}
               />
 
               <NewsPagination 
