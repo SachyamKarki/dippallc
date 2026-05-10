@@ -11,7 +11,7 @@ const services = [
     id: "web-development",
     name: "Web Development",
     title: "Engineering high authority digital environments.",
-    description: "We build high performance institutional platforms that prioritize technical integrity and systemic clarity. Your platform should be your most dependable operator, functioning with architectural precision and high density performance.",
+    description: "High-performance institutional platforms engineered for technical integrity, architectural precision, and maximum dependability.",
     image: "/images/service-web-dev.jpg",
     points: [
       "Custom architectural design and full stack implementation for scalable, high traffic web applications.",
@@ -23,7 +23,7 @@ const services = [
     id: "app-development",
     name: "App Development",
     title: "Native and cross platform mobile experiences.",
-    description: "Custom mobile applications designed for high stakes user engagement. We engineer intuitive, high performance apps that seamlessly integrate with your broader operational infrastructure.",
+    description: "High-performance mobile apps engineered for seamless integration and maximum user engagement.",
     image: "/images/service-app-dev.jpg",
     points: [
       "End to end engineering of cross platform and native mobile applications tailored for high user retention.",
@@ -32,22 +32,10 @@ const services = [
     ]
   },
   {
-    id: "software-development",
-    name: "Software Development",
-    title: "Operating systems for high stakes business.",
-    description: "Custom internal infrastructure and distributed applications designed to eliminate operational bottlenecks. We move fragmented data into a single, high fidelity technical management surface.",
-    image: "/images/service-software-dev.jpg",
-    points: [
-      "Strategic modernization of legacy internal systems to eliminate technical debt and operational bottlenecks.",
-      "Development of bespoke, distributed enterprise applications to centralize fragmented business data.",
-      "Comprehensive technical roadmap planning and enterprise architecture design for long term scalability."
-    ]
-  },
-  {
     id: "ai-automation",
     name: "AI Automation",
     title: "Autonomous agents for complex workflows.",
-    description: "Intelligent systems that reason, route work, and execute tasks across your existing tool stack. Our AI automation is built with observability and human in the loop controls.",
+    description: "Intelligent systems that automate complex workflows across your tool stack with full observability and human-in-the-loop controls.",
     image: "/images/service-ai-agent-real.jpg",
     points: [
       "Integration of LLM powered autonomous agents to handle complex, multi step business workflows.",
@@ -59,19 +47,31 @@ const services = [
     id: "sales-lead",
     name: "Sales Lead",
     title: "Predictive revenue and intelligent growth architecture.",
-    description: "We engineer systems that automate lead qualification, routing, and engagement. Transform your sales pipeline into a predictable, high velocity revenue engine backed by technical leverage.",
+    description: "Automated lead qualification and routing systems designed to build a predictable, high-velocity revenue engine.",
     image: "/images/service-sales-lead.jpg",
     points: [
       "Engineering automated, predictive lead scoring systems integrated directly into your existing CRM infrastructure.",
       "Architecting intelligent sales pipelines that automatically route, qualify, and engage inbound opportunities.",
       "Data driven revenue architecture consulting to align your technical stack with aggressive growth targets."
     ]
+  },
+  {
+    id: "software-development",
+    name: "Software Development",
+    title: "Operating systems for high stakes business.",
+    description: "Custom distributed applications that eliminate operational bottlenecks and centralize fragmented business data.",
+    image: "/images/service-software-dev.jpg",
+    points: [
+      "Strategic modernization of legacy internal systems to eliminate technical debt and operational bottlenecks.",
+      "Development of bespoke, distributed enterprise applications to centralize fragmented business data.",
+      "Comprehensive technical roadmap planning and enterprise architecture design for long term scalability."
+    ]
   }
 ];
 
 export default function ServiceTabs() {
   const [activeTab, setActiveTab] = useState(services[0].id);
-  const [sliderStyle, setSliderStyle] = useState({ left: 0, width: 0, opacity: 0 });
+  const [sliderStyle, setSliderStyle] = useState({ left: 0, top: 0, width: 0, height: 0, opacity: 0 });
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const tabsRef = useRef<(HTMLButtonElement | null)[]>([]);
   const imageRef = useRef<HTMLDivElement>(null);
@@ -82,7 +82,9 @@ export default function ServiceTabs() {
     if (activeButton) {
       setSliderStyle({
         left: activeButton.offsetLeft,
+        top: activeButton.offsetTop,
         width: activeButton.offsetWidth,
+        height: activeButton.offsetHeight,
         opacity: 1
       });
     }
@@ -107,27 +109,29 @@ export default function ServiceTabs() {
     <section className="py-16 lg:py-28 bg-white relative overflow-hidden" id="strategic-capability">
 
 
-      <div className="section-shell relative z-10">
-        <div className="w-full flex flex-col items-center text-center mb-8 lg:mb-12 px-8 sm:px-12">
-          <h2 
-            className="section-title text-black mt-10 mb-6 w-full max-w-4xl mx-auto sm:mb-8 !font-black"
-            style={{ fontFamily: 'var(--font-title)' }}
-          >
+      <div className="section-shell relative z-10 px-4 sm:px-8">
+        <div className="w-full flex flex-col items-center text-center mb-6 lg:mb-12">
+          <h2 className="section-title st-title mt-10 mb-6 w-full max-w-4xl mx-auto sm:mb-8 font-black">
             What We Offer
           </h2>
-          <p className="section-subtitle text-black mb-0! max-w-prose sm:max-w-2xl text-sm sm:text-base lg:text-lg">
+          <p 
+            className="section-subtitle st-text max-w-prose sm:max-w-2xl text-[13px] sm:text-base opacity-80"
+            style={{ fontFamily: 'var(--font-lato)' }}
+          >
             Disciplined execution for companies that require technical excellence and systemic operational clarity.
           </p>
         </div>
 
-        <div className="relative w-full max-w-full overflow-hidden mb-0">
-          <div className="flex flex-nowrap overflow-x-auto no-scrollbar justify-start sm:justify-center items-center gap-1 sm:gap-2 px-8 py-2 bg-transparent w-full">
+        <div className="w-full max-w-full overflow-hidden mb-0">
+          <div className="grid grid-cols-2 sm:flex sm:flex-nowrap sm:overflow-x-auto no-scrollbar justify-center items-center gap-2 sm:gap-3 px-4 sm:px-8 py-2 bg-transparent w-full relative">
             {/* Sliding Indicator */}
-            <div 
-              className="absolute h-[calc(100%-16px)] bg-[#364835] rounded-full transition-none sm:transition-all sm:duration-500 sm:ease-[cubic-bezier(0.23,1,0.32,1)]"
+            <div
+              className="hidden sm:block absolute h-[calc(100%-16px)] bg-[#364835] rounded-full transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]"
               style={{
                 left: `${sliderStyle.left}px`,
+                top: `${sliderStyle.top}px`,
                 width: `${sliderStyle.width}px`,
+                height: `${sliderStyle.height}px`,
                 opacity: sliderStyle.opacity
               }}
             />
@@ -138,12 +142,12 @@ export default function ServiceTabs() {
                 ref={el => { tabsRef.current[index] = el; }}
                 onClick={() => setActiveTab(service.id)}
                 className={cn(
-                  "relative z-10 rounded-full px-4 py-2 text-xs font-black transition-colors duration-300 flex-shrink-0 sm:px-6 sm:py-3 sm:text-sm",
+                  "st-tab relative z-10 rounded-full px-2 py-2 text-[11px] font-black whitespace-normal leading-tight text-center transition-colors duration-300 flex-shrink-0 sm:px-6 sm:py-3 sm:text-sm sm:whitespace-nowrap border sm:border-none",
+                  service.id === "software-development" && "col-span-2 sm:col-span-1 mx-6 sm:mx-0",
                   activeTab === service.id 
-                    ? "text-white" 
-                    : "text-black hover:text-black/70"
+                    ? "bg-[#364835] border-[#364835] text-white sm:bg-transparent" 
+                    : "bg-gray-100 border-gray-200 text-black hover:text-black/70 sm:bg-transparent"
                 )}
-                style={{ fontFamily: 'var(--font-title)' }}
               >
                 {service.name}
               </button>
@@ -156,55 +160,47 @@ export default function ServiceTabs() {
             {/* Text Content */}
             <div
               key={activeService.id + "-text"}
-              className="space-y-8 lg:space-y-10 service-content-enter text-center lg:text-left"
+              className="space-y-6 lg:space-y-10 service-content-enter text-center lg:text-left flex flex-col items-center lg:items-start"
             >
-              <div className="flex flex-col max-w-prose lg:max-w-none mx-auto lg:mx-0">
+              <div className="flex flex-col w-full items-center lg:items-start">
                 {/* Active service number badge */}
                 <div className="service-counter-enter mb-4 flex flex-wrap items-center justify-center lg:justify-start gap-x-3 gap-y-1 lg:mb-5">
-                  <span className="text-[13px] font-bold tabular-nums uppercase tracking-[0.2em] text-black">
+                  <span className="text-sm font-bold tabular-nums uppercase tracking-[0.2em] text-black">
                     {String(activeIndex + 1).padStart(2, "0")}
                   </span>
-                  <span className="hidden h-px w-8 shrink-0 bg-black/20 sm:block" aria-hidden />
+                  <span className="block h-px w-8 shrink-0 bg-black/20" aria-hidden />
                   <span className="text-sm font-bold text-black uppercase tracking-wider">{activeService.name}</span>
                 </div>
 
-                <h3 
-                  className="service-title-enter text-black text-center lg:text-left text-xl sm:text-2xl lg:text-3xl font-black tracking-tight"
-                  style={{ fontFamily: 'var(--font-lato)' }}
-                >
+                <h3 className="st-title service-title-enter text-center lg:text-left text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.1]">
                   {activeService.title}
                 </h3>
-                <p 
-                  className="mt-4 service-desc-enter text-center lg:text-left leading-relaxed max-w-2xl mx-auto lg:mx-0 font-medium"
-                  style={{ color: '#000000', fontSize: '14px', fontFamily: 'var(--font-lato)' }}
+                <p
+                  className="st-text mt-4 lg:mt-6 service-desc-enter text-center lg:text-left leading-relaxed max-w-2xl font-normal text-[13px] sm:text-base opacity-90"
+                  style={{ fontFamily: 'var(--font-lato)' }}
                 >
                   {activeService.description}
                 </p>
               </div>
-              
-              <div className="space-y-6 max-w-prose lg:max-w-none">
-                <ul className="space-y-3 lg:space-y-4">
+
+              <div className="space-y-6 w-full flex flex-col items-center lg:items-start">
+                <ul className="space-y-3 lg:space-y-4 max-w-md lg:max-w-none text-left">
                   {activeService.points.map((point, index) => (
-                    <li 
-                      key={activeService.id + index} 
-                      className="flex items-start gap-3 service-point-enter text-left leading-relaxed font-medium"
-                      style={{ 
-                        animationDelay: `${0.3 + index * 0.12}s`,
-                        color: '#000000',
-                        fontSize: '13px',
-                        fontFamily: 'var(--font-lato)'
-                      }}
+                    <li
+                      key={activeService.id + index}
+                      className="st-text flex items-start gap-4 service-point-enter text-left leading-relaxed font-normal text-[13px] sm:text-base opacity-85"
+                      style={{ animationDelay: `${0.3 + index * 0.12}s`, fontFamily: 'var(--font-lato)' }}
                     >
-                      <div className="w-1.5 h-1.5 mt-1.5 shrink-0 rounded-full bg-black/40" />
-                      {point}
+                      <div className="w-1.5 h-1.5 mt-2.5 shrink-0 rounded-full bg-black/30" />
+                      <span>{point}</span>
                     </li>
                   ))}
                 </ul>
 
-                <div className="pt-2 service-btn-enter flex justify-center lg:justify-start">
+                <div className="pt-4 service-btn-enter flex justify-center lg:justify-start w-full">
                   <Button
                     href="/products"
-                    className="px-10 py-5"
+                    className="w-full sm:w-auto px-6 py-4 sm:px-10 sm:py-5 flex justify-center text-center"
                   >
                     Start your project
                   </Button>
@@ -217,8 +213,8 @@ export default function ServiceTabs() {
                 ref={imageRef}
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
-                className="relative w-full aspect-[4/5] lg:aspect-square max-w-md lg:max-w-lg mx-auto overflow-hidden shadow-2xl service-image-enter"
-                style={{ 
+                className="relative w-full aspect-square max-w-sm sm:max-w-md lg:max-w-lg mx-auto overflow-hidden shadow-2xl service-image-enter"
+                style={{
                   borderRadius: '3rem 3rem 3rem 0',
                   transform: `perspective(800px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
                   transition: 'transform 0.15s ease-out',
@@ -233,7 +229,7 @@ export default function ServiceTabs() {
                 />
 
                 {/* Shine overlay on hover */}
-                <div 
+                <div
                   className="absolute inset-0 pointer-events-none"
                   style={{
                     background: `radial-gradient(circle at ${(tilt.y / 8 + 0.5) * 100}% ${(tilt.x / -8 + 0.5) * 100}%, rgba(255,255,255,0.12) 0%, transparent 60%)`,
@@ -247,6 +243,18 @@ export default function ServiceTabs() {
 
       {/* Advanced Motion Graphics Styles */}
       <style jsx>{`
+        .st-title {
+          font-family: var(--font-title);
+          color: #000000;
+        }
+        .st-text {
+          font-family: var(--font-main);
+          color: #000000;
+        }
+        .st-tab {
+          font-family: var(--font-title);
+        }
+
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(24px); }
           to { opacity: 1; transform: translateY(0); }

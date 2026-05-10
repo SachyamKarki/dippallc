@@ -50,10 +50,10 @@ export default function HeroCarousel() {
             </div>
 
             {/* CTA */}
-            <div className={`hero-actions-v2 ${isLoaded ? 'hero-cta-enter' : 'opacity-0'}`}>
+            <div className={`hero-actions-v2 w-full sm:w-auto ${isLoaded ? 'hero-cta-enter' : 'opacity-0'}`}>
               <Button
                 href="/products"
-                className="px-10 py-5 button-primary"
+                className="w-full sm:w-auto px-6 py-4 sm:px-10 sm:py-5 button-primary flex justify-center text-center"
               >
                 Explore Products
               </Button>
@@ -130,7 +130,7 @@ export default function HeroCarousel() {
         .hero-stat-value {
           font-size: 2.2rem;
           font-weight: 900;
-          color: #364835;
+          color: #000000;
           line-height: 1;
         }
 
@@ -142,8 +142,8 @@ export default function HeroCarousel() {
 
         .hero-stat-label {
           font-size: 0.75rem;
-          font-weight: 600;
-          color: #64748b;
+          font-weight: 800;
+          color: #000000;
           text-transform: uppercase;
           line-height: 1.3;
           letter-spacing: 0.02em;

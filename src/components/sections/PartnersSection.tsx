@@ -70,32 +70,25 @@ export default function PartnersSection() {
   return (
     <section className="partners-section reveal">
       <div className="section-shell">
-        <div className="partners-heading text-center mb-24">
+        <div className="partners-heading text-center pb-16 sm:pb-24">
           <h2 className="section-title mt-10">OUR PARTNERS.</h2>
         </div>
       </div>
 
-      <div className="partners-marquee-wrapper" aria-label="Brands we have worked with">
-        <div className="partners-marquee-track">
-          {/* First set of logos */}
+      <div className="section-shell px-4 sm:px-8 pb-24 sm:pb-32">
+        <div className="flex flex-wrap justify-center items-center gap-12 sm:gap-20">
           {techPartners.map((partner, i) => (
-            <article key={`set1-${i}`} className="partners-logo-item" aria-label={partner.name}>
-              {partner.logo}
-              <span className="partners-logo-name">{partner.name}</span>
-            </article>
-          ))}
-          {/* Duplicate set for infinite scroll effect */}
-          {techPartners.map((partner, i) => (
-            <article key={`set2-${i}`} className="partners-logo-item" aria-hidden="true">
-              {partner.logo}
-              <span className="partners-logo-name">{partner.name}</span>
-            </article>
-          ))}
-          {/* Third set to ensure smooth looping on wide screens */}
-          {techPartners.map((partner, i) => (
-            <article key={`set3-${i}`} className="partners-logo-item" aria-hidden="true">
-              {partner.logo}
-              <span className="partners-logo-name">{partner.name}</span>
+            <article 
+              key={i} 
+              className="partners-logo-item flex flex-col items-center gap-3 sm:gap-4 transition-all duration-300" 
+              aria-label={partner.name}
+            >
+              <div className="h-5 sm:h-7 flex items-center justify-center [&>svg]:h-full [&>svg]:w-auto">
+                {partner.logo}
+              </div>
+              <span className="partners-logo-name text-[9px] sm:text-[11px] font-bold uppercase tracking-[0.2em] text-gray-600">
+                {partner.name}
+              </span>
             </article>
           ))}
         </div>

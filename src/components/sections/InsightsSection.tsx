@@ -23,7 +23,7 @@ const InsightsSection = () => {
         </div>
 
         <div className="flex justify-center mt-16">
-          <Button href="/news" className="px-8 py-4">
+          <Button href="/news" className="w-full sm:w-auto px-6 py-4 sm:px-8 sm:py-4 flex justify-center text-center">
             View all news
           </Button>
         </div>

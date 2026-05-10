@@ -95,8 +95,8 @@ export default function JourneySection() {
               ))}
             </div>
 
-            <div className={`journey-cta ${isVisible ? 'journey-cta-enter' : 'opacity-0'}`}>
-              <Button href="/contact" className="px-10 py-5">
+            <div className={`journey-cta flex justify-center lg:justify-start ${isVisible ? 'journey-cta-enter' : 'opacity-0'}`}>
+              <Button href="/contact" className="w-full sm:w-auto px-6 py-4 sm:px-10 sm:py-5 flex justify-center text-center">
                 Get Started
               </Button>
             </div>
