@@ -56,32 +56,46 @@ export function SiteAudioProvider({ children }: { children: React.ReactNode }) {
       return;
     }
 
-    const tryPlay = async () => {
+    // Start muted immediately (browsers always allow muted autoplay)
+    audio.muted = true;
+    audio.volume = 0.6;
+    const mutedPlay = audio.play().catch(() => {});
+
+    // Try to unmute immediately — if browser allows, great
+    const tryUnmute = async () => {
+      await mutedPlay;
       try {
         audio.muted = false;
-        audio.volume = 0.6;
+        // Some browsers throw if we try to unmute without interaction
         await audio.play();
-        return true;
       } catch {
-        return false;
+        // Couldn't unmute yet — will unmute on first interaction
       }
     };
 
+    void tryUnmute();
+
+    // Fallback: unmute on first user interaction (click, tap, scroll, key)
     let cleanedUp = false;
     const onFirstInteraction = () => {
       if (cleanedUp) return;
-      void tryPlay().finally(() => {
-        window.removeEventListener("pointerdown", onFirstInteraction);
-        window.removeEventListener("keydown", onFirstInteraction);
-      });
+      if (audio.paused) {
+        audio.muted = false;
+        audio.volume = 0.6;
+        void audio.play().catch(() => {});
+      } else {
+        audio.muted = false;
+      }
+      window.removeEventListener("pointerdown", onFirstInteraction);
+      window.removeEventListener("keydown", onFirstInteraction);
+      window.removeEventListener("scroll", onFirstInteraction);
+      window.removeEventListener("touchstart", onFirstInteraction);
     };
 
-    void tryPlay().then((ok) => {
-      if (!ok) {
-        window.addEventListener("pointerdown", onFirstInteraction, { once: true });
-        window.addEventListener("keydown", onFirstInteraction, { once: true });
-      }
-    });
+    window.addEventListener("pointerdown", onFirstInteraction, { once: true });
+    window.addEventListener("keydown", onFirstInteraction, { once: true });
+    window.addEventListener("scroll", onFirstInteraction, { once: true });
+    window.addEventListener("touchstart", onFirstInteraction, { once: true });
 
     // 2. Periodically save time to persist across refresh
     const saveInterval = setInterval(() => {
@@ -104,6 +118,8 @@ export function SiteAudioProvider({ children }: { children: React.ReactNode }) {
       window.removeEventListener("beforeunload", handleUnload);
       window.removeEventListener("pointerdown", onFirstInteraction);
       window.removeEventListener("keydown", onFirstInteraction);
+      window.removeEventListener("scroll", onFirstInteraction);
+      window.removeEventListener("touchstart", onFirstInteraction);
     };
   }, [enabled]);
 
