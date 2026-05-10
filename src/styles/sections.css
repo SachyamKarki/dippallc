@@ -90,8 +90,8 @@
 .section-title {
   font-family: var(--font-lato), sans-serif !important;
   font-size: clamp(1.75rem, 2.75vw, 2.65rem) !important;
-  font-weight: 800 !important;
-  letter-spacing: -0.03em !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.01em !important;
   color: #1e1b26;
   margin-bottom: 1.25rem;
   line-height: 1 !important;

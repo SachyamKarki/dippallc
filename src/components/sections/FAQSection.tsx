@@ -62,7 +62,7 @@ export default function FAQSection() {
               ref={titleRef}
               className="lg:sticky lg:top-32 space-y-8 text-left"
             >
-              <h2 className="section-title !text-left !mb-0 !text-2xl lg:!text-[clamp(2.4rem,4vw,3.6rem)]">
+              <h2 className="section-title text-center lg:!text-left !mb-0 !text-2xl lg:!text-[clamp(2.4rem,4vw,3.6rem)]">
                 Frequently Asked <br /> Questions <span className="text-[#1E293B] font-medium">(FAQs)</span>
               </h2>
             </div>

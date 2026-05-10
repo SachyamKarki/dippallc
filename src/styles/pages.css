@@ -28,8 +28,8 @@ body::-webkit-scrollbar,
 
   --shadow-lg: 0 24px 70px rgba(0, 0, 0, 0.06);
   --shadow-md: 0 16px 38px rgba(0, 0, 0, 0.04);
-  --font-title: var(--font-playfair), serif;
-  --font-subtitle: var(--font-playfair), serif;
+  --font-title: var(--font-lato), sans-serif;
+  --font-subtitle: var(--font-lato), sans-serif;
   --font-sans: var(--font-lato), sans-serif;
   /* Alias for non-Tailwind CSS (matches @theme --font-main) */
   --font-main: var(--font-lato), "Inter", system-ui, sans-serif;
@@ -45,7 +45,7 @@ body::-webkit-scrollbar,
   --color-foreground: var(--foreground);
   --color-white: #ffffff;
   --font-main: var(--font-lato), "Inter", system-ui, sans-serif;
-  --font-title: var(--font-playfair), "Playfair Display", serif;
+  --font-title: var(--font-lato), sans-serif;
   --font-sans: var(--font-main);
 }
 
@@ -1313,8 +1313,28 @@ section {
 }
 
 @media (max-width: 640px) {
+  .insights-carousel {
+    padding: 0 44px;
+  }
+
   .insights-carousel-slide {
-    min-width: 50%;
+    min-width: 100%;
+    padding: 0 0.5rem;
+  }
+
+  .insights-carousel-arrow {
+    display: flex;
+    width: 36px;
+    height: 36px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .insights-carousel-arrow--left {
+    left: 0;
+  }
+
+  .insights-carousel-arrow--right {
+    right: 0;
   }
 }
 
@@ -2656,12 +2676,12 @@ section {
 /* Why Dippa Section */
 .why-dippa-section {
   position: relative;
-  padding: 6rem 0;
+  padding: 8rem 0;
   margin: 0;
   color: #ffffff;
   overflow: hidden;
   background: #0f172a;
-  clip-path: polygon(0 2%, 100% 0, 100% 98%, 0 100%);
+  clip-path: none;
 }
 
 @media (min-width: 1024px) {
@@ -2678,8 +2698,14 @@ section {
   background-image: linear-gradient(rgba(10, 10, 10, 0.6), rgba(15, 23, 42, 0.7)), url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&q=80&w=2000');
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
+  background-attachment: scroll;
   z-index: 0;
+}
+
+@media (min-width: 1024px) {
+  .why-dippa-section::before {
+    background-attachment: fixed;
+  }
 }
 
 .why-dippa-section .section-shell {
@@ -2688,13 +2714,13 @@ section {
 }
 
 .why-dippa-title {
-  font-family: var(--font-lato), serif !important;
+  font-family: var(--font-lato), sans-serif !important;
   font-size: clamp(1.75rem, 8vw, 3rem);
-  font-weight: 800;
+  font-weight: 900;
   color: inherit;
   text-align: center;
   margin-bottom: 3rem;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   -webkit-text-fill-color: initial !important;
   background: none !important;
 }
@@ -2766,10 +2792,19 @@ section {
 @media (max-width: 768px) {
   .why-dippa-grid {
     grid-template-columns: 1fr;
+    gap: 1.25rem;
   }
 
   .why-dippa-card {
-    padding: 2rem;
+    padding: 1.5rem;
+  }
+
+  .why-dippa-card-title {
+    font-size: 1rem;
+  }
+
+  .why-dippa-card-text {
+    font-size: 0.85rem;
   }
 }
 
