@@ -1121,8 +1121,10 @@ section {
   }
 
   .work-sphere-stage {
-    height: 75vh;
-    min-height: 600px;
+    position: relative;
+    z-index: 999;
+    height: 50vh;
+    min-height: 380px;
     border-radius: 0;
   }
 
@@ -1336,7 +1338,7 @@ section {
 
 @media (max-width: 640px) {
   .insights-carousel-slide {
-    min-width: 100%;
+    min-width: 50%;
   }
 }
 
@@ -2633,12 +2635,12 @@ section {
     aspect-ratio: 3 / 2;
     max-width: 100%;
   }
-  
+
   .journey-image-col {
     margin-top: 1rem;
     margin-bottom: 2rem;
   }
-  
+
   .journey-content-col {
     padding-top: 0;
   }
@@ -2656,20 +2658,20 @@ section {
   .journey-content-col {
     gap: 1.5rem;
   }
-  
+
   .journey-step {
     gap: 1rem;
   }
-  
+
   .journey-step-number {
     font-size: 1.5rem;
     min-width: 2rem;
   }
-  
+
   .journey-step-title {
     font-size: 1.1rem;
   }
-  
+
   .journey-step-text {
     font-size: 0.95rem;
   }
@@ -4526,10 +4528,12 @@ section {
     scrollbar-width: none;
   }
 }
+
 /* Scrollbar Utilities */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;

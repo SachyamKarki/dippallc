@@ -217,6 +217,15 @@ export default function HeroCarousel() {
             margin: 0 auto;
           }
         }
+        @media (max-width: 768px) {
+          .hero-new-right {
+            max-width: 220px;
+          }
+          .hero-new-layout {
+            padding: 2.5rem 1rem;
+            gap: 2rem;
+          }
+        }
       `}</style>
     </>
   );

@@ -80,13 +80,13 @@ export default function PartnersSection() {
           {techPartners.map((partner, i) => (
             <article 
               key={i} 
-              className="partners-logo-item flex flex-col items-center gap-3 sm:gap-4 transition-all duration-300" 
+              className="partners-logo-item flex flex-col items-center transition-all duration-300" 
               aria-label={partner.name}
             >
               <div className="h-5 sm:h-7 flex items-center justify-center [&>svg]:h-full [&>svg]:w-auto">
                 {partner.logo}
               </div>
-              <span className="partners-logo-name text-[9px] sm:text-[11px] font-bold uppercase tracking-[0.2em] text-gray-600">
+              <span className="partners-logo-name block mt-4 sm:mt-5 text-[9px] sm:text-[11px] font-bold uppercase tracking-[0.2em] text-gray-600">
                 {partner.name}
               </span>
             </article>

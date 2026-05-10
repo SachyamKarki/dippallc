@@ -97,8 +97,11 @@ export default function InteractiveProjectGrid() {
     renderer.domElement.className = "work-sphere-webgl";
     viewport.appendChild(renderer.domElement);
 
+    const pitchGroup = new THREE.Group();
+    scene.add(pitchGroup);
+    
     const carouselGroup = new THREE.Group();
-    scene.add(carouselGroup);
+    pitchGroup.add(carouselGroup);
 
     scene.add(new THREE.AmbientLight(0xffffff, 1.45));
 
@@ -193,7 +196,7 @@ export default function InteractiveProjectGrid() {
       verticalOffsetRef.current.current += (verticalOffsetRef.current.target - verticalOffsetRef.current.current) * 0.08;
 
       carouselGroup.rotation.y = rotationRef.current.current;
-      carouselGroup.position.y = verticalOffsetRef.current.current;
+      pitchGroup.rotation.x = verticalOffsetRef.current.current;
 
       updateActiveSite();
       renderer.render(scene, camera);
@@ -271,11 +274,12 @@ export default function InteractiveProjectGrid() {
             const dx = event.clientX - pointerRef.current.startX;
             rotationRef.current.target = pointerRef.current.startRotation + (dx / rect.width) * Math.PI * 1.4;
 
-            // Calculate vertical panning (clamped to prevent scrolling past the grid)
+            // Calculate vertical panning as a limited pitch (curved) view
             const dy = event.clientY - pointerRef.current.startY;
-            // Dragging down (positive dy) pulls the group down (negative y)
-            const rawVertical = pointerRef.current.startVertical - (dy / rect.height) * 45;
-            verticalOffsetRef.current.target = THREE.MathUtils.clamp(rawVertical, -26, 26);
+            // Dragging down (positive dy) pitches the group down
+            const rawVertical = pointerRef.current.startVertical - (dy / rect.height) * Math.PI * 0.4;
+            // Limit to a certain angle (approx +/- 18 degrees) since there isn't much vertical content
+            verticalOffsetRef.current.target = THREE.MathUtils.clamp(rawVertical, -Math.PI / 10, Math.PI / 10);
           }}
           onPointerUp={(event) => {
             pointerRef.current.active = false;

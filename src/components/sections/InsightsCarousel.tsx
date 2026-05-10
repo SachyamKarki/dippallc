@@ -27,7 +27,7 @@ export default function InsightsCarousel({ articles }: InsightsCarouselProps) {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth <= 640) setVisibleSlides(1);
+      if (window.innerWidth <= 640) setVisibleSlides(2);
       else if (window.innerWidth <= 1024) setVisibleSlides(2);
       else setVisibleSlides(3);
     };
@@ -91,7 +91,8 @@ export default function InsightsCarousel({ articles }: InsightsCarouselProps) {
           ref={trackRef}
           className="insights-carousel-track"
           style={{
-            transform: `translateX(-${currentIndex * (100 / visibleSlides)}%)`,
+            transform: `translateX(calc(-${currentIndex * (100 / visibleSlides)}% + ${window.innerWidth <= 640 ? 25 : 0
+              }%))`,
           }}
         >
           {articles.map((item) => (
