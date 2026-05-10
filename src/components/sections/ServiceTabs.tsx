@@ -104,29 +104,27 @@ export default function ServiceTabs() {
   };
 
   return (
-    <section className="py-24 lg:py-28 bg-white relative overflow-hidden" id="strategic-capability">
-      {/* Floating Decorative Orbs */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="service-orb service-orb-1" />
-        <div className="service-orb service-orb-2" />
-        <div className="service-orb service-orb-3" />
-      </div>
+    <section className="py-16 lg:py-28 bg-white relative overflow-hidden" id="strategic-capability">
+
 
       <div className="section-shell relative z-10">
-        <div className="w-full flex flex-col items-center text-center mb-8 lg:mb-10 px-1">
-          <h2 className="section-title text-black mt-10 mb-6 w-full max-w-4xl mx-auto sm:mb-8">
-            What we offer
+        <div className="w-full flex flex-col items-center text-center mb-8 lg:mb-12 px-8 sm:px-12">
+          <h2 
+            className="section-title text-black mt-10 mb-6 w-full max-w-4xl mx-auto sm:mb-8 !font-black"
+            style={{ fontFamily: 'var(--font-lato)' }}
+          >
+            What We Offer
           </h2>
-          <p className="section-subtitle text-black mb-0! max-w-prose sm:max-w-2xl">
+          <p className="section-subtitle text-black mb-0! max-w-prose sm:max-w-2xl text-sm sm:text-base lg:text-lg">
             Disciplined execution for companies that require technical excellence and systemic operational clarity.
           </p>
         </div>
 
         <div className="relative w-full max-w-full overflow-hidden mb-0">
-          <div className="flex flex-nowrap overflow-x-auto no-scrollbar justify-start sm:justify-center items-center gap-1 sm:gap-0 p-2 bg-transparent w-full">
+          <div className="flex flex-nowrap overflow-x-auto no-scrollbar justify-start sm:justify-center items-center gap-1 sm:gap-2 px-8 py-2 bg-transparent w-full">
             {/* Sliding Indicator */}
             <div 
-              className="absolute h-[calc(100%-16px)] bg-[#1E293B] rounded-full transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]"
+              className="absolute h-[calc(100%-16px)] bg-[#364835] rounded-full transition-none sm:transition-all sm:duration-500 sm:ease-[cubic-bezier(0.23,1,0.32,1)]"
               style={{
                 left: `${sliderStyle.left}px`,
                 width: `${sliderStyle.width}px`,
@@ -140,11 +138,12 @@ export default function ServiceTabs() {
                 ref={el => { tabsRef.current[index] = el; }}
                 onClick={() => setActiveTab(service.id)}
                 className={cn(
-                  "relative z-10 rounded-full px-5 py-2.5 text-sm font-semibold transition-colors duration-300 flex-shrink-0 sm:px-4 sm:text-base",
+                  "relative z-10 rounded-full px-4 py-2 text-xs font-black transition-colors duration-300 flex-shrink-0 sm:px-6 sm:py-3 sm:text-sm",
                   activeTab === service.id 
                     ? "text-white" 
-                    : "text-black hover:text-black"
+                    : "text-black hover:text-black/70"
                 )}
+                style={{ fontFamily: 'var(--font-lato)' }}
               >
                 {service.name}
               </button>
@@ -162,30 +161,41 @@ export default function ServiceTabs() {
               <div className="flex flex-col max-w-prose lg:max-w-none mx-auto lg:mx-0">
                 {/* Active service number badge */}
                 <div className="service-counter-enter mb-4 flex flex-wrap items-center justify-center lg:justify-start gap-x-3 gap-y-1 lg:mb-5">
-                  <span className="text-xs font-bold tabular-nums uppercase tracking-widest text-black/40">
+                  <span className="text-[13px] font-bold tabular-nums uppercase tracking-[0.2em] text-black">
                     {String(activeIndex + 1).padStart(2, "0")}
                   </span>
-                  <span className="hidden h-px w-8 shrink-0 bg-black/10 sm:block" aria-hidden />
-                  <span className="text-sm font-semibold text-black">{activeService.name}</span>
+                  <span className="hidden h-px w-8 shrink-0 bg-black/20 sm:block" aria-hidden />
+                  <span className="text-sm font-bold text-black uppercase tracking-wider">{activeService.name}</span>
                 </div>
 
-                <h3 className="service-title-enter text-black text-center lg:text-left">
+                <h3 
+                  className="service-title-enter text-black text-center lg:text-left text-xl sm:text-2xl lg:text-3xl font-black tracking-tight"
+                  style={{ fontFamily: 'var(--font-lato)' }}
+                >
                   {activeService.title}
                 </h3>
-                <p className="mt-4 text-black sm:mt-5 lg:mt-6 service-desc-enter text-center lg:text-left">
+                <p 
+                  className="mt-4 service-desc-enter text-center lg:text-left leading-relaxed max-w-2xl mx-auto lg:mx-0 font-medium"
+                  style={{ color: '#000000', fontSize: '14px', fontFamily: 'var(--font-lato)' }}
+                >
                   {activeService.description}
                 </p>
               </div>
               
-              <div className="space-y-8 max-w-prose lg:max-w-none">
-                <ul className="space-y-5 lg:space-y-6">
+              <div className="space-y-6 max-w-prose lg:max-w-none">
+                <ul className="space-y-3 lg:space-y-4">
                   {activeService.points.map((point, index) => (
                     <li 
                       key={activeService.id + index} 
-                      className="flex items-start gap-3 text-black lg:gap-4 service-point-enter text-left"
-                      style={{ animationDelay: `${0.3 + index * 0.12}s` }}
+                      className="flex items-start gap-3 service-point-enter text-left leading-relaxed font-medium"
+                      style={{ 
+                        animationDelay: `${0.3 + index * 0.12}s`,
+                        color: '#000000',
+                        fontSize: '13px',
+                        fontFamily: 'var(--font-lato)'
+                      }}
                     >
-                      <div className="w-1.5 h-1.5 mt-2 shrink-0 rounded-full bg-black" />
+                      <div className="w-1.5 h-1.5 mt-1.5 shrink-0 rounded-full bg-black/40" />
                       {point}
                     </li>
                   ))}
@@ -202,11 +212,7 @@ export default function ServiceTabs() {
               </div>
             </div>
 
-            {/* Image with 3D Tilt + Gradient Blob */}
             <div className="relative" key={activeService.id + "-img-wrap"}>
-              {/* Morphing Gradient Blob */}
-              <div className="service-blob" />
-
               <div
                 ref={imageRef}
                 onMouseMove={handleMouseMove}
@@ -257,26 +263,7 @@ export default function ServiceTabs() {
           from { transform: scale(1); }
           to { transform: scale(1.05); }
         }
-        @keyframes float1 {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          33% { transform: translate(30px, -40px) scale(1.05); }
-          66% { transform: translate(-20px, 20px) scale(0.95); }
-        }
-        @keyframes float2 {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          50% { transform: translate(-40px, -30px) scale(1.08); }
-        }
-        @keyframes float3 {
-          0%, 100% { transform: translate(0, 0); }
-          25% { transform: translate(20px, -50px); }
-          75% { transform: translate(-30px, 30px); }
-        }
-        @keyframes blobMorph {
-          0%, 100% { border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%; transform: rotate(0deg) scale(1); }
-          25% { border-radius: 70% 30% 50% 50% / 30% 60% 40% 70%; transform: rotate(90deg) scale(1.05); }
-          50% { border-radius: 50% 50% 30% 70% / 50% 40% 60% 50%; transform: rotate(180deg) scale(0.95); }
-          75% { border-radius: 30% 70% 55% 45% / 55% 35% 65% 45%; transform: rotate(270deg) scale(1.02); }
-        }
+
         @keyframes dotPulse {
           0%, 100% { opacity: 1; transform: scale(1); }
           50% { opacity: 0.5; transform: scale(1.8); }
@@ -286,42 +273,7 @@ export default function ServiceTabs() {
           to { opacity: 1; transform: translateX(0); }
         }
 
-        .service-orb {
-          position: absolute;
-          border-radius: 50%;
-          filter: blur(80px);
-          opacity: 0.04;
-        }
-        .service-orb-1 {
-          width: 500px; height: 500px;
-          background: #1E293B;
-          top: 10%; right: -5%;
-          animation: float1 20s ease-in-out infinite;
-        }
-        .service-orb-2 {
-          width: 350px; height: 350px;
-          background: #5a7d59;
-          bottom: 5%; left: 5%;
-          animation: float2 25s ease-in-out infinite;
-        }
-        .service-orb-3 {
-          width: 250px; height: 250px;
-          background: #2d3e2c;
-          top: 40%; left: 40%;
-          animation: float3 18s ease-in-out infinite;
-        }
 
-        .service-blob {
-          position: absolute;
-          width: 85%;
-          height: 85%;
-          top: 7.5%;
-          left: 7.5%;
-          background: linear-gradient(135deg, rgba(54,72,53,0.08), rgba(90,125,89,0.06), rgba(54,72,53,0.04));
-          animation: blobMorph 16s ease-in-out infinite;
-          z-index: 0;
-          pointer-events: none;
-        }
 
         .service-content-enter {
           animation: fadeInRight 0.6s ease-out both;

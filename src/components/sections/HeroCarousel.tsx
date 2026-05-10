@@ -194,20 +194,26 @@ export default function HeroCarousel() {
           .hero-new-layout { 
             grid-template-columns: 1fr; 
             text-align: center;
-            padding: 4rem 0;
-            gap: 4rem;
+            padding: 4rem 1.5rem;
+            gap: 3rem;
           }
           .hero-new-left { align-items: center; text-align: center; }
+          .hero-title-v2 { 
+            font-size: clamp(2rem, 8vw, 2.5rem);
+            margin-bottom: 1.5rem;
+          }
+          .hero-kicker-v2 { font-size: 0.9375rem; }
           .hero-stats-v2 { 
             flex-wrap: wrap;
             justify-content: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
           }
+          .hero-stat-value { font-size: 1.75rem; }
           .hero-stat-divider { display: none; }
           .hero-new-right { 
             width: 100%;
-            max-width: 400px;
+            max-width: 320px;
             margin: 0 auto;
           }
         }

@@ -50,7 +50,7 @@ export default function JourneySection() {
   }, []);
 
   return (
-    <section id="journey" className="section py-32 overflow-hidden reveal" ref={sectionRef}>
+    <section id="journey" className="section journey-section pt-32 pb-0 overflow-hidden reveal" ref={sectionRef}>
       {/* Floating Orbs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="journey-orb journey-orb-1" />
@@ -58,7 +58,10 @@ export default function JourneySection() {
       </div>
 
       <div className="section-shell">
-        <h2 className={`section-title mb-20 lg:mb-28 ${isVisible ? 'journey-heading-enter' : 'opacity-0'}`}>
+        <h2 
+          className={`section-title mb-16 lg:mb-24 ${isVisible ? 'journey-heading-enter' : 'opacity-0'}`}
+          style={{ fontFamily: 'var(--font-lato)', fontWeight: 900 }}
+        >
           Start Your Journey
         </h2>
         
@@ -69,7 +72,7 @@ export default function JourneySection() {
                 src="/images/journey-person-v3.png"
                 alt="Start Your Journey with Dippa"
                 fill
-                className="object-contain object-bottom journey-image-float"
+                className="object-contain object-bottom journey-image-float sm:object-right-bottom"
                 priority
               />
             </div>
@@ -83,10 +86,10 @@ export default function JourneySection() {
                   className={`journey-step ${isVisible ? 'journey-step-enter' : 'opacity-0'}`}
                   style={{ animationDelay: isVisible ? `${0.3 + index * 0.5}s` : '0s' }}
                 >
-                  <span className="journey-step-number journey-number-glow">{step.number}</span>
+                  <span className="journey-step-number journey-number-glow" style={{ fontFamily: 'var(--font-lato)' }}>{step.number}</span>
                   <div className="journey-step-body">
-                    <h3 className="journey-step-title">{step.title}</h3>
-                    <p className="journey-step-text">{step.text}</p>
+                    <h3 className="journey-step-title" style={{ fontFamily: 'var(--font-lato)', fontWeight: 800 }}>{step.title}</h3>
+                    <p className="journey-step-text" style={{ fontFamily: 'var(--font-lato)' }}>{step.text}</p>
                   </div>
                 </div>
               ))}
@@ -152,6 +155,13 @@ export default function JourneySection() {
         }
         .journey-number-glow {
           animation: numberPulse 3s ease-in-out infinite;
+        }
+
+        .journey-section {
+          background: #ffffff;
+          padding-top: 6rem !important;
+          padding-bottom: 0 !important;
+          margin-bottom: 0 !important;
         }
 
         .journey-orb {

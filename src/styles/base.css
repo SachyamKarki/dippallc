@@ -3,9 +3,9 @@
 /* 1. Variables & Design Tokens */
 :root {
   --background: #ffffff;
-  --foreground: #0a0a0a;
-  --muted: #4b5563;
-  --border: rgba(0, 0, 0, 0.08);
+  --foreground: #000000;
+  --muted: #111111;
+  --border: rgba(0, 0, 0, 0.1);
   --surface: #ffffff;
   --surface-strong: #f8fafc;
   --accent: #364835;
@@ -19,7 +19,7 @@
   --font-accent: var(--font-lato), sans-serif;
   
   --container-max-width: 1440px;
-  --container-gutter-mobile: 1.5rem;
+  --container-gutter-mobile: 3rem;
   --container-gutter-desktop: 4rem;
   --control-height: 3.5rem;
   --control-padding-x: 2rem;

@@ -225,14 +225,15 @@ section {
 .section-subtitle {
   text-align: center;
   max-width: 65ch;
-  margin: 0 auto 5rem;
-  font-size: 1.25rem;
+  margin: 0 auto 3rem;
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
 @media (min-width: 1024px) {
   .section-subtitle {
-    font-size: 1.0625rem;
-    margin-bottom: 4rem;
+    font-size: 1.125rem;
+    margin-bottom: 5rem;
   }
 }
 
@@ -495,15 +496,15 @@ section {
 }
 
 .site-nav-link {
-  color: var(--muted);
-  font-weight: 700;
-  font-size: 0.875rem;
-  letter-spacing: -0.01em;
+  color: #000000;
+  font-weight: 800;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  transition: color 0.3s ease;
-  font-family: var(--font-title);
+  transition: all 0.3s ease;
+  font-family: var(--font-lato), sans-serif;
   position: relative;
-  padding-bottom: 4px;
+  padding-bottom: 2px;
 }
 
 .site-nav-link::after {
@@ -632,12 +633,12 @@ section {
 .process-title,
 .section-title-serif {
   font-family: var(--font-lato), sans-serif !important;
-  font-size: clamp(1.75rem, 2.75vw, 2.65rem) !important;
+  font-size: clamp(1.5rem, 4vw, 2.75rem) !important;
   font-weight: 800 !important;
-  letter-spacing: -0.03em !important;
+  letter-spacing: -0.02em !important;
   color: #1e1b26;
-  margin-bottom: 1.25rem;
-  line-height: 1 !important;
+  margin-bottom: 1rem;
+  line-height: 1.1 !important;
 }
 
 .hero-title {
@@ -2515,10 +2516,7 @@ section {
 /* Process */
 
 /* Journey Section */
-.journey-section {
-  background: #ffffff;
-  padding: 6rem 0 !important;
-}
+
 
 .journey-grid {
   display: grid;
@@ -2539,7 +2537,7 @@ section {
   max-width: 520px;
   margin: 0 auto;
   aspect-ratio: 4 / 5;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .journey-content-col {
@@ -2632,7 +2630,34 @@ section {
   }
 
   .journey-image-wrapper {
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 3 / 2;
+    max-width: 100%;
+  }
+  
+  .journey-image-col {
+    order: 2;
+    margin-top: 2rem;
+    overflow: hidden;
+  }
+  
+  .journey-content-col {
+    order: 1;
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .journey-image-wrapper {
+    aspect-ratio: 1 / 1;
+  }
+  
+  .journey-step {
+    gap: 1.25rem;
+  }
+  
+  .journey-step-number {
+    font-size: 1.5rem;
+    min-width: 2rem;
   }
 }
 
@@ -2672,11 +2697,11 @@ section {
 
 .why-dippa-title {
   font-family: var(--font-lato), serif !important;
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: clamp(1.75rem, 8vw, 3rem);
   font-weight: 800;
   color: inherit;
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
   letter-spacing: -0.02em;
   -webkit-text-fill-color: initial !important;
   background: none !important;
@@ -3093,7 +3118,7 @@ section {
 .mobile-drawer-links a {
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--foreground);
+  color: #000000;
   transition: color 0.2s ease;
 }
 

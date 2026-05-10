@@ -52,9 +52,9 @@ export default function FAQSection() {
   }, [openIndex]);
 
   return (
-    <section className="faq-section pt-56 pb-32 lg:pt-[24rem] lg:pb-32 bg-white text-zinc-900" id="faq">
+    <section className="faq-section pt-24 pb-16 lg:pt-[24rem] lg:pb-32 bg-white text-zinc-900" id="faq">
       <div className="section-shell">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-32">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-32">
 
           {/* FAQ Intro - Left Sticky */}
           <div className="lg:col-span-4 relative h-full">
