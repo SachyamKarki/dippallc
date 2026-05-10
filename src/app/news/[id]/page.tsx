@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import Button from "@/components/ui/Button";
 import ArticleVote from "@/components/blog/ArticleVote";
 import BlogCard from "@/components/blog/BlogCard";
 import BlogContentRenderer from "@/components/blog/BlogContentRenderer";
@@ -95,15 +96,15 @@ export default function NewsArticlePage() {
     return (
       <main className="min-h-[80vh] flex flex-col items-center justify-center bg-white pt-24">
         <div className="text-center px-6 section-shell">
-          <h1 className="text-5xl lg:text-7xl font-black tracking-tight text-[#0a0a0a] mb-6" style={{ fontFamily: 'var(--font-playfair), serif' }}>
+          <h1 className="text-5xl lg:text-7xl font-black tracking-tighter text-black mb-6 uppercase" style={{ fontFamily: 'var(--font-lato)' }}>
             COMING SOON
           </h1>
-          <p className="text-lg text-[#0a0a0a]/70 font-medium max-w-xl mx-auto mb-12">
+          <p className="text-lg text-black/70 font-medium max-w-xl mx-auto mb-12">
             We are currently curating and formatting our technical research articles. The full editorial piece will be available shortly.
           </p>
-          <Link href="/news" className="button-primary px-8 py-4 text-xs font-black uppercase tracking-widest hover:scale-105 transition-all shadow-xl">
+          <Button href="/news" className="px-10 py-5">
             Return to Newsroom
-          </Link>
+          </Button>
         </div>
       </main>
     );

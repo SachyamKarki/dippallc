@@ -29,10 +29,10 @@ export default function NewsCard({ article, variant = "standard", priority = fal
           />
         </div>
         <div className="blogs-horizontal-card-body">
-          <div className="blogs-gallery-meta text-[0.8rem]">
-            <span className="author">{author}</span>
-            <span>&bull;</span>
-            <span>{formatDate(article.createdAt)}</span>
+          <div className="blogs-gallery-meta flex items-center gap-2 text-[0.8rem] whitespace-nowrap overflow-hidden">
+            <span className="author truncate">{author}</span>
+            <span className="shrink-0 text-black/20">&bull;</span>
+            <span className="shrink-0">{formatDate(article.createdAt)}</span>
           </div>
           <h3 className="blogs-gallery-card-title text-[1.25rem]">{article.title}</h3>
           <p className="blogs-gallery-card-excerpt line-clamp-2 text-[0.95rem]">{article.excerpt}</p>

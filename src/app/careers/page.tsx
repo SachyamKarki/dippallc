@@ -3,202 +3,183 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-
 import { Job } from '@/types';
 import Button from '@/components/ui/Button';
+import { Briefcase, Zap, Shield, Users, ArrowRight } from 'lucide-react';
 
 export default function CareersPage() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Simulated fetch - replace with real API call if needed
     setJobs([]);
     setLoading(false);
   }, []);
 
-  return (
-    <main className="careers-page-v2">
+  const values = [
+    {
+      title: "Excellence",
+      description: "We are committed to developing our talent and building great things. Quality is not a compromise; it is our baseline.",
+      icon: <Zap className="w-6 h-6" />,
+      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop"
+    },
+    {
+      title: "Lean Execution",
+      description: "No politics or bureaucracy. You can make an impact on day 1. We value people who move fast and break bottlenecks.",
+      icon: <Users className="w-6 h-6" />,
+      image: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2070&auto=format&fit=crop"
+    },
+    {
+      title: "Technical Courage",
+      description: "We value people who are excited about solving hard problems and persistently seek solutions in complex landscapes.",
+      icon: <Shield className="w-6 h-6" />,
+      image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop"
+    },
+    {
+      title: "Radical Ownership",
+      description: "Every member of our group is a principal. We take full responsibility for the architectural integrity of our systems.",
+      icon: <Briefcase className="w-6 h-6" />,
+      image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop"
+    }
+  ];
 
+  return (
+    <main className="min-h-screen bg-white">
       {/* ═══ HERO SECTION ═══ */}
-      <section className="careers-hero-v2">
-        <div className="section-shell flex flex-col lg:flex-row lg:justify-center lg:items-start gap-5 lg:gap-8 w-full">
-          <div className="careers-title-wrap max-w-sm lg:max-w-[20rem] shrink-0">
-            <h1 className="careers-title-main">
-              <span className="careers-title-highlight font-black tracking-tighter">Careers.</span>
-            </h1>
-            <p className="careers-hero-sub max-w-prose">
-              We are building a culture of senior product judgment, architectural precision, and high-velocity execution.
+      <section className="pt-32 pb-20 lg:pt-48 lg:pb-32 relative overflow-hidden">
+        <div className="section-shell relative z-10">
+          <div className="flex flex-col lg:flex-row items-center gap-16">
+            <div className="lg:w-1/2 text-center lg:text-left">
+              <h1 className="text-5xl lg:text-7xl font-black mb-6 tracking-tighter text-black uppercase" style={{ fontFamily: 'var(--font-lato)' }}>
+                Join the Group.
+              </h1>
+              <p className="text-lg lg:text-xl text-black/70 max-w-2xl mx-auto lg:mx-0 mb-10 font-medium leading-relaxed">
+                We are building a culture of senior product judgment, architectural precision, and high velocity execution. No juniors, no dilution, just engineering excellence.
+              </p>
+              <div className="flex justify-center lg:justify-start gap-4">
+                <Button href="#openings" className="px-10 py-5">
+                  View Openings
+                </Button>
+              </div>
+            </div>
+
+            {/* Restored Collage */}
+            <div className="lg:w-1/2 relative h-[400px] w-full max-w-lg mx-auto">
+              <div className="absolute top-0 left-0 w-64 h-48 rounded-3xl overflow-hidden shadow-2xl rotate-[-6deg] z-10 border-4 border-white">
+                <Image src="/images/careers-meeting.png" fill className="object-cover" alt="Team meeting" />
+              </div>
+              <div className="absolute top-20 right-0 w-64 h-48 rounded-3xl overflow-hidden shadow-2xl rotate-[4deg] z-20 border-4 border-white">
+                <Image src="/images/careers-lounge.png" fill className="object-cover" alt="Team lounge" />
+              </div>
+              <div className="absolute bottom-0 left-20 w-48 h-64 rounded-3xl overflow-hidden shadow-2xl rotate-[2deg] z-30 border-4 border-white">
+                <Image src="/images/careers-whiteboard.png" fill className="object-cover" alt="Team whiteboard" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ VALUES SECTION ═══ */}
+      <section className="py-24 bg-[#f8f9f8]">
+        <div className="section-shell">
+          <div className="mb-16 text-center">
+            <h2 className="text-3xl lg:text-4xl font-black mb-4 tracking-tight text-black uppercase" style={{ fontFamily: 'var(--font-lato)' }}>
+              How We Work
+            </h2>
+            <p className="text-black/60 max-w-xl mx-auto font-medium">
+              Dippa is not just a workplace; it is a technical management surface for senior talent.
             </p>
           </div>
 
-          {/* Image Collage */}
-          <div className="careers-collage">
-            <div className="collage-img-1">
-              <div className="collage-inner">
-                <Image src="/images/careers-meeting.png" fill className="object-cover" alt="Team meeting" draggable={false} />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {values.map((value, idx) => (
+              <div key={idx} className="group relative bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-black/5">
+                <div className="relative h-48 overflow-hidden">
+                  <Image 
+                    src={value.image} 
+                    fill 
+                    className="object-cover group-hover:scale-110 transition-transform duration-700" 
+                    alt={value.title}
+                    unoptimized
+                  />
+                  <div className="absolute inset-0 bg-black/20" />
+                  <div className="absolute top-4 left-4 w-10 h-10 bg-white rounded-xl flex items-center justify-center text-black shadow-lg">
+                    {value.icon}
+                  </div>
+                </div>
+                <div className="p-8">
+                  <h4 className="text-xl font-bold mb-3 text-black uppercase tracking-tight" style={{ fontFamily: 'var(--font-lato)' }}>
+                    {value.title}
+                  </h4>
+                  <p className="text-black/70 text-sm leading-relaxed font-medium">
+                    {value.description}
+                  </p>
+                </div>
               </div>
-            </div>
-            <div className="collage-img-2">
-              <div className="collage-inner">
-                <Image src="/images/careers-lounge.png" fill className="object-cover" alt="Team lounge" draggable={false} />
-              </div>
-            </div>
-            <div className="collage-img-v">
-              <div className="collage-inner">
-                <Image src="/images/careers-whiteboard.png" fill className="object-cover" alt="Team whiteboard" draggable={false} />
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ═══ IMMERSION SECTION ═══ */}
-      <section className="careers-immersion">
+      {/* ═══ OPENINGS SECTION ═══ */}
+      <section className="py-24 lg:py-32" id="openings">
         <div className="section-shell">
-          <h2 className="values-main-title">Our Values</h2>
-          <div className="values-grid">
-
-            {/* Card 1 */}
-            <div className="value-box">
-              <div className="value-img-wrap">
-                <div className="value-img-inner">
-                  <Image src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop" fill className="object-cover" alt="Excellence" draggable={false} unoptimized />
-                </div>
-              </div>
-              <div className="value-content">
-                <div className="value-headline">
-                  <div className="value-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="3" y="3" width="18" height="18" rx="4"></rect>
-                      <path d="M3 12h18"></path>
-                      <path d="M12 3v18"></path>
-                    </svg>
-                  </div>
-                  <h4>Excellence</h4>
-                </div>
-                <p>We&apos;re committed to developing our talent and building great things.</p>
-              </div>
+          <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+            <div>
+              <h2 className="text-3xl lg:text-4xl font-black mb-4 tracking-tight text-black uppercase" style={{ fontFamily: 'var(--font-lato)' }}>
+                Current Opportunities
+              </h2>
+              <p className="text-black/60 font-medium">
+                Find your place within our high performance engineering culture.
+              </p>
             </div>
-
-            {/* Card 2 */}
-            <div className="value-box">
-              <div className="value-img-wrap">
-                <div className="value-img-inner">
-                  <Image src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2070&auto=format&fit=crop" fill className="object-cover" alt="Keep it lean" draggable={false} unoptimized />
-                </div>
-              </div>
-              <div className="value-content">
-                <div className="value-headline">
-                  <div className="value-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="3" y="3" width="18" height="18" rx="4"></rect>
-                      <path d="M3 12h18"></path>
-                      <path d="M12 3v9"></path>
-                    </svg>
-                  </div>
-                  <h4>Keep it lean</h4>
-                </div>
-                <p>No politics or bureaucracy. You can make an impact on day 1.</p>
-              </div>
+            <div className="bg-black/5 px-6 py-3 rounded-full border border-black/5 text-sm font-bold uppercase tracking-widest text-black/50">
+              {jobs.length} Positions Active
             </div>
-
-            {/* Card 3 */}
-            <div className="value-box">
-              <div className="value-img-wrap">
-                <div className="value-img-inner">
-                  <Image src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop" fill className="object-cover" alt="Courage" draggable={false} unoptimized />
-                </div>
-              </div>
-              <div className="value-content">
-                <div className="value-headline">
-                  <div className="value-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="3" y="3" width="18" height="18" rx="4"></rect>
-                      <path d="M7 3v18"></path>
-                      <path d="M17 3v18"></path>
-                    </svg>
-                  </div>
-                  <h4>Courage</h4>
-                </div>
-                <p>We value people who are excited about solving hard problems and persistently seek solutions.</p>
-              </div>
-            </div>
-
-            {/* Card 4 */}
-            <div className="value-box">
-              <div className="value-img-wrap">
-                <div className="value-img-inner">
-                  <Image src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" fill className="object-cover" alt="Impatience" draggable={false} unoptimized />
-                </div>
-              </div>
-              <div className="value-content">
-                <div className="value-headline">
-                  <div className="value-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="3" y="3" width="18" height="18" rx="4"></rect>
-                      <path d="M8 12h8"></path>
-                      <path d="M12 8l4 4-4 4"></path>
-                    </svg>
-                  </div>
-                  <h4>Impatience</h4>
-                </div>
-                <p>We value speed, intensity, and bias towards action.</p>
-              </div>
-            </div>
-
           </div>
-        </div>
-      </section>
 
-      {/* ═══ CURRENT OPENINGS ═══ */}
-      <section className="careers-openings">
-        <div className="section-shell">
-          <h2 className="section-title-serif">Current Openings</h2>
-
-          <div className="openings-table">
-            {jobs.length > 0 && (
-              <div className="openings-header">
-                <span className="opening-label">Role</span>
-                <span className="opening-label">Team</span>
-                <span className="opening-label">Location</span>
-                <span></span>
-              </div>
-            )}
-
+          <div className="space-y-4">
             {loading ? (
-              <div className="py-12 text-center careers-body-text text-sm text-[#0a0a0a]/70">Loading opportunities...</div>
+              <div className="py-20 text-center font-medium text-black/40">Synchronizing opportunities...</div>
             ) : jobs.length > 0 ? (
               jobs.map((job) => (
-                <div key={job.id} className="opening-wrapper border-b border-[#e5e5e5] last:border-0 hover:bg-[#fafafa] transition-colors">
-                  <Link href={`/careers/${job.id}`} className="block w-full">
-                    <div className="opening-row items-center">
-                      <h3 className="opening-title transition-colors">{job.title}</h3>
-                      <p className="opening-meta">{job.category}</p>
-                      <p className="opening-meta">{job.location}</p>
-                      <div className="flex justify-end items-center">
-                        <Button href={`/careers/${job.id}`} variant="secondary" className="px-5 py-2 !text-[9px]">
-                          Apply
-                        </Button>
-                      </div>
+                <Link 
+                  key={job.id} 
+                  href={`/careers/${job.id}`}
+                  className="group flex flex-col md:flex-row items-start md:items-center justify-between p-8 bg-white border border-black/5 rounded-3xl hover:border-black/20 hover:shadow-lg transition-all duration-300"
+                >
+                  <div className="mb-4 md:mb-0">
+                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-black/40 mb-2 block">
+                      {job.category}
+                    </span>
+                    <h3 className="text-2xl font-bold text-black group-hover:text-black transition-colors" style={{ fontFamily: 'var(--font-lato)' }}>
+                      {job.title}
+                    </h3>
+                  </div>
+                  <div className="flex items-center gap-8 w-full md:w-auto justify-between md:justify-end">
+                    <span className="text-sm font-bold text-black/50 uppercase tracking-widest">
+                      {job.location}
+                    </span>
+                    <div className="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-black group-hover:text-white transition-all duration-300">
+                      <ArrowRight className="w-5 h-5" />
                     </div>
-                  </Link>
-                </div>
+                  </div>
+                </Link>
               ))
             ) : (
-              <div className="py-14 px-6 sm:px-8 text-center bg-[#f9f9f9] rounded-2xl border border-dashed border-[#d1d1d1]">
+              <div className="py-24 px-8 text-center bg-[#f8f9f8] rounded-[3rem] border border-dashed border-black/10">
                 <div className="max-w-md mx-auto">
-                  <div className="mb-4 inline-flex items-center justify-center w-12 h-12 bg-white rounded-full shadow-sm">
-                    <svg className="w-6 h-6 text-[#0a0a0a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
+                  <div className="w-20 h-20 bg-white rounded-3xl shadow-sm flex items-center justify-center mx-auto mb-8 border border-black/5">
+                    <Briefcase className="w-10 h-10 text-black/20" />
                   </div>
-                  <h3 className="text-lg sm:text-xl font-bold text-[#0a0a0a] mb-2" style={{ fontFamily: 'var(--font-playfair), serif' }}>
-                    No Active Openings
+                  <h3 className="text-2xl font-black text-black mb-4 uppercase tracking-tight" style={{ fontFamily: 'var(--font-lato)' }}>
+                    No Open Seats
                   </h3>
-                  <p className="careers-body-text text-sm text-[#0a0a0a] mb-6 leading-relaxed">
-                    We aren&apos;t currently hiring for any specific roles, but we&apos;re always looking for senior-level talent to join our network.
+                  <p className="text-black/60 mb-10 font-medium leading-relaxed">
+                    We aren&apos;t currently hiring for any specific roles, but we are always looking for senior talent to join our ecosystem.
                   </p>
-                  <Button href="/contact" variant="navy" className="px-6 py-3 !text-[0.65rem]">
+                  <Button href="/contact" className="px-10 py-5">
                     Open Application
                   </Button>
                 </div>
@@ -208,28 +189,25 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* ═══ CTA BANNER ═══ */}
-      <section className="py-16 md:py-20 bg-white reveal">
+      <section className="py-24 lg:py-32 bg-white reveal px-4 md:px-8">
         <div className="section-shell">
           <div
-            className="relative rounded-2xl md:rounded-[2rem] py-8 md:py-10 px-6 md:px-10 text-center w-full max-w-xl mx-auto flex flex-col items-center justify-center overflow-hidden"
+            className="relative rounded-[3rem] py-12 md:py-24 px-8 md:px-16 text-center w-full max-w-[1200px] mx-auto flex flex-col items-center justify-center overflow-hidden"
             style={{
               backgroundColor: '#FAF9F6',
               backgroundImage: 'radial-gradient(rgba(0,0,0,0.12) 1px, transparent 0)',
               backgroundSize: '24px 24px',
             }}
           >
-            <h2 className="section-title !mb-4">
-              Join The Team
-            </h2>
-
-            <p className="careers-body-text relative z-10 text-sm md:text-base text-[#0a0a0a] max-w-prose mx-auto mb-8 font-medium">
-              Connect with us today and help build high-performance institutional platforms.
-            </p>
-
             <div className="relative z-10">
-              <Button href="/contact" variant="navy" className="px-10 py-5">
-                Let&apos;s Connect
+              <h2 className="text-4xl lg:text-6xl font-black text-black mb-8 uppercase tracking-tighter" style={{ fontFamily: 'var(--font-lato)' }}>
+                Start Your Journey.
+              </h2>
+              <p className="text-black/70 text-lg lg:text-xl max-w-2xl mx-auto mb-12 font-medium leading-relaxed">
+                Book a discovery call and let&apos;s map your technical landscape into a clear, institutional-grade architectural plan.
+              </p>
+              <Button href="/contact" className="px-12 py-6">
+                Book Discovery Call
               </Button>
             </div>
           </div>

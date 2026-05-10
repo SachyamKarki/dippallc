@@ -122,32 +122,34 @@ export default function ServiceTabs() {
           </p>
         </div>
 
-        <div className="relative flex flex-wrap justify-center items-center gap-1 sm:gap-0 p-2 bg-transparent w-full max-w-full mx-auto mb-0">
-          {/* Sliding Indicator */}
-          <div 
-            className="absolute h-[calc(100%-16px)] bg-[#1E293B] rounded-full transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]"
-            style={{
-              left: `${sliderStyle.left}px`,
-              width: `${sliderStyle.width}px`,
-              opacity: sliderStyle.opacity
-            }}
-          />
+        <div className="relative w-full max-w-full overflow-hidden mb-0">
+          <div className="flex flex-nowrap overflow-x-auto no-scrollbar justify-start sm:justify-center items-center gap-1 sm:gap-0 p-2 bg-transparent w-full">
+            {/* Sliding Indicator */}
+            <div 
+              className="absolute h-[calc(100%-16px)] bg-[#1E293B] rounded-full transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]"
+              style={{
+                left: `${sliderStyle.left}px`,
+                width: `${sliderStyle.width}px`,
+                opacity: sliderStyle.opacity
+              }}
+            />
 
-          {services.map((service, index) => (
-            <button
-              key={service.id}
-              ref={el => { tabsRef.current[index] = el; }}
-              onClick={() => setActiveTab(service.id)}
-              className={cn(
-                "relative z-10 rounded-full px-3.5 py-2 text-sm font-semibold transition-colors duration-300 sm:px-4 sm:py-2.5 sm:text-base",
-                activeTab === service.id 
-                  ? "text-white" 
-                  : "text-black hover:text-black"
-              )}
-            >
-              {service.name}
-            </button>
-          ))}
+            {services.map((service, index) => (
+              <button
+                key={service.id}
+                ref={el => { tabsRef.current[index] = el; }}
+                onClick={() => setActiveTab(service.id)}
+                className={cn(
+                  "relative z-10 rounded-full px-5 py-2.5 text-sm font-semibold transition-colors duration-300 flex-shrink-0 sm:px-4 sm:text-base",
+                  activeTab === service.id 
+                    ? "text-white" 
+                    : "text-black hover:text-black"
+                )}
+              >
+                {service.name}
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className="w-full pt-8 lg:pt-10 pb-4 lg:pb-8 transition-all duration-1000 mt-6 lg:mt-8">

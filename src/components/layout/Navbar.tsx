@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Volume2, VolumeX } from "lucide-react";
+import Button from "@/components/ui/Button";
 
 import { navLinks } from "@/lib/data";
 import { useSiteAudio } from "@/components/layout/SiteAudioProvider";
@@ -123,9 +124,9 @@ export default function Navbar({ sticky = true, theme = "dark" }: { sticky?: boo
               </li>
             ))}
             <li className="mt-8">
-              <Link href="/contact" className="button-primary w-full uppercase text-xs font-bold tracking-widest text-center" onClick={closeMenu}>
+              <Button href="/contact" className="w-full" onClick={closeMenu}>
                 Request a Consultation
-              </Link>
+              </Button>
             </li>
           </ul>
         </div>

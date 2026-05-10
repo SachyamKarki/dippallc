@@ -195,15 +195,21 @@ export default function HeroCarousel() {
             grid-template-columns: 1fr; 
             text-align: center;
             padding: 4rem 0;
+            gap: 4rem;
           }
           .hero-new-left { align-items: center; text-align: center; }
           .hero-stats-v2 { 
-            flex-direction: column; 
-            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
             margin-bottom: 2rem;
           }
           .hero-stat-divider { display: none; }
-          .hero-new-right { display: none; }
+          .hero-new-right { 
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+          }
         }
       `}</style>
     </>

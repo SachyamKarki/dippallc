@@ -86,7 +86,7 @@ export default function BlogsPage() {
   };
 
   return (
-    <main className="blogs-page min-h-screen">
+    <main className="min-h-screen bg-white">
       <NewsHero 
         searchQuery={searchQuery} 
         onSearchChange={(q) => {
@@ -96,7 +96,7 @@ export default function BlogsPage() {
         resultsTitle={searchQuery ? `Search results for "${searchQuery}"` : undefined}
       />
 
-      <section className="blogs-gallery-section pt-12 pb-32">
+      <section className="blogs-gallery-section pt-0 pb-32">
         <div className="blogs-gallery-shell section-shell">
           {loading ? (
             <div className="blogs-loading">

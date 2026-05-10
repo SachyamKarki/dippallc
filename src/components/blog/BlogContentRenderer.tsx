@@ -10,7 +10,7 @@ export default function BlogContentRenderer(props: {
         {props.blocks.map((block, index) => {
           if (block.type === "h2") {
             return (
-              <h2 key={index} className="mt-20 text-left text-[1.9rem] md:text-[2.4rem] font-bold leading-[1.08] tracking-[-0.04em] text-[#0f172a]">
+              <h2 key={index} className="mt-20 text-left text-[1.9rem] md:text-[2.4rem] font-black leading-[1.08] tracking-tighter text-black" style={{ fontFamily: 'var(--font-lato)' }}>
                 {block.text}
               </h2>
             );
@@ -18,7 +18,7 @@ export default function BlogContentRenderer(props: {
 
           if (block.type === "h3") {
             return (
-              <h3 key={index} className="mt-12 text-left text-[1.3rem] md:text-[1.6rem] font-bold leading-tight tracking-[-0.03em] text-[#1e293b]">
+              <h3 key={index} className="mt-12 text-left text-[1.3rem] md:text-[1.6rem] font-black leading-tight tracking-tighter text-black" style={{ fontFamily: 'var(--font-lato)' }}>
                 {block.text}
               </h3>
             );
@@ -26,9 +26,9 @@ export default function BlogContentRenderer(props: {
 
           if (block.type === "ul") {
             return (
-              <ul key={index} className="mt-8 space-y-4 pl-6 text-[1.06rem] leading-8 text-[#334155] md:text-[1.1rem]">
+              <ul key={index} className="mt-8 space-y-4 pl-6 text-[1.06rem] leading-8 text-black/80 md:text-[1.1rem]">
                 {block.items.map((item) => (
-                  <li key={item} className="list-disc pl-2 marker:text-gray-300">
+                  <li key={item} className="list-disc pl-2 marker:text-black/30 font-medium">
                     {item}
                   </li>
                 ))}
@@ -60,7 +60,7 @@ export default function BlogContentRenderer(props: {
           }
 
           return (
-            <p key={index} className="mt-8 text-[1.08rem] leading-8 text-[#334155] md:text-[1.12rem]">
+            <p key={index} className="mt-8 text-[1.08rem] leading-8 text-black/80 font-medium md:text-[1.12rem]">
               {block.text}
             </p>
           );

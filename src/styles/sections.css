@@ -100,15 +100,29 @@
 .section-subtitle {
   text-align: center;
   max-width: 65ch;
-  margin: 0 auto 5rem;
-  font-size: 1.25rem;
+  margin: 0 auto 3rem;
+  font-size: 1.125rem;
+}
+
+@media (min-width: 1024px) {
+  .section-subtitle {
+    margin-bottom: 5rem;
+    font-size: 1.25rem;
+  }
 }
 
 /* Metrics */
 .metrics-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 3rem;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .metrics-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+  }
 }
 
 .metric-card {
@@ -126,16 +140,35 @@
 
 .proof-row {
   display: grid;
-  grid-template-columns: 1fr 1.15fr;
-  gap: 4rem;
+  grid-template-columns: 1fr;
+  gap: 3rem;
   align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .proof-row {
+    grid-template-columns: 1fr 1.15fr;
+    gap: 4rem;
+  }
 }
 
 /* Insights */
 .insights-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr;
   gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .insights-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .insights-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .insight-card {
@@ -178,7 +211,13 @@
 .insights-carousel {
   position: relative;
   width: 100%;
-  padding: 0 60px;
+  padding: 0 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .insights-carousel {
+    padding: 0 60px;
+  }
 }
 
 .insights-carousel-viewport {

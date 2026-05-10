@@ -91,7 +91,7 @@ export default function FAQSection() {
                       <span className="text-xs font-black text-black mt-1.5 shrink-0">
                         {String(index + 1).padStart(2, '0')}.
                       </span>
-                      <span className="text-xl lg:text-2xl font-extrabold text-black tracking-tight leading-tight">
+                      <span className="text-xl lg:text-2xl font-black text-black tracking-tighter leading-tight" style={{ fontFamily: 'var(--font-lato)' }}>
                         {faq.question}
                       </span>
                     </div>
@@ -111,7 +111,7 @@ export default function FAQSection() {
                     className="overflow-hidden h-0 opacity-0"
                   >
                     <div className="px-10 lg:pl-24 pr-12 pb-12">
-                      <p className="text-base lg:text-lg text-black font-medium leading-relaxed">
+                      <p className="text-sm lg:text-base text-black font-medium leading-relaxed">
                         {faq.answer}
                       </p>
                     </div>

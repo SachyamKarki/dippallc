@@ -12,7 +12,7 @@
 }
 
 section {
-  padding: 10rem 0;
+  padding: clamp(4rem, 12vw, 12rem) 0;
   position: relative;
 }
 

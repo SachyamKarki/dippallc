@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Button from "@/components/ui/Button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { allProducts } from "@/lib/data";
 
@@ -62,15 +63,15 @@ export default function ProductsPage() {
     return (
       <main className="projects-page flex flex-col items-center justify-center min-h-[80vh] bg-white">
         <div className="text-center px-6 section-shell">
-          <h1 className="text-5xl lg:text-7xl font-black tracking-tight text-[#0a0a0a] mb-6" style={{ fontFamily: 'var(--font-playfair), serif' }}>
+          <h1 className="text-5xl lg:text-7xl font-black tracking-tighter text-black mb-6 uppercase" style={{ fontFamily: 'var(--font-lato)' }}>
             COMING SOON
           </h1>
-          <p className="text-lg text-[#0a0a0a]/70 font-medium max-w-xl mx-auto mb-12">
+          <p className="text-lg text-black/70 font-medium max-w-xl mx-auto mb-12">
             We are currently curating a selection of our most impactful institutional engagements. Our full project portfolio will be available shortly.
           </p>
-          <Link href="/" className="button-primary px-8 py-4 text-xs font-black uppercase tracking-widest hover:scale-105 transition-all shadow-xl">
+          <Button href="/" className="px-10 py-5">
             Return to Home
-          </Link>
+          </Button>
         </div>
       </main>
     );

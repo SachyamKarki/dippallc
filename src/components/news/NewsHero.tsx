@@ -10,11 +10,11 @@ export default function NewsHero({ searchQuery, onSearchChange, resultsTitle }: 
   return (
     <section className="blogs-hero-section">
       <div className="blogs-hero-shell section-shell">
-        <div className="blogs-hero-content text-center pt-2 pb-14 lg:pt-6 lg:pb-18">
-          <h1 className="blogs-hero-title text-5xl lg:text-7xl font-black mb-8 tracking-tighter" style={{ fontFamily: 'var(--font-lato), sans-serif' }}>
+        <div className="blogs-hero-content text-center pt-2 pb-8 lg:pt-6 lg:pb-10">
+          <h1 className="blogs-hero-title text-4xl lg:text-5xl font-black mb-4 tracking-tighter" style={{ fontFamily: 'var(--font-lato), sans-serif' }}>
             DIPPA INSIGHTS.
           </h1>
-          <p className="text-xl text-[#4a4a4a] max-w-2xl mx-auto mb-12 font-medium">
+          <p className="text-lg text-[#1a1a1a] max-w-2xl mx-auto mb-6 font-medium tracking-normal">
             Strategic perspectives on software systems, AI orchestration, and the future of institutional engineering.
           </p>
           
