@@ -11,21 +11,12 @@ import {
   normalizeWhitespace
 } from "@/lib/blog/utils";
 
-// Components
+import { Post } from "@/types";
 import NewsHero from "@/components/news/NewsHero";
 import NewsFeatured from "@/components/news/NewsFeatured";
 import NewsGrid from "@/components/news/NewsGrid";
 import NewsPagination from "@/components/news/NewsPagination";
 import NewsFooterCTA from "@/components/news/NewsFooterCTA";
-
-interface Post {
-  id: number;
-  title: string;
-  tag: string;
-  text: string;
-  image_url: string;
-  created_at: string;
-}
 
 export default function BlogsPage() {
   const [remotePosts, setRemotePosts] = useState<Post[]>([]);

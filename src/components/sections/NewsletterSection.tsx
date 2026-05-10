@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import Button from '@/components/ui/Button';
 
 export default function NewsletterSection() {
   return (
@@ -23,14 +24,14 @@ export default function NewsletterSection() {
               className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-lg text-white placeholder-white focus:outline-none focus:border-white/30 focus:bg-white/10 transition-colors font-medium text-left"
               required
             />
-            <button 
+            <Button 
               type="submit" 
-              className="px-8 py-4 bg-[#364835] text-white font-bold uppercase tracking-widest text-xs rounded-lg hover:bg-[#2b3a2a] transition-transform hover:scale-105 whitespace-nowrap shrink-0"
+              className="px-8 py-4 whitespace-nowrap shrink-0"
             >
               Subscribe
-            </button>
+            </Button>
           </form>
-          <p className="text-xs text-white mt-4 px-4 font-medium text-left tracking-wide">
+          <p className="text-sm text-white mt-4 px-4 font-medium text-left tracking-wide opacity-70">
             Practical engineering insights. Unsubscribe at any time.
           </p>
         </div>

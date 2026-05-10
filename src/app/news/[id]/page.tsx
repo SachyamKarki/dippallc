@@ -9,15 +9,8 @@ import BlogCard from "@/components/blog/BlogCard";
 import BlogContentRenderer from "@/components/blog/BlogContentRenderer";
 import { getExamplePost, getExamplePostSummaries } from "@/lib/blog/examplePosts";
 import { recommendPosts } from "@/lib/blog/recommendations";
-
-interface Post {
-  id: number;
-  title: string;
-  tag: string;
-  text: string;
-  image_url: string;
-  created_at: string;
-}
+import { formatDate } from "@/lib/blog/utils";
+import { Post } from "@/types";
 
 const DUMMY_AUTHORS = [
   "Phoenix Baker",
@@ -52,15 +45,6 @@ function getFallbackImageForSlug(slug: string) {
   return FALLBACK_IMAGES[Math.abs(hash) % FALLBACK_IMAGES.length];
 }
 
-function formatDate(date?: string) {
-  return date
-    ? new Date(date).toLocaleDateString(undefined, {
-        month: "long",
-        day: "numeric",
-        year: "numeric",
-      })
-    : "";
-}
 
 export default function NewsArticlePage() {
   const params = useParams<{ id: string }>();
@@ -130,7 +114,7 @@ export default function NewsArticlePage() {
       <main className="min-h-screen bg-white text-[#111]">
         <div className="mx-auto max-w-3xl px-6 pb-24 pt-28">
           <div className="flex justify-center py-48">
-            <div className="h-10 w-10 animate-spin rounded-full border-2 border-gray-100 border-t-[#364835]" />
+            <div className="h-10 w-10 animate-spin rounded-full border-2 border-gray-100 border-t-[#1E293B]" />
           </div>
         </div>
       </main>
@@ -162,7 +146,7 @@ export default function NewsArticlePage() {
             Browse our recommended deep dives below or return to the main newsroom.
           </p>
           <div className="mt-12 flex justify-center">
-            <Link href="/news" className="button-primary text-[10px] hover:bg-[#364835]">
+            <Link href="/news" className="button-primary text-[10px] hover:bg-[#1E293B]">
               RETURN TO NEWSROOM
             </Link>
           </div>
@@ -199,11 +183,11 @@ export default function NewsArticlePage() {
           <header className="mb-20 border-b border-gray-100 pb-14">
             <div className="mx-auto max-w-4xl">
               <div className="mb-8 flex flex-wrap items-center gap-4">
-                <span className="inline-flex min-h-8 items-center rounded-full bg-[#364835] px-4 text-[9px] font-bold uppercase tracking-[0.2em] text-white">
+                <span className="inline-flex min-h-8 items-center rounded-full bg-[#1E293B] px-4 text-[9px] font-bold uppercase tracking-[0.2em] text-white">
                   {articleTag}
                 </span>
                 <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-gray-500">
-                  {formatDate(articleDate)}
+                  {articleDate ? formatDate(articleDate, { month: "long" }) : ""}
                 </span>
                 {readingTime ? (
                   <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-gray-500">
@@ -236,7 +220,7 @@ export default function NewsArticlePage() {
                 <div className="grid gap-4 text-sm text-[#4b5563] sm:grid-cols-2 md:min-w-[320px]">
                   <div>
                     <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.22em] text-gray-500">Published</p>
-                    <p className="text-sm font-medium text-[#111]">{formatDate(articleDate)}</p>
+                    <p className="text-sm font-medium text-[#111]">{articleDate ? formatDate(articleDate, { month: "long" }) : ""}</p>
                   </div>
                   <div>
                     <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.22em] text-gray-500">Category</p>
@@ -278,7 +262,7 @@ export default function NewsArticlePage() {
                   </div>
                   <div>
                     <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.22em] text-gray-500">Published</p>
-                    <p className="text-sm font-semibold text-[#111]">{formatDate(articleDate)}</p>
+                    <p className="text-sm font-semibold text-[#111]">{articleDate ? formatDate(articleDate, { month: "long" }) : ""}</p>
                   </div>
                   {readingTime ? (
                     <div>
@@ -288,7 +272,7 @@ export default function NewsArticlePage() {
                   ) : null}
                   <div className="border-t border-gray-200 pt-5">
                     <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.22em] text-gray-500">Continue exploring</p>
-                    <Link href="/news" className="inline-flex items-center text-sm font-semibold text-[#111] transition hover:text-[#364835]">
+                    <Link href="/news" className="inline-flex items-center text-sm font-semibold text-[#111] transition hover:text-[#1E293B]">
                       Browse all articles &rarr;
                     </Link>
                   </div>

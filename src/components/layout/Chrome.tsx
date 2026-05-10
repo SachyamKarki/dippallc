@@ -2,17 +2,18 @@
 
 import { ReactNode } from "react";
 import { usePathname } from "next/navigation";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
+import { SiteAudioProvider } from "@/components/layout/SiteAudioProvider";
 
-const NAVBAR_HIDDEN_PATHS = new Set([]);
+const NAVBAR_HIDDEN_PATHS = new Set<string>();
 
 export default function Chrome({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const hideNavbar = pathname ? NAVBAR_HIDDEN_PATHS.has(pathname) : false;
   
   // Make it sticky everywhere, use light theme for pages with white heroes
-  const navbarSticky = true;
+  const navbarSticky = false;
   const navbarTheme = (
     pathname === "/" || 
     pathname?.startsWith("/news") || 
@@ -21,10 +22,10 @@ export default function Chrome({ children }: { children: ReactNode }) {
   ) ? "light" : "dark";
 
   return (
-    <>
+    <SiteAudioProvider>
       {!hideNavbar ? <Navbar sticky={navbarSticky} theme={navbarTheme} /> : null}
       {children}
       <Footer />
-    </>
+    </SiteAudioProvider>
   );
 }

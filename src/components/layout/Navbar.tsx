@@ -3,13 +3,15 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { DippaLogo } from "./Icons";
+import { Volume2, VolumeX } from "lucide-react";
 
 import { navLinks } from "@/lib/data";
+import { useSiteAudio } from "@/components/layout/SiteAudioProvider";
 
 export default function Navbar({ sticky = true, theme = "dark" }: { sticky?: boolean; theme?: "dark" | "light" }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { enabled: soundEnabled, toggle: toggleSound } = useSiteAudio();
   const pathname = usePathname();
   const isProjectPage = pathname?.startsWith("/projects/");
 
@@ -40,7 +42,13 @@ export default function Navbar({ sticky = true, theme = "dark" }: { sticky?: boo
       >
         <div className="site-nav-inner">
           <Link href="/" className="site-logo" onClick={closeMenu}>
-            <span className="font-black text-2xl tracking-[0.25em] uppercase text-inherit leading-none" style={{ fontFamily: 'var(--font-playfair), serif' }}>DIPPA</span>
+            <div className="relative w-10 h-10 md:w-12 md:h-12 overflow-hidden rounded-lg">
+              <img
+                src="/logo-dippa.jpg"
+                alt="DIPPA Logo"
+                className="w-full h-full object-cover"
+              />
+            </div>
           </Link>
 
 
@@ -53,34 +61,51 @@ export default function Navbar({ sticky = true, theme = "dark" }: { sticky?: boo
                   </Link>
                 </li>
               ))}
-              <li className="site-nav-cta">
-                <Link 
-                  href="/contact" 
-                  className="site-nav-cta-link" 
-                  onClick={closeMenu}
-                >
-                  Request a Consultation
-                </Link>
-              </li>
             </ul>
           </div>
 
-          <button
-            type="button"
-            className={`nav-toggle${isMenuOpen ? " nav-toggle-open" : ""}`}
-            aria-label="Toggle navigation"
-            aria-expanded={isMenuOpen}
-            onClick={() => setIsMenuOpen((value) => !value)}
-          >
-            <span />
-            <span />
-          </button>
+          <div className="flex items-center gap-4 md:gap-6">
+            <button
+              type="button"
+              className="nav-sound-toggle"
+              aria-label={soundEnabled ? "Sound on (click to mute)" : "Sound off (click to unmute)"}
+              aria-pressed={soundEnabled}
+              onClick={() => {
+                toggleSound();
+                closeMenu();
+              }}
+            >
+              {soundEnabled ? <Volume2 size={18} /> : <VolumeX size={18} />}
+            </button>
+
+            <button
+              type="button"
+              className={`nav-toggle${isMenuOpen ? " nav-toggle-open" : ""}`}
+              aria-label="Toggle navigation"
+              aria-expanded={isMenuOpen}
+              onClick={() => setIsMenuOpen((value) => !value)}
+            >
+              <span />
+              <span />
+            </button>
+
+            <div className="hidden md:block">
+              <Link
+                href="/contact"
+                className="site-nav-cta-link"
+                onClick={closeMenu}
+              >
+                Request a Consultation
+              </Link>
+            </div>
+          </div>
+
         </div>
       </nav>
 
       {/* Mobile Backdrop */}
       {isMenuOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/30 z-[99] backdrop-blur-sm"
           style={{ top: '72px' }}
           onClick={closeMenu}

@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Button from "@/components/ui/Button";
 
 const steps = [
   {
@@ -92,9 +93,9 @@ export default function JourneySection() {
             </div>
 
             <div className={`journey-cta ${isVisible ? 'journey-cta-enter' : 'opacity-0'}`}>
-              <Link href="/contact" className="journey-btn">
+              <Button href="/contact" className="px-10 py-5">
                 Get Started
-              </Link>
+              </Button>
             </div>
           </div>
         </div>
@@ -161,7 +162,7 @@ export default function JourneySection() {
         }
         .journey-orb-1 {
           width: 400px; height: 400px;
-          background: #364835;
+          background: #1E293B;
           bottom: 10%; left: -5%;
           animation: orbDrift1 22s ease-in-out infinite;
         }

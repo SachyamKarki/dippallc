@@ -71,7 +71,7 @@ export default function PartnersSection() {
     <section className="partners-section reveal">
       <div className="section-shell">
         <div className="partners-heading text-center mb-24">
-          <h2 className="section-title">OUR PARTNERS.</h2>
+          <h2 className="section-title mt-10">OUR PARTNERS.</h2>
         </div>
       </div>
 

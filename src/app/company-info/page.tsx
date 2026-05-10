@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { businesses, leadership } from "@/lib/data";
-import { CodeIcon, CpuIcon, CompassIcon } from "@/components/Icons";
+import { CodeIcon, CpuIcon, CompassIcon } from "@/components/ui/Icons";
 
 const iconMap: Record<string, () => React.ReactNode> = {
   code: () => <CodeIcon />,

@@ -1,0 +1,143 @@
+.section-shell {
+  max-width: var(--container-max-width);
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 var(--container-gutter-mobile);
+}
+
+@media (min-width: 1024px) {
+  .section-shell {
+    padding: 0 var(--container-gutter-desktop);
+  }
+}
+
+section {
+  padding: 10rem 0;
+  position: relative;
+}
+
+/* Navigation & Layout */
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  background: transparent;
+  border-bottom: none;
+  transition: background 0.3s ease;
+}
+
+.site-nav-static {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.site-nav-inner {
+  height: 80px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: height 0.3s ease;
+}
+
+@media (min-width: 1024px) {
+  .site-nav-inner {
+    padding: 0 4rem;
+  }
+}
+
+.site-nav-scrolled {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.site-nav-scrolled .site-nav-inner {
+  height: 70px;
+}
+
+.site-nav-links {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.site-nav-link {
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 0.875rem;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+  font-family: var(--font-title);
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.site-nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--foreground);
+  transition: width 0.3s ease;
+}
+
+.site-nav-link:hover {
+  color: var(--foreground);
+}
+
+.site-nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+}
+
+.nav-toggle span {
+  width: 18px;
+  height: 1.5px;
+  background: var(--foreground);
+  transition: 0.3s;
+}
+
+@media (max-width: 1024px) {
+  .nav-toggle {
+    display: flex;
+  }
+  .site-nav-desktop {
+    display: none;
+  }
+}
+
+footer p,
+footer a,
+footer span,
+footer li {
+  color: white;
+}

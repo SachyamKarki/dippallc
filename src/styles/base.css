@@ -1,0 +1,176 @@
+@import "tailwindcss";
+
+/* 1. Variables & Design Tokens */
+:root {
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --muted: #4b5563;
+  --border: rgba(0, 0, 0, 0.08);
+  --surface: #ffffff;
+  --surface-strong: #f8fafc;
+  --accent: #364835;
+  --primary: #364835;
+
+  --shadow-lg: 0 24px 70px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 16px 38px rgba(0, 0, 0, 0.04);
+  
+  --font-main: var(--font-lato), system-ui, sans-serif;
+  --font-heading: var(--font-lato), sans-serif;
+  --font-accent: var(--font-lato), sans-serif;
+  
+  --container-max-width: 1440px;
+  --container-gutter-mobile: 1.5rem;
+  --container-gutter-desktop: 4rem;
+  --control-height: 3.5rem;
+  --control-padding-x: 2rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-white: #ffffff;
+  --font-main: var(--font-lato), system-ui, sans-serif;
+  --font-heading: var(--font-lato), sans-serif;
+  --font-accent: var(--font-lato), sans-serif;
+  --font-sans: var(--font-main);
+  --font-serif: var(--font-heading);
+}
+
+/* 2. Base Reset & Typography */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none !important;
+}
+
+html {
+  background: var(--background);
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-main);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Ensure the main content takes up remaining space and footer is at bottom */
+main {
+  flex: 1 0 auto;
+}
+
+footer {
+  flex-shrink: 0;
+}
+
+/* Subtle Premium Texture Overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("https://grainy-gradients.vercel.app/noise.svg");
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-main);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin: 0;
+}
+
+.font-serif, .section-title, .hero-title {
+  font-family: var(--font-main) !important;
+}
+
+h2 {
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: clamp(1.6rem, 2.5vw, 2.5rem);
+  line-height: 1.1;
+}
+
+p {
+  color: var(--muted);
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.7;
+}
+
+@media (min-width: 1024px) {
+  p {
+    font-size: 1.125rem;
+    line-height: 1.8;
+  }
+}
+
+p,
+li,
+label,
+input,
+textarea,
+select,
+blockquote,
+figcaption {
+  font-family: var(--font-main);
+}
+
+button,
+[role="button"] {
+  font-family: var(--font-accent);
+}
+
+/* Global Reveal Classes */
+.reveal {
+  opacity: 1;
+  transform: none;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.reveal-ready .reveal {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.reveal-ready .reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-ready .reveal,
+  .reveal-ready .reveal-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

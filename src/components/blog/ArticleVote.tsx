@@ -67,7 +67,7 @@ export default function ArticleVote(props: {
         onClick={onUpvote}
         aria-pressed={vote === 1}
         className={`${baseButton} ${
-          vote === 1 ? "border-[#364835] bg-[#364835] text-white shadow-lg" : "border-gray-200 bg-white text-[#475569] hover:border-gray-400"
+          vote === 1 ? "border-[#1E293B] bg-[#1E293B] text-white shadow-lg" : "border-gray-200 bg-white text-[#475569] hover:border-gray-400"
         }`}
       >
         <span className="text-sm leading-none">↑</span> Helpful <span className={vote === 1 ? "text-white/70" : "text-gray-500"}>({totals.upvotes})</span>

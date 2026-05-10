@@ -4,28 +4,29 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import Button from "@/components/ui/Button";
 
 const services = [
   {
     id: "web-development",
     name: "Web Development",
-    title: "Engineering high-authority digital environments.",
-    description: "We build high-performance institutional platforms that prioritize technical integrity and systemic clarity. Your platform should be your most dependable operator, functioning with architectural precision and high-density performance.",
+    title: "Engineering high authority digital environments.",
+    description: "We build high performance institutional platforms that prioritize technical integrity and systemic clarity. Your platform should be your most dependable operator, functioning with architectural precision and high density performance.",
     image: "/images/service-web-dev.jpg",
     points: [
-      "Custom architectural design and full-stack implementation for scalable, high-traffic web applications.",
-      "Performance auditing and code-level optimization to ensure sub-second response times and maximum availability.",
-      "Implementation of strict security protocols and compliance-ready infrastructure for sensitive digital environments."
+      "Custom architectural design and full stack implementation for scalable, high traffic web applications.",
+      "Performance auditing and code level optimization to ensure sub second response times and maximum availability.",
+      "Implementation of strict security protocols and compliance ready infrastructure for sensitive digital environments."
     ]
   },
   {
     id: "app-development",
     name: "App Development",
-    title: "Native and cross-platform mobile experiences.",
-    description: "Custom mobile applications designed for high-stakes user engagement. We engineer intuitive, high-performance apps that seamlessly integrate with your broader operational infrastructure.",
+    title: "Native and cross platform mobile experiences.",
+    description: "Custom mobile applications designed for high stakes user engagement. We engineer intuitive, high performance apps that seamlessly integrate with your broader operational infrastructure.",
     image: "/images/service-app-dev.jpg",
     points: [
-      "End-to-end engineering of cross-platform and native mobile applications tailored for high user retention.",
+      "End to end engineering of cross platform and native mobile applications tailored for high user retention.",
       "Consultative UI/UX systems design to ensure complex operational logic translates intuitively to mobile devices.",
       "Seamless integration of mobile interfaces with existing legacy APIs and complex backend infrastructure."
     ]
@@ -33,24 +34,24 @@ const services = [
   {
     id: "software-development",
     name: "Software Development",
-    title: "Operating systems for high-stakes business.",
-    description: "Custom internal infrastructure and distributed applications designed to eliminate operational bottlenecks. We move fragmented data into a single, high-fidelity technical management surface.",
+    title: "Operating systems for high stakes business.",
+    description: "Custom internal infrastructure and distributed applications designed to eliminate operational bottlenecks. We move fragmented data into a single, high fidelity technical management surface.",
     image: "/images/service-software-dev.jpg",
     points: [
       "Strategic modernization of legacy internal systems to eliminate technical debt and operational bottlenecks.",
       "Development of bespoke, distributed enterprise applications to centralize fragmented business data.",
-      "Comprehensive technical roadmap planning and enterprise architecture design for long-term scalability."
+      "Comprehensive technical roadmap planning and enterprise architecture design for long term scalability."
     ]
   },
   {
     id: "ai-automation",
     name: "AI Automation",
     title: "Autonomous agents for complex workflows.",
-    description: "Intelligent systems that reason, route work, and execute tasks across your existing tool stack. Our AI automation is built with observability and human-in-the-loop controls.",
+    description: "Intelligent systems that reason, route work, and execute tasks across your existing tool stack. Our AI automation is built with observability and human in the loop controls.",
     image: "/images/service-ai-agent-real.jpg",
     points: [
-      "Integration of LLM-powered autonomous agents to handle complex, multi-step business workflows.",
-      "Consultative auditing of your current operational stack to identify high-leverage automation opportunities.",
+      "Integration of LLM powered autonomous agents to handle complex, multi step business workflows.",
+      "Consultative auditing of your current operational stack to identify high leverage automation opportunities.",
       "Deployment of predictive routing systems and intelligent data classification to eliminate manual overhead."
     ]
   },
@@ -58,12 +59,12 @@ const services = [
     id: "sales-lead",
     name: "Sales Lead",
     title: "Predictive revenue and intelligent growth architecture.",
-    description: "We engineer systems that automate lead qualification, routing, and engagement. Transform your sales pipeline into a predictable, high-velocity revenue engine backed by technical leverage.",
+    description: "We engineer systems that automate lead qualification, routing, and engagement. Transform your sales pipeline into a predictable, high velocity revenue engine backed by technical leverage.",
     image: "/images/service-sales-lead.jpg",
     points: [
       "Engineering automated, predictive lead scoring systems integrated directly into your existing CRM infrastructure.",
       "Architecting intelligent sales pipelines that automatically route, qualify, and engage inbound opportunities.",
-      "Data-driven revenue architecture consulting to align your technical stack with aggressive growth targets."
+      "Data driven revenue architecture consulting to align your technical stack with aggressive growth targets."
     ]
   }
 ];
@@ -103,7 +104,7 @@ export default function ServiceTabs() {
   };
 
   return (
-    <section className="py-32 bg-white relative overflow-hidden" id="strategic-capability">
+    <section className="py-24 lg:py-28 bg-white relative overflow-hidden" id="strategic-capability">
       {/* Floating Decorative Orbs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="service-orb service-orb-1" />
@@ -111,18 +112,20 @@ export default function ServiceTabs() {
         <div className="service-orb service-orb-3" />
       </div>
 
-      <div className="max-w-[1700px] mx-auto px-6 lg:px-12">
-        <div className="text-center mb-12">
-          <h2 className="section-title mb-4">WHAT WE OFFER ?</h2>
-          <p className="max-w-2xl mx-auto text-lg font-medium text-[#0a0a0a]">
+      <div className="section-shell relative z-10">
+        <div className="w-full flex flex-col items-center text-center mb-8 lg:mb-10 px-1">
+          <h2 className="section-title text-black mt-10 mb-6 w-full max-w-4xl mx-auto sm:mb-8">
+            What we offer
+          </h2>
+          <p className="section-subtitle text-black mb-0! max-w-prose sm:max-w-2xl">
             Disciplined execution for companies that require technical excellence and systemic operational clarity.
           </p>
         </div>
 
-        <div className="relative flex overflow-x-auto no-scrollbar md:flex-wrap justify-start md:justify-center items-center p-2 bg-transparent max-w-full md:w-fit mx-auto mb-0">
+        <div className="relative flex flex-wrap justify-center items-center gap-1 sm:gap-0 p-2 bg-transparent w-full max-w-full mx-auto mb-0">
           {/* Sliding Indicator */}
           <div 
-            className="absolute h-[calc(100%-16px)] bg-[#364835] rounded-full transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]"
+            className="absolute h-[calc(100%-16px)] bg-[#1E293B] rounded-full transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]"
             style={{
               left: `${sliderStyle.left}px`,
               width: `${sliderStyle.width}px`,
@@ -136,59 +139,63 @@ export default function ServiceTabs() {
               ref={el => { tabsRef.current[index] = el; }}
               onClick={() => setActiveTab(service.id)}
               className={cn(
-                "relative z-10 px-6 py-3 text-sm md:text-base font-medium transition-colors duration-300 rounded-full",
+                "relative z-10 rounded-full px-3.5 py-2 text-sm font-semibold transition-colors duration-300 sm:px-4 sm:py-2.5 sm:text-base",
                 activeTab === service.id 
                   ? "text-white" 
-                  : "text-[#0a0a0a]/60 hover:text-[#0a0a0a]"
+                  : "text-black hover:text-black"
               )}
             >
               {service.name}
             </button>
           ))}
         </div>
-      </div>
 
-      <div className="w-full bg-white pt-8 lg:pt-12 pb-16 lg:pb-24 transition-all duration-1000 mt-8">
-        <div className="section-shell">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+        <div className="w-full pt-8 lg:pt-10 pb-4 lg:pb-8 transition-all duration-1000 mt-6 lg:mt-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             {/* Text Content */}
-            <div key={activeService.id + "-text"} className="space-y-14 service-content-enter">
-              <div className="flex flex-col">
+            <div
+              key={activeService.id + "-text"}
+              className="space-y-8 lg:space-y-10 service-content-enter text-center lg:text-left"
+            >
+              <div className="flex flex-col max-w-prose lg:max-w-none mx-auto lg:mx-0">
                 {/* Active service number badge */}
-                <div className="service-counter-enter mb-6">
-                  <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-[#0a0a0a]">
-                    <span className="text-2xl font-black text-[#364835]">0{activeIndex + 1}</span>
-                    <span className="w-8 h-[1.5px] bg-[#0a0a0a]" />
-                    {activeService.name}
+                <div className="service-counter-enter mb-4 flex flex-wrap items-center justify-center lg:justify-start gap-x-3 gap-y-1 lg:mb-5">
+                  <span className="text-xs font-bold tabular-nums uppercase tracking-widest text-black/40">
+                    {String(activeIndex + 1).padStart(2, "0")}
                   </span>
+                  <span className="hidden h-px w-8 shrink-0 bg-black/10 sm:block" aria-hidden />
+                  <span className="text-sm font-semibold text-black">{activeService.name}</span>
                 </div>
 
-                <h3 className="text-4xl lg:text-5xl font-black tracking-tight leading-[1.1] text-[#0a0a0a] service-title-enter" style={{ fontFamily: 'var(--font-playfair), serif' }}>
+                <h3 className="service-title-enter text-black text-center lg:text-left">
                   {activeService.title}
                 </h3>
-                <p className="mt-10 lg:mt-12 text-base lg:text-lg leading-relaxed font-medium service-desc-enter" style={{ color: '#0a0a0a' }}>
+                <p className="mt-4 text-black sm:mt-5 lg:mt-6 service-desc-enter text-center lg:text-left">
                   {activeService.description}
                 </p>
               </div>
               
-              <div className="space-y-10">
-                <ul className="space-y-7">
+              <div className="space-y-8 max-w-prose lg:max-w-none">
+                <ul className="space-y-5 lg:space-y-6">
                   {activeService.points.map((point, index) => (
                     <li 
                       key={activeService.id + index} 
-                      className="flex items-start gap-4 text-sm lg:text-base font-semibold text-[#0a0a0a] tracking-normal service-point-enter"
+                      className="flex items-start gap-3 text-black lg:gap-4 service-point-enter text-left"
                       style={{ animationDelay: `${0.3 + index * 0.12}s` }}
                     >
-                      <div className="w-1.5 h-1.5 mt-2 rounded-full bg-[var(--accent)] shrink-0 service-dot-pulse" />
+                      <div className="w-1.5 h-1.5 mt-2 shrink-0 rounded-full bg-black" />
                       {point}
                     </li>
                   ))}
                 </ul>
 
-                <div className="pt-4 service-btn-enter">
-                  <Link href="/products" className="button-primary inline-block px-10 py-5 text-xs font-black uppercase tracking-widest hover:scale-105 transition-all shadow-xl">
+                <div className="pt-2 service-btn-enter flex justify-center lg:justify-start">
+                  <Button
+                    href="/products"
+                    className="px-10 py-5"
+                  >
                     Start your project
-                  </Link>
+                  </Button>
                 </div>
               </div>
             </div>
@@ -202,7 +209,7 @@ export default function ServiceTabs() {
                 ref={imageRef}
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
-                className="relative w-full aspect-[4/5] lg:aspect-square max-w-xl mx-auto overflow-hidden shadow-2xl service-image-enter"
+                className="relative w-full aspect-[4/5] lg:aspect-square max-w-md lg:max-w-lg mx-auto overflow-hidden shadow-2xl service-image-enter"
                 style={{ 
                   borderRadius: '3rem 3rem 3rem 0',
                   transform: `perspective(800px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
@@ -285,7 +292,7 @@ export default function ServiceTabs() {
         }
         .service-orb-1 {
           width: 500px; height: 500px;
-          background: #364835;
+          background: #1E293B;
           top: 10%; right: -5%;
           animation: float1 20s ease-in-out infinite;
         }
