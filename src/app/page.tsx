@@ -35,13 +35,8 @@ export default function Home() {
         <InteractiveProjectGrid />
       </div>
 
-      {/* Professional Gradient Blend into FAQ Section */}
-      <div
-        className="w-full h-32 md:h-56 pointer-events-none -mb-16 md:-mb-24 relative z-10"
-        style={{
-          background: 'linear-gradient(to bottom, #000000 0%, rgba(0,0,0,0.85) 25%, rgba(0,0,0,0) 100%)'
-        }}
-      />
+
+
 
       <FAQSection />
       <TestimonialsSection />

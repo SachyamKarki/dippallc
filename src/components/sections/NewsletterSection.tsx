@@ -5,7 +5,7 @@ import Button from '@/components/ui/Button';
 
 export default function NewsletterSection() {
   return (
-    <section className="pt-32 pb-12 lg:pt-56 lg:pb-24 bg-[#000000] text-white">
+    <section className="pt-8 pb-12 lg:pt-16 lg:pb-24 bg-[#000000] text-white">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12 flex flex-col lg:flex-row items-center justify-between gap-12">
         <div className="max-w-4xl text-left flex-1">
           <h2 className="text-white text-3xl lg:text-4xl font-black tracking-tight leading-[1.2] mb-0" style={{ fontFamily: 'var(--font-title)' }}>

@@ -762,7 +762,7 @@ section {
 /* Selected Work Sphere */
 .work-sphere-section {
   position: relative;
-  padding: 12rem 0;
+  padding: 12rem 0 0;
   background: #000000;
 }
 
@@ -816,22 +816,11 @@ section {
 }
 
 .work-sphere-stage-shell {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
+  display: none;
 }
 
 .work-sphere-stage-glow {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(circle at center, rgba(230, 240, 255, 0.05) 0%, transparent 60%);
-  pointer-events: none;
+  display: none;
 }
 
 .work-sphere-stage-vignette {
@@ -841,17 +830,12 @@ section {
   /* Above the shells and cards */
   pointer-events: none;
   background:
-    /* Vertical Fade (Multi-stop for absolute smoothness) */
     linear-gradient(to bottom,
       rgba(0, 0, 0, 1) 0%,
       rgba(0, 0, 0, 0.8) 2%,
       rgba(0, 0, 0, 0.4) 6%,
       rgba(0, 0, 0, 0) 12%,
-      rgba(0, 0, 0, 0) 88%,
-      rgba(0, 0, 0, 0.4) 94%,
-      rgba(0, 0, 0, 0.8) 98%,
-      rgba(0, 0, 0, 1) 100%),
-    /* Horizontal Fade - Narrower to show more content */
+      rgba(0, 0, 0, 0) 100%),
     linear-gradient(to right,
       rgba(0, 0, 0, 1) 0%,
       rgba(0, 0, 0, 0.8) 1.5%,
@@ -861,14 +845,6 @@ section {
       rgba(0, 0, 0, 0.3) 96%,
       rgba(0, 0, 0, 0.8) 98.5%,
       rgba(0, 0, 0, 1) 100%);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  mask-image: radial-gradient(circle, transparent 65%, black 95%);
-  -webkit-mask-image: radial-gradient(circle, transparent 65%, black 95%);
-  mask-mode: alpha;
-  -webkit-mask-mode: alpha;
-  mask-composite: exclude;
-  -webkit-mask-composite: destination-in;
 }
 
 .work-sphere-stage-copy {
@@ -1113,7 +1089,7 @@ section {
 
 @media (max-width: 767px) {
   .work-sphere-section {
-    padding: 4rem 0 5rem;
+    padding: 2rem 0 0;
   }
 
   .work-sphere-title {
@@ -1141,7 +1117,7 @@ section {
   }
 
   .work-sphere-stage-title {
-    font-size: clamp(2.6rem, 10vw, 4rem);
+    font-size: clamp(1.8rem, 8vw, 4rem);
   }
 }
 

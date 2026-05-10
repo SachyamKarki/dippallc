@@ -99,7 +99,7 @@ export default function InteractiveProjectGrid() {
 
     const pitchGroup = new THREE.Group();
     scene.add(pitchGroup);
-    
+
     const carouselGroup = new THREE.Group();
     pitchGroup.add(carouselGroup);
 

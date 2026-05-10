@@ -91,7 +91,7 @@ export default function InsightsCarousel({ articles }: InsightsCarouselProps) {
           ref={trackRef}
           className="insights-carousel-track"
           style={{
-            transform: `translateX(calc(-${currentIndex * (100 / visibleSlides)}% + ${window.innerWidth <= 640 ? 25 : 0
+            transform: `translateX(calc(-${currentIndex * (100 / visibleSlides)}% + ${visibleSlides <= 1 ? 25 : 0
               }%))`,
           }}
         >
