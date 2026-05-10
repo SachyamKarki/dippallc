@@ -197,14 +197,7 @@ export default function ServiceTabs() {
                   ))}
                 </ul>
 
-                <div className="pt-4 service-btn-enter flex justify-center lg:justify-start w-full">
-                  <Button
-                    href="/products"
-                    className="w-full sm:w-auto px-6 py-4 sm:px-10 sm:py-5 flex justify-center text-center"
-                  >
-                    Start your project
-                  </Button>
-                </div>
+
               </div>
             </div>
 
@@ -235,6 +228,15 @@ export default function ServiceTabs() {
                     background: `radial-gradient(circle at ${(tilt.y / 8 + 0.5) * 100}% ${(tilt.x / -8 + 0.5) * 100}%, rgba(255,255,255,0.12) 0%, transparent 60%)`,
                   }}
                 />
+              </div>
+
+              <div className="pt-8 service-btn-enter flex justify-center w-full lg:max-w-lg mx-auto">
+                <Button
+                  href="/products"
+                  className="w-full sm:w-auto px-8 py-4 sm:px-12 sm:py-5 flex justify-center text-center text-xs sm:text-sm font-black"
+                >
+                  Start your project
+                </Button>
               </div>
             </div>
           </div>
