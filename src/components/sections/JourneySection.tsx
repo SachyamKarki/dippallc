@@ -59,8 +59,8 @@ export default function JourneySection() {
 
       <div className="section-shell">
         <h2 
-          className={`section-title mb-16 lg:mb-24 ${isVisible ? 'journey-heading-enter' : 'opacity-0'}`}
-          style={{ fontFamily: 'var(--font-lato)', fontWeight: 900 }}
+          className={`section-title mb-10 lg:mb-24 ${isVisible ? 'journey-heading-enter' : 'opacity-0'}`}
+          style={{ fontFamily: 'var(--font-title)', fontWeight: 900 }}
         >
           Start Your Journey
         </h2>
@@ -88,7 +88,7 @@ export default function JourneySection() {
                 >
                   <span className="journey-step-number journey-number-glow" style={{ fontFamily: 'var(--font-lato)' }}>{step.number}</span>
                   <div className="journey-step-body">
-                    <h3 className="journey-step-title" style={{ fontFamily: 'var(--font-lato)', fontWeight: 800 }}>{step.title}</h3>
+                    <h3 className="journey-step-title" style={{ fontFamily: 'var(--font-title)', fontWeight: 800 }}>{step.title}</h3>
                     <p className="journey-step-text" style={{ fontFamily: 'var(--font-lato)' }}>{step.text}</p>
                   </div>
                 </div>
@@ -160,8 +160,16 @@ export default function JourneySection() {
         .journey-section {
           background: #ffffff;
           padding-top: 6rem !important;
-          padding-bottom: 0 !important;
-          margin-bottom: 0 !important;
+          padding-bottom: 6rem !important;
+          margin-bottom: 4rem !important;
+        }
+
+        @media (max-width: 768px) {
+          .journey-section {
+            padding-top: 4rem !important;
+            padding-bottom: 4rem !important;
+            margin-bottom: 2rem !important;
+          }
         }
 
         .journey-orb {

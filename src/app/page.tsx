@@ -9,6 +9,7 @@ import PartnersSection from "@/components/sections/PartnersSection";
 import InteractiveProjectGrid from "@/components/sections/InteractiveProjectGrid";
 import JourneySection from "@/components/sections/JourneySection";
 import InsightsSection from "@/components/sections/InsightsSection";
+import CTASection from "@/components/sections/CTASection";
 
 export default function Home() {
   return (
@@ -21,9 +22,9 @@ export default function Home() {
       <ServiceTabs />
       <PartnersSection />
 
+      <JourneySection />
+
       <InsightsSection />
-
-
 
       <div style={{ background: 'linear-gradient(to bottom, #ffffff 50%, #000000 50%)' }}>
         <WhyDippaSection />
@@ -45,7 +46,7 @@ export default function Home() {
       <FAQSection />
       <TestimonialsSection />
 
-      <JourneySection />
+      <CTASection />
     </main>
   );
 }

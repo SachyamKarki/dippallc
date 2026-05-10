@@ -28,8 +28,8 @@ body::-webkit-scrollbar,
 
   --shadow-lg: 0 24px 70px rgba(0, 0, 0, 0.06);
   --shadow-md: 0 16px 38px rgba(0, 0, 0, 0.04);
-  --font-title: var(--font-lato), sans-serif;
-  --font-subtitle: var(--font-lato), sans-serif;
+  --font-title: var(--font-playfair), serif;
+  --font-subtitle: var(--font-playfair), serif;
   --font-sans: var(--font-lato), sans-serif;
   /* Alias for non-Tailwind CSS (matches @theme --font-main) */
   --font-main: var(--font-lato), "Inter", system-ui, sans-serif;
@@ -45,7 +45,7 @@ body::-webkit-scrollbar,
   --color-foreground: var(--foreground);
   --color-white: #ffffff;
   --font-main: var(--font-lato), "Inter", system-ui, sans-serif;
-  --font-title: var(--font-lato), "Lato", sans-serif;
+  --font-title: var(--font-playfair), "Playfair Display", serif;
   --font-sans: var(--font-main);
 }
 
@@ -87,10 +87,10 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: var(--font-lato), sans-serif;
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1.05;
+  font-family: var(--font-playfair), serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
   margin: 0;
 }
 
@@ -2635,29 +2635,43 @@ section {
   }
   
   .journey-image-col {
-    order: 2;
-    margin-top: 2rem;
-    overflow: hidden;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
   }
   
   .journey-content-col {
-    order: 1;
     padding-top: 0;
   }
 }
 
 @media (max-width: 640px) {
+  .journey-grid {
+    gap: 1.5rem;
+  }
+
   .journey-image-wrapper {
     aspect-ratio: 1 / 1;
   }
+
+  .journey-content-col {
+    gap: 1.5rem;
+  }
   
   .journey-step {
-    gap: 1.25rem;
+    gap: 1rem;
   }
   
   .journey-step-number {
     font-size: 1.5rem;
     min-width: 2rem;
+  }
+  
+  .journey-step-title {
+    font-size: 1.1rem;
+  }
+  
+  .journey-step-text {
+    font-size: 0.95rem;
   }
 }
 

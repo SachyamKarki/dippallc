@@ -111,7 +111,7 @@ export default function ServiceTabs() {
         <div className="w-full flex flex-col items-center text-center mb-8 lg:mb-12 px-8 sm:px-12">
           <h2 
             className="section-title text-black mt-10 mb-6 w-full max-w-4xl mx-auto sm:mb-8 !font-black"
-            style={{ fontFamily: 'var(--font-lato)' }}
+            style={{ fontFamily: 'var(--font-title)' }}
           >
             What We Offer
           </h2>
@@ -143,7 +143,7 @@ export default function ServiceTabs() {
                     ? "text-white" 
                     : "text-black hover:text-black/70"
                 )}
-                style={{ fontFamily: 'var(--font-lato)' }}
+                style={{ fontFamily: 'var(--font-title)' }}
               >
                 {service.name}
               </button>
