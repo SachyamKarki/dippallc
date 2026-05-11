@@ -102,7 +102,7 @@ export default function Footer() {
 
         {/* Massive Brand Title */}
         <div className="pointer-events-none mt-24 w-full select-none text-center overflow-hidden border-t border-white/5 pt-16">
-          <h2 className="font-black uppercase whitespace-nowrap py-4 text-[clamp(2.5rem,15vw,14rem)] font-bold tracking-tighter text-white leading-none opacity-[0.95]" style={{ fontFamily: 'var(--font-lato)', fontWeight: 900 }}>
+          <h2 className="font-black uppercase whitespace-nowrap py-4 text-[clamp(2.5rem,15vw,14rem)] font-bold tracking-tighter text-white leading-none opacity-[0.95]" style={{ fontFamily: 'var(--font-playfair)', fontWeight: 700 }}>
             DIPPA.
           </h2>
         </div>

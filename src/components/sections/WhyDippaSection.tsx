@@ -51,7 +51,7 @@ export default function WhyDippaSection() {
                   <div className="why-dippa-icon-shell">
                     {reason.icon}
                   </div>
-                  <h3 className="why-dippa-card-title uppercase tracking-tighter" style={{ fontFamily: 'var(--font-lato)' }}>{reason.title}</h3>
+                  <h3 className="why-dippa-card-title uppercase tracking-tighter" style={{ fontFamily: 'var(--font-title)' }}>{reason.title}</h3>
                 </div>
                 <p className="why-dippa-card-text">{reason.text}</p>
               </div>

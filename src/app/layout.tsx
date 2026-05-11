@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Lato } from "next/font/google";
+import { Lato, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import ScrollRevealProvider from "@/components/layout/ScrollRevealProvider";
 import Chrome from "@/components/layout/Chrome";
@@ -10,7 +10,10 @@ const lato = Lato({
   variable: "--font-lato",
 });
 
-
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://dippa.group"),
@@ -58,7 +61,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${lato.variable} antialiased`}>
+      <body className={`${lato.variable} ${playfair.variable} antialiased`}>
         <ScrollRevealProvider>
           <Chrome>{children}</Chrome>
         </ScrollRevealProvider>

@@ -8,7 +8,7 @@ export default function NewsletterSection() {
     <section className="pt-10 pb-10 lg:pt-16 lg:pb-24 bg-[#000000] text-white">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 lg:gap-12">
         <div className="max-w-4xl text-left flex-1">
-          <h2 className="text-white text-xl sm:text-2xl lg:text-4xl font-black tracking-tight leading-[1.2] mb-0" style={{ fontFamily: 'var(--font-lato)' }}>
+          <h2 className="text-white text-xl sm:text-2xl lg:text-4xl font-black tracking-tight leading-[1.2] mb-0" style={{ fontFamily: 'var(--font-title)' }}>
             Subscribe for the latest engineering insights.
           </h2>
         </div>

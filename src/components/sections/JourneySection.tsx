@@ -60,7 +60,7 @@ export default function JourneySection() {
       <div className="section-shell">
         <h2 
           className={`section-title mb-10 lg:mb-24 ${isVisible ? 'journey-heading-enter' : 'opacity-0'}`}
-          style={{ fontFamily: 'var(--font-lato)', fontWeight: 900 }}
+          style={{ fontFamily: 'var(--font-title)', fontWeight: 700 }}
         >
           Start Your Journey
         </h2>
@@ -88,7 +88,7 @@ export default function JourneySection() {
                 >
                   <span className="journey-step-number journey-number-glow" style={{ fontFamily: 'var(--font-lato)' }}>{step.number}</span>
                   <div className="journey-step-body">
-                    <h3 className="journey-step-title" style={{ fontFamily: 'var(--font-lato)', fontWeight: 900 }}>{step.title}</h3>
+                    <h3 className="journey-step-title" style={{ fontFamily: 'var(--font-title)', fontWeight: 700 }}>{step.title}</h3>
                     <p className="journey-step-text" style={{ fontFamily: 'var(--font-lato)' }}>{step.text}</p>
                   </div>
                 </div>

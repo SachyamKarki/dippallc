@@ -105,9 +105,9 @@ export default function HeroCarousel() {
         }
 
         .hero-title-v2 {
-          font-family: var(--font-lato), sans-serif;
+          font-family: var(--font-playfair), serif;
           font-size: clamp(2.5rem, 5vw, 4.2rem);
-          font-weight: 900;
+          font-weight: 700;
           line-height: 1.1;
           color: #1e293b;
           margin-bottom: 2rem;
