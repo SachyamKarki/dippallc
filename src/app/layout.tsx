@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Lato, Inter, Playfair_Display } from "next/font/google";
+import { Lato } from "next/font/google";
 import "./globals.css";
 import ScrollRevealProvider from "@/components/layout/ScrollRevealProvider";
 import Chrome from "@/components/layout/Chrome";
@@ -8,16 +8,6 @@ const lato = Lato({
   subsets: ["latin"],
   weight: ["100", "300", "400", "700", "900"],
   variable: "--font-lato",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
-
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair",
 });
 
 
@@ -68,7 +58,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${lato.variable} ${inter.variable} ${playfair.variable} antialiased`}>
+      <body className={`${lato.variable} antialiased`}>
         <ScrollRevealProvider>
           <Chrome>{children}</Chrome>
         </ScrollRevealProvider>
