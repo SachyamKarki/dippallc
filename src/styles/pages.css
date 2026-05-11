@@ -30,6 +30,7 @@ body::-webkit-scrollbar,
   --shadow-md: 0 16px 38px rgba(0, 0, 0, 0.04);
   --font-title: var(--font-lato), sans-serif;
   --font-subtitle: var(--font-lato), sans-serif;
+  --font-accent: var(--font-lato), sans-serif;
   --font-sans: var(--font-lato), sans-serif;
   /* Alias for non-Tailwind CSS (matches @theme --font-main) */
   --font-main: var(--font-lato), sans-serif;
@@ -86,12 +87,15 @@ body::before {
 h1,
 h2,
 h3,
-h4 {
-  font-family: var(--font-lato), sans-serif;
-  font-weight: 900;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-  margin: 0;
+h4,
+.section-title,
+.hero-title,
+.st-title,
+.why-dippa-title {
+  font-family: var(--font-lato), sans-serif !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.01em !important;
+  line-height: 1.1 !important;
 }
 
 h2 {

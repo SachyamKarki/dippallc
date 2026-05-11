@@ -246,15 +246,15 @@ export default function ServiceTabs() {
       {/* Advanced Motion Graphics Styles */}
       <style jsx>{`
         .st-title {
-          font-family: var(--font-title);
+          font-family: var(--font-lato);
           color: #000000;
         }
         .st-text {
-          font-family: var(--font-main);
+          font-family: var(--font-lato);
           color: #000000;
         }
         .st-tab {
-          font-family: var(--font-title);
+          font-family: var(--font-lato);
         }
 
         @keyframes fadeInUp {

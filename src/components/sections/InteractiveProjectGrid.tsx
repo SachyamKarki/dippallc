@@ -353,7 +353,7 @@ export default function InteractiveProjectGrid() {
                 fontWeight: 700,
                 pointerEvents: 'none',
                 zIndex: 9999,
-                fontFamily: 'var(--font-title), serif',
+                fontFamily: 'var(--font-lato), sans-serif',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',

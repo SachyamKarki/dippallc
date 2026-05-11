@@ -27,9 +27,11 @@ export default function InsightsCarousel({ articles }: InsightsCarouselProps) {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth <= 640) setVisibleSlides(1);
-      else if (window.innerWidth <= 1024) setVisibleSlides(2);
-      else setVisibleSlides(3);
+      if (typeof window !== 'undefined') {
+        if (window.innerWidth <= 640) setVisibleSlides(1);
+        else if (window.innerWidth <= 1024) setVisibleSlides(2);
+        else setVisibleSlides(3);
+      }
     };
     handleResize();
     window.addEventListener("resize", handleResize);

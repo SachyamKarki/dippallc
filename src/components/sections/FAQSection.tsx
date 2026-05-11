@@ -91,7 +91,7 @@ export default function FAQSection() {
                       <span className="text-xs font-black text-black mt-1.5 shrink-0">
                         {String(index + 1).padStart(2, '0')}.
                       </span>
-                      <span className="text-base lg:text-2xl font-black text-black tracking-tighter leading-tight" style={{ fontFamily: 'var(--font-title)' }}>
+                      <span className="text-base lg:text-2xl font-black text-black tracking-tighter leading-tight" style={{ fontFamily: 'var(--font-lato)' }}>
                         {faq.question}
                       </span>
                     </div>
