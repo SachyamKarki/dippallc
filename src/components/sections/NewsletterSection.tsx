@@ -1,33 +1,73 @@
 "use client";
 
-import React from 'react';
-import Button from '@/components/ui/Button';
+import { useState } from "react";
 
 export default function NewsletterSection() {
-  return (
-    <section className="pt-10 pb-10 lg:pt-16 lg:pb-24 bg-[#000000] text-white">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 lg:gap-12">
-        <div className="max-w-4xl text-left flex-1">
-          <h2 className="text-white text-xl sm:text-2xl lg:text-4xl font-black tracking-tight leading-[1.2] mb-0" style={{ fontFamily: 'var(--font-title)' }}>
-            Subscribe for the latest engineering insights.
-          </h2>
-        </div>
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
 
-        <div className="w-full lg:max-w-md shrink-0">
-          <form className="flex flex-col sm:flex-row gap-3" onSubmit={(e) => e.preventDefault()}>
-            <input
-              type="email"
-              placeholder="Enter your work email"
-              className="w-full px-4 py-3 sm:px-6 sm:py-4 bg-white/5 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-white/40 focus:bg-white/10 transition-colors font-bold text-left text-xs sm:text-sm"
-              required
-            />
-            <Button
-              type="submit"
-              className="px-6 py-3 sm:px-8 sm:py-4 whitespace-nowrap shrink-0 font-black uppercase tracking-widest text-[10px] sm:text-xs"
-            >
-              Subscribe
-            </Button>
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!email.trim()) return;
+    // Simulate submission — wire to real endpoint when ready
+    setStatus("success");
+    setEmail("");
+  }
+
+  return (
+    <section className="newsletter-section-v2">
+      {/* Background texture */}
+      <div className="newsletter-bg-glow" aria-hidden="true" />
+
+      <div className="section-shell newsletter-inner">
+        <h2 className="newsletter-title">
+          Subscribe for the latest insights.
+        </h2>
+
+        <p className="newsletter-sub">
+          Architecture deep-reads, AI systems thinking, and delivery principles —
+          direct to your inbox. No noise.
+        </p>
+
+        {status === "success" ? (
+          <div className="newsletter-success">
+            <span className="newsletter-success-icon" aria-hidden="true">✓</span>
+            <p className="newsletter-success-text">
+              You&apos;re in. Expect the next issue soon.
+            </p>
+          </div>
+        ) : (
+          <form className="newsletter-form" onSubmit={handleSubmit}>
+            <div className="newsletter-input-wrap">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Work email address"
+                className="newsletter-input"
+                required
+              />
+              <button type="submit" className="newsletter-submit button-primary">
+                Subscribe
+              </button>
+            </div>
+            {status === "error" && (
+              <p className="newsletter-error">Something went wrong. Please try again.</p>
+            )}
+            <p className="newsletter-disclaimer">
+              No spam, ever. Unsubscribe any time.
+            </p>
           </form>
+        )}
+
+        {/* Social proof */}
+        <div className="newsletter-proof">
+          <div className="newsletter-proof-avatars">
+            {["/images/avatar-priya.png", "/images/avatar-rajesh.png", "/images/avatar-arun.png"].map((src, i) => (
+              <img key={i} src={src} alt="" className="newsletter-proof-avatar" aria-hidden="true" />
+            ))}
+          </div>
+          <span className="newsletter-proof-text">Joined by 1,200+ engineers &amp; operators</span>
         </div>
       </div>
     </section>

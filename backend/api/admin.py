@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Testimonial, JobOpening
+from .models import Post, Testimonial, JobOpening, ContactSubmission
 
 
 @admin.register(Post)
@@ -20,3 +20,12 @@ class JobOpeningAdmin(admin.ModelAdmin):
     list_filter = ('is_active', 'category', 'job_type')
     search_fields = ('title', 'location', 'category')
     list_editable = ('is_active',)
+
+
+@admin.register(ContactSubmission)
+class ContactSubmissionAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'category', 'submitted_at', 'is_read')
+    list_filter = ('is_read', 'category')
+    search_fields = ('name', 'email', 'message')
+    list_editable = ('is_read',)
+    readonly_fields = ('name', 'email', 'category', 'message', 'submitted_at')

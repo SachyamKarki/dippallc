@@ -10,7 +10,7 @@ export default function BlogContentRenderer(props: {
         {props.blocks.map((block, index) => {
           if (block.type === "h2") {
             return (
-              <h2 key={index} className="mt-20 text-left text-[1.9rem] md:text-[2.4rem] font-black leading-[1.08] tracking-tighter text-black" style={{ fontFamily: 'var(--font-lato)' }}>
+              <h2 key={index} className="mt-20 text-left text-[1.9rem] md:text-[2.4rem] font-black leading-[1.08] tracking-tighter text-black" style={{ fontFamily: 'var(--font-display)' }}>
                 {block.text}
               </h2>
             );
@@ -18,7 +18,7 @@ export default function BlogContentRenderer(props: {
 
           if (block.type === "h3") {
             return (
-              <h3 key={index} className="mt-12 text-left text-[1.3rem] md:text-[1.6rem] font-black leading-tight tracking-tighter text-black" style={{ fontFamily: 'var(--font-lato)' }}>
+              <h3 key={index} className="mt-12 text-left text-[1.3rem] md:text-[1.6rem] font-black leading-tight tracking-tighter text-black" style={{ fontFamily: 'var(--font-display)' }}>
                 {block.text}
               </h3>
             );

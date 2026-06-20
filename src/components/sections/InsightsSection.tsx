@@ -1,35 +1,91 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import InsightsCarousel from "./InsightsCarousel";
-import Button from "@/components/ui/Button";
+import NewsCard from "@/components/news/NewsCard";
+import { getExamplePostSummaries } from "@/lib/blog/examplePosts";
+import { toCardTitle, toCardExcerpt, normalizeWhitespace } from "@/lib/blog/utils";
+import type { Post } from "@/types";
+import type { BlogPreview } from "@/lib/blog/types";
 
-const InsightsSection = () => {
+const PREVIEW_COUNT = 4;
+
+export default function InsightsSection() {
+  const [articles, setArticles] = useState<BlogPreview[]>(() =>
+    getExamplePostSummaries()
+      .slice(0, PREVIEW_COUNT)
+      .map((p) => ({
+        slug: p.slug,
+        title: p.title,
+        tag: p.tag || "Insights",
+        excerpt: p.excerpt,
+        createdAt: p.createdAt,
+        cover: p.cover,
+        source: "example" as const,
+      }))
+  );
+
+  useEffect(() => {
+    const api = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+    fetch(`${api}/api/posts/`)
+      .then((r) => r.ok ? r.json() : [])
+      .then((posts: Post[]) => {
+        if (!posts.length) return;
+        const remote: BlogPreview[] = posts.map((p) => ({
+          slug: String(p.id),
+          title: toCardTitle(p.title),
+          tag: normalizeWhitespace(p.tag || "Insights"),
+          excerpt: toCardExcerpt(p.text),
+          imageUrl: p.image_url || undefined,
+          createdAt: p.created_at,
+          source: "backend" as const,
+        }));
+        const examples = getExamplePostSummaries().map((p) => ({
+          slug: p.slug,
+          title: p.title,
+          tag: p.tag || "Insights",
+          excerpt: p.excerpt,
+          createdAt: p.createdAt,
+          cover: p.cover,
+          source: "example" as const,
+        }));
+        const seen = new Set(remote.map((p) => p.slug));
+        const merged = [...remote, ...examples.filter((p) => !seen.has(p.slug))];
+        setArticles(merged.slice(0, PREVIEW_COUNT));
+      })
+      .catch(() => {});
+  }, []);
+
   return (
-    <section className="insights-section reveal" id="insights">
+    <section id="insights" className="insights-preview-section reveal">
       <div className="section-shell">
-        <h2 className="section-title">DIPPA ARTICLES.</h2>
-        <p className="section-subtitle">
-          Engagement governance, architectural standards, and research-led systemic delivery.
-        </p>
-
-        <div className="mt-24">
-          <InsightsCarousel
-            articles={[
-              { slug: "stake-high-delivery", title: "What great delivery looks like when stakes are high", tag: "Software Systems", excerpt: "A practical look at senior-led execution, decision cadence, and the signals that separate busy work from real progress." },
-              { slug: "ai-automation-leverage", title: "Where AI automation belongs inside modern operations", tag: "AI Orchestration", excerpt: "Not hype — leverage. How to introduce AI safely, measure outcomes, and keep systems legible as they evolve." },
-              { slug: "shipping-strategy", title: "Turning strategy into shipping: a simple operating model", tag: "Consulting", excerpt: "How we reduce ambiguity, align stakeholders, and keep delivery velocity high without sacrificing quality." },
-              { slug: "decision-cadence", title: "The anatomy of institutional decision cadence", tag: "Management", excerpt: "How systems-first companies handle rapid iteration without compromising architectural integrity." },
-            ]}
-          />
+        {/* Header row */}
+        <div className="insights-preview-header">
+          <div className="insights-preview-header-left">
+            <h2 className="insights-preview-title">Our Case Studies &amp; Latest Blogs</h2>
+          </div>
         </div>
 
+        {/* 4-column card grid */}
+        <div className="insights-preview-grid">
+          {articles.map((article, i) => (
+            <NewsCard
+              key={article.slug}
+              article={article}
+              index={i}
+              compact
+              priority={i < 2}
+            />
+          ))}
+        </div>
+
+        {/* View More button */}
         <div className="flex justify-center mt-16">
-          <Button href="/news" className="w-full sm:w-auto px-6 py-4 sm:px-8 sm:py-4 flex justify-center text-center">
-            View all news
-          </Button>
+          <Link href="/news" className="button-primary" aria-label="View more articles">
+            View More
+          </Link>
         </div>
       </div>
     </section>
   );
-};
-
-export default InsightsSection;
+}

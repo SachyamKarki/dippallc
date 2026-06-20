@@ -106,24 +106,23 @@ export default function ServiceTabs() {
   };
 
   return (
-    <section className="py-16 lg:py-28 bg-white relative overflow-hidden" id="strategic-capability">
+    <section className="py-24 lg:py-36 bg-white relative overflow-hidden" id="strategic-capability">
 
-
-      <div className="section-shell relative z-10 px-4 sm:px-8">
-        <div className="w-full flex flex-col items-center text-center mb-6 lg:mb-12">
-          <h2 className="section-title st-title mt-10 mb-6 w-full max-w-4xl mx-auto sm:mb-8 font-black">
+      <div className="section-shell relative z-10">
+        <div className="w-full flex flex-col items-center text-center mb-4 lg:mb-6">
+          <h2 className="section-title st-title mt-0 mb-4 w-full max-w-4xl mx-auto sm:mb-6 font-black">
             What We Offer
           </h2>
-          <p 
-            className="section-subtitle st-text max-w-prose sm:max-w-2xl text-[13px] sm:text-base opacity-80"
-            style={{ fontFamily: 'var(--font-lato)' }}
+          <p
+            className="section-subtitle st-text max-w-prose sm:max-w-2xl text-base opacity-80"
+            style={{ fontFamily: 'var(--font-main)' }}
           >
             Disciplined execution for companies that require technical excellence and systemic operational clarity.
           </p>
         </div>
 
         <div className="w-full max-w-full overflow-hidden mb-0">
-          <div className="grid grid-cols-2 sm:flex sm:flex-nowrap sm:overflow-x-auto no-scrollbar justify-center items-center gap-2 sm:gap-3 px-4 sm:px-8 py-2 bg-transparent w-full relative">
+          <div className="grid grid-cols-2 sm:flex sm:flex-nowrap sm:overflow-x-auto no-scrollbar justify-center items-center gap-2 sm:gap-4 px-4 sm:px-8 py-2 bg-transparent w-full relative">
             {/* Sliding Indicator */}
             <div
               className="hidden sm:block absolute h-[calc(100%-16px)] bg-[#364835] rounded-full transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]"
@@ -142,7 +141,7 @@ export default function ServiceTabs() {
                 ref={el => { tabsRef.current[index] = el; }}
                 onClick={() => setActiveTab(service.id)}
                 className={cn(
-                  "st-tab relative z-10 rounded-full px-2 py-2 text-[11px] font-black whitespace-normal leading-tight text-center transition-colors duration-300 flex-shrink-0 sm:px-6 sm:py-3 sm:text-sm sm:whitespace-nowrap border sm:border-none",
+                  "st-tab relative z-10 rounded-full px-3 py-2 text-sm font-black whitespace-normal leading-tight text-center transition-colors duration-300 flex-shrink-0 sm:px-7 sm:py-3.5 sm:text-base sm:whitespace-nowrap border sm:border-none",
                   service.id === "software-development" && "col-span-2 sm:col-span-1 mx-6 sm:mx-0",
                   activeTab === service.id 
                     ? "bg-[#364835] border-[#364835] text-white sm:bg-transparent" 
@@ -155,12 +154,12 @@ export default function ServiceTabs() {
           </div>
         </div>
 
-        <div className="w-full pt-8 lg:pt-10 pb-4 lg:pb-8 transition-all duration-1000 mt-6 lg:mt-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+        <div className="w-full pt-10 lg:pt-14 pb-6 lg:pb-10 transition-all duration-1000 mt-8 lg:mt-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
             {/* Text Content */}
             <div
               key={activeService.id + "-text"}
-              className="space-y-6 lg:space-y-10 service-content-enter text-center lg:text-left flex flex-col items-center lg:items-start"
+              className="space-y-8 lg:space-y-12 service-content-enter text-center lg:text-left flex flex-col items-center lg:items-start"
             >
               <div className="flex flex-col w-full items-center lg:items-start">
                 {/* Active service number badge */}
@@ -176,20 +175,20 @@ export default function ServiceTabs() {
                   {activeService.title}
                 </h3>
                 <p
-                  className="st-text mt-4 lg:mt-6 service-desc-enter text-center lg:text-left leading-relaxed max-w-2xl font-normal text-[13px] sm:text-base opacity-90"
-                  style={{ fontFamily: 'var(--font-lato)' }}
+                  className="st-text mt-5 lg:mt-8 service-desc-enter text-center lg:text-left leading-relaxed max-w-2xl font-normal text-base opacity-90"
+                  style={{ fontFamily: 'var(--font-main)' }}
                 >
                   {activeService.description}
                 </p>
               </div>
 
-              <div className="space-y-6 w-full flex flex-col items-center lg:items-start">
-                <ul className="space-y-3 lg:space-y-4 max-w-md lg:max-w-none text-left">
+              <div className="space-y-8 w-full flex flex-col items-center lg:items-start">
+                <ul className="space-y-5 lg:space-y-6 max-w-md lg:max-w-none text-left">
                   {activeService.points.map((point, index) => (
                     <li
                       key={activeService.id + index}
-                      className="st-text flex items-start gap-4 service-point-enter text-left leading-relaxed font-normal text-[13px] sm:text-base opacity-85"
-                      style={{ animationDelay: `${0.3 + index * 0.12}s`, fontFamily: 'var(--font-lato)' }}
+                      className="st-text flex items-start gap-4 service-point-enter text-left leading-relaxed font-normal text-base opacity-85"
+                      style={{ animationDelay: `${0.3 + index * 0.12}s` }}
                     >
                       <div className="w-1.5 h-1.5 mt-2.5 shrink-0 rounded-full bg-black/30" />
                       <span>{point}</span>
@@ -230,14 +229,6 @@ export default function ServiceTabs() {
                 />
               </div>
 
-              <div className="pt-8 service-btn-enter flex justify-center w-full lg:max-w-lg mx-auto">
-                <Button
-                  href="/products"
-                  className="w-full sm:w-auto px-8 py-4 sm:px-12 sm:py-5 flex justify-center text-center text-xs sm:text-sm font-black"
-                >
-                  Start your project
-                </Button>
-              </div>
             </div>
           </div>
         </div>
@@ -254,7 +245,8 @@ export default function ServiceTabs() {
           color: #000000;
         }
         .st-tab {
-          font-family: var(--font-playfair);
+          font-family: var(--font-main);
+          letter-spacing: 0.01em;
         }
 
         @keyframes fadeInUp {

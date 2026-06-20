@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
-import { Lato, Playfair_Display } from "next/font/google";
+import { Poppins, Bebas_Neue } from "next/font/google";
 import "./globals.css";
 import ScrollRevealProvider from "@/components/layout/ScrollRevealProvider";
 import Chrome from "@/components/layout/Chrome";
 
-const lato = Lato({
+const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["100", "300", "400", "700", "900"],
+  weight: ["300", "400", "500", "600", "700", "900"],
   variable: "--font-lato",
 });
 
-const playfair = Playfair_Display({
+const bebasNeue = Bebas_Neue({
   subsets: ["latin"],
+  weight: "400",
   variable: "--font-playfair",
 });
 
@@ -61,7 +62,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${lato.variable} ${playfair.variable} antialiased`}>
+      <body className={`${poppins.variable} ${bebasNeue.variable} antialiased`}>
         <ScrollRevealProvider>
           <Chrome>{children}</Chrome>
         </ScrollRevealProvider>

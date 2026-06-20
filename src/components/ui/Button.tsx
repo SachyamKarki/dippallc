@@ -20,16 +20,17 @@ const Button = ({
   style,
   type = "button"
 }: ButtonProps) => {
-  const baseStyles = "inline-flex items-center justify-center transition-all duration-300 font-bold uppercase tracking-widest text-sm hover:scale-105 active:scale-95";
-  
-  const variants = {
-    primary: "button-primary shadow-lg",
-    secondary: "bg-[#000000] text-white hover:bg-[#1a1a1a] shadow-lg px-8 py-3 button-shape-leaf",
-    navy: "bg-[#1E293B] text-white hover:bg-[#2d3748] shadow-lg px-8 py-3 button-shape-leaf",
-    outline: "border-2 border-current bg-transparent hover:bg-current hover:text-white px-8 py-3 rounded-full"
+  // base only handles flex alignment; glass styles + shape live in buttons.css
+  const baseStyles = "inline-flex items-center justify-center";
+
+  const variants: Record<string, string> = {
+    primary:  "button-primary",
+    secondary:"button-secondary",
+    navy:     "button-inverse",
+    outline:  "button-secondary",
   };
 
-  const combinedClassName = cn(baseStyles, variants[variant], className);
+  const combinedClassName = cn(baseStyles, variants[variant] ?? "button-primary", className);
 
   if (href) {
     return (

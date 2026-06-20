@@ -16,6 +16,8 @@
 # next.js
 /.next/
 /out/
+admin/.next/
+admin/node_modules/
 
 # production
 /build
@@ -42,3 +44,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Python backend
+backend/venv/
+backend/db.sqlite3
+backend/__pycache__/
+backend/**/__pycache__/
+*.pyc

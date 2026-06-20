@@ -1,89 +1,58 @@
 @import "tailwindcss";
 
-/* 1. Variables & Design Tokens */
+/* ─── Design Tokens ─────────────────────────────────────── */
 :root {
   --background: #ffffff;
-  --foreground: #000000;
-  --muted: #111111;
-  --border: rgba(0, 0, 0, 0.1);
+  --foreground: #0f172a;
+  --muted: #64748b;
+  --border: rgba(0, 0, 0, 0.08);
   --surface: #ffffff;
-  --surface-strong: #f8fafc;
+  --surface-alt: #f8fafc;
   --accent: #364835;
   --primary: #364835;
 
   --shadow-lg: 0 24px 70px rgba(0, 0, 0, 0.06);
   --shadow-md: 0 16px 38px rgba(0, 0, 0, 0.04);
-  
+
   --font-main: var(--font-lato), sans-serif;
-  --font-heading: var(--font-lato), sans-serif;
-  --font-accent: var(--font-lato), sans-serif;
-  
-  --container-max-width: 1440px;
-  --container-gutter-mobile: 3rem;
-  --container-gutter-desktop: 4rem;
-  --control-height: 3.5rem;
-  --control-padding-x: 2rem;
+  --font-display: var(--font-playfair), sans-serif;
+
+  --container-max: 1440px;
+  --gutter: 1.5rem;
+
+  /* Type scale */
+  --text-hero:    clamp(2.75rem, 5.5vw, 4.5rem);
+  --text-display: clamp(2rem, 3.5vw, 3rem);
+  --text-heading: clamp(1.25rem, 2vw, 1.75rem);
+  --text-body:    1rem;
+  --text-sm:      0.875rem;
+  --text-xs:      0.75rem;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-white: #ffffff;
-  --font-main: var(--font-lato), sans-serif;
-  --font-heading: var(--font-lato), sans-serif;
-  --font-accent: var(--font-lato), sans-serif;
   --font-sans: var(--font-main);
-  --font-serif: var(--font-heading);
+  --font-serif: var(--font-display);
 }
 
-/* 2. Base Reset & Typography */
-* {
-  box-sizing: border-box;
+@media (min-width: 1024px) {
+  :root { --gutter: 4rem; }
 }
 
-html,
-body {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-html::-webkit-scrollbar,
-body::-webkit-scrollbar,
-*::-webkit-scrollbar {
-  display: none !important;
-}
+/* ─── Reset ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
 
 html {
   background: var(--background);
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overscroll-behavior-y: none;
 }
-
-body,
-p,
-span,
-a,
-li,
-input,
-button,
-select,
-textarea {
-  font-family: var(--font-lato), sans-serif !important;
-}
-
-h1,
-h2,
-h3,
-h4,
-.section-title,
-.hero-title,
-.st-title,
-.why-dippa-title {
-  font-family: var(--font-playfair), serif !important;
-  font-weight: 700 !important;
-  letter-spacing: -0.01em !important;
-  line-height: 1.1 !important;
-}
+html::-webkit-scrollbar { display: none; }
 
 body {
   margin: 0;
@@ -92,113 +61,103 @@ body {
   flex-direction: column;
   background: var(--background);
   color: var(--foreground);
-  font-weight: 500;
-  color: #4b5563;
+  font-family: var(--font-main);
+  font-size: var(--text-body);
+  line-height: 1.65;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  line-height: 1.6;
   overflow-x: hidden;
 }
 
-/* Ensure the main content takes up remaining space and footer is at bottom */
-main {
-  flex: 1 0 auto;
+main { flex: 1 0 auto; }
+footer { flex-shrink: 0; }
+
+/* ─── Typography ─────────────────────────────────────────── */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin: 0;
+  color: var(--foreground);
 }
 
-footer {
-  flex-shrink: 0;
+h1 { font-size: var(--text-hero); }
+h2 { font-size: var(--text-display); }
+h3 { font-size: var(--text-heading); }
+h4 { font-size: 1.125rem; }
+
+p {
+  font-family: var(--font-main);
+  font-size: var(--text-body);
+  line-height: 1.7;
+  font-weight: 400;
+  color: #4b5563;
+  margin: 0;
 }
 
-/* Subtle Premium Texture Overlay */
+a { color: inherit; text-decoration: none; }
+
+img { -webkit-user-drag: none; user-select: none; -webkit-user-select: none; }
+
+/* ─── Layout ─────────────────────────────────────────────── */
+.section-shell {
+  max-width: var(--container-max);
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+section { padding: clamp(4rem, 10vw, 8rem) 0; position: relative; }
+
+/* ─── Shared section heading ─────────────────────────────── */
+.section-title {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: var(--foreground);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.section-subtitle {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--muted);
+  text-align: center;
+  max-width: 60ch;
+  margin: 0 auto 3rem;
+}
+
+@media (min-width: 1024px) {
+  .section-subtitle { margin-bottom: 4.5rem; font-size: 1.125rem; }
+}
+
+/* ─── Animations & Reveal ─────────────────────────────────── */
+.reveal {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1), transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.reveal-ready .reveal { opacity: 0; transform: translateY(24px); }
+.reveal-ready .reveal-visible { opacity: 1; transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-ready .reveal, .reveal-ready .reveal-visible {
+    opacity: 1; transform: none; transition: none;
+  }
+}
+
+/* ─── Noise texture ──────────────────────────────────────── */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   background: url("https://grainy-gradients.vercel.app/noise.svg");
-  opacity: 0.025;
+  opacity: 0.02;
   pointer-events: none;
   z-index: 9999;
-}
-
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--font-lato), sans-serif !important;
-  font-weight: 900 !important;
-  letter-spacing: -0.01em !important;
-  line-height: 1.05 !important;
-  margin: 0;
-}
-
-.font-serif, .section-title, .hero-title {
-  font-family: var(--font-main) !important;
-}
-
-h2 {
-  font-size: clamp(2.5rem, 4vw, 3.5rem);
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-h3 {
-  font-size: clamp(1.6rem, 2.5vw, 2.5rem);
-  line-height: 1.1;
-}
-
-p {
-  color: #4b5563;
-  font-size: 1.125rem; /* 18px */
-  line-height: 1.7;
-  font-weight: 500;
-}
-
-@media (min-width: 1024px) {
-  p {
-    font-size: 1.125rem;
-    line-height: 1.8;
-  }
-}
-
-p,
-li,
-label,
-input,
-textarea,
-select,
-blockquote,
-figcaption {
-  font-family: var(--font-lato), sans-serif !important;
-}
-
-button,
-[role="button"] {
-  font-family: var(--font-accent);
-}
-
-/* Global Reveal Classes */
-.reveal {
-  opacity: 1;
-  transform: none;
-  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.reveal-ready .reveal {
-  opacity: 0;
-  transform: translateY(30px);
-}
-
-.reveal-ready .reveal-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .reveal,
-  .reveal-ready .reveal,
-  .reveal-ready .reveal-visible {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
 }

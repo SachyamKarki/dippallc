@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import Button from "@/components/ui/Button";
 import ArticleVote from "@/components/blog/ArticleVote";
 import BlogCard from "@/components/blog/BlogCard";
 import BlogContentRenderer from "@/components/blog/BlogContentRenderer";
@@ -71,7 +70,8 @@ export default function NewsArticlePage() {
       setNotFound(false);
 
       try {
-        const res = await fetch(`http://localhost:8000/api/posts/${encodeURIComponent(id)}/`);
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+        const res = await fetch(`${apiUrl}/api/posts/${encodeURIComponent(id)}/`);
 
         if (!res.ok) {
           setNotFound(true);
@@ -89,26 +89,6 @@ export default function NewsArticlePage() {
 
     fetchPost();
   }, [examplePost, id]);
-
-  const isComingSoon = true;
-
-  if (isComingSoon) {
-    return (
-      <main className="min-h-[80vh] flex flex-col items-center justify-center bg-white pt-24">
-        <div className="text-center px-6 section-shell">
-          <h1 className="text-5xl lg:text-7xl font-black tracking-tighter text-black mb-6 uppercase" style={{ fontFamily: 'var(--font-lato)' }}>
-            COMING SOON
-          </h1>
-          <p className="text-lg text-black/70 font-medium max-w-xl mx-auto mb-12">
-            We are currently curating and formatting our technical research articles. The full editorial piece will be available shortly.
-          </p>
-          <Button href="/news" className="px-10 py-5">
-            Return to Newsroom
-          </Button>
-        </div>
-      </main>
-    );
-  }
 
   if (loading) {
     return (

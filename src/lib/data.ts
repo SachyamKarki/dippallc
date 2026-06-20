@@ -148,8 +148,9 @@ export const insights = [
 ] as const;
 
 export const navLinks = [
+  { label: "About", href: "/about" },
   { label: "Products", href: "/products" },
-  { label: "News", href: "/news" },
+  { label: "Case Studies & Blogs", href: "/news" },
   { label: "Careers", href: "/careers" },
 ] as const;
 

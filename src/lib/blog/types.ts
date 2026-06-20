@@ -15,10 +15,9 @@ export type BlogPost = {
   excerpt: string;
   createdAt: string; // ISO date
   source: BlogPostSource;
-  cover?: {
-    kind: "gradient";
-    background: string;
-  };
+  cover?:
+    | { kind: "gradient"; background: string }
+    | { kind: "image"; src: string };
   readingTimeMinutes?: number;
   initialUpvotes: number;
   initialDownvotes: number;

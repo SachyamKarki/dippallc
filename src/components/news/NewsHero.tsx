@@ -11,7 +11,7 @@ export default function NewsHero({ searchQuery, onSearchChange, resultsTitle }: 
     <section className="blogs-hero-section">
       <div className="blogs-hero-shell section-shell">
         <div className="blogs-hero-content text-center pt-2 pb-8 lg:pt-6 lg:pb-10">
-          <h1 className="blogs-hero-title text-4xl lg:text-5xl font-black mb-4 tracking-tighter" style={{ fontFamily: 'var(--font-lato), sans-serif' }}>
+          <h1 className="blogs-hero-title text-4xl lg:text-5xl font-black mb-4 tracking-tighter" style={{ fontFamily: 'var(--font-display)' }}>
             DIPPA INSIGHTS.
           </h1>
           <p className="text-lg text-[#1a1a1a] max-w-2xl mx-auto mb-6 font-medium tracking-normal">

@@ -27,7 +27,7 @@ export default function BlogCard(props: {
   const href = props.href ?? `/news/${props.article.slug}`;
   const variant = props.variant ?? "standard";
   const label = articleLabel(props.article.tag);
-  const coverStyle = props.article.cover ? { backgroundImage: props.article.cover.background } : undefined;
+  const coverStyle = props.article.cover?.kind === "gradient" ? { backgroundImage: props.article.cover.background } : undefined;
 
   if (variant === "compact") {
     return (

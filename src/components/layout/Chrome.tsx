@@ -11,19 +11,16 @@ const NAVBAR_HIDDEN_PATHS = new Set<string>();
 export default function Chrome({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const hideNavbar = pathname ? NAVBAR_HIDDEN_PATHS.has(pathname) : false;
-  
-  // Make it sticky everywhere, use light theme for pages with white heroes
-  const navbarSticky = false;
-  const navbarTheme = (
-    pathname === "/" || 
-    pathname?.startsWith("/news") || 
-    pathname?.startsWith("/careers") || 
-    pathname?.startsWith("/products")
-  ) ? "light" : "dark";
+
+  // Homepage: transparent → dark glass on scroll
+  // All other pages: dark glass from the very top (white page backgrounds)
+  const isHomepage = pathname === "/";
 
   return (
     <SiteAudioProvider>
-      {!hideNavbar ? <Navbar sticky={navbarSticky} theme={navbarTheme} /> : null}
+      {!hideNavbar && (
+        <Navbar sticky forceScrolled={!isHomepage} />
+      )}
       {children}
       <Footer />
     </SiteAudioProvider>

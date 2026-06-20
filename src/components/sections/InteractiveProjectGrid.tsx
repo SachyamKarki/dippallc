@@ -13,45 +13,34 @@ interface MockSite {
   surface: string;
   ink: string;
   layout: string;
-  slug?: string;
+  url: string;
 }
 
-const mockSites: readonly MockSite[] = [
-  { id: 1, title: "Ops Canvas", accent: "#6a7f5c", surface: "#d4d0b7", ink: "#1d1f17", layout: "editorial", slug: "ops-canvas" },
-  { id: 2, title: "Agent Desk", accent: "#4ca58f", surface: "#d9c9cd", ink: "#241e25", layout: "catalog", slug: "agent-desk" },
-  { id: 3, title: "Synthesis Engine", accent: "#9f7c51", surface: "#332c27", ink: "#f2e8da", layout: "minimal", slug: "clarity-sprint" },
-  { id: 4, title: "Neural Lattice", accent: "#b81a1a", surface: "#b8b0aa", ink: "#151515", layout: "poster" },
-  { id: 5, title: "Quant Vector", accent: "#4250d0", surface: "#f1f0ec", ink: "#161616", layout: "minimal" },
-  { id: 6, title: "Systemic Core", accent: "#111111", surface: "#e9e4df", ink: "#1a1a1a", layout: "catalog" },
-  { id: 7, title: "Logic Gateway", accent: "#efadc7", surface: "#f2e4eb", ink: "#201d1d", layout: "catalog" },
-  { id: 8, title: "Neural Hub", accent: "#d1d6ce", surface: "#5a635d", ink: "#f4f1eb", layout: "poster" },
-  { id: 9, title: "Vector Flow", accent: "#ceb89d", surface: "#eee7df", ink: "#201816", layout: "editorial" },
-  { id: 10, title: "Agentic Ops", accent: "#2ba68c", surface: "#eef2eb", ink: "#1b211e", layout: "minimal" },
-  { id: 11, title: "Continuity OS", accent: "#d8d8d3", surface: "#ece9e2", ink: "#171717", layout: "minimal" },
-  { id: 12, title: "System Architect", accent: "#1f1f1f", surface: "#efeee8", ink: "#111111", layout: "editorial" },
-  { id: 13, title: "Neural Archive", accent: "#c45e3a", surface: "#f0ebe4", ink: "#1a1410", layout: "poster" },
-  { id: 14, title: "Vector Base", accent: "#3d3d3d", surface: "#fafaf8", ink: "#0e0e0e", layout: "minimal" },
-  { id: 15, title: "Logic Stream", accent: "#7a6b4e", surface: "#e8e0d2", ink: "#1c1812", layout: "editorial" },
-  { id: 16, title: "AI Orchestrator", accent: "#5c6bc0", surface: "#e3e6f0", ink: "#181a24", layout: "catalog" },
-  { id: 17, title: "Systemic Layer", accent: "#2e7d5a", surface: "#e4ede8", ink: "#121e18", layout: "minimal" },
-  { id: 18, title: "Neural Bridge", accent: "#8d6e63", surface: "#ede8e2", ink: "#1e1814", layout: "editorial" },
-  { id: 19, title: "Quant Signal", accent: "#e65100", surface: "#2a2522", ink: "#f5efe8", layout: "poster" },
-  { id: 20, title: "Lattice View", accent: "#ab47bc", surface: "#f0e8f2", ink: "#1a141e", layout: "catalog" },
-  { id: 21, title: "Neural Ops", accent: "#00838f", surface: "#e0f2f3", ink: "#0a1a1c", layout: "minimal" },
-  { id: 22, title: "Systemic Hub", accent: "#bf360c", surface: "#fbe9e7", ink: "#1a0e0a", layout: "poster" },
-  { id: 23, title: "Vector Strategy", accent: "#546e7a", surface: "#eceff1", ink: "#1a2024", layout: "editorial" },
-  { id: 24, title: "Monolith Neural", accent: "#212121", surface: "#f5f5f5", ink: "#0a0a0a", layout: "catalog" },
-  { id: 25, title: "Systemic Forge", accent: "#e64a19", surface: "#3e2723", ink: "#ffccbc", layout: "poster" },
-  { id: 26, title: "Logic Bureau", accent: "#6d4c41", surface: "#efebe9", ink: "#1c1412", layout: "editorial" },
-  { id: 27, title: "Neural Media", accent: "#7b1fa2", surface: "#f3e5f5", ink: "#1a0e20", layout: "catalog" },
-  { id: 28, title: "Core Intelligence", accent: "#0277bd", surface: "#e1f5fe", ink: "#0a1820", layout: "minimal" },
-  { id: 29, title: "Systemic Forge", accent: "#ff6f00", surface: "#fff8e1", ink: "#1a1408", layout: "poster" },
-  { id: 30, title: "Neural Digital", accent: "#455a64", surface: "#f4f6f7", ink: "#0e1418", layout: "editorial" },
-  { id: 31, title: "Agentic Labs", accent: "#00695c", surface: "#e0f2f1", ink: "#081a18", layout: "minimal" },
-  { id: 32, title: "Systemic Press", accent: "#4e342e", surface: "#d7ccc8", ink: "#1a1210", layout: "catalog" },
-] as const;
+const REAL_PROJECTS = [
+  { title: "Unmarkd", accent: "#1a1a2e", surface: "#f0f0f5", ink: "#0a0a1a", layout: "editorial", url: "https://unmarkdofficial.com" },
+  { title: "LFG Burnego", accent: "#c0392b", surface: "#1a0a08", ink: "#f5e6e0", layout: "poster", url: "https://www.lfgburnego.com" },
+  { title: "Laxmi Pustak", accent: "#e67e22", surface: "#fdf6ec", ink: "#1a1008", layout: "catalog", url: "https://www.laxmipustak.com" },
+  { title: "Rabinson", accent: "#2980b9", surface: "#eaf4fb", ink: "#0a1820", layout: "minimal", url: "https://www.rabinson.info" },
+  { title: "Hoarding Board Nepal", accent: "#0d7a9e", surface: "#e8f6fb", ink: "#061820", layout: "editorial", url: "https://www.hoardingboardnepal.com" },
+  { title: "Season Food", accent: "#b5451b", surface: "#fdf3ee", ink: "#1a0a06", layout: "catalog", url: "https://seasonfood.com.np" },
+  { title: "Stripe", accent: "#635bff", surface: "#f6f5ff", ink: "#0a0820", layout: "minimal", url: "https://stripe.com" },
+  { title: "Linear", accent: "#5e6ad2", surface: "#f4f4fb", ink: "#0e0e1a", layout: "editorial", url: "https://linear.app" },
+  { title: "Vercel", accent: "#000000", surface: "#f5f5f5", ink: "#0a0a0a", layout: "minimal", url: "https://vercel.com" },
+  { title: "Notion", accent: "#37352f", surface: "#f7f6f3", ink: "#1a1916", layout: "catalog", url: "https://notion.so" },
+  { title: "PlanetScale", accent: "#00c0b4", surface: "#e8faf9", ink: "#061a19", layout: "poster", url: "https://planetscale.com" },
+  { title: "Framer", accent: "#0055ff", surface: "#eef3ff", ink: "#060d20", layout: "minimal", url: "https://framer.com" },
+  { title: "Loom", accent: "#625df5", surface: "#f5f4ff", ink: "#0e0d20", layout: "editorial", url: "https://loom.com" },
+  { title: "Railway", accent: "#b100e8", surface: "#f9eeff", ink: "#150520", layout: "poster", url: "https://railway.app" },
+  { title: "Cal.com", accent: "#292929", surface: "#f5f5f5", ink: "#0a0a0a", layout: "minimal", url: "https://cal.com" },
+  { title: "Supabase", accent: "#3ecf8e", surface: "#edfbf4", ink: "#061a0f", layout: "catalog", url: "https://supabase.com" },
+];
 
-const webImages = Array.from({ length: 32 }).map((_, i) => `/projects/${i + 1}.jpg`);
+const mockSites: readonly MockSite[] = Array.from({ length: 32 }, (_, i) => ({
+  id: i + 1,
+  ...REAL_PROJECTS[i % REAL_PROJECTS.length],
+}));
+
+const webImages = Array.from({ length: 32 }).map((_, i) => `/projects/${(i % 16) + 1}.jpg`);
 
 export default function InteractiveProjectGrid() {
   const router = useRouter();
@@ -154,7 +143,7 @@ export default function InteractiveProjectGrid() {
       card.position.set(Math.sin(angle) * radius, y, Math.cos(angle) * radius);
       card.lookAt(0, y, 0);
       card.userData = {
-        link: `/projects/${mockSites[siteIndex].id}`,
+        link: mockSites[siteIndex].url,
         title: mockSites[siteIndex].title
       };
       carouselGroup.add(card);
@@ -230,7 +219,7 @@ export default function InteractiveProjectGrid() {
 
   return (
     <section className="work-sphere-section" aria-labelledby="project-showcase-title">
-      <div className="section-shell work-sphere-shell">
+      <div className="work-sphere-shell">
         <div
           ref={stageRef}
           className="work-sphere-stage"
@@ -306,7 +295,7 @@ export default function InteractiveProjectGrid() {
                 const clickedCard = intersects[0].object as THREE.Mesh;
                 const link = clickedCard.userData.link;
                 if (link) {
-                  router.push(link);
+                  window.open(link, '_blank', 'noopener,noreferrer');
                 }
               }
             }

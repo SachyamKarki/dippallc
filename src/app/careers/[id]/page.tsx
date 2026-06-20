@@ -16,7 +16,8 @@ export default function JobDetailPage() {
     async function fetchJob() {
       if (!id) return;
       try {
-        const res = await fetch(`http://localhost:8000/api/jobs/${id}/`);
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+        const res = await fetch(`${apiUrl}/api/jobs/${id}/`);
         if (res.ok) {
           const data = await res.json();
           setJob(data);

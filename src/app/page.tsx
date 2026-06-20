@@ -1,47 +1,38 @@
-import WhyDippaSection from "@/components/sections/WhyDippaSection";
 import NewsletterSection from "@/components/sections/NewsletterSection";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import ServiceTabs from "@/components/sections/ServiceTabs";
-import FAQSection from "@/components/sections/FAQSection";
 import HeroCarousel from "@/components/sections/HeroCarousel";
+import StarfieldBackground from "@/components/sections/StarfieldBackground";
 import TechAnimation from "@/components/sections/TechAnimation";
-import PartnersSection from "@/components/sections/PartnersSection";
 import InteractiveProjectGrid from "@/components/sections/InteractiveProjectGrid";
 import JourneySection from "@/components/sections/JourneySection";
 import InsightsSection from "@/components/sections/InsightsSection";
-import CTASection from "@/components/sections/CTASection";
 
 export default function Home() {
   return (
     <main className="site-shell squarespace-home relative">
       <section className="hero-section-new relative overflow-hidden">
+        <StarfieldBackground />
         <TechAnimation />
         <HeroCarousel />
       </section>
 
       <ServiceTabs />
-      <PartnersSection />
 
-      <JourneySection />
+      {/* 360 immersive — black canvas */}
+      <div className="bg-[#000000] overflow-hidden">
+<InteractiveProjectGrid />
+      </div>
 
+      {/* Subscribe — after 360 */}
+      <NewsletterSection />
+
+      {/* Case Studies & Blogs */}
       <InsightsSection />
 
-      <div style={{ background: 'linear-gradient(to bottom, #ffffff 50%, #000000 50%)' }}>
-        <WhyDippaSection />
-      </div>
-
-      <div className="bg-[#000000] overflow-hidden">
-        <NewsletterSection />
-        <InteractiveProjectGrid />
-      </div>
-
-
-
-
-      <FAQSection />
       <TestimonialsSection />
 
-      <CTASection />
+      <JourneySection />
     </main>
   );
 }

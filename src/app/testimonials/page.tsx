@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import PageHero from "@/components/ui/PageHero";
+import Spinner from "@/components/ui/Spinner";
 
 interface Testimonial {
   id: number;
@@ -19,7 +21,8 @@ export default function TestimonialsPage() {
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
-        const res = await fetch("http://localhost:8000/api/testimonials/");
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+        const res = await fetch(`${apiUrl}/api/testimonials/`);
         const data = await res.json();
         setTestimonials(data);
       } catch (err) {
@@ -33,43 +36,31 @@ export default function TestimonialsPage() {
 
   return (
     <main className="min-h-screen bg-white text-slate-950">
-      <section className="pt-32 pb-16">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h1 className="section-title mb-8">Client Perspective.</h1>
-          <p className="text-xl text-slate-500 leading-relaxed mx-auto max-w-2xl">
-            Success stories and feedback from the founders and operators we&apos;ve partnered with to build premium software systems.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        kicker="Client Stories"
+        title="Client Perspective."
+        subtitle="Success stories and feedback from the founders and operators we've partnered with to build premium software systems."
+      />
 
       <section className="pb-32">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="section-shell">
           {loading ? (
             <div className="flex justify-center py-32">
-              <div className="w-8 h-8 border-2 border-slate-200 border-t-slate-800 rounded-full animate-spin" />
+              <Spinner size={32} />
             </div>
           ) : testimonials.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="testimonials-grid">
               {testimonials.map((t) => (
-                <article key={t.id} className="bg-slate-50/50 p-10 rounded-[3rem] border border-slate-100/80 hover:bg-white hover:shadow-2xl hover:shadow-slate-200 transition-all duration-500 flex flex-col justify-between">
-                  <div>
-                    <div className="mb-8">
-                      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" className="text-blue-600/20">
-                        <path d="M10 20H15L12 28H7L10 20ZM25 20H30L27 28H22L25 20Z" fill="currentColor" />
-                      </svg>
-                    </div>
-                    <p className="text-lg md:text-xl text-slate-700 leading-relaxed mb-10 font-medium italic">
-                      &ldquo;{t.quote}&rdquo;
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-5 pt-8 border-t border-slate-100">
-                    <div className="relative w-14 h-14 overflow-hidden rounded-2xl bg-slate-200">
+                <article key={t.id} className="testimonial-card">
+                  <p>&ldquo;{t.quote}&rdquo;</p>
+                  <div className="testimonial-person">
+                    <div className="relative w-12 h-12 overflow-hidden rounded-full bg-slate-200 flex-shrink-0">
                       {t.image_url ? (
                         <Image
                           src={t.image_url}
                           alt={t.name}
                           fill
-                          className="object-cover"
+                          className="testimonial-avatar"
                         />
                       ) : (
                         <div className="absolute inset-0 flex items-center justify-center text-slate-400 font-bold">
@@ -78,8 +69,8 @@ export default function TestimonialsPage() {
                       )}
                     </div>
                     <div>
-                      <h4 className="font-bold text-slate-900 text-lg">{t.name}</h4>
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">{t.role}</p>
+                      <strong>{t.name}</strong>
+                      <span>{t.role}</span>
                     </div>
                   </div>
                 </article>
@@ -94,7 +85,7 @@ export default function TestimonialsPage() {
       </section>
 
       <section className="pb-32">
-        <div className="max-w-5xl mx-auto px-6">
+        <div className="section-shell">
           <div className="bg-blue-600 rounded-[3.5rem] p-12 md:p-20 text-center text-white shadow-2xl shadow-blue-200 relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-tr from-blue-700 to-blue-500" />
             <div className="relative z-10">
@@ -109,7 +100,6 @@ export default function TestimonialsPage() {
           </div>
         </div>
       </section>
-
     </main>
   );
 }

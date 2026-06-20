@@ -1,34 +1,60 @@
-import Link from "next/link";
 import Button from "@/components/ui/Button";
-import { cn } from "@/lib/utils";
 
-const CTASection = () => {
+const steps = [
+  {
+    num: "01",
+    title: "Book a Discovery Call",
+    body: "Tell us about your challenge, timeline, and technical landscape. We listen first — because the right solution starts with the right understanding.",
+  },
+  {
+    num: "02",
+    title: "Receive a Strategic Brief",
+    body: "We map your requirements into a clear architectural plan with defined milestones, resource allocation, and delivery expectations.",
+  },
+  {
+    num: "03",
+    title: "Senior-Led Execution Begins",
+    body: "Our principals embed directly into your workflow — writing code, designing systems, and shipping production-grade outcomes from day one.",
+  },
+  {
+    num: "04",
+    title: "Deliver & Scale with Confidence",
+    body: "Launch with institutional-grade infrastructure, full documentation, and a system built to compound value long after handoff.",
+  },
+];
+
+export default function CTASection() {
   return (
-    <section className="py-32 bg-white reveal px-4 md:px-8">
-      <div
-        className="relative rounded-[3rem] py-12 md:py-16 px-8 md:px-16 text-center w-full max-w-[1200px] mx-auto flex flex-col items-center justify-center overflow-hidden"
-        style={{
-          backgroundColor: '#FAF9F6',
-          backgroundImage: 'radial-gradient(rgba(0,0,0,0.12) 1px, transparent 0)',
-          backgroundSize: '24px 24px'
-        }}
-      >
-        <h2 className="section-title !mb-6">
-          Start Your Journey
-        </h2>
+    <section className="cta-journey-section">
+      <div className="section-shell cta-journey-shell">
 
-        <p className="relative z-10 text-base md:text-lg text-black max-w-2xl mx-auto mb-12 font-medium">
-          Book a discovery call and let&apos;s map your technical landscape into a clear, institutional-grade architectural plan.
-        </p>
+        <div className="cta-journey-head">
+          <span className="cta-journey-kicker">Start Your Journey</span>
+          <h2 className="cta-journey-title">Start Your Journey with Dippa</h2>
+          <p className="cta-journey-sub">
+            From first conversation to production-grade delivery — here&apos;s exactly how we work.
+          </p>
+        </div>
 
-        <div className="relative z-10">
-          <Button href="/contact" className="w-full sm:w-auto px-6 py-4 sm:px-10 sm:py-5 flex justify-center text-center">
-            Book Discovery Call
+        <div className="cta-journey-steps">
+          {steps.map((step) => (
+            <div key={step.num} className="cta-journey-step">
+              <div className="cta-journey-step-num">{step.num}</div>
+              <div className="cta-journey-step-body">
+                <h3 className="cta-journey-step-title">{step.title}</h3>
+                <p className="cta-journey-step-text">{step.body}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="cta-journey-action">
+          <Button href="/contact" variant="primary">
+            Get Started
           </Button>
         </div>
+
       </div>
     </section>
   );
-};
-
-export default CTASection;
+}

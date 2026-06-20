@@ -24,7 +24,7 @@ export default function NewsFeatured({ recentCards }: NewsFeaturedProps) {
             <NewsCard 
               key={`${article.source}:${article.slug}`} 
               article={article} 
-              variant="horizontal" 
+               
             />
           ))}
         </div>
