@@ -62,6 +62,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <link rel="preload" href="/earth-night.jpg" as="image" />
+        <link rel="preload" href="/projects/1.jpg" as="image" />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+      </head>
       <body className={`${poppins.variable} ${bebasNeue.variable} antialiased`}>
         <ScrollRevealProvider>
           <Chrome>{children}</Chrome>

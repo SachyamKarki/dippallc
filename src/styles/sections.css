@@ -2678,3 +2678,74 @@
   line-height: 1.05;
   font-family: var(--font-display);
 }
+
+/* ─── Mobile & Tablet Responsive Fixes ─────────────────────── */
+
+/* Hero globe: bigger on phone */
+@media (max-width: 480px) {
+  .hero-new-right { max-width: 18rem; height: 18rem; }
+  .hero-title { font-size: clamp(2.4rem, 11vw, 3.5rem); }
+  .hero-kicker { font-size: 0.75rem; }
+  .hero-stats { gap: 1rem; }
+  .hero-stat-value { font-size: 1.5rem; }
+}
+
+/* What We Offer — section padding on mobile */
+@media (max-width: 640px) {
+  #strategic-capability { padding-top: 4rem; padding-bottom: 4rem; }
+  .work-sphere-stage { border-radius: 2rem; }
+}
+
+/* Journey section image on small screens */
+@media (max-width: 480px) {
+  .journey-v2-section { padding: 4rem 0; }
+  .journey-v2-inner { padding: 0 1rem; }
+  .journey-v2-title { font-size: clamp(2rem, 9vw, 2.75rem); }
+}
+
+/* Why Dippa cards — single column on small phones */
+@media (max-width: 480px) {
+  .why-dippa-grid { grid-template-columns: 1fr; }
+}
+
+/* Insights grid */
+@media (max-width: 480px) {
+  .insights-preview-grid { grid-template-columns: 1fr; }
+}
+
+/* Newsletter form on mobile */
+@media (max-width: 640px) {
+  .newsletter-input-wrap { flex-direction: column; width: 100%; }
+  .newsletter-submit { width: 100%; }
+  .newsletter-title { font-size: clamp(1.75rem, 8vw, 2.5rem); }
+}
+
+/* Footer: stack properly on mobile */
+@media (max-width: 640px) {
+  .footer-top { gap: 2.5rem; padding-top: 3rem; }
+  .footer-nav-list { grid-template-columns: 1fr; gap: 0.6rem; }
+  .footer-wordmark { font-size: clamp(3rem, 18vw, 8rem); }
+  .footer-bottom { flex-direction: column; gap: 0.75rem; text-align: center; }
+  .footer-inline-mail-row { font-size: 0.75rem; }
+}
+
+/* Legal pages on mobile */
+@media (max-width: 640px) {
+  .legal-hero { padding: 5rem 0 2.5rem; }
+  .legal-body { padding-top: 3rem; padding-bottom: 4rem; }
+  .legal-footer-note { flex-direction: column; gap: 1rem; align-items: flex-start; }
+}
+
+/* Coming soon on mobile */
+@media (max-width: 640px) {
+  .coming-soon-title { font-size: clamp(2.25rem, 10vw, 3.5rem); }
+}
+
+/* CTA steps on tablet */
+@media (max-width: 768px) {
+  .cta-journey-steps { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .cta-journey-steps { grid-template-columns: 1fr; }
+  .cta-journey-title { font-size: clamp(1.75rem, 9vw, 2.5rem); }
+}
