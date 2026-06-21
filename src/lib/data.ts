@@ -177,6 +177,12 @@ export const socialLinks = [
   { label: "Email Us", href: "mailto:hello@dippa.group" },
 ] as const;
 
+export const footerSocialLinks = [
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/thedippa", platform: "linkedin" },
+  { label: "Instagram", href: "https://www.instagram.com/thedippa", platform: "instagram" },
+  { label: "Facebook", href: "https://www.facebook.com/thedippa", platform: "facebook" },
+] as const;
+
 export const principles = [
   {
     title: "Senior thinking stays close to the work",

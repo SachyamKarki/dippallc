@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { LinkedInIcon } from "@/components/ui/Icons";
+import { FacebookIcon, InstagramIcon, LinkedInIcon } from "@/components/ui/Icons";
 import DippaLogo from "@/components/layout/DippaLogo";
+import { footerSocialLinks } from "@/lib/data";
 
 const footerNav = [
   { label: "Overview", href: "/" },
@@ -12,6 +13,12 @@ const footerNav = [
   { label: "Careers", href: "/careers" },
   { label: "Contact", href: "/contact" },
 ];
+
+const footerSocialIcons = {
+  linkedin: LinkedInIcon,
+  instagram: InstagramIcon,
+  facebook: FacebookIcon,
+} as const;
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -38,10 +45,25 @@ export default function Footer() {
                 <span className="footer-inline-sep"> | </span>
                 <a href="mailto:contact@thedippa.com" className="footer-inline-mail">contact@thedippa.com</a>
               </p>
-              <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="footer-social-pill footer-social-pill-linkedin footer-inline-li">
-                <span className="footer-social-icon footer-social-icon-li"><LinkedInIcon className="w-4 h-4" /></span>
-                <span>LinkedIn</span>
-              </a>
+              <div className="footer-inline-socials">
+                {footerSocialLinks.map((item) => {
+                  const Icon = footerSocialIcons[item.platform];
+                  return (
+                    <a
+                      key={item.platform}
+                      href={item.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={`footer-social-pill footer-social-pill-${item.platform}`}
+                    >
+                      <span className={`footer-social-icon footer-social-icon-${item.platform}`}>
+                        <Icon className="w-4 h-4" />
+                      </span>
+                      <span>{item.label}</span>
+                    </a>
+                  );
+                })}
+              </div>
             </div>
           </div>
 

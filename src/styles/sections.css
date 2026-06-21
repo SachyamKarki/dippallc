@@ -1117,6 +1117,13 @@ section#journey.journey-v2-section {
   align-self: flex-start;
 }
 
+.footer-inline-socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
 .footer-top-strip {
   display: flex;
   align-items: center;
@@ -1271,7 +1278,9 @@ section#journey.journey-v2-section {
   background: rgba(255,255,255,0.08);
   transition: background 0.2s;
 }
-.footer-social-pill-linkedin .footer-social-icon-li { background: #0077B5; }
+.footer-social-pill-linkedin .footer-social-icon-linkedin { background: #0077B5; }
+.footer-social-pill-instagram .footer-social-icon-instagram { background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af); }
+.footer-social-pill-facebook .footer-social-icon-facebook { background: #1877F2; }
 
 /* Right column */
 .footer-right { display: flex; flex-direction: column; gap: 3rem; }
