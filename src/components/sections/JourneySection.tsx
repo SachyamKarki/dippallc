@@ -67,7 +67,6 @@ export default function JourneySection() {
 
           {/* Headline + sub */}
           <div className="journey-v2-headline-col">
-            <span className="journey-v2-eyebrow">How it works</span>
             <h2 className="journey-v2-title">IT that works<br />from day one.</h2>
             <p className="journey-v2-sub">
               Every engagement starts with understanding your business first. No templates, no guesswork — just a clear path from where you are to where you need to be.

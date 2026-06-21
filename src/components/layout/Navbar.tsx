@@ -32,7 +32,7 @@ export default function Navbar({ sticky = true, forceScrolled = false }: NavbarP
     const onScroll = () => {
       const y = window.scrollY;
       setScrolled(y > 24);
-      setHidden(y > 80 && y > lastY);
+      setHidden(y > 80);
       lastY = y;
       const doc = document.documentElement;
       const total = doc.scrollHeight - doc.clientHeight;
@@ -74,13 +74,7 @@ export default function Navbar({ sticky = true, forceScrolled = false }: NavbarP
   return (
     <>
       <nav className={navClass}>
-        <div
-          className="nav-progress-bar"
-          style={{ width: `${scrollProgress}%` }}
-          aria-hidden="true"
-        />
-
-        <div className="site-nav-inner">
+<div className="site-nav-inner">
           {/* Logo */}
           <Link href="/" className="site-logo nav-logo-link" onClick={closeMenu}>
             <div className="nav-logo-wrap">
