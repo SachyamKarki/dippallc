@@ -135,7 +135,6 @@ export default function ContactForm({ simple = false }: ContactFormProps) {
   return (
     <form onSubmit={onSubmit} className={cn("cf-card", simple && "cf-card--simple")}>
         <div className="cf-header">
-          {simple && <p className="cf-kicker">Consultation</p>}
           <h2 className="cf-title">{simple ? "Request a Consultation" : "Send an inquiry"}</h2>
           {simple ? (
             <p className="cf-subtitle cf-subtitle--simple">
@@ -296,7 +295,7 @@ export default function ContactForm({ simple = false }: ContactFormProps) {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="How can we help?"
-                rows={5}
+                rows={4}
                 required
               />
             </div>
