@@ -88,45 +88,42 @@ export default function Navbar({ sticky = true, forceScrolled = false, lightNav 
     };
   }, [isMenuOpen]);
 
-  // Nav tone: white links on dark sections, black links on light sections (mobile + desktop homepage)
+  // Nav tone: white controls on dark sections, black on light sections
   useEffect(() => {
-    const MOBILE_MAX = 1024;
-
     const detectSurface = () => {
       if (lightNav) {
         setNavSurface("light");
         return;
       }
 
-      if (!isHomepage) {
+      const navInner = document.querySelector(".site-nav-inner") as HTMLElement | null;
+      const nav = document.querySelector(".site-nav") as HTMLElement | null;
+      if (!navInner || !nav) {
         setNavSurface("dark");
         return;
       }
 
-      const isMobile = window.innerWidth <= MOBILE_MAX;
-      let x: number;
-      let y: number;
-      let hit: Element | null = null;
-      const btn = toggleRef.current;
+      const rect = navInner.getBoundingClientRect();
+      const sampleY = Math.min(window.innerHeight - 1, Math.max(1, rect.bottom + 12));
+      const sampleXs = [
+        rect.left + Math.min(56, rect.width * 0.12),
+        rect.left + rect.width / 2,
+        rect.right - Math.min(56, rect.width * 0.12),
+      ].map((x) => Math.min(window.innerWidth - 1, Math.max(1, x)));
 
-      if (isMobile && btn) {
-        const rect = btn.getBoundingClientRect();
-        x = Math.min(window.innerWidth - 1, Math.max(1, rect.left + rect.width / 2));
-        y = Math.min(window.innerHeight - 1, Math.max(1, rect.top + rect.height + 10));
-        btn.style.pointerEvents = "none";
-        hit = document.elementFromPoint(x, y);
-        btn.style.pointerEvents = "";
-      } else {
-        const nav = document.querySelector(".site-nav");
-        const navHeight = nav?.getBoundingClientRect().height ?? 80;
-        x = window.innerWidth / 2;
-        y = Math.min(window.innerHeight - 1, navHeight + 12);
-        if (nav instanceof HTMLElement) nav.style.pointerEvents = "none";
-        hit = document.elementFromPoint(x, y);
-        if (nav instanceof HTMLElement) nav.style.pointerEvents = "";
+      nav.style.pointerEvents = "none";
+      const tones = sampleXs
+        .map((x) => surfaceFromElement(document.elementFromPoint(x, sampleY)))
+        .filter((tone): tone is NavSurface => tone === "dark" || tone === "light");
+      nav.style.pointerEvents = "";
+
+      if (!tones.length) {
+        setNavSurface("dark");
+        return;
       }
 
-      setNavSurface(surfaceFromElement(hit) ?? "dark");
+      const lightCount = tones.filter((tone) => tone === "light").length;
+      setNavSurface(lightCount >= 2 ? "light" : tones[0] ?? "dark");
     };
 
     detectSurface();
@@ -136,7 +133,7 @@ export default function Navbar({ sticky = true, forceScrolled = false, lightNav 
       window.removeEventListener("scroll", detectSurface);
       window.removeEventListener("resize", detectSurface);
     };
-  }, [isHomepage, lightNav, pathname]);
+  }, [lightNav, pathname]);
 
   const closeMenu = () => setIsMenuOpen(false);
 
@@ -176,7 +173,7 @@ export default function Navbar({ sticky = true, forceScrolled = false, lightNav 
 
   return (
     <>
-      <nav className={navClass}>
+      <nav className={navClass} data-nav-surface={navSurface}>
         <div className="site-nav-inner">
           {/* Logo */}
           <Link

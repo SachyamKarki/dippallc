@@ -316,12 +316,16 @@
   }
 
   .nav-logo-link--on-dark,
-  .nav-logo-link--on-dark .dippa-logo-text {
+  .nav-logo-link--on-dark .dippa-logo-text,
+  .site-nav[data-nav-surface="dark"] .nav-logo-link,
+  .site-nav[data-nav-surface="dark"] .dippa-logo-text {
     color: #ffffff;
   }
 
   .nav-logo-link--on-light,
-  .nav-logo-link--on-light .dippa-logo-text {
+  .nav-logo-link--on-light .dippa-logo-text,
+  .site-nav[data-nav-surface="light"] .nav-logo-link,
+  .site-nav[data-nav-surface="light"] .dippa-logo-text {
     color: #0a0a0a;
   }
 
@@ -337,30 +341,46 @@
     flex-shrink: 0;
   }
 
-  .nav-sound-toggle--on-dark {
+  .nav-sound-toggle--on-dark,
+  .site-nav[data-nav-surface="dark"] .nav-sound-toggle {
     background: rgba(255, 255, 255, 0.14);
     border-color: rgba(255, 255, 255, 0.38);
     color: #ffffff;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
   }
 
-  .nav-sound-toggle--on-dark:hover {
+  .nav-sound-toggle--on-dark:hover,
+  .site-nav[data-nav-surface="dark"] .nav-sound-toggle:hover {
     background: rgba(255, 255, 255, 0.22);
     border-color: rgba(255, 255, 255, 0.55);
     color: #ffffff;
   }
 
-  .nav-sound-toggle--on-light {
+  .nav-sound-toggle--on-dark svg,
+  .site-nav[data-nav-surface="dark"] .nav-sound-toggle svg {
+    color: #ffffff;
+    stroke: #ffffff;
+  }
+
+  .nav-sound-toggle--on-light,
+  .site-nav[data-nav-surface="light"] .nav-sound-toggle {
     background: rgba(255, 255, 255, 0.96);
     border-color: rgba(0, 0, 0, 0.12);
-    color: rgba(0, 0, 0, 0.78);
+    color: #0a0a0a;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   }
 
-  .nav-sound-toggle--on-light:hover {
+  .nav-sound-toggle--on-light:hover,
+  .site-nav[data-nav-surface="light"] .nav-sound-toggle:hover {
     background: #ffffff;
     border-color: rgba(0, 0, 0, 0.2);
     color: #0a0a0a;
+  }
+
+  .nav-sound-toggle--on-light svg,
+  .site-nav[data-nav-surface="light"] .nav-sound-toggle svg {
+    color: #0a0a0a;
+    stroke: #0a0a0a;
   }
 
   .nav-toggle {
@@ -372,33 +392,39 @@
   }
 
   /* White icon — for dark section backgrounds */
-  .nav-toggle--on-dark {
+  .nav-toggle--on-dark,
+  .site-nav[data-nav-surface="dark"] .nav-toggle {
     background: rgba(255, 255, 255, 0.14);
     border-color: rgba(255, 255, 255, 0.38);
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
   }
 
-  .nav-toggle--on-dark span {
+  .nav-toggle--on-dark span,
+  .site-nav[data-nav-surface="dark"] .nav-toggle span {
     background: #ffffff;
   }
 
-  .nav-toggle--on-dark:hover {
+  .nav-toggle--on-dark:hover,
+  .site-nav[data-nav-surface="dark"] .nav-toggle:hover {
     background: rgba(255, 255, 255, 0.22);
     border-color: rgba(255, 255, 255, 0.55);
   }
 
   /* Black icon — for light section backgrounds */
-  .nav-toggle--on-light {
+  .nav-toggle--on-light,
+  .site-nav[data-nav-surface="light"] .nav-toggle {
     background: rgba(255, 255, 255, 0.96);
     border-color: rgba(0, 0, 0, 0.12);
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   }
 
-  .nav-toggle--on-light span {
-    background: rgba(0, 0, 0, 0.78);
+  .nav-toggle--on-light span,
+  .site-nav[data-nav-surface="light"] .nav-toggle span {
+    background: #0a0a0a;
   }
 
-  .nav-toggle--on-light:hover {
+  .nav-toggle--on-light:hover,
+  .site-nav[data-nav-surface="light"] .nav-toggle:hover {
     background: #ffffff;
     border-color: rgba(0, 0, 0, 0.2);
   }

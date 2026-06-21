@@ -247,7 +247,7 @@ export default function InteractiveProjectGrid() {
   }, [sceneReady]);
 
   return (
-    <section ref={sectionRef} className="work-sphere-section" aria-labelledby="project-showcase-title">
+    <section ref={sectionRef} className="work-sphere-section" aria-labelledby="project-showcase-title" data-nav-tone="dark">
       <div className="work-sphere-shell">
         <div
           ref={stageRef}
