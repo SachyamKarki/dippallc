@@ -1510,20 +1510,42 @@ main.contact-page .faq-section--contact .faq-section-shell {
 .faq-section--contact .faq-kicker {
   display: inline-flex;
   justify-content: center;
+  font-family: var(--font-main);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
 }
 .faq-section--contact .faq-title {
   font-family: var(--font-display);
   font-weight: 700;
-  letter-spacing: -0.02em;
-  font-size: clamp(1.25rem, 2.4vw, 1.75rem);
+  letter-spacing: -0.025em;
+  font-size: clamp(1.125rem, 2vw, 1.5rem);
+  line-height: 1.15;
+  color: #0f172a;
 }
 .faq-section--contact .faq-subtitle {
   max-width: 42rem;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+  font-family: var(--font-main);
   font-size: 0.8125rem;
-  line-height: 1.6;
+  line-height: 1.55;
+  color: #64748b;
+}
+.faq-section--contact .faq-num {
+  font-family: var(--font-main);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #0a0a0a;
+  letter-spacing: 0.04em;
+}
+.faq-section--contact .faq-question {
+  font-family: var(--font-main);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #0f172a;
+  letter-spacing: -0.01em;
 }
 .faq-section--contact .faq-grid {
   width: 100%;
@@ -1537,6 +1559,10 @@ main.contact-page .faq-section--contact .faq-section-shell {
 .faq-section--contact .faq-body-inner {
   max-width: none;
   padding-bottom: 1.5rem;
+  font-family: var(--font-main);
+  font-size: 0.8125rem;
+  color: #64748b;
+  line-height: 1.55;
 }
 @media (max-width: 900px) {
   main.contact-page .faq-section--contact .faq-section-shell {
@@ -3435,12 +3461,17 @@ main.contact-page > section.contact-form-only-section {
 }
 .contact-form-only-shell {
   width: 100%;
-  max-width: 42rem;
+  max-width: min(56rem, 100%);
   flex: 0 0 auto;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
   padding: 0;
+}
+@media (min-width: 1280px) {
+  .contact-form-only-shell {
+    max-width: min(62rem, 100%);
+  }
 }
 .cf-card--simple {
   --cf-space-xs: 0.375rem;
@@ -3470,21 +3501,12 @@ main.contact-page > section.contact-form-only-section {
 }
 .cf-card--simple .cf-title {
   font-family: var(--font-display);
-  font-size: clamp(1.125rem, 2vw, 1.5rem);
+  font-size: clamp(1.5rem, 2.8vw, 2.125rem);
   font-weight: 700;
   margin: 0;
   letter-spacing: -0.025em;
-  line-height: 1.15;
+  line-height: 1.12;
   color: #0f172a;
-}
-.cf-card--simple .cf-subtitle--simple {
-  display: block;
-  font-family: var(--font-main);
-  font-size: 0.8125rem;
-  color: #64748b;
-  line-height: 1.55;
-  margin: var(--cf-space-sm) auto 0;
-  max-width: 36ch;
 }
 .cf-card--simple .cf-form-body {
   display: flex;
@@ -3644,10 +3666,7 @@ main.contact-page > section.contact-form-only-section {
     --cf-space-md: 0.75rem;
   }
   .cf-card--simple .cf-title {
-    font-size: clamp(1.0625rem, 1.8vw, 1.25rem);
-  }
-  .cf-card--simple .cf-subtitle--simple {
-    font-size: 0.75rem;
+    font-size: clamp(1.25rem, 2.2vw, 1.625rem);
   }
 }
 

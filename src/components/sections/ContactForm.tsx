@@ -136,11 +136,7 @@ export default function ContactForm({ simple = false }: ContactFormProps) {
     <form onSubmit={onSubmit} className={cn("cf-card", simple && "cf-card--simple")}>
         <div className="cf-header">
           <h2 className="cf-title">{simple ? "Request a Consultation" : "Send an inquiry"}</h2>
-          {simple ? (
-            <p className="cf-subtitle cf-subtitle--simple">
-              Share the essentials — we&apos;ll reply with next steps within one business day.
-            </p>
-          ) : (
+          {!simple && (
             <p className="cf-subtitle">
               Share the essentials — we&apos;ll reply with next steps within 24 hours.
             </p>
