@@ -11,7 +11,7 @@ export default function ContactPageClient() {
   }, []);
 
   return (
-    <main className="contact-page">
+    <main className="contact-page" data-nav-tone="light">
       <section className="contact-form-only-section">
         <div className="contact-form-only-shell">
           <ContactForm simple />

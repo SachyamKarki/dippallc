@@ -7,11 +7,8 @@
   z-index: 100;
   background: transparent;
   border-bottom: none;
-  transition: background 0.4s ease, box-shadow 0.4s ease, transform 0.35s ease;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
   isolation: isolate;
-}
-.site-nav-hidden {
-  transform: translateY(-100%);
 }
 
 .site-nav-static {
@@ -53,6 +50,7 @@
   -webkit-backdrop-filter: blur(20px) saturate(1.4);
   box-shadow: 0 1px 0 rgba(255,255,255,0.05), 0 4px 24px rgba(0,0,0,0.4);
   border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
 }
 .site-nav-scrolled .site-nav-inner { height: 68px; }
 
@@ -62,6 +60,7 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: none;
   --site-nav-offset: calc(80px + env(safe-area-inset-top, 0px));
+  transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
 }
 .site-nav-light .site-nav-inner { height: 80px; }
 /* Compact nav on consultation page — removed; use standard nav height */
@@ -267,36 +266,164 @@
 @media (max-width: 1024px) {
   .nav-toggle { display: flex; }
   .site-nav-desktop { display: none; }
+  .nav-logo-desktop,
+  .nav-sound-desktop { display: none; }
 
   :root {
-    --site-nav-offset: calc(80px + env(safe-area-inset-top, 0px));
+    --site-nav-offset: 0px;
   }
 
+  /* Mobile: floating menu button only — no full-width bar over sections */
   .site-nav {
-    padding-top: env(safe-area-inset-top, 0px);
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: auto;
+    width: auto;
+    height: auto;
+    background: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0;
+    pointer-events: none;
   }
 
-  /* Opaque bar on mobile so scrolled content never shows through */
-  .site-nav:not(.site-nav-light) {
-    background: rgba(8, 8, 8, 0.97);
-    backdrop-filter: blur(20px) saturate(1.4);
-    -webkit-backdrop-filter: blur(20px) saturate(1.4);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  }
-
+  .site-nav.site-nav-scrolled,
   .site-nav.site-nav-light {
+    background: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  .site-nav-inner {
+    justify-content: flex-end;
+    width: auto;
+    max-width: none;
+    height: auto;
+    margin: 0;
+    padding: calc(0.625rem + env(safe-area-inset-top, 0px)) 1rem 0.625rem;
+    pointer-events: auto;
+    background: none !important;
+  }
+
+  .site-nav-scrolled .site-nav-inner,
+  .site-nav-light .site-nav-inner {
+    height: auto;
+  }
+
+  .site-nav-controls {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-toggle {
+    transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .nav-toggle span {
+    transition: background 0.25s ease;
+  }
+
+  /* White icon — for dark section backgrounds */
+  .nav-toggle--on-dark {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.38);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .nav-toggle--on-dark span {
     background: #ffffff;
   }
 
-  /* Keep nav pinned — don't slide away and expose page text above it */
-  .site-nav-hidden {
-    transform: none !important;
+  .nav-toggle--on-dark:hover {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.55);
   }
 
-  /* Inner pages: offset content below fixed nav */
-  main.site-shell:not(.squarespace-home):not(.contact-page) {
+  /* Black icon — for light section backgrounds */
+  .nav-toggle--on-light {
+    background: rgba(255, 255, 255, 0.96);
+    border-color: rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .nav-toggle--on-light span {
+    background: rgba(0, 0, 0, 0.78);
+  }
+
+  .nav-toggle--on-light:hover {
+    background: #ffffff;
+    border-color: rgba(0, 0, 0, 0.2);
+  }
+
+  .mobile-drawer {
+    padding-top: calc(3.5rem + env(safe-area-inset-top, 0px));
+  }
+
+  /* Homepage + inner pages: no reserved nav bar space */
+  main.site-shell:not(.contact-page) {
+    padding-top: 0;
+  }
+
+  .contact-page {
+    --site-nav-offset: calc(0.5rem + env(safe-area-inset-top, 0px));
     padding-top: var(--site-nav-offset);
   }
+}
+
+/* Homepage — nav lives in hero only, scrolls away on desktop */
+.site-nav-home {
+  z-index: 100;
+}
+
+/* Desktop — full-width fixed bar (undo mobile-only overrides) */
+@media (min-width: 1025px) {
+  .site-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: auto;
+    width: 100%;
+    height: auto;
+    pointer-events: auto;
+  }
+
+  /* Homepage: scroll with page — not pinned over Case Studies, etc. */
+  .site-nav.site-nav-home {
+    position: absolute;
+  }
+
+  .site-nav-inner {
+    width: 100%;
+    max-width: 1440px;
+    height: 80px;
+    margin: 0 auto;
+    justify-content: space-between;
+    padding: 0 4rem;
+  }
+
+  .site-nav-scrolled .site-nav-inner {
+    height: 68px;
+  }
+
+  .site-nav-light .site-nav-inner {
+    height: 80px;
+  }
+}
+
+/* Right-side nav controls */
+.site-nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .site-nav-controls { gap: 1.25rem; }
 }
 
 /* CTA pill */

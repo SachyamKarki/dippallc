@@ -15,7 +15,7 @@ export default function NewsletterSection() {
   }
 
   return (
-    <section className="newsletter-section-v2">
+    <section className="newsletter-section-v2" data-nav-tone="dark">
       {/* Background texture */}
       <div className="newsletter-bg-glow" aria-hidden="true" />
 

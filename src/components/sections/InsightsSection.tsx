@@ -57,7 +57,7 @@ export default function InsightsSection() {
   }, []);
 
   return (
-    <section id="insights" className="insights-preview-section reveal">
+    <section id="insights" className="insights-preview-section reveal" data-nav-tone="light">
       <div className="section-shell">
         <div className="w-full mb-4 lg:mb-6">
           <h2 className="st-title text-4xl lg:text-5xl font-bold tracking-tight leading-[1.2] mt-0 mb-4 sm:mb-6 text-left max-w-4xl">

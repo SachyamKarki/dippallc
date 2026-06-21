@@ -41,7 +41,7 @@ const timeline = [
 
 export default function AboutPage() {
   return (
-    <main className="about-root">
+    <main className="about-root" data-nav-tone="light">
 
       {/* Hero */}
       <section className="about-hero">

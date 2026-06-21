@@ -41,7 +41,7 @@ export default function JourneySection() {
   }, []);
 
   return (
-    <section id="journey" className="journey-v2-section" ref={sectionRef}>
+    <section id="journey" className="journey-v2-section" ref={sectionRef} data-nav-tone="light">
       <div className="journey-v2-glow" aria-hidden="true" />
 
       <div className="section-shell journey-v2-inner">

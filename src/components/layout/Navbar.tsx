@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Volume2, VolumeX } from "lucide-react";
@@ -17,31 +17,41 @@ interface NavbarProps {
   lightNav?: boolean;
 }
 
+type NavSurface = "dark" | "light";
+
+function surfaceFromElement(el: Element | null): NavSurface | null {
+  let node = el as HTMLElement | null;
+  while (node) {
+    const tone = node.dataset.navTone;
+    if (tone === "dark" || tone === "light") return tone;
+    node = node.parentElement;
+  }
+  return null;
+}
+
 export default function Navbar({ sticky = true, forceScrolled = false, lightNav = false }: NavbarProps) {
+  const toggleRef = useRef<HTMLButtonElement>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(forceScrolled);
-  const [hidden, setHidden] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [navSurface, setNavSurface] = useState<NavSurface>(lightNav ? "light" : "dark");
   const { enabled: soundEnabled, toggle: toggleSound } = useSiteAudio();
   const pathname = usePathname();
   const isProjectPage = pathname?.startsWith("/projects/");
+  const isHomepage = pathname === "/";
 
   useEffect(() => {
     if (lightNav) {
       setScrolled(true);
-      setHidden(false);
       return;
     }
     if (forceScrolled) {
       setScrolled(true);
       return;
     }
-    let lastY = window.scrollY;
     const onScroll = () => {
       const y = window.scrollY;
       setScrolled(y > 24);
-      setHidden(window.innerWidth > 1024 && y > 80);
-      lastY = y;
       const doc = document.documentElement;
       const total = doc.scrollHeight - doc.clientHeight;
       setScrollProgress(total > 0 ? Math.min(100, (y / total) * 100) : 0);
@@ -68,6 +78,56 @@ export default function Navbar({ sticky = true, forceScrolled = false, lightNav 
     return () => { document.body.style.overflow = ""; };
   }, [isMenuOpen]);
 
+  // Nav tone: white links on dark sections, black links on light sections (mobile + desktop homepage)
+  useEffect(() => {
+    const MOBILE_MAX = 1024;
+
+    const detectSurface = () => {
+      if (lightNav) {
+        setNavSurface("light");
+        return;
+      }
+
+      if (!isHomepage) {
+        setNavSurface("dark");
+        return;
+      }
+
+      const isMobile = window.innerWidth <= MOBILE_MAX;
+      let x: number;
+      let y: number;
+      let hit: Element | null = null;
+      const btn = toggleRef.current;
+
+      if (isMobile && btn) {
+        const rect = btn.getBoundingClientRect();
+        x = Math.min(window.innerWidth - 1, Math.max(1, rect.left + rect.width / 2));
+        y = Math.min(window.innerHeight - 1, Math.max(1, rect.top + rect.height + 10));
+        btn.style.pointerEvents = "none";
+        hit = document.elementFromPoint(x, y);
+        btn.style.pointerEvents = "";
+      } else {
+        const nav = document.querySelector(".site-nav");
+        const navHeight = nav?.getBoundingClientRect().height ?? 80;
+        x = window.innerWidth / 2;
+        y = Math.min(window.innerHeight - 1, navHeight + 12);
+        if (nav instanceof HTMLElement) nav.style.pointerEvents = "none";
+        hit = document.elementFromPoint(x, y);
+        if (nav instanceof HTMLElement) nav.style.pointerEvents = "";
+      }
+
+      setNavSurface(surfaceFromElement(hit) ?? "dark");
+    };
+
+    detectSurface();
+    window.addEventListener("scroll", detectSurface, { passive: true });
+    window.addEventListener("resize", detectSurface);
+    return () => {
+      window.removeEventListener("scroll", detectSurface);
+      window.removeEventListener("resize", detectSurface);
+    };
+  }, [isHomepage, lightNav, pathname]);
+
   const closeMenu = () => setIsMenuOpen(false);
 
   const renderNavBadge = (href: string) => {
@@ -89,17 +149,27 @@ export default function Navbar({ sticky = true, forceScrolled = false, lightNav 
 
   const navClass = [
     "site-nav",
+    isHomepage ? "site-nav-home" : "",
     sticky ? "" : "site-nav-static",
-    lightNav ? "site-nav-light" : scrolled ? "site-nav-scrolled" : "",
-    hidden ? "site-nav-hidden" : "",
+    lightNav
+      ? "site-nav-light"
+      : isHomepage
+        ? scrolled
+          ? "site-nav-scrolled"
+          : ""
+        : navSurface === "light"
+          ? "site-nav-light"
+          : scrolled
+            ? "site-nav-scrolled"
+            : "",
   ].filter(Boolean).join(" ");
 
   return (
     <>
       <nav className={navClass}>
-<div className="site-nav-inner">
-          {/* Logo */}
-          <Link href="/" className="site-logo nav-logo-link" onClick={closeMenu} aria-label="Dippa home">
+        <div className="site-nav-inner">
+          {/* Logo — desktop/tablet only */}
+          <Link href="/" className="site-logo nav-logo-link nav-logo-desktop" onClick={closeMenu} aria-label="Dippa home">
             <DippaLogo />
           </Link>
 
@@ -125,10 +195,10 @@ export default function Navbar({ sticky = true, forceScrolled = false, lightNav 
           </div>
 
           {/* Right controls */}
-          <div className="flex items-center gap-3 md:gap-5">
+          <div className="site-nav-controls">
             <button
               type="button"
-              className="nav-sound-toggle"
+              className="nav-sound-toggle nav-sound-desktop"
               aria-label={soundEnabled ? "Mute ambient sound" : "Play ambient sound"}
               aria-pressed={soundEnabled}
               onClick={() => { toggleSound(); closeMenu(); }}
@@ -137,8 +207,9 @@ export default function Navbar({ sticky = true, forceScrolled = false, lightNav 
             </button>
 
             <button
+              ref={toggleRef}
               type="button"
-              className={`nav-toggle${isMenuOpen ? " nav-toggle-open" : ""}`}
+              className={`nav-toggle nav-toggle--on-${navSurface}${isMenuOpen ? " nav-toggle-open" : ""}`}
               aria-label="Toggle navigation"
               aria-expanded={isMenuOpen}
               onClick={() => setIsMenuOpen((v) => !v)}

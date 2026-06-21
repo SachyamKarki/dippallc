@@ -46,7 +46,7 @@ export default function TestimonialsSection() {
   }, [items, showAll]);
 
   return (
-    <section className="testimonials-section reveal" id="testimonials">
+    <section className="testimonials-section reveal" id="testimonials" data-nav-tone="light">
       <div className="section-shell">
         <div className="w-full flex flex-col items-center text-center mb-4 lg:mb-16">
           <h2 className="st-title text-4xl lg:text-5xl font-bold tracking-tight leading-[1.2] mt-0 mb-4 w-full max-w-4xl mx-auto sm:mb-6 text-center">

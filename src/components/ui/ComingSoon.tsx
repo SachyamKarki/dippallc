@@ -8,7 +8,7 @@ interface ComingSoonProps {
 
 export default function ComingSoon({ eyebrow, title, subtitle }: ComingSoonProps) {
   return (
-    <main className="coming-soon-page">
+    <main className="coming-soon-page" data-nav-tone="light">
       <div className="coming-soon-inner">
         <p className="coming-soon-eyebrow">{eyebrow}</p>
         <span className="coming-soon-badge">Coming Soon</span>

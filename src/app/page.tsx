@@ -11,7 +11,7 @@ import InsightsSection from "@/components/sections/InsightsSection";
 export default function Home() {
   return (
     <main className="site-shell squarespace-home relative">
-      <section className="hero-section-new relative overflow-hidden">
+      <section className="hero-section-new relative overflow-hidden" data-nav-tone="dark">
         <StarfieldBackground />
         <TechAnimation />
         <HeroCarousel />
@@ -20,7 +20,7 @@ export default function Home() {
       <ServiceTabs />
 
       {/* 360 immersive — black canvas */}
-      <div className="bg-[#000000] overflow-hidden">
+      <div className="bg-[#000000] overflow-hidden" data-nav-tone="dark">
 <InteractiveProjectGrid />
       </div>
 

@@ -76,7 +76,7 @@ export default function ServiceTabs() {
   };
 
   return (
-    <section className="py-12 sm:py-14 lg:py-16 bg-white relative overflow-hidden" id="strategic-capability">
+    <section className="py-12 sm:py-14 lg:py-16 bg-white relative overflow-hidden" id="strategic-capability" data-nav-tone="light">
 
       <div className="section-shell relative z-10">
         <div className="w-full flex flex-col items-center text-center mb-2 sm:mb-3">
