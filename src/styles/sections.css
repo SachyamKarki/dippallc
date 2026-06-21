@@ -3592,7 +3592,7 @@ main.contact-page > section.contact-form-only-section {
     grid-template-columns: 1fr 1fr;
   }
   .cf-card--simple .cf-textarea {
-    min-height: calc(1.55em * 4 + 1rem);
+    min-height: calc(1.55em * 5 + 1.125rem);
   }
 }
 @media (max-width: 480px) {
