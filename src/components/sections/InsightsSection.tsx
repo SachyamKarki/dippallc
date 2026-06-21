@@ -80,7 +80,7 @@ export default function InsightsSection() {
         </div>
 
         {/* View More button */}
-        <div className="flex justify-center mt-16">
+        <div className="flex justify-start mt-16">
           <Link href="/news" className="button-primary" aria-label="View more articles">
             View More
           </Link>

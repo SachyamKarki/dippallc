@@ -44,18 +44,6 @@ const services = [
     ]
   },
   {
-    id: "sales-lead",
-    name: "Sales Lead",
-    title: "Predictive revenue and intelligent growth architecture.",
-    description: "Automated lead qualification and routing systems designed to build a predictable, high-velocity revenue engine.",
-    image: "/images/service-sales-lead.jpg",
-    points: [
-      "Engineering automated, predictive lead scoring systems integrated directly into your existing CRM infrastructure.",
-      "Architecting intelligent sales pipelines that automatically route, qualify, and engage inbound opportunities.",
-      "Data driven revenue architecture consulting to align your technical stack with aggressive growth targets."
-    ]
-  },
-  {
     id: "software-development",
     name: "Software Development",
     title: "Operating systems for high stakes business.",
@@ -106,7 +94,7 @@ export default function ServiceTabs() {
   };
 
   return (
-    <section className="py-24 lg:py-36 bg-white relative overflow-hidden" id="strategic-capability">
+    <section className="py-12 lg:py-36 bg-white relative overflow-hidden" id="strategic-capability">
 
       <div className="section-shell relative z-10">
         <div className="w-full flex flex-col items-center text-center mb-4 lg:mb-6">
@@ -121,73 +109,87 @@ export default function ServiceTabs() {
           </p>
         </div>
 
-        <div className="w-full max-w-full overflow-hidden mb-0">
-          <div className="grid grid-cols-2 sm:flex sm:flex-nowrap sm:overflow-x-auto no-scrollbar justify-center items-center gap-2 sm:gap-4 px-4 sm:px-8 py-2 bg-transparent w-full relative">
-            {/* Sliding Indicator */}
-            <div
-              className="hidden sm:block absolute h-[calc(100%-16px)] bg-[#364835] rounded-full transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]"
-              style={{
-                left: `${sliderStyle.left}px`,
-                top: `${sliderStyle.top}px`,
-                width: `${sliderStyle.width}px`,
-                height: `${sliderStyle.height}px`,
-                opacity: sliderStyle.opacity
-              }}
-            />
-
-            {services.map((service, index) => (
-              <button
-                key={service.id}
-                ref={el => { tabsRef.current[index] = el; }}
-                onClick={() => setActiveTab(service.id)}
-                className={cn(
-                  "st-tab relative z-10 rounded-full px-3 py-2 text-sm font-black whitespace-normal leading-tight text-center transition-colors duration-300 flex-shrink-0 sm:px-7 sm:py-3.5 sm:text-base sm:whitespace-nowrap border sm:border-none",
-                  service.id === "software-development" && "col-span-2 sm:col-span-1 mx-6 sm:mx-0",
-                  activeTab === service.id 
-                    ? "bg-[#364835] border-[#364835] text-white sm:bg-transparent" 
-                    : "bg-gray-100 border-gray-200 text-black hover:text-black/70 sm:bg-transparent"
-                )}
-              >
-                {service.name}
-              </button>
-            ))}
-          </div>
+        {/* Mobile: static stacked list of all services */}
+        <div className="sm:hidden w-full px-4 mt-4 flex flex-col divide-y divide-black/10">
+          {services.map((service, index) => (
+            <div key={service.id} className="py-6 first:pt-2">
+              <p style={{ fontFamily: 'var(--font-display)', fontSize: '0.8rem', letterSpacing: '0.18em', color: '#000', marginBottom: '0.5rem' }}>
+                {String(index + 1).padStart(2, "0")}{"  "}{service.name}
+              </p>
+              <p style={{ fontFamily: 'var(--font-main)', fontSize: '0.9375rem', fontWeight: 700, lineHeight: 1.35, color: '#000', marginBottom: '0.5rem', letterSpacing: '-0.02em' }}>
+                {service.title}
+              </p>
+              <p style={{ fontFamily: 'var(--font-main)', fontSize: '0.8125rem', fontWeight: 400, lineHeight: 1.7, color: '#000', marginBottom: '0.75rem' }}>
+                {service.description}
+              </p>
+              <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
+                {service.points.map((point, pi) => (
+                  <li key={pi} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.55rem', fontFamily: 'var(--font-main)', fontSize: '0.8125rem', fontWeight: 400, lineHeight: 1.7, color: '#000' }}>
+                    <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#364835', marginTop: '0.6rem', flexShrink: 0 }} />
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
-        <div className="w-full pt-10 lg:pt-14 pb-6 lg:pb-10 transition-all duration-1000 mt-8 lg:mt-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
-            {/* Text Content */}
-            <div
-              key={activeService.id + "-text"}
-              className="space-y-8 lg:space-y-12 service-content-enter text-center lg:text-left flex flex-col items-center lg:items-start"
-            >
-              <div className="flex flex-col w-full items-center lg:items-start">
-                {/* Active service number badge */}
-                <div className="service-counter-enter mb-4 flex flex-wrap items-center justify-center lg:justify-start gap-x-3 gap-y-1 lg:mb-5">
-                  <span className="text-sm font-bold tabular-nums uppercase tracking-[0.2em] text-black">
-                    {String(activeIndex + 1).padStart(2, "0")}
-                  </span>
-                  <span className="block h-px w-8 shrink-0 bg-black/20" aria-hidden />
-                  <span className="text-sm font-bold text-black uppercase tracking-wider">{activeService.name}</span>
-                </div>
-
-                <h3 className="st-title service-title-enter text-center lg:text-left text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.1]">
-                  {activeService.title}
-                </h3>
-                <p
-                  className="st-text mt-5 lg:mt-8 service-desc-enter text-center lg:text-left leading-relaxed max-w-2xl font-normal text-base opacity-90"
-                  style={{ fontFamily: 'var(--font-main)' }}
+        {/* Desktop: pill tabs + active service panel */}
+        <div className="hidden sm:block">
+          <div className="w-full max-w-full overflow-hidden mb-0">
+            <div className="flex flex-nowrap overflow-x-auto no-scrollbar justify-center items-center gap-4 px-8 py-2 bg-transparent w-full relative">
+              <div
+                className="absolute h-[calc(100%-16px)] bg-[#364835] rounded-full transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]"
+                style={{
+                  left: `${sliderStyle.left}px`,
+                  top: `${sliderStyle.top}px`,
+                  width: `${sliderStyle.width}px`,
+                  height: `${sliderStyle.height}px`,
+                  opacity: sliderStyle.opacity
+                }}
+              />
+              {services.map((service, index) => (
+                <button
+                  key={service.id}
+                  ref={el => { tabsRef.current[index] = el; }}
+                  onClick={() => setActiveTab(service.id)}
+                  className="st-tab relative z-10 rounded-full px-7 py-3.5 text-base font-black whitespace-nowrap text-center transition-colors duration-300 flex-shrink-0"
                 >
-                  {activeService.description}
-                </p>
-              </div>
+                  {service.name}
+                </button>
+              ))}
+            </div>
+          </div>
 
-              <div className="space-y-8 w-full flex flex-col items-center lg:items-start">
-                <ul className="space-y-5 lg:space-y-6 max-w-md lg:max-w-none text-left">
+          <div className="w-full pt-14 pb-10 transition-all duration-1000 mt-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+              <div
+                key={activeService.id + "-text"}
+                className="space-y-12 service-content-enter text-left flex flex-col items-start"
+              >
+                <div className="flex flex-col w-full items-start">
+                  <div className="service-counter-enter mb-5 flex flex-wrap items-center justify-start gap-x-3 gap-y-1">
+                    <span className="text-sm font-bold tabular-nums uppercase tracking-[0.2em] text-black">
+                      {String(activeIndex + 1).padStart(2, "0")}
+                    </span>
+                    <span className="block h-px w-8 shrink-0 bg-black/20" aria-hidden />
+                    <span className="text-sm font-bold text-black uppercase tracking-wider">{activeService.name}</span>
+                  </div>
+                  <h3 className="st-title service-title-enter text-4xl lg:text-5xl font-bold tracking-tight leading-[1.2] mt-2">
+                    {activeService.title}
+                  </h3>
+                  <p
+                    className="st-text mt-8 service-desc-enter leading-relaxed max-w-2xl font-normal text-base opacity-90"
+                    style={{ fontFamily: 'var(--font-main)' }}
+                  >
+                    {activeService.description}
+                  </p>
+                </div>
+                <ul className="space-y-6 max-w-none text-left">
                   {activeService.points.map((point, index) => (
                     <li
                       key={activeService.id + index}
-                      className="st-text flex items-start gap-4 service-point-enter text-left leading-relaxed font-normal text-base opacity-85"
+                      className="st-text flex items-start gap-3 service-point-enter text-left leading-relaxed font-normal text-base opacity-85"
                       style={{ animationDelay: `${0.3 + index * 0.12}s` }}
                     >
                       <div className="w-1.5 h-1.5 mt-2.5 shrink-0 rounded-full bg-black/30" />
@@ -195,40 +197,35 @@ export default function ServiceTabs() {
                     </li>
                   ))}
                 </ul>
-
-
               </div>
-            </div>
 
-            <div className="relative" key={activeService.id + "-img-wrap"}>
-              <div
-                ref={imageRef}
-                onMouseMove={handleMouseMove}
-                onMouseLeave={handleMouseLeave}
-                className="relative w-full aspect-square max-w-sm sm:max-w-md lg:max-w-lg mx-auto overflow-hidden shadow-2xl service-image-enter"
-                style={{
-                  borderRadius: '3rem 3rem 3rem 0',
-                  transform: `perspective(800px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-                  transition: 'transform 0.15s ease-out',
-                }}
-              >
-                <Image
-                  src={activeService.image}
-                  alt={activeService.name}
-                  fill
-                  className="object-cover service-image-zoom"
-                  priority
-                />
-
-                {/* Shine overlay on hover */}
+              <div className="relative" key={activeService.id + "-img-wrap"}>
                 <div
-                  className="absolute inset-0 pointer-events-none"
+                  ref={imageRef}
+                  onMouseMove={handleMouseMove}
+                  onMouseLeave={handleMouseLeave}
+                  className="relative w-full aspect-square max-w-md lg:max-w-lg mx-auto overflow-hidden shadow-2xl service-image-enter"
                   style={{
-                    background: `radial-gradient(circle at ${(tilt.y / 8 + 0.5) * 100}% ${(tilt.x / -8 + 0.5) * 100}%, rgba(255,255,255,0.12) 0%, transparent 60%)`,
+                    borderRadius: '3rem 3rem 3rem 0',
+                    transform: `perspective(800px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+                    transition: 'transform 0.15s ease-out',
                   }}
-                />
+                >
+                  <Image
+                    src={activeService.image}
+                    alt={activeService.name}
+                    fill
+                    className="object-cover service-image-zoom"
+                    priority
+                  />
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                      background: `radial-gradient(circle at ${(tilt.y / 8 + 0.5) * 100}% ${(tilt.x / -8 + 0.5) * 100}%, rgba(255,255,255,0.12) 0%, transparent 60%)`,
+                    }}
+                  />
+                </div>
               </div>
-
             </div>
           </div>
         </div>

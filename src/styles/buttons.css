@@ -93,3 +93,16 @@
 
 /* Utility class (one-offs needing only the leaf shape) */
 .button-shape-leaf { border-radius: 2.2rem 2.2rem 2.2rem 0; }
+
+/* ─── Mobile button sizing ──────────────────────────────── */
+@media (max-width: 768px) {
+  .button-primary,
+  .button-secondary,
+  .button-inverse {
+    min-height: 2.75rem;
+    padding: 0.7rem 1.75rem;
+    font-size: 0.8125rem;
+    width: auto !important;
+    align-self: center;
+  }
+}

@@ -79,9 +79,17 @@ export default function HeroGlobe() {
     renderer.setClearColor(0x000000, 0);
     container.appendChild(renderer.domElement);
 
+    // Correct size after first paint when CSS layout is settled
+    requestAnimationFrame(() => {
+      const w = container.clientWidth;
+      const h = container.clientHeight;
+      if (w && h) { camera.aspect = w / h; camera.updateProjectionMatrix(); renderer.setSize(w, h); }
+    });
+
     const scene  = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(52, W / H, 0.1, 100);
-    camera.position.z = 2.6;
+    const isMobile = window.innerWidth < 768;
+    const camera = new THREE.PerspectiveCamera(isMobile ? 52 : 48, W / H, 0.1, 100);
+    camera.position.z = isMobile ? 2.4 : 3.2;
 
     scene.add(new THREE.AmbientLight(0x0a1020, 1));
     const moon = new THREE.DirectionalLight(0x223355, 0.35);
@@ -297,19 +305,22 @@ export default function HeroGlobe() {
     }
     raf.id = requestAnimationFrame(animate);
 
-    function onResize() {
-      if (!container) return;
-      const w = container.clientWidth  || W;
-      const h = container.clientHeight || H;
+    function onResize(w: number, h: number) {
+      if (!w || !h) return;
       camera.aspect = w / h; camera.updateProjectionMatrix();
       renderer.setSize(w, h);
     }
-    window.addEventListener("resize", onResize);
+
+    const ro = new ResizeObserver((entries) => {
+      const e = entries[0];
+      if (e) onResize(e.contentRect.width, e.contentRect.height);
+    });
+    ro.observe(container);
 
     return () => {
       cancelAnimationFrame(raf.id);
+      ro.disconnect();
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onResize);
       canvas.removeEventListener("pointerdown",  pointerDown);
       canvas.removeEventListener("pointermove",  pointerMove);
       canvas.removeEventListener("pointerup",    pointerUp);
@@ -322,7 +333,7 @@ export default function HeroGlobe() {
   return (
     <div
       ref={mountRef}
-      style={{ width: "100%", height: "100%", minHeight: "500px", background: "transparent" }}
+      style={{ position: "absolute", inset: 0, background: "transparent" }}
       aria-hidden="true"
     />
   );

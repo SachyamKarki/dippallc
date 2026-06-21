@@ -148,7 +148,7 @@ export default function Navbar({ sticky = true, forceScrolled = false }: NavbarP
       {/* Mobile backdrop */}
       {isMenuOpen && (
         <div
-          className="fixed inset-0 z-[99] bg-black/60 backdrop-blur-sm"
+          className="fixed inset-0 z-[97] bg-black/60 backdrop-blur-sm"
           style={{ top: "80px" }}
           onClick={closeMenu}
         />

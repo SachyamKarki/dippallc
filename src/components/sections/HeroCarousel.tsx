@@ -21,8 +21,8 @@ export default function HeroCarousel() {
             Empowering Productivity<br />through better IT.
           </h1>
 
-          <div className={`hero-actions w-full sm:w-auto ${isLoaded ? "hero-cta-enter" : "opacity-0"}`}>
-            <Button href="/products" className="w-full sm:w-auto flex justify-center">
+          <div className={`hero-actions ${isLoaded ? "hero-cta-enter" : "opacity-0"}`}>
+            <Button href="/products">
               Explore Products
             </Button>
           </div>

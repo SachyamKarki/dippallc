@@ -73,9 +73,10 @@ export default function InteractiveProjectGrid() {
     }
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 500);
+    const isMobile = window.innerWidth < 768;
+    const camera = new THREE.PerspectiveCamera(isMobile ? 48 : 32, 1, 0.1, 500);
     // Adjusted camera further back to increase visible 3D depth and curvature
-    camera.position.set(0, 0, 64);
+    camera.position.set(0, 0, isMobile ? 56 : 64);
     camera.lookAt(0, 0, 0);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
