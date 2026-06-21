@@ -55,6 +55,39 @@
 }
 .site-nav-scrolled .site-nav-inner { height: 68px; }
 
+/* Light navbar — white bg on contact / light pages */
+.site-nav-light {
+  background: #ffffff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: none;
+}
+.site-nav-light .site-nav-inner { height: 80px; }
+.site-nav-light .nav-logo-link { color: #0a0a0a; }
+.site-nav-light .dippa-logo-text { color: #0a0a0a; }
+.site-nav-light .site-nav-link {
+  color: rgba(0, 0, 0, 0.55);
+}
+.site-nav-light .site-nav-link::after { background: var(--accent); }
+.site-nav-light .site-nav-link:hover { color: #0a0a0a; }
+.site-nav-light .site-nav-link-active { color: #0a0a0a; }
+.site-nav-light .nav-sound-toggle {
+  border-color: rgba(0, 0, 0, 0.12);
+  color: rgba(0, 0, 0, 0.5);
+}
+.site-nav-light .nav-sound-toggle:hover {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.2);
+  color: #0a0a0a;
+}
+.site-nav-light .nav-toggle {
+  border-color: rgba(0, 0, 0, 0.12);
+}
+.site-nav-light .nav-toggle span { background: rgba(0, 0, 0, 0.75); }
+.site-nav-light .nav-toggle:hover {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
 /* Logo */
 .nav-logo-link {
   display: inline-flex;

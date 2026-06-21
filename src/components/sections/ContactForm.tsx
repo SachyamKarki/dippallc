@@ -26,7 +26,11 @@ const categories = [
   "Other Inquiry",
 ];
 
-export default function ContactForm() {
+interface ContactFormProps {
+  simple?: boolean;
+}
+
+export default function ContactForm({ simple = false }: ContactFormProps) {
   const [state, setState] = useState<FormState>("idle");
   const [contactMethod, setContactMethod] = useState<ContactMethod>("email");
   const [name, setName] = useState("");
@@ -110,7 +114,7 @@ export default function ContactForm() {
 
   if (state === "success") {
     return (
-      <div className="cf-card cf-success-state">
+      <div className={cn("cf-card cf-success-state", simple && "cf-card--simple")}>
         <div className="cf-success-icon">
           <Check size={22} strokeWidth={2.5} />
         </div>
@@ -129,12 +133,14 @@ export default function ContactForm() {
   return (
     <>
       <Toaster position="top-center" />
-      <form onSubmit={onSubmit} className="cf-card">
+      <form onSubmit={onSubmit} className={cn("cf-card", simple && "cf-card--simple")}>
         <div className="cf-header">
-          <h2 className="cf-title">Send an inquiry</h2>
-          <p className="cf-subtitle">
-            Share the essentials — we&apos;ll reply with next steps within 24 hours.
-          </p>
+          <h2 className="cf-title">{simple ? "Request a Consultation" : "Send an inquiry"}</h2>
+          {!simple && (
+            <p className="cf-subtitle">
+              Share the essentials — we&apos;ll reply with next steps within 24 hours.
+            </p>
+          )}
         </div>
 
         {/* Contact method */}
@@ -269,28 +275,39 @@ export default function ContactForm() {
         <div className="cf-field">
           <label className="cf-label">
             Message
-            <span className="cf-label-hint">Describe your project and timeline</span>
+            {!simple && (
+              <span className="cf-label-hint">Describe your project and timeline</span>
+            )}
           </label>
           <textarea
             className="cf-input cf-textarea"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            placeholder="Tell us about your project objectives, technical landscape, and what success looks like..."
+            placeholder={simple ? "How can we help?" : "Tell us about your project objectives, technical landscape, and what success looks like..."}
             required
           />
         </div>
 
         {/* Submit */}
-        <div className="cf-footer">
-          <p className="cf-disclaimer">
-            We respond within 1 business day. Your information is never shared.
-          </p>
+        <div className={cn("cf-footer", simple && "cf-footer--simple")}>
+          {!simple && (
+            <p className="cf-disclaimer">
+              We respond within 1 business day. Your information is never shared.
+            </p>
+          )}
           <button
             type="submit"
             disabled={state === "submitting" || !isValid}
             className={cn(
-              "cf-submit-btn",
-              contactMethod === "whatsapp" ? "cf-submit-btn--wa" : "cf-submit-btn--email",
+              simple
+                ? cn(
+                    "cf-submit-btn--simple",
+                    contactMethod === "whatsapp"
+                      ? "cf-submit-btn cf-submit-btn--wa"
+                      : "button-primary"
+                  )
+                : "cf-submit-btn",
+              !simple && (contactMethod === "whatsapp" ? "cf-submit-btn--wa" : "cf-submit-btn--email"),
               (!isValid || state === "submitting") && "cf-submit-btn--disabled"
             )}
           >

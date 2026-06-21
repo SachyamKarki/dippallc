@@ -678,9 +678,33 @@ h2.newsletter-title,
   gap: 1.25rem;
 }
 
-.journey-v2-hero-cta { margin-top: 0.5rem; align-self: flex-start; }
-.journey-v2-cta-row { margin-top: 3rem; display: flex; justify-content: flex-start; }
-@media (max-width: 768px) { .journey-v2-cta-row { margin-top: 2rem; } }
+.journey-v2-hero-cta {
+  margin-top: 0.5rem;
+  align-self: flex-start;
+}
+.journey-v2-hero-cta--desktop {
+  display: none;
+}
+.journey-v2-cta-row {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: flex-start;
+}
+.journey-v2-cta-row--mobile {
+  display: flex;
+}
+@media (min-width: 1025px) {
+  .journey-v2-hero-cta--desktop {
+    display: inline-flex;
+    margin-top: 0.75rem;
+  }
+  .journey-v2-cta-row--mobile {
+    display: none;
+  }
+}
+@media (max-width: 768px) {
+  .journey-v2-cta-row { margin-top: 2rem; }
+}
 
 .journey-v2-header {
   text-align: center;
@@ -1497,6 +1521,7 @@ h2.newsletter-title,
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  font-family: var(--font-main);
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.18em;
@@ -1512,8 +1537,9 @@ h2.newsletter-title,
 }
 
 .consult-title {
+  font-family: var(--font-display);
   font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: -0.04em;
   line-height: 1.05;
   color: #0a0a0a;
@@ -1521,6 +1547,7 @@ h2.newsletter-title,
 }
 
 .consult-subtitle {
+  font-family: var(--font-main);
   font-size: 1.0625rem;
   color: #475569;
   line-height: 1.8;
@@ -1539,6 +1566,7 @@ h2.newsletter-title,
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  font-family: var(--font-main);
   font-size: 0.9rem;
   color: #334155;
   font-weight: 500;
@@ -2760,6 +2788,55 @@ h2.newsletter-title,
   .hero-stat-value { font-size: 1.4rem; }
 }
 
+/* What We Offer — service tab buttons: outline on hover only, no shadow */
+#strategic-capability .service-offer-tab {
+  min-height: 2.75rem;
+  padding: 0.65rem 1.35rem;
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  box-shadow: none !important;
+  border: 1.5px solid transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transform: none !important;
+  filter: none !important;
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+#strategic-capability .service-offer-tab.button-primary {
+  color: #ffffff;
+  background: #364835;
+  border-color: transparent;
+}
+#strategic-capability .service-offer-tab.button-secondary {
+  background: transparent;
+  color: #000000;
+  border-color: transparent;
+}
+#strategic-capability .service-offer-tab.button-primary:hover {
+  border-color: rgba(160, 190, 158, 0.95);
+  background: #364835;
+  box-shadow: none !important;
+  transform: none !important;
+  filter: none !important;
+}
+#strategic-capability .service-offer-tab.button-secondary:hover {
+  border-color: rgba(54, 72, 53, 0.55);
+  background: transparent;
+  box-shadow: none !important;
+  transform: none !important;
+}
+#strategic-capability .service-offer-tab:active {
+  transform: none !important;
+}
+@media (min-width: 1024px) {
+  #strategic-capability .service-offer-tab {
+    min-height: 3rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+  }
+}
+
 /* What We Offer — section padding on mobile */
 @media (max-width: 640px) {
   #strategic-capability { padding-top: 4rem; padding-bottom: 4rem; }
@@ -2860,7 +2937,6 @@ h2.newsletter-title,
 }
 
 /* ─── Contact Page ──────────────────────────────────────────── */
-.contact-page { background: #ffffff; }
 
 .contact-hero-dark {
   background: #ffffff;
@@ -3271,15 +3347,109 @@ h2.newsletter-title,
 .cf-reset-btn:hover { background: #f9fafb; border-color: #d1d5db; }
 
 /* Contact page — form only */
+.contact-page {
+  background: #ffffff;
+  min-height: 100vh;
+}
 .contact-form-only-section {
   background: #ffffff;
-  padding: clamp(5rem, 10vw, 8rem) 0 clamp(3rem, 6vw, 5rem);
+  padding: calc(80px + 2.5rem) 0 clamp(3rem, 6vw, 5rem);
+  min-height: calc(100vh - 80px);
 }
 .contact-form-only-shell {
-  max-width: 640px;
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+}
+.cf-card--simple {
+  width: 100%;
+  padding: clamp(1.75rem, 4vw, 3rem);
+  gap: 1.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 1.25rem;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.05);
+}
+.cf-card--simple .cf-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  margin-bottom: 0;
+  letter-spacing: -0.02em;
+}
+.cf-card--simple .cf-header {
+  margin-bottom: 0.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+.cf-card--simple .cf-label {
+  font-family: var(--font-main);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+.cf-card--simple .cf-input,
+.cf-card--simple .cf-select,
+.cf-card--simple .cf-dropdown-btn {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 3rem;
+  border-radius: 0.75rem;
+  background: #ffffff;
+}
+.cf-card--simple .cf-textarea {
+  min-height: 11rem;
+  resize: vertical;
+}
+.cf-card--simple .cf-method-toggle {
+  width: 100%;
+  max-width: none;
+}
+.cf-card--simple .cf-method-pill {
+  background: var(--accent, #364835);
+}
+.cf-card--simple .cf-method-pill--right {
+  background: #16a34a;
+}
+.cf-card--simple .cf-row {
+  gap: 1.25rem;
+}
+.cf-card--simple .cf-field,
+.cf-card--simple .cf-method-group,
+.cf-card--simple .cf-dropdown {
+  width: 100%;
+}
+.cf-footer--simple {
+  flex-direction: column;
+  align-items: stretch;
+  margin-top: 0.25rem;
+  padding-top: 0.5rem;
+}
+.cf-footer--simple .cf-submit-btn--simple,
+.cf-footer--simple .button-primary,
+.cf-footer--simple .cf-submit-btn {
+  width: 100%;
+  justify-content: center;
+  min-height: 3rem;
+}
+.cf-submit-btn--simple.cf-submit-btn--disabled,
+.button-primary.cf-submit-btn--disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none !important;
+  pointer-events: none;
 }
 @media (max-width: 768px) {
-  .contact-form-only-section { padding: clamp(5rem, 10vw, 7rem) 0 2rem; }
+  .contact-form-only-section {
+    padding: calc(80px + 1.5rem) 0 2rem;
+  }
+  .cf-card--simple {
+    padding: 1.5rem 1.25rem;
+    border-radius: 1rem;
+    box-shadow: none;
+  }
+  .cf-card--simple .cf-row {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ─── Mobile typography overrides (≤768px) ──────────────────── */

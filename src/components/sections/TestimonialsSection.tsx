@@ -82,7 +82,7 @@ export default function TestimonialsSection() {
           <div className={`pointer-events-none absolute bottom-0 left-0 h-32 w-full bg-gradient-to-t from-white to-transparent transition-opacity duration-700 ${showAll ? "opacity-0" : "opacity-100"}`} />
         </div>
 
-        <div className="mt-16 flex justify-start">
+        <div className="mt-16 flex justify-start lg:justify-center">
           <button
             onClick={() => {
               if (showAll) {

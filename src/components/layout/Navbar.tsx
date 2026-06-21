@@ -13,9 +13,11 @@ interface NavbarProps {
   sticky?: boolean;
   /** Force the dark-glass scrolled state immediately (for light-bg pages) */
   forceScrolled?: boolean;
+  /** White fixed navbar for light pages like contact */
+  lightNav?: boolean;
 }
 
-export default function Navbar({ sticky = true, forceScrolled = false }: NavbarProps) {
+export default function Navbar({ sticky = true, forceScrolled = false, lightNav = false }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(forceScrolled);
   const [hidden, setHidden] = useState(false);
@@ -25,6 +27,11 @@ export default function Navbar({ sticky = true, forceScrolled = false }: NavbarP
   const isProjectPage = pathname?.startsWith("/projects/");
 
   useEffect(() => {
+    if (lightNav) {
+      setScrolled(true);
+      setHidden(false);
+      return;
+    }
     if (forceScrolled) {
       setScrolled(true);
       return;
@@ -42,7 +49,7 @@ export default function Navbar({ sticky = true, forceScrolled = false }: NavbarP
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [forceScrolled]);
+  }, [forceScrolled, lightNav]);
 
   // Track scroll progress even on forceScrolled pages
   useEffect(() => {
@@ -68,7 +75,7 @@ export default function Navbar({ sticky = true, forceScrolled = false }: NavbarP
   const navClass = [
     "site-nav",
     sticky ? "" : "site-nav-static",
-    scrolled ? "site-nav-scrolled" : "",
+    lightNav ? "site-nav-light" : scrolled ? "site-nav-scrolled" : "",
     hidden ? "site-nav-hidden" : "",
   ].filter(Boolean).join(" ");
 

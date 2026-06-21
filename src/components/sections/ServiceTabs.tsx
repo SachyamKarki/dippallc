@@ -2,9 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { cn } from "@/lib/utils";
-import Button from "@/components/ui/Button";
 
 const services = [
   {
@@ -59,24 +57,15 @@ const services = [
 
 export default function ServiceTabs() {
   const [activeTab, setActiveTab] = useState(services[0].id);
-  const [sliderStyle, setSliderStyle] = useState({ left: 0, top: 0, width: 0, height: 0, opacity: 0 });
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
-  const tabsRef = useRef<(HTMLButtonElement | null)[]>([]);
   const imageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const activeIndex = services.findIndex(s => s.id === activeTab);
-    const activeButton = tabsRef.current[activeIndex];
-    if (activeButton) {
-      setSliderStyle({
-        left: activeButton.offsetLeft,
-        top: activeButton.offsetTop,
-        width: activeButton.offsetWidth,
-        height: activeButton.offsetHeight,
-        opacity: 1
-      });
-    }
-  }, [activeTab]);
+    services.forEach((service) => {
+      const img = new window.Image();
+      img.src = service.image;
+    });
+  }, []);
 
   const activeService = services.find(s => s.id === activeTab) || services[0];
   const activeIndex = services.findIndex(s => s.id === activeTab);
@@ -94,17 +83,14 @@ export default function ServiceTabs() {
   };
 
   return (
-    <section className="py-12 lg:py-36 bg-white relative overflow-hidden" id="strategic-capability">
+    <section className="py-12 sm:py-14 lg:py-16 bg-white relative overflow-hidden" id="strategic-capability">
 
       <div className="section-shell relative z-10">
-        <div className="w-full flex flex-col items-center text-center mb-4 lg:mb-6">
-          <h2 className="section-title mt-0 mb-4 w-full max-w-4xl mx-auto sm:mb-6">
+        <div className="w-full flex flex-col items-center text-center mb-2 sm:mb-3">
+          <h2 className="section-title service-offer-heading mt-0 mb-2 w-full max-w-4xl mx-auto sm:mb-3">
             What We Offer
           </h2>
-          <p
-            className="section-subtitle st-text max-w-prose sm:max-w-2xl text-base opacity-80"
-            style={{ fontFamily: 'var(--font-main)' }}
-          >
+          <p className="section-subtitle st-text service-offer-lead max-w-prose sm:max-w-2xl text-base opacity-80">
             Disciplined execution for companies that require technical excellence and systemic operational clarity.
           </p>
         </div>
@@ -137,23 +123,16 @@ export default function ServiceTabs() {
         {/* Desktop: pill tabs + active service panel */}
         <div className="hidden sm:block">
           <div className="w-full max-w-full overflow-hidden mb-0">
-            <div className="flex flex-nowrap overflow-x-auto no-scrollbar justify-center items-center gap-4 px-8 py-2 bg-transparent w-full relative">
-              <div
-                className="absolute h-[calc(100%-16px)] bg-[#364835] rounded-full transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]"
-                style={{
-                  left: `${sliderStyle.left}px`,
-                  top: `${sliderStyle.top}px`,
-                  width: `${sliderStyle.width}px`,
-                  height: `${sliderStyle.height}px`,
-                  opacity: sliderStyle.opacity
-                }}
-              />
-              {services.map((service, index) => (
+            <div className="flex flex-wrap justify-center items-center gap-2 px-2 py-1 w-full">
+              {services.map((service) => (
                 <button
                   key={service.id}
-                  ref={el => { tabsRef.current[index] = el; }}
+                  type="button"
                   onClick={() => setActiveTab(service.id)}
-                  className="st-tab relative z-10 rounded-full px-7 py-3.5 text-base font-black whitespace-nowrap text-center transition-colors duration-300 flex-shrink-0"
+                  className={cn(
+                    "service-offer-tab",
+                    activeTab === service.id ? "button-primary" : "button-secondary"
+                  )}
                 >
                   {service.name}
                 </button>
@@ -161,31 +140,28 @@ export default function ServiceTabs() {
             </div>
           </div>
 
-          <div className="w-full pt-14 pb-10 transition-all duration-1000 mt-12">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+          <div className="w-full pt-5 pb-4 mt-4 sm:pt-6 sm:mt-5 lg:pt-8 lg:mt-6 transition-all duration-1000">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
               <div
                 key={activeService.id + "-text"}
-                className="space-y-12 service-content-enter text-left flex flex-col items-start"
+                className="space-y-5 lg:space-y-6 service-content-enter text-left flex flex-col items-start"
               >
                 <div className="flex flex-col w-full items-start">
-                  <div className="service-counter-enter mb-5 flex flex-wrap items-center justify-start gap-x-3 gap-y-1">
-                    <span className="text-sm font-bold tabular-nums uppercase tracking-[0.2em] text-black">
+                  <div className="service-counter-enter mb-2 flex flex-wrap items-center justify-start gap-x-2 gap-y-1">
+                    <span className="st-text text-xs font-bold tabular-nums uppercase tracking-[0.2em] text-black">
                       {String(activeIndex + 1).padStart(2, "0")}
                     </span>
-                    <span className="block h-px w-8 shrink-0 bg-black/20" aria-hidden />
-                    <span className="text-sm font-bold text-black uppercase tracking-wider">{activeService.name}</span>
+                    <span className="block h-px w-6 shrink-0 bg-black/20" aria-hidden />
+                    <span className="st-text text-xs font-bold text-black uppercase tracking-wider">{activeService.name}</span>
                   </div>
-                  <h3 className="st-title service-title-enter text-4xl lg:text-5xl font-bold tracking-tight leading-[1.2] mt-2">
+                  <h3 className="st-title service-title-enter text-3xl lg:text-4xl font-bold tracking-tight leading-[1.2] mt-1">
                     {activeService.title}
                   </h3>
-                  <p
-                    className="st-text mt-8 service-desc-enter leading-relaxed max-w-2xl font-normal text-base opacity-90"
-                    style={{ fontFamily: 'var(--font-main)' }}
-                  >
+                  <p className="st-text mt-4 service-desc-enter leading-relaxed max-w-2xl font-normal text-base opacity-90">
                     {activeService.description}
                   </p>
                 </div>
-                <ul className="space-y-6 max-w-none text-left">
+                <ul className="space-y-3 max-w-none text-left">
                   {activeService.points.map((point, index) => (
                     <li
                       key={activeService.id + index}
@@ -211,13 +187,21 @@ export default function ServiceTabs() {
                     transition: 'transform 0.15s ease-out',
                   }}
                 >
-                  <Image
-                    src={activeService.image}
-                    alt={activeService.name}
-                    fill
-                    className="object-cover service-image-zoom"
-                    priority
-                  />
+                  {services.map((service, index) => (
+                    <Image
+                      key={service.id}
+                      src={service.image}
+                      alt={service.name}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 512px"
+                      quality={75}
+                      priority={index === 0}
+                      className={cn(
+                        "object-cover service-image-zoom transition-opacity duration-300",
+                        activeService.id === service.id ? "opacity-100 z-10" : "opacity-0 z-0"
+                      )}
+                    />
+                  ))}
                   <div
                     className="absolute inset-0 pointer-events-none"
                     style={{
@@ -241,9 +225,16 @@ export default function ServiceTabs() {
           font-family: var(--font-main);
           color: #000000;
         }
-        .st-tab {
-          font-family: var(--font-main);
-          letter-spacing: 0.01em;
+        .service-offer-heading {
+          margin-bottom: 0.5rem;
+        }
+        .service-offer-lead {
+          margin-bottom: 1rem !important;
+        }
+        @media (min-width: 640px) {
+          .service-offer-lead {
+            margin-bottom: 1.25rem !important;
+          }
         }
 
         @keyframes fadeInUp {

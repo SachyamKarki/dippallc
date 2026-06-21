@@ -15,11 +15,16 @@ export default function Chrome({ children }: { children: ReactNode }) {
   // Homepage: transparent → dark glass on scroll
   // All other pages: dark glass from the very top (white page backgrounds)
   const isHomepage = pathname === "/";
+  const isContactPage = pathname === "/contact";
 
   return (
     <SiteAudioProvider>
       {!hideNavbar && (
-        <Navbar sticky forceScrolled={!isHomepage} />
+        <Navbar
+          sticky
+          forceScrolled={!isHomepage && !isContactPage}
+          lightNav={isContactPage}
+        />
       )}
       {children}
       <Footer />

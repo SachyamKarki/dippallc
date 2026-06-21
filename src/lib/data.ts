@@ -159,7 +159,7 @@ export const footerLinks = [
   { label: "Proof", href: "/#proof" },
   { label: "Process", href: "/#process" },
   { label: "Insights", href: "/#insights" },
-  { label: "Request a Consultation", href: "/#contact" },
+  { label: "Request a Consultation", href: "/contact" },
 ] as const;
 
 export const socialLinks = [
