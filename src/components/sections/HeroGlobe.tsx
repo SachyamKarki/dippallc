@@ -88,8 +88,8 @@ export default function HeroGlobe() {
 
     const scene  = new THREE.Scene();
     const isMobile = window.innerWidth < 768;
-    const camera = new THREE.PerspectiveCamera(isMobile ? 52 : 48, W / H, 0.1, 100);
-    camera.position.z = isMobile ? 2.4 : 3.2;
+    const camera = new THREE.PerspectiveCamera(isMobile ? 62 : 48, W / H, 0.1, 100);
+    camera.position.z = isMobile ? 1.9 : 3.2;
 
     scene.add(new THREE.AmbientLight(0x0a1020, 1));
     const moon = new THREE.DirectionalLight(0x223355, 0.35);
