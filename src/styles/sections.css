@@ -12,8 +12,11 @@
   .hero-section-new {
     align-items: center;
     padding-top: 5rem;
-    padding-bottom: 2rem;
-    min-height: 100vh;
+    padding-bottom: 0;
+    height: 100svh;
+    min-height: unset;
+    max-height: 100svh;
+    overflow: hidden;
   }
 }
 @media (min-width: 1024px) {
