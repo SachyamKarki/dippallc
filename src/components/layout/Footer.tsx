@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { LinkedInIcon } from "@/components/ui/Icons";
+import DippaLogo from "@/components/layout/DippaLogo";
 
 const footerNav = [
   { label: "Overview", href: "/" },
@@ -24,12 +25,9 @@ export default function Footer() {
 
           {/* Brand */}
           <div className="footer-brand">
-            <div className="footer-logo-row">
-              <div className="footer-logo-wrap">
-                <img src="/logo-dippa.jpg" alt="DIPPA" className="footer-logo-img" />
-              </div>
-              <span className="footer-logo-name">DIPPA</span>
-            </div>
+            <Link href="/" className="footer-logo-link" aria-label="Dippa home">
+              <DippaLogo />
+            </Link>
             <p className="footer-tagline">
               End-to-end IT solutions for businesses that demand reliability. From infrastructure and networks to AI automation and support — we keep your operations running.
             </p>

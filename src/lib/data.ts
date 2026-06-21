@@ -156,6 +156,7 @@ export const WHATSAPP_URL =
   encodeURIComponent("Hi, I'd like to connect with Dippa IT Solutions.");
 
 export const navLinks = [
+  { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Products", href: "/products" },
   { label: "Case Studies & Blogs", href: "/news" },

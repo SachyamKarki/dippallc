@@ -187,7 +187,10 @@ export default function Navbar({ sticky = true, forceScrolled = false, lightNav 
           <div className="site-nav-desktop">
             <ul className="site-nav-links">
               {navLinks.map((item) => {
-                const isActive = pathname === item.href || pathname?.startsWith(item.href + "/");
+                const isActive =
+                  item.href === "/"
+                    ? pathname === "/"
+                    : pathname === item.href || pathname?.startsWith(item.href + "/");
                 return (
                   <li key={item.href} className="relative">
                     <Link
