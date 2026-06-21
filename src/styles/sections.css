@@ -3411,11 +3411,15 @@ section#insights.insights-preview-section {
   display: flex;
   flex-direction: column-reverse;
   gap: 0.875rem;
-  align-items: stretch;
+  align-items: flex-start;
 }
 @media (min-width: 480px) {
-  .cf-footer { flex-direction: row; align-items: center; justify-content: space-between; }
-  .cf-submit-btn { flex-shrink: 0; }
+  .cf-footer {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .cf-footer .cf-submit-btn { flex-shrink: 0; margin-left: auto; }
 }
 
 .cf-disclaimer {
@@ -3425,25 +3429,34 @@ section#insights.insights-preview-section {
 }
 
 .cf-submit-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  height: 2.875rem;
-  padding: 0 1.75rem;
-  border-radius: 0.625rem;
-  font-size: 0.9rem;
-  font-weight: 700;
-  cursor: pointer;
+  width: auto;
+  align-self: flex-start;
+  min-height: 2.75rem;
+  padding: 0.7rem 1.75rem;
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   border: none;
-  transition: opacity 0.2s, transform 0.15s;
-  font-family: var(--font-main);
-  letter-spacing: 0.01em;
+  cursor: pointer;
 }
-.cf-submit-btn:hover:not(.cf-submit-btn--disabled) { opacity: 0.88; transform: translateY(-1px); }
-.cf-submit-btn--email { background: #0a0a0a; color: #fff; }
-.cf-submit-btn--wa    { background: #16a34a; color: #fff; }
-.cf-submit-btn--disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+.cf-submit-btn--wa {
+  background: rgba(37, 211, 102, 0.92);
+  border: 1.5px solid rgba(37, 211, 102, 0.85);
+  box-shadow:
+    0 4px 16px rgba(37, 211, 102, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+.cf-submit-btn--wa:hover:not(.cf-submit-btn--disabled) {
+  background: rgba(37, 211, 102, 1);
+  border-color: rgba(37, 211, 102, 0.95);
+  filter: brightness(1.05);
+}
+.cf-submit-btn--disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none !important;
+  pointer-events: none;
+}
 
 /* Success state */
 .cf-success-state {
@@ -3668,23 +3681,32 @@ main.contact-page > section.contact-form-only-section {
 }
 .cf-footer--simple {
   flex-direction: column;
-  align-items: stretch;
+  align-items: flex-start;
   margin-top: var(--cf-space-lg);
   padding-top: var(--cf-space-lg);
   border-top: 1px solid rgba(15, 23, 42, 0.08);
   flex-shrink: 0;
 }
-.cf-footer--simple .cf-submit-btn--simple,
-.cf-footer--simple .button-primary,
 .cf-footer--simple .cf-submit-btn {
-  width: 100%;
-  justify-content: center;
-  min-height: 2.625rem;
-  padding: 0.6875rem 1.25rem;
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
+  width: auto;
+  align-self: flex-start;
+  min-height: 2.75rem;
+  padding: 0.7rem 1.75rem;
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
-.cf-submit-btn--simple.cf-submit-btn--disabled,
+@media (min-width: 768px) {
+  .cf-footer--simple {
+    align-items: stretch;
+  }
+  .cf-footer--simple .cf-submit-btn {
+    width: 100%;
+    align-self: stretch;
+    justify-content: center;
+  }
+}
+.cf-submit-btn--disabled,
 .button-primary.cf-submit-btn--disabled {
   opacity: 0.45;
   cursor: not-allowed;

@@ -109,12 +109,12 @@
   line-height: 1;
 }
 
-.dippa-logo-text {
-  font-family: var(--font-main);
-  font-size: 0.875rem;
-  font-weight: 900;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+.site-nav .dippa-logo-text {
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-transform: none;
   color: currentColor;
 }
 
@@ -127,21 +127,22 @@
   align-items: center;
 }
 
-.site-nav-link {
+/* Desktop nav links — Playfair, same family as hero headline */
+.site-nav .site-nav-link {
   position: relative;
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
   color: rgba(255,255,255,0.6);
+  font-family: var(--font-display);
   font-weight: 700;
-  font-size: 0.8125rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  font-family: var(--font-main);
+  font-size: 0.875rem;
+  letter-spacing: -0.02em;
+  text-transform: none;
   padding-bottom: 2px;
   transition: color 0.25s ease;
 }
-.site-nav-link::after {
+.site-nav .site-nav-link::after {
   content: "";
   position: absolute;
   bottom: -2px; left: 0;
@@ -149,10 +150,26 @@
   background: #ffffff;
   transition: width 0.3s ease;
 }
-.site-nav-link:hover { color: #ffffff; }
-.site-nav-link:hover::after { width: 100%; }
-.site-nav-link-active { color: #ffffff; }
-.site-nav-link-active::after { width: 100%; }
+.site-nav .site-nav-link:hover { color: #ffffff; }
+.site-nav .site-nav-link:hover::after { width: 100%; }
+.site-nav .site-nav-link-active { color: #ffffff; }
+.site-nav .site-nav-link-active::after { width: 100%; }
+
+/* Light navbar — black text on white background (contact + inner pages) */
+.site-nav.site-nav-light .site-nav-link {
+  color: rgba(0, 0, 0, 0.62);
+}
+.site-nav.site-nav-light .site-nav-link::after {
+  background: var(--accent);
+}
+.site-nav.site-nav-light .site-nav-link:hover,
+.site-nav.site-nav-light .site-nav-link-active {
+  color: #0a0a0a;
+}
+.site-nav.site-nav-light .nav-logo-link,
+.site-nav.site-nav-light .dippa-logo-text {
+  color: #0a0a0a;
+}
 
 /* Active dot */
 .nav-active-dot {
@@ -317,22 +334,22 @@
   gap: 0.25rem;
 }
 
-.mobile-drawer-nav-link {
+.mobile-drawer .mobile-drawer-nav-link {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.85rem 0;
-  font-family: var(--font-main);
-  font-size: 0.9375rem;
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
   font-weight: 700;
   color: rgba(255,255,255,0.75);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  text-transform: none;
   transition: color 0.2s;
   border-bottom: 1px solid rgba(255,255,255,0.06);
 }
-.mobile-drawer-nav-link:hover { color: var(--accent); }
-.mobile-drawer-nav-link-active { color: var(--accent); }
+.mobile-drawer .mobile-drawer-nav-link:hover { color: var(--accent); }
+.mobile-drawer .mobile-drawer-nav-link-active { color: var(--accent); }
 
 .mobile-drawer-divider {
   display: block;

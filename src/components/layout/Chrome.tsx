@@ -23,8 +23,7 @@ export default function Chrome({ children }: { children: ReactNode }) {
       {!hideNavbar && (
         <Navbar
           sticky
-          forceScrolled={!isHomepage && !isContactPage}
-          lightNav={isContactPage}
+          lightNav={!isHomepage}
         />
       )}
       {children}

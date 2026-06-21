@@ -363,15 +363,8 @@ export default function ContactForm({ simple = false }: ContactFormProps) {
             type="submit"
             disabled={state === "submitting" || !isValid}
             className={cn(
-              simple
-                ? cn(
-                    "cf-submit-btn--simple",
-                    contactMethod === "whatsapp"
-                      ? "cf-submit-btn cf-submit-btn--wa"
-                      : "button-primary"
-                  )
-                : "cf-submit-btn",
-              !simple && (contactMethod === "whatsapp" ? "cf-submit-btn--wa" : "cf-submit-btn--email"),
+              "button-primary cf-submit-btn",
+              contactMethod === "whatsapp" && "cf-submit-btn--wa",
               (!isValid || state === "submitting") && "cf-submit-btn--disabled"
             )}
           >
