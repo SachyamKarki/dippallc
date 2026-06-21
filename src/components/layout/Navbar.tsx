@@ -118,7 +118,6 @@ export default function Navbar({ sticky = true, forceScrolled = false, lightNav 
                       {item.label}
                       {renderNavBadge(item.href)}
                     </Link>
-                    {isActive && <span className="nav-active-dot" aria-hidden="true" />}
                   </li>
                 );
               })}
