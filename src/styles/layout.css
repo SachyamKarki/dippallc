@@ -266,19 +266,18 @@
 @media (max-width: 1024px) {
   .nav-toggle { display: flex; }
   .site-nav-desktop { display: none; }
-  .nav-logo-desktop { display: none; }
 
   :root {
     --site-nav-offset: 0px;
   }
 
-  /* Mobile: floating menu button only — no full-width bar over sections */
+  /* Mobile: logo left, controls right — no full-width bar over sections */
   .site-nav {
     position: fixed;
     top: 0;
+    left: 0;
     right: 0;
-    left: auto;
-    width: auto;
+    width: 100%;
     height: auto;
     background: none !important;
     backdrop-filter: none !important;
@@ -299,8 +298,9 @@
   }
 
   .site-nav-inner {
-    justify-content: flex-end;
-    width: auto;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
     max-width: none;
     height: auto;
     margin: 0;
@@ -309,9 +309,20 @@
     background: none !important;
   }
 
-  .site-nav-scrolled .site-nav-inner,
-  .site-nav-light .site-nav-inner {
-    height: auto;
+  .nav-logo-link {
+    display: inline-flex;
+    flex-shrink: 0;
+    pointer-events: auto;
+  }
+
+  .nav-logo-link--on-dark,
+  .nav-logo-link--on-dark .dippa-logo-text {
+    color: #ffffff;
+  }
+
+  .nav-logo-link--on-light,
+  .nav-logo-link--on-light .dippa-logo-text {
+    color: #0a0a0a;
   }
 
   .site-nav-controls {

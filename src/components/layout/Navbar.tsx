@@ -178,8 +178,13 @@ export default function Navbar({ sticky = true, forceScrolled = false, lightNav 
     <>
       <nav className={navClass}>
         <div className="site-nav-inner">
-          {/* Logo — desktop/tablet only */}
-          <Link href="/" className="site-logo nav-logo-link nav-logo-desktop" onClick={closeMenu} aria-label="Dippa home">
+          {/* Logo */}
+          <Link
+            href="/"
+            className={`site-logo nav-logo-link nav-logo-link--on-${navSurface}`}
+            onClick={closeMenu}
+            aria-label="Dippa home"
+          >
             <DippaLogo />
           </Link>
 
