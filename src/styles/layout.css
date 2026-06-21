@@ -362,6 +362,13 @@
 
   .mobile-drawer {
     padding-top: calc(3.5rem + env(safe-area-inset-top, 0px));
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+
+  .mobile-drawer-panel {
+    height: 100%;
+    overflow: hidden;
   }
 
   /* Homepage + inner pages: no reserved nav bar space */
@@ -466,13 +473,19 @@
   transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   border-left: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: none;
-  padding-top: calc(80px + env(safe-area-inset-top, 0px));
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  padding-top: calc(3.5rem + env(safe-area-inset-top, 0px));
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: none;
 }
 .mobile-drawer-open { transform: translateX(0); }
 
-.mobile-drawer-panel { padding: 1.5rem 1.5rem 2.5rem; }
+.mobile-drawer-panel {
+  height: 100%;
+  padding: 1.25rem 1.5rem 1.5rem;
+  overflow: hidden;
+  box-sizing: border-box;
+}
 
 .mobile-drawer-links {
   list-style: none;
@@ -486,7 +499,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.85rem 0;
+  padding: 0.7rem 0;
   font-family: var(--font-display);
   font-size: 1.0625rem;
   font-weight: 700;

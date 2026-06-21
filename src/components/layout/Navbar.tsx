@@ -74,8 +74,18 @@ export default function Navbar({ sticky = true, forceScrolled = false, lightNav 
   }, [forceScrolled]);
 
   useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    const html = document.documentElement;
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+      html.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+      html.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+      html.style.overflow = "";
+    };
   }, [isMenuOpen]);
 
   // Nav tone: white links on dark sections, black links on light sections (mobile + desktop homepage)
