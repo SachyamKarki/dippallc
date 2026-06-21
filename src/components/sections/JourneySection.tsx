@@ -77,29 +77,31 @@ export default function JourneySection() {
           </div>
         </div>
 
-        {/* Steps */}
-        <div className="journey-v2-steps">
-          {steps.map((step, i) => (
-            <div
-              key={step.number}
-              className={`journey-v2-step ${isVisible ? "journey-v2-fade-up" : "opacity-0"}`}
-              style={{ animationDelay: isVisible ? `${0.3 + i * 0.1}s` : "0s" }}
-            >
-              {/* Number badge + connector row */}
-              <div className="journey-v2-step-head">
-                <span className="journey-v2-num">{step.number}</span>
-                {i < steps.length - 1 && <span className="journey-v2-connector" aria-hidden="true" />}
+        {/* Steps + mobile CTA grouped so button sits close to step 04 */}
+        <div className="journey-v2-steps-block">
+          <div className="journey-v2-steps">
+            {steps.map((step, i) => (
+              <div
+                key={step.number}
+                className={`journey-v2-step ${isVisible ? "journey-v2-fade-up" : "opacity-0"}`}
+                style={{ animationDelay: isVisible ? `${0.3 + i * 0.1}s` : "0s" }}
+              >
+                {/* Number badge + connector row */}
+                <div className="journey-v2-step-head">
+                  <span className="journey-v2-num">{step.number}</span>
+                  {i < steps.length - 1 && <span className="journey-v2-connector" aria-hidden="true" />}
+                </div>
+                <h3 className="journey-v2-step-title">{step.title}</h3>
+                <p className="journey-v2-step-text">{step.text}</p>
               </div>
-              <h3 className="journey-v2-step-title">{step.title}</h3>
-              <p className="journey-v2-step-text">{step.text}</p>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
 
-        <div className="journey-v2-cta-row journey-v2-cta-row--mobile">
-          <Link href="/contact" className="button-primary journey-v2-hero-cta">
-            Get Started
-          </Link>
+          <div className="journey-v2-cta-row journey-v2-cta-row--mobile">
+            <Link href="/contact" className="button-primary journey-v2-hero-cta">
+              Get Started
+            </Link>
+          </div>
         </div>
 
       </div>
