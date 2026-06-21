@@ -37,7 +37,7 @@ h2.newsletter-title,
   .hero-section-new {
     align-items: center;
     padding-top: 5rem;
-    padding-bottom: 0;
+    padding-bottom: 1.5rem;
     height: 100svh;
     min-height: unset;
     max-height: 100svh;
@@ -2932,7 +2932,6 @@ main.contact-page .faq-section--contact .faq-section-shell {
 
 /* What We Offer — section padding on mobile */
 @media (max-width: 640px) {
-  #strategic-capability { padding-top: 4rem; padding-bottom: 4rem; }
   .work-sphere-stage { border-radius: 1.5rem; }
   .work-sphere-shell { padding: 0 1rem; }
   .work-sphere-stage { height: 70vh; min-height: 420px; }
@@ -2940,7 +2939,6 @@ main.contact-page .faq-section--contact .faq-section-shell {
 
 /* Journey section image on small screens */
 @media (max-width: 480px) {
-  .journey-v2-section { padding: 4rem 0; }
   .journey-v2-inner { padding: 0 1rem; }
   .journey-v2-title { font-size: clamp(1.5rem, 7vw, 2.25rem); }
   .journey-v2-sub { font-size: 0.875rem; }
@@ -2961,30 +2959,33 @@ main.contact-page .faq-section--contact .faq-section-shell {
 /* Newsletter form on mobile */
 @media (max-width: 640px) {
   .newsletter-title { font-size: clamp(1.1rem, 5vw, 1.5rem); }
-  .newsletter-form { gap: 0.5rem; }
+  .newsletter-form { gap: 0.75rem; align-items: stretch; }
   .newsletter-input-wrap {
     flex-direction: column;
     width: 100%;
     max-width: 100%;
-    border-radius: 1rem;
+    border-radius: 0;
     overflow: visible;
     background: transparent;
     border: none;
-    gap: 0.5rem;
+    gap: 0.75rem;
+    align-items: stretch;
   }
   .newsletter-input {
     width: 100%;
     border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 1rem;
+    border-radius: 2.2rem 2.2rem 2.2rem 0;
     background: rgba(255,255,255,0.05);
     padding: 0.875rem 1.25rem;
   }
   .newsletter-input-wrap:focus-within { border-color: transparent; background: transparent; }
   .newsletter-submit {
-    width: 100% !important;
-    border-radius: 1rem !important;
-    padding: 0.875rem 1.25rem;
-    font-size: 0.875rem;
+    width: auto !important;
+    align-self: flex-start !important;
+    border-radius: 2.2rem 2.2rem 2.2rem 0 !important;
+    min-height: 2.75rem;
+    padding: 0.7rem 1.75rem !important;
+    font-size: 0.8125rem;
   }
 }
 
@@ -2995,6 +2996,29 @@ main.contact-page .faq-section--contact .faq-section-shell {
   .footer-wordmark { font-size: clamp(3rem, 18vw, 8rem); }
   .footer-bottom { flex-direction: column; gap: 0.75rem; text-align: center; }
   .footer-inline-mail-row { font-size: 0.75rem; }
+  .footer-newsletter-form {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    padding: 0;
+    background: transparent;
+    border: none;
+  }
+  .footer-newsletter-input {
+    width: 100%;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 2.2rem 2.2rem 2.2rem 0;
+    background: rgba(255,255,255,0.05);
+    padding: 0.875rem 1.25rem;
+  }
+  .footer-newsletter-btn-sm {
+    align-self: flex-start;
+    min-height: 2.75rem;
+    padding: 0.7rem 1.75rem;
+    border-radius: 2.2rem 2.2rem 2.2rem 0;
+    font-size: 0.8125rem;
+    letter-spacing: 0.04em;
+  }
 }
 
 /* Legal pages on mobile */
@@ -3686,15 +3710,21 @@ main.contact-page > section.contact-form-only-section {
 
 /* ─── What We Offer section mobile ─────────────────────────── */
 @media (max-width: 768px) {
-  #strategic-capability { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+  #strategic-capability {
+    padding-top: clamp(3.25rem, 9vw, 4.75rem) !important;
+    padding-bottom: clamp(3.25rem, 9vw, 4.75rem) !important;
+  }
   #strategic-capability h3 { font-size: 1rem !important; line-height: 1.3; }
   #strategic-capability h2 { font-size: clamp(1.3rem, 5.5vw, 1.6rem) !important; margin-bottom: 0.5rem; }
-  #strategic-capability .section-subtitle { font-size: 0.85rem; margin-bottom: 1rem; }
+  #strategic-capability .section-subtitle { font-size: 0.85rem; margin-bottom: 1.25rem; }
 }
 
 /* ─── 360 Immersive section mobile ──────────────────────────── */
 @media (max-width: 768px) {
-  .work-sphere-section { padding: 0; overflow: hidden; }
+  .work-sphere-section {
+    padding: clamp(3.25rem, 9vw, 4.75rem) 0;
+    overflow: hidden;
+  }
   .work-sphere-shell { padding: 0 0.75rem; overflow: hidden; }
   .work-sphere-stage {
     height: 60vh;
@@ -3712,7 +3742,10 @@ main.contact-page > section.contact-form-only-section {
 
 /* ─── Subscribe / Newsletter section mobile ──────────────────── */
 @media (max-width: 768px) {
-  .newsletter-section-v2 { padding: clamp(2rem, 6vw, 3rem) 0; }
+  .newsletter-section-v2 { padding: clamp(3.25rem, 9vw, 4.75rem) 0; }
+  .insights-preview-section { padding: clamp(3.25rem, 9vw, 4.75rem) 0; }
+  .testimonials-section { padding: clamp(3.25rem, 9vw, 4.75rem) 0; }
+  .journey-v2-section { padding: clamp(3.25rem, 9vw, 4.75rem) 0; }
   .newsletter-inner { padding: 0 1.25rem; }
   .newsletter-title { font-size: clamp(1.2rem, 5.5vw, 1.6rem); margin-bottom: 0.5rem; }
   .newsletter-sub { font-size: 0.85rem; margin-bottom: 1.25rem; }

@@ -289,19 +289,25 @@
 /* ─── Mobile Drawer ──────────────────────────────────────── */
 .mobile-drawer {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%;
+  top: 0;
+  right: 0;
+  left: auto;
+  width: min(88vw, 22rem);
+  height: 100dvh;
+  max-height: 100vh;
   background: #0a0a0a;
   z-index: 99;
-  transform: translateY(-100%);
+  transform: translateX(100%);
   transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  border-bottom: 1px solid var(--border);
-  box-shadow: 0 24px 48px rgba(0,0,0,0.08);
-  padding-top: 80px;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: -24px 0 48px rgba(0, 0, 0, 0.35);
+  padding-top: 5rem;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
-.mobile-drawer-open { transform: translateY(0); }
+.mobile-drawer-open { transform: translateX(0); }
 
-.mobile-drawer-panel { padding: 2rem 1.5rem 3rem; }
+.mobile-drawer-panel { padding: 1.5rem 1.5rem 2.5rem; }
 
 .mobile-drawer-links {
   list-style: none;
@@ -349,3 +355,50 @@
   transition: color 0.2s;
 }
 .mobile-drawer-social-link:hover { color: #fff; }
+
+/* ─── Floating WhatsApp ───────────────────────────────────── */
+.whatsapp-float {
+  position: fixed;
+  right: max(1.25rem, env(safe-area-inset-right, 0px));
+  bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
+  z-index: 96;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  box-shadow:
+    0 4px 16px rgba(37, 211, 102, 0.35),
+    0 8px 24px rgba(0, 0, 0, 0.18);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+.whatsapp-float:hover {
+  transform: translateY(-3px) scale(1.04);
+  filter: brightness(1.05);
+  box-shadow:
+    0 8px 24px rgba(37, 211, 102, 0.45),
+    0 12px 32px rgba(0, 0, 0, 0.22);
+}
+.whatsapp-float:active {
+  transform: translateY(0) scale(0.97);
+}
+.whatsapp-float-icon {
+  width: 1.625rem;
+  height: 1.625rem;
+}
+
+@media (max-width: 768px) {
+  .whatsapp-float {
+    width: 3rem;
+    height: 3rem;
+    right: max(1rem, env(safe-area-inset-right, 0px));
+    bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+  }
+  .whatsapp-float-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}

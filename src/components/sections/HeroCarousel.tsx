@@ -23,7 +23,7 @@ export default function HeroCarousel() {
 
           <div className={`hero-actions ${isLoaded ? "hero-cta-enter" : "opacity-0"}`}>
             <Button href="/contact">
-              Start a Conversation
+              Request a Consultation
             </Button>
           </div>
         </div>

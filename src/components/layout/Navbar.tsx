@@ -162,7 +162,6 @@ export default function Navbar({ sticky = true, forceScrolled = false, lightNav 
       {isMenuOpen && (
         <div
           className="fixed inset-0 z-[97] bg-black/60 backdrop-blur-sm"
-          style={{ top: "80px" }}
           onClick={closeMenu}
         />
       )}

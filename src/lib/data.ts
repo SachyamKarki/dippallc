@@ -149,6 +149,12 @@ export const insights = [
   },
 ] as const;
 
+/** WhatsApp business line — floating button + contact flows */
+export const WHATSAPP_NUMBER = "14437806166";
+export const WHATSAPP_URL =
+  "https://wa.me/14437806166?text=" +
+  encodeURIComponent("Hi, I'd like to connect with Dippa IT Solutions.");
+
 export const navLinks = [
   { label: "About", href: "/about" },
   { label: "Products", href: "/products" },

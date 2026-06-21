@@ -94,7 +94,7 @@ export default function TestimonialsPage() {
                 We focus on high-trust partnerships and tangible business outcomes. Let&apos;s talk about what you&apos;re building.
               </p>
               <Link href="/contact" className="button-primary inline-flex h-14 items-center justify-center px-10 font-black uppercase tracking-widest text-xs shadow-xl">
-                Start a Conversation
+                Request a Consultation
               </Link>
             </div>
           </div>
