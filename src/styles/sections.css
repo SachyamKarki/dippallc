@@ -1971,6 +1971,11 @@ section#insights.insights-preview-section {
   .testimonials-actions { justify-content: center; }
 }
 @media (max-width: 1024px) { .insights-preview-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) {
+  .insights-preview-grid .news-card:nth-child(n + 3) {
+    display: none;
+  }
+}
 @media (max-width: 640px)  { .insights-preview-grid { grid-template-columns: 1fr; } }
 
 /* ─── News Listing Page ──────────────────────────────────── */

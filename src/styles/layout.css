@@ -266,8 +266,7 @@
 @media (max-width: 1024px) {
   .nav-toggle { display: flex; }
   .site-nav-desktop { display: none; }
-  .nav-logo-desktop,
-  .nav-sound-desktop { display: none; }
+  .nav-logo-desktop { display: none; }
 
   :root {
     --site-nav-offset: 0px;
@@ -318,6 +317,39 @@
   .site-nav-controls {
     display: flex;
     align-items: center;
+    gap: 0.5rem;
+  }
+
+  .nav-sound-toggle {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+  }
+
+  .nav-sound-toggle--on-dark {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.38);
+    color: #ffffff;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .nav-sound-toggle--on-dark:hover {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.55);
+    color: #ffffff;
+  }
+
+  .nav-sound-toggle--on-light {
+    background: rgba(255, 255, 255, 0.96);
+    border-color: rgba(0, 0, 0, 0.12);
+    color: rgba(0, 0, 0, 0.78);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .nav-sound-toggle--on-light:hover {
+    background: #ffffff;
+    border-color: rgba(0, 0, 0, 0.2);
+    color: #0a0a0a;
   }
 
   .nav-toggle {

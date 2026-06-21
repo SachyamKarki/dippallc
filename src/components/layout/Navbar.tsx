@@ -211,7 +211,7 @@ export default function Navbar({ sticky = true, forceScrolled = false, lightNav 
           <div className="site-nav-controls">
             <button
               type="button"
-              className="nav-sound-toggle nav-sound-desktop"
+              className={`nav-sound-toggle nav-sound-toggle--on-${navSurface}`}
               aria-label={soundEnabled ? "Mute ambient sound" : "Play ambient sound"}
               aria-pressed={soundEnabled}
               onClick={() => { toggleSound(); closeMenu(); }}
