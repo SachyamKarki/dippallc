@@ -139,14 +139,15 @@ h2.newsletter-title,
   .hero-stats { flex-wrap: wrap; justify-content: center; gap: 1.5rem; }
   .hero-stat-divider { display: none; }
   /* Globe moves to top on mobile */
-  .hero-new-right { order: -1; max-width: 100%; width: 100%; margin: 0 auto; height: 500px; overflow: visible; }
-  .hero-globe-wrapper { overflow: visible; }
+  .hero-new-right { order: -1; max-width: 100%; width: 100%; margin: 0 auto; height: 500px; overflow: hidden; }
+  .hero-globe-wrapper { inset: 0; overflow: hidden; }
   /* Title spacing */
   .hero-title { margin-bottom: 1.25rem; }
   .hero-kicker { margin-bottom: 0.75rem; }
 }
 @media (max-width: 768px) {
-  .hero-new-right { max-width: 100%; height: 500px; }
+  .hero-new-right { max-width: 100%; height: 500px; overflow: hidden; }
+  .hero-globe-wrapper { overflow: hidden; }
   .hero-new-layout { padding: 0.75rem 1.25rem 2rem; gap: 1.5rem; }
   .hero-title { font-size: clamp(1.4rem, 6.5vw, 1.9rem); margin-bottom: 1rem; }
   .hero-kicker { font-size: 0.8rem; margin-bottom: 0.625rem; }
@@ -203,6 +204,10 @@ h2.newsletter-title,
 .why-dippa-title { color: #fff !important; }
 
 /* Testimonials */
+section#testimonials.testimonials-section {
+  padding-top: clamp(4.5rem, 9vw, 7.5rem);
+  padding-bottom: clamp(4.5rem, 9vw, 7.5rem);
+}
 .testimonials-grid {
   display: grid; grid-template-columns: 1fr; gap: 1.5rem;
 }
@@ -615,10 +620,11 @@ h2.newsletter-title,
 
 /* ─── Journey Section ────────────────────────────────────── */
 /* ─── Journey v2 ────────────────────────────────────────── */
-.journey-v2-section {
+section#journey.journey-v2-section {
   position: relative;
   background: #ffffff;
-  padding: clamp(5rem, 10vw, 8rem) 0;
+  padding-top: clamp(4.5rem, 9vw, 7.5rem);
+  padding-bottom: clamp(5.5rem, 11vw, 9rem);
   overflow: hidden;
 }
 
@@ -1078,7 +1084,7 @@ h2.newsletter-title,
 }
 @media (min-width: 1024px) { .footer-shell { padding: 0 5rem; } }
 
-.footer-top { padding-top: 5rem; }
+.footer-top { padding-top: clamp(4.5rem, 9vw, 6.5rem); }
 
 /* ── Top strip: mail + social ── */
 .footer-inline-contact {
@@ -1868,9 +1874,10 @@ main.contact-page .faq-section--contact .faq-section-shell {
 }
 
 /* ─── Insights Preview (homepage) ───────────────────────── */
-.insights-preview-section {
+section#insights.insights-preview-section {
   background: #ffffff;
-  padding: clamp(3rem, 7vw, 6rem) 0;
+  padding-top: clamp(4rem, 8vw, 6.5rem);
+  padding-bottom: clamp(4.5rem, 9vw, 7.5rem);
 }
 
 .insights-preview-header {
@@ -1928,6 +1935,23 @@ main.contact-page .faq-section--contact .faq-section-shell {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
+}
+.insights-preview-actions {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: clamp(1.25rem, 3vw, 2rem);
+}
+@media (min-width: 1024px) {
+  .insights-preview-actions { justify-content: center; }
+}
+
+.testimonials-actions {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: clamp(1.25rem, 3vw, 2rem);
+}
+@media (min-width: 1024px) {
+  .testimonials-actions { justify-content: center; }
 }
 @media (max-width: 1024px) { .insights-preview-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 640px)  { .insights-preview-grid { grid-template-columns: 1fr; } }
@@ -2869,12 +2893,18 @@ main.contact-page .faq-section--contact .faq-section-shell {
 
 /* ─── Mobile & Tablet Responsive Fixes ─────────────────────── */
 
-/* Hero globe: large on phone, canvas breaks out of grid cell so arcs aren't clipped */
+/* Hero globe: large on phone, keep canvas inside the hero frame */
 @media (max-width: 480px) {
-  .hero-new-right { max-width: 100%; width: 100%; height: 45svh; overflow: visible; }
-  .hero-new-layout { overflow: visible; padding: 0.75rem 1rem 1.25rem; gap: 0.75rem; }
-  .hero-full-container { overflow: visible; }
-  .hero-globe-wrapper { position: absolute; top: -60px; left: -50px; right: -50px; bottom: -40px; overflow: visible; }
+  .hero-section-new,
+  .hero-full-container,
+  .hero-new-layout,
+  .hero-new-right {
+    overflow: hidden;
+    max-width: 100%;
+  }
+  .hero-new-right { width: 100%; height: 45svh; }
+  .hero-new-layout { padding: 0.75rem 1rem 1.25rem; gap: 0.75rem; }
+  .hero-globe-wrapper { inset: -6% -4%; overflow: hidden; }
   .hero-title { font-size: clamp(1.25rem, 6.5vw, 1.6rem); }
   .hero-kicker { font-size: 0.7rem; margin-bottom: 0.4rem; }
   .hero-stats { gap: 0.75rem; }
@@ -2991,7 +3021,7 @@ main.contact-page .faq-section--contact .faq-section-shell {
 
 /* Footer: stack properly on mobile */
 @media (max-width: 640px) {
-  .footer-top { gap: 2.5rem; padding-top: 3rem; }
+  .footer-top { gap: 2.5rem; padding-top: clamp(3.75rem, 10vw, 5.25rem); }
   .footer-nav-list { grid-template-columns: 1fr; gap: 0.6rem; }
   .footer-wordmark { font-size: clamp(3rem, 18vw, 8rem); }
   .footer-bottom { flex-direction: column; gap: 0.75rem; text-align: center; }
@@ -3743,13 +3773,67 @@ main.contact-page > section.contact-form-only-section {
 /* ─── Subscribe / Newsletter section mobile ──────────────────── */
 @media (max-width: 768px) {
   .newsletter-section-v2 { padding: clamp(3.25rem, 9vw, 4.75rem) 0; }
-  .insights-preview-section { padding: clamp(3.25rem, 9vw, 4.75rem) 0; }
-  .testimonials-section { padding: clamp(3.25rem, 9vw, 4.75rem) 0; }
-  .journey-v2-section { padding: clamp(3.25rem, 9vw, 4.75rem) 0; }
+  section#insights.insights-preview-section {
+    padding-top: clamp(3.5rem, 10vw, 5rem);
+    padding-bottom: clamp(4.25rem, 11vw, 5.75rem);
+  }
+  section#testimonials.testimonials-section {
+    padding-top: clamp(4.25rem, 11vw, 5.75rem);
+    padding-bottom: clamp(4.25rem, 11vw, 5.75rem);
+  }
+  section#journey.journey-v2-section {
+    padding-top: clamp(4.25rem, 11vw, 5.75rem);
+    padding-bottom: clamp(5rem, 12vw, 6.5rem);
+  }
+  .footer-top { padding-top: clamp(3.75rem, 10vw, 5.25rem); }
   .newsletter-inner { padding: 0 1.25rem; }
   .newsletter-title { font-size: clamp(1.2rem, 5.5vw, 1.6rem); margin-bottom: 0.5rem; }
   .newsletter-sub { font-size: 0.85rem; margin-bottom: 1.25rem; }
   .newsletter-input-wrap { max-width: 100%; }
   .newsletter-label-row { margin-bottom: 1.25rem; }
   .newsletter-proof { flex-wrap: wrap; justify-content: center; gap: 0.5rem; }
+}
+
+/* ─── Mobile overflow containment ──────────────────────────── */
+@media (max-width: 768px) {
+  section {
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: clip;
+  }
+
+  #strategic-capability,
+  .work-sphere-section,
+  section#insights.insights-preview-section,
+  section#testimonials.testimonials-section,
+  section#journey.journey-v2-section,
+  .newsletter-section-v2,
+  .footer-root {
+    overflow-x: clip;
+  }
+
+  .insights-preview-grid,
+  .testimonials-grid,
+  .journey-v2-inner,
+  .journey-v2-hero-row,
+  .journey-v2-headline-col,
+  .journey-v2-step,
+  .news-card {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .work-sphere-stage {
+    border-radius: 1.25rem;
+  }
+
+  .work-sphere-stage-title {
+    max-width: 100%;
+    padding: 0 1rem;
+    overflow-wrap: anywhere;
+  }
+
+  .footer-wordmark {
+    max-width: 100%;
+  }
 }

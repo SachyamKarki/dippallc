@@ -89,7 +89,7 @@ export default function ServiceTabs() {
         </div>
 
         {/* Mobile: static stacked list of all services */}
-        <div className="sm:hidden w-full px-4 mt-4 flex flex-col divide-y divide-black/10">
+        <div className="sm:hidden w-full mt-4 flex flex-col divide-y divide-black/10">
           {services.map((service, index) => (
             <div key={service.id} className="py-6 first:pt-2">
               <p style={{ fontFamily: 'var(--font-main)', fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#000', marginBottom: '0.5rem' }}>

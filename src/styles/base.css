@@ -87,7 +87,18 @@ canvas {
   outline: none;
 }
 
-main { flex: 1 0 auto; }
+main {
+  flex: 1 0 auto;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+.site-shell {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
 footer { flex-shrink: 0; }
 
 /* ─── Typography ─────────────────────────────────────────── */
@@ -122,6 +133,7 @@ img { -webkit-user-drag: none; user-select: none; -webkit-user-select: none; }
 .section-shell {
   max-width: var(--container-max);
   width: 100%;
+  min-width: 0;
   margin: 0 auto;
   padding: 0 var(--gutter);
 }
