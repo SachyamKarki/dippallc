@@ -37,7 +37,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
          <div className="flex min-h-screen flex-col items-center justify-center bg-[#fcfcfb] p-20 text-center">
              <h1 className="mb-4 text-4xl lg:text-5xl font-black uppercase tracking-tighter text-black" style={{ fontFamily: 'var(--font-lato)' }}>Project {slug}</h1>
              <p className="mb-8 max-w-xl text-base leading-8 text-black/70 font-medium">Case study for project {slug} is currently being finalized. Our full editorial piece will be available shortly.</p>
-             <Link href="/" className="inline-flex items-center gap-2 rounded-full bg-black px-8 py-4 text-[11px] font-bold uppercase tracking-widest text-white transition-all hover:scale-105 shadow-xl">
+             <Link href="/" className="button-primary inline-flex items-center gap-2 px-8 py-4 text-[11px] font-bold uppercase tracking-widest transition-all hover:scale-105 shadow-xl">
                  <ArrowLeft size={16} />
                  Back to Home
              </Link>
@@ -200,7 +200,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                       
                       <Link 
                         href="/#contact" 
-                        className="inline-flex min-h-14 w-full items-center justify-center gap-3 rounded-2xl bg-slate-950 px-6 text-center text-[11px] font-bold uppercase tracking-[0.18em] text-white transition-colors hover:bg-slate-800"
+                        className="button-primary inline-flex min-h-14 w-full items-center justify-center gap-3 rounded-2xl px-6 text-center text-[11px] font-bold uppercase tracking-[0.18em] text-white"
                       >
                         Start Inquiry <ArrowRight size={18} />
                       </Link>

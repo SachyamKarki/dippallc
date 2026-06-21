@@ -63,10 +63,10 @@ export default function NewsCard({ article, index = 0, compact = false, priority
         </div>
 
         <div className="news-card-title-group">
-          <h3 className={`news-card-title${compact ? " news-card-title-compact" : ""}`}>
+          <h3 className={`st-title news-card-title${compact ? " news-card-title-compact" : ""}`}>
             <Link href={href} className="news-card-title-link">{article.title}</Link>
           </h3>
-          <p className="news-card-excerpt">{article.excerpt}</p>
+          <p className="st-text news-card-excerpt">{article.excerpt}</p>
         </div>
       </div>
 

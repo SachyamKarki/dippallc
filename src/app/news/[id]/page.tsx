@@ -127,7 +127,7 @@ export default function NewsArticlePage() {
             Browse our recommended deep dives below or return to the main newsroom.
           </p>
           <div className="mt-12 flex justify-center">
-            <Link href="/news" className="button-primary text-[10px] hover:bg-[#1E293B]">
+            <Link href="/news" className="button-primary text-[10px]">
               RETURN TO NEWSROOM
             </Link>
           </div>

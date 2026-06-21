@@ -48,8 +48,10 @@ export default function TestimonialsSection() {
   return (
     <section className="testimonials-section reveal" id="testimonials">
       <div className="section-shell">
-        <div className="section-heading-block mb-16 text-center">
-          <h2 className="section-title">Built for scale. Trusted by visionary operators.</h2>
+        <div className="w-full flex flex-col items-center text-center mb-4 lg:mb-16">
+          <h2 className="st-title text-4xl lg:text-5xl font-bold tracking-tight leading-[1.2] mt-0 mb-4 w-full max-w-4xl mx-auto sm:mb-6 text-center">
+            Built for scale. Trusted by visionary operators.
+          </h2>
         </div>
 
         <div className="relative">
@@ -68,11 +70,11 @@ export default function TestimonialsSection() {
                       )}
                     </div>
                     <div>
-                      <strong>{t.name}</strong>
-                      <span>{t.role}</span>
+                      <strong className="st-text block text-sm font-bold uppercase tracking-wider text-[#0a0a0a]">{t.name}</strong>
+                      <span className="st-text block text-sm opacity-70">{t.role}</span>
                     </div>
                   </div>
-                  <p>&ldquo;{t.quote}&rdquo;</p>
+                  <p className="st-text leading-relaxed text-base opacity-90">&ldquo;{t.quote}&rdquo;</p>
                 </article>
               ))}
             </div>

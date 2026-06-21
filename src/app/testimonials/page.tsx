@@ -93,7 +93,7 @@ export default function TestimonialsPage() {
               <p className="text-blue-100 mb-10 max-w-lg mx-auto text-lg">
                 We focus on high-trust partnerships and tangible business outcomes. Let&apos;s talk about what you&apos;re building.
               </p>
-              <Link href="/#contact" className="inline-flex h-14 items-center justify-center px-10 rounded-2xl bg-white text-blue-600 font-black uppercase tracking-widest text-xs hover:bg-blue-50 transition shadow-xl">
+              <Link href="/#contact" className="button-primary inline-flex h-14 items-center justify-center px-10 font-black uppercase tracking-widest text-xs shadow-xl">
                 Start a Conversation
               </Link>
             </div>

@@ -98,7 +98,7 @@ export default function ServiceTabs() {
 
       <div className="section-shell relative z-10">
         <div className="w-full flex flex-col items-center text-center mb-4 lg:mb-6">
-          <h2 className="section-title st-title mt-0 mb-4 w-full max-w-4xl mx-auto sm:mb-6 font-black">
+          <h2 className="section-title mt-0 mb-4 w-full max-w-4xl mx-auto sm:mb-6">
             What We Offer
           </h2>
           <p
@@ -113,10 +113,10 @@ export default function ServiceTabs() {
         <div className="sm:hidden w-full px-4 mt-4 flex flex-col divide-y divide-black/10">
           {services.map((service, index) => (
             <div key={service.id} className="py-6 first:pt-2">
-              <p style={{ fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#000', marginBottom: '0.5rem' }}>
+              <p style={{ fontFamily: 'var(--font-main)', fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#000', marginBottom: '0.5rem' }}>
                 {String(index + 1).padStart(2, "0")}{"  "}{service.name}
               </p>
-              <p style={{ fontFamily: 'var(--font-main)', fontSize: '0.9375rem', fontWeight: 700, lineHeight: 1.35, color: '#000', marginBottom: '0.5rem', letterSpacing: '-0.02em' }}>
+              <p className="st-title" style={{ fontSize: '0.9375rem', fontWeight: 700, lineHeight: 1.35, color: '#000', marginBottom: '0.5rem', letterSpacing: '-0.02em' }}>
                 {service.title}
               </p>
               <p style={{ fontFamily: 'var(--font-main)', fontSize: '0.8125rem', fontWeight: 400, lineHeight: 1.7, color: '#000', marginBottom: '0.75rem' }}>
@@ -234,11 +234,11 @@ export default function ServiceTabs() {
       {/* Advanced Motion Graphics Styles */}
       <style jsx>{`
         .st-title {
-          font-family: var(--font-playfair);
+          font-family: var(--font-panel-title);
           color: #000000;
         }
         .st-text {
-          font-family: var(--font-lato);
+          font-family: var(--font-main);
           color: #000000;
         }
         .st-tab {

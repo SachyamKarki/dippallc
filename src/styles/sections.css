@@ -1,3 +1,28 @@
+/* Panel titles — extends base .st-title; section-specific sizing overrides below */
+h2.journey-v2-title,
+h2.newsletter-title,
+.insights-preview-section h2.st-title,
+.testimonials-section h2.st-title,
+.insights-preview-section h3.st-title {
+  font-family: var(--font-panel-title);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.st-text {
+  font-family: var(--font-main);
+}
+
+.insights-preview-section .news-card-excerpt,
+.insights-preview-section .news-card-pill,
+.insights-preview-section .news-card-read-label,
+.testimonials-section .testimonial-person strong,
+.testimonials-section .testimonial-person span,
+.testimonials-section .testimonial-card p {
+  font-family: var(--font-main);
+}
+
 /* Hero */
 .hero-section-new {
   position: relative;
@@ -193,7 +218,7 @@
 .testimonial-avatar { border-radius: 50%; object-fit: cover; }
 .testimonial-person strong { display: block; font-size: 0.8125rem; font-weight: 700; color: var(--foreground); }
 .testimonial-person span { font-size: 0.7rem; color: var(--muted); }
-.testimonial-card p { font-size: 0.8125rem; color: #374151; line-height: 1.65; font-style: italic; }
+.testimonial-card p { font-size: 0.8125rem; color: #374151; line-height: 1.65; }
 @media (min-width: 768px) { .testimonial-card p { font-size: var(--text-sm); } }
 
 /* Insights */
@@ -674,11 +699,7 @@
 }
 
 .journey-v2-title {
-  font-family: var(--font-main);
   font-size: clamp(2rem, 4vw, 3.25rem);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
   color: #0a0a0a;
 }
 
@@ -892,7 +913,8 @@
 .blogs-newsletter-input:focus { border-color: #111; }
 .blogs-newsletter-btn {
   background: #000; color: white; min-height: var(--control-height);
-  padding: 0 1.5rem; border-radius: 4px; font-weight: 600; font-size: 0.9rem;
+  padding: 0 1.5rem; border-radius: 4px; font-family: var(--font-main);
+  font-weight: 600; font-size: 0.9rem;
   letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.2s ease;
 }
 .blogs-newsletter-btn:hover { background: #333; }
@@ -1150,6 +1172,7 @@
 
 .footer-tagline {
   max-width: 420px;
+  font-family: var(--font-main);
   font-size: 0.9375rem;
   line-height: 1.75;
   color: rgba(255,255,255,0.6);
@@ -1165,6 +1188,7 @@
   font-weight: 500;
 }
 .footer-address {
+  font-family: var(--font-main);
   font-size: 0.8125rem;
   line-height: 1.8;
   color: rgba(255,255,255,0.45);
@@ -1215,6 +1239,7 @@
 
 /* Nav */
 .footer-nav-label {
+  font-family: var(--font-main);
   font-size: 9px;
   font-weight: 800;
   letter-spacing: 0.16em;
@@ -1224,6 +1249,7 @@
 }
 .footer-nav-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem 2rem; }
 .footer-nav-link {
+  font-family: var(--font-main);
   font-size: 0.9375rem;
   font-weight: 600;
   color: rgba(255,255,255,0.55);
@@ -1235,6 +1261,7 @@
 /* Newsletter */
 .footer-newsletter { display: flex; flex-direction: column; gap: 0.75rem; }
 .footer-newsletter-label {
+  font-family: var(--font-main);
   font-size: 9px;
   font-weight: 800;
   letter-spacing: 0.16em;
@@ -1295,6 +1322,7 @@
   border-top: 1px solid rgba(255,255,255,0.06);
 }
 .footer-copy {
+  font-family: var(--font-main);
   font-size: 0.75rem;
   color: rgba(255,255,255,0.22);
   font-weight: 500;
@@ -1302,6 +1330,7 @@
 }
 .footer-legal-links { display: flex; align-items: center; gap: 0.75rem; }
 .footer-legal-link {
+  font-family: var(--font-main);
   font-size: 0.75rem;
   font-weight: 600;
   color: rgba(255,255,255,0.22);
@@ -1618,9 +1647,7 @@
 .news-card-title-group { display: flex; flex-direction: column; gap: 0.5rem; }
 .news-card-title {
   font-size: 2rem;
-  font-weight: 700;
   line-height: 1.12;
-  letter-spacing: -0.015em;
   color: #0a0a0a;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -1630,11 +1657,20 @@
   padding-bottom: 0.25rem;
   word-spacing: 0.03em;
 }
+.news-card-title.st-title {
+  font-family: var(--font-panel-title);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
 .news-card-title-compact {
   font-size: 1.6rem;
   min-height: 3.5rem;
 }
-.news-card-title-link { transition: color 0.2s; }
+.news-card-title-link {
+  font-family: inherit;
+  transition: color 0.2s;
+}
 .news-card-title-link:hover { color: #364835; }
 .news-card-excerpt {
   font-size: 15px;
@@ -1733,11 +1769,7 @@
   color: #364835;
 }
 .insights-preview-title {
-  font-family: var(--font-display);
   font-size: clamp(1.75rem, 4vw, 3rem);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
   color: #0a0a0a;
 }
 
@@ -2456,9 +2488,6 @@
 
 .newsletter-title {
   font-size: clamp(1.5rem, 3vw, 2.25rem);
-  font-weight: 900;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
   color: #fff;
   margin-bottom: 0.75rem;
 }

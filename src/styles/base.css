@@ -15,7 +15,8 @@
   --shadow-md: 0 16px 38px rgba(0, 0, 0, 0.04);
 
   --font-main: var(--font-lato), sans-serif;
-  --font-display: var(--font-playfair), sans-serif;
+  --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
+  --font-panel-title: var(--font-playfair), Georgia, "Times New Roman", serif;
 
   --container-max: 1440px;
   --gutter: 1.5rem;
@@ -130,10 +131,10 @@ section { padding: clamp(3rem, 7vw, 6rem) 0; position: relative; }
 /* ─── Shared section heading ─────────────────────────────── */
 .section-title {
   font-family: var(--font-display);
-  font-size: var(--text-display);
-  font-weight: 900;
-  letter-spacing: -0.02em;
-  line-height: 1.05;
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
   color: var(--foreground);
   margin-bottom: 1rem;
   text-align: center;
@@ -146,6 +147,39 @@ section { padding: clamp(3rem, 7vw, 6rem) 0; position: relative; }
   text-align: center;
   max-width: 60ch;
   margin: 0 auto 3rem;
+}
+
+/* Panel titles — “Engineering high authority digital environments.” */
+.st-title {
+  font-family: var(--font-panel-title);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.st-text {
+  font-family: var(--font-main);
+}
+
+/* UI chrome — buttons, navbar, footer use Lato */
+button,
+input,
+textarea,
+select,
+[type="button"],
+[type="submit"],
+[type="reset"],
+[role="button"],
+.button-primary,
+.button-secondary,
+.button-inverse,
+.site-nav,
+.site-nav :is(a, button, span),
+.mobile-drawer,
+.mobile-drawer :is(a, button, span),
+.footer-root,
+.footer-root :is(a, button, p, span, li, label, input) {
+  font-family: var(--font-main);
 }
 
 @media (max-width: 768px) {

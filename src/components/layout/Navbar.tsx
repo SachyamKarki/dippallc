@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Volume2, VolumeX } from "lucide-react";
 import Button from "@/components/ui/Button";
+import DippaLogo from "@/components/layout/DippaLogo";
 import { navLinks } from "@/lib/data";
 import { useSiteAudio } from "@/components/layout/SiteAudioProvider";
 
@@ -76,11 +77,8 @@ export default function Navbar({ sticky = true, forceScrolled = false }: NavbarP
       <nav className={navClass}>
 <div className="site-nav-inner">
           {/* Logo */}
-          <Link href="/" className="site-logo nav-logo-link" onClick={closeMenu}>
-            <div className="nav-logo-wrap">
-              <img src="/logo-dippa.jpg" alt="DIPPA" className="nav-logo-img" />
-            </div>
-            <span className="nav-logo-wordmark">DIPPA</span>
+          <Link href="/" className="site-logo nav-logo-link" onClick={closeMenu} aria-label="Dippa home">
+            <DippaLogo />
           </Link>
 
           {/* Desktop links */}

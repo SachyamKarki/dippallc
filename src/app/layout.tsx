@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
-import { Poppins, Bebas_Neue } from "next/font/google";
+import { Lato, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import ScrollRevealProvider from "@/components/layout/ScrollRevealProvider";
 import Chrome from "@/components/layout/Chrome";
 
-const poppins = Poppins({
+const lato = Lato({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "900"],
+  weight: ["400", "700", "900"],
   variable: "--font-lato",
 });
 
-const bebasNeue = Bebas_Neue({
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  weight: "400",
+  weight: ["400", "700", "800", "900"],
   variable: "--font-playfair",
 });
 
@@ -61,13 +61,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className={`scroll-smooth ${lato.variable} ${playfair.variable}`}>
       <head>
         <link rel="preload" href="/earth-night.jpg" as="image" />
         <link rel="preload" href="/projects/1.jpg" as="image" />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
       </head>
-      <body className={`${poppins.variable} ${bebasNeue.variable} antialiased`}>
+      <body className="antialiased">
         <ScrollRevealProvider>
           <Chrome>{children}</Chrome>
         </ScrollRevealProvider>
