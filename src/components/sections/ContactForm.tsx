@@ -135,6 +135,7 @@ export default function ContactForm({ simple = false }: ContactFormProps) {
   return (
     <form onSubmit={onSubmit} className={cn("cf-card", simple && "cf-card--simple")}>
         <div className="cf-header">
+          {simple && <p className="cf-kicker">Consultation</p>}
           <h2 className="cf-title">{simple ? "Request a Consultation" : "Send an inquiry"}</h2>
           {simple ? (
             <p className="cf-subtitle cf-subtitle--simple">
@@ -147,6 +148,7 @@ export default function ContactForm({ simple = false }: ContactFormProps) {
           )}
         </div>
 
+        <div className={cn(simple && "cf-form-body")}>
         {/* Contact method */}
         <div className="cf-method-group">
           <span className="cf-label">Preferred contact method</span>
@@ -166,7 +168,7 @@ export default function ContactForm({ simple = false }: ContactFormProps) {
                 contactMethod === "email" && "cf-method-btn--active"
               )}
             >
-              <Mail size={15} />
+              <Mail size={13} />
               Email
             </button>
             <button
@@ -177,7 +179,7 @@ export default function ContactForm({ simple = false }: ContactFormProps) {
                 contactMethod === "whatsapp" && "cf-method-btn--active cf-method-btn--wa"
               )}
             >
-              <MessageCircle size={15} />
+              <MessageCircle size={13} />
               WhatsApp
             </button>
           </div>
@@ -294,7 +296,7 @@ export default function ContactForm({ simple = false }: ContactFormProps) {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="How can we help?"
-                rows={6}
+                rows={5}
                 required
               />
             </div>
@@ -353,6 +355,7 @@ export default function ContactForm({ simple = false }: ContactFormProps) {
             </div>
           </>
         )}
+        </div>
 
         {/* Submit */}
         <div className={cn("cf-footer", simple && "cf-footer--simple")}>
