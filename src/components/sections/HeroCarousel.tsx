@@ -14,16 +14,16 @@ export default function HeroCarousel() {
       <div className="hero-new-layout">
         <div className={`hero-new-left ${isLoaded ? "hero-left-enter" : "opacity-0"}`}>
           <p className="hero-kicker">
-            From <span className="text-[#e32929]">core</span> to <span className="text-[#e32929]">edge</span> to the full spectrum of IT and electronics
+            From <span className="text-[#e32929]">Atlanta</span> to the world — one network at a time
           </p>
 
           <h1 className="hero-title mt-4 lg:mt-6">
-            Empowering Productivity<br />through better IT.
+            We solve tech.<br />You run the business.
           </h1>
 
           <div className={`hero-actions ${isLoaded ? "hero-cta-enter" : "opacity-0"}`}>
-            <Button href="/products">
-              Explore Products
+            <Button href="/contact">
+              Start a Conversation
             </Button>
           </div>
         </div>
