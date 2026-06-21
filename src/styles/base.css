@@ -50,10 +50,13 @@ html {
   -webkit-text-size-adjust: 100%;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  overscroll-behavior-y: none;
-  overflow-x: hidden;
+  overscroll-behavior: none;
+  overflow: hidden scroll;
+  max-width: 100%;
 }
 html::-webkit-scrollbar { display: none; }
+html::-webkit-scrollbar-track { display: none; }
+html::-webkit-scrollbar-thumb { display: none; }
 
 body {
   margin: 0;
