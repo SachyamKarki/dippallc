@@ -40,7 +40,7 @@ export default function Navbar({ sticky = true, forceScrolled = false, lightNav 
     const onScroll = () => {
       const y = window.scrollY;
       setScrolled(y > 24);
-      setHidden(y > 80);
+      setHidden(window.innerWidth > 1024 && y > 80);
       lastY = y;
       const doc = document.documentElement;
       const total = doc.scrollHeight - doc.clientHeight;

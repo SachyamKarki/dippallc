@@ -3511,7 +3511,7 @@ section#insights.insights-preview-section {
   background: #ffffff;
   --contact-gap-x: 5cm;
   --contact-gap-bottom: 0.75rem;
-  --site-nav-offset: 81px;
+  --site-nav-offset: calc(80px + env(safe-area-inset-top, 0px));
   padding: var(--site-nav-offset) 0 0;
   margin: 0;
 }

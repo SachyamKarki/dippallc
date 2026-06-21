@@ -8,6 +8,7 @@
   background: transparent;
   border-bottom: none;
   transition: background 0.4s ease, box-shadow 0.4s ease, transform 0.35s ease;
+  isolation: isolate;
 }
 .site-nav-hidden {
   transform: translateY(-100%);
@@ -60,7 +61,7 @@
   background: #ffffff;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: none;
-  --site-nav-offset: 81px;
+  --site-nav-offset: calc(80px + env(safe-area-inset-top, 0px));
 }
 .site-nav-light .site-nav-inner { height: 80px; }
 /* Compact nav on consultation page — removed; use standard nav height */
@@ -276,6 +277,36 @@
 @media (max-width: 1024px) {
   .nav-toggle { display: flex; }
   .site-nav-desktop { display: none; }
+
+  :root {
+    --site-nav-offset: calc(80px + env(safe-area-inset-top, 0px));
+  }
+
+  .site-nav {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  /* Opaque bar on mobile so scrolled content never shows through */
+  .site-nav:not(.site-nav-light) {
+    background: rgba(8, 8, 8, 0.97);
+    backdrop-filter: blur(20px) saturate(1.4);
+    -webkit-backdrop-filter: blur(20px) saturate(1.4);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .site-nav.site-nav-light {
+    background: #ffffff;
+  }
+
+  /* Keep nav pinned — don't slide away and expose page text above it */
+  .site-nav-hidden {
+    transform: none !important;
+  }
+
+  /* Inner pages: offset content below fixed nav */
+  main.site-shell:not(.squarespace-home):not(.contact-page) {
+    padding-top: var(--site-nav-offset);
+  }
 }
 
 /* CTA pill */
@@ -318,7 +349,7 @@
   transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   border-left: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: none;
-  padding-top: 5rem;
+  padding-top: calc(80px + env(safe-area-inset-top, 0px));
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
