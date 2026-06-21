@@ -3876,3 +3876,10 @@ main.contact-page > section.contact-form-only-section {
     max-width: 100%;
   }
 }
+
+/* ─── Phone: min 5cm space after each section ─────────────── */
+@media (max-width: 768px) {
+  section:not(.contact-form-only-section) {
+    padding-bottom: 5cm !important;
+  }
+}

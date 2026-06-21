@@ -28,21 +28,40 @@ export default function TestimonialsSection() {
       .catch(() => {});
   }, []);
 
+  const getCollapsedHeight = () => {
+    if (!gridRef.current) return 400;
+    const cards = [...gridRef.current.querySelectorAll(".testimonial-card")] as HTMLElement[];
+    if (!cards.length) return 400;
+
+    const isPhone = window.matchMedia("(max-width: 767px)").matches;
+    if (isPhone && cards.length >= 2) {
+      const second = cards[1];
+      return second.offsetTop + second.offsetHeight + 10;
+    }
+
+    const firstCard = cards[0];
+    return firstCard.offsetHeight + 10;
+  };
+
   useEffect(() => {
     if (!containerRef.current || !gridRef.current) return;
     if (showAll) {
       gsap.to(containerRef.current, { height: gridRef.current.offsetHeight, duration: 0.8, ease: "power4.inOut" });
     } else {
-      const firstCard = gridRef.current.querySelector(".testimonial-card") as HTMLElement;
-      const h = firstCard ? firstCard.offsetHeight + 10 : 400;
-      gsap.to(containerRef.current, { height: h, duration: 0.8, ease: "power4.inOut" });
+      gsap.to(containerRef.current, { height: getCollapsedHeight(), duration: 0.8, ease: "power4.inOut" });
     }
   }, [showAll, items]);
 
   useEffect(() => {
     if (!gridRef.current || !containerRef.current || showAll) return;
-    const firstCard = gridRef.current.querySelector(".testimonial-card") as HTMLElement;
-    if (firstCard) containerRef.current.style.height = `${firstCard.offsetHeight + 10}px`;
+    containerRef.current.style.height = `${getCollapsedHeight()}px`;
+
+    const onResize = () => {
+      if (!containerRef.current || showAll) return;
+      containerRef.current.style.height = `${getCollapsedHeight()}px`;
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
   }, [items, showAll]);
 
   return (
