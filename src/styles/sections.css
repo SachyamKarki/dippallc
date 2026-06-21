@@ -2719,14 +2719,16 @@
 
 /* ─── Mobile & Tablet Responsive Fixes ─────────────────────── */
 
-/* Hero globe: large on phone */
+/* Hero globe: large on phone, canvas breaks out of grid cell so arcs aren't clipped */
 @media (max-width: 480px) {
-  .hero-new-right { max-width: 100%; width: 100%; height: 45svh; }
+  .hero-new-right { max-width: 100%; width: 100%; height: 45svh; overflow: visible; }
+  .hero-new-layout { overflow: visible; padding: 0.75rem 1rem 1.25rem; gap: 0.75rem; }
+  .hero-full-container { overflow: visible; }
+  .hero-globe-wrapper { position: absolute; top: -60px; left: -50px; right: -50px; bottom: -40px; overflow: visible; }
   .hero-title { font-size: clamp(1.25rem, 6.5vw, 1.6rem); }
   .hero-kicker { font-size: 0.7rem; margin-bottom: 0.4rem; }
   .hero-stats { gap: 0.75rem; }
   .hero-stat-value { font-size: 1.4rem; }
-  .hero-new-layout { padding: 0.75rem 1rem 1.25rem; gap: 0.75rem; }
 }
 
 /* What We Offer — section padding on mobile */
