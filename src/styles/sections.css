@@ -3888,3 +3888,14 @@ main.contact-page > section.contact-form-only-section {
     padding-bottom: 5cm !important;
   }
 }
+
+/* 360 → newsletter: flush on phone (shared black background) */
+@media (max-width: 768px) {
+  section.work-sphere-section {
+    padding-bottom: 0 !important;
+  }
+
+  section.newsletter-section-v2 {
+    padding-top: 0 !important;
+  }
+}
