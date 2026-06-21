@@ -80,7 +80,7 @@ export default function Navbar({ sticky = true, forceScrolled = false, lightNav 
       );
     }
     if (href === "/careers") {
-      return <span className="nav-hiring-badge">Hiring</span>;
+      return <span className="nav-item-tag nav-item-tag--hiring">Hiring</span>;
     }
     return null;
   };
