@@ -38,10 +38,10 @@ h2.newsletter-title,
     align-items: stretch;
     padding-top: 0;
     padding-bottom: 1.5rem;
-    height: 100svh;
-    min-height: unset;
-    max-height: 100svh;
-    overflow: hidden;
+    min-height: 100svh;
+    height: auto;
+    max-height: none;
+    overflow: visible;
   }
 
   .hero-full-container {
@@ -145,38 +145,56 @@ h2.newsletter-title,
     grid-template-columns: 1fr;
     text-align: center;
     padding: calc(0.5rem + env(safe-area-inset-top, 0px)) 1.5rem 2.5rem;
-    gap: 2rem;
+    gap: 1.5rem;
     min-height: 100%;
   }
   .hero-new-left {
+    position: relative;
+    z-index: 2;
     align-items: center;
     text-align: center;
     gap: 0;
-    padding-top: 1.5rem;
+    padding-top: 0.75rem;
   }
   .hero-stats { flex-wrap: wrap; justify-content: center; gap: 1.5rem; }
   .hero-stat-divider { display: none; }
   /* Globe moves to top on mobile */
-  .hero-new-right { order: -1; max-width: 100%; width: 100%; margin: 0 auto; height: 500px; overflow: hidden; }
+  .hero-new-right {
+    order: -1;
+    position: relative;
+    z-index: 1;
+    max-width: 100%;
+    width: 100%;
+    margin: 0 auto;
+    height: clamp(220px, 40svh, 360px);
+    overflow: hidden;
+  }
   .hero-globe-wrapper { inset: 0; overflow: hidden; }
   /* Title spacing */
   .hero-title { margin-bottom: 1.25rem; }
   .hero-kicker { margin-bottom: 0.75rem; }
 }
 @media (max-width: 768px) {
-  .hero-new-right { max-width: 100%; height: 500px; overflow: hidden; }
-  .hero-globe-wrapper { overflow: hidden; }
-  .hero-new-layout { padding: 0.75rem 1.25rem 2rem; gap: 2rem; }
-  .hero-new-left { padding-top: 2.5rem; }
+  .hero-new-right {
+    max-width: 100%;
+    height: clamp(210px, 38svh, 340px);
+    overflow: hidden;
+  }
+  .hero-globe-wrapper { overflow: hidden; inset: 0; }
+  .hero-new-layout { padding: 0.75rem 1.25rem 2rem; gap: 1.25rem; }
+  .hero-new-left { padding-top: 0.5rem; }
   .hero-title { font-size: clamp(1.4rem, 6.5vw, 1.9rem); margin-bottom: 1rem; }
   .hero-kicker { font-size: 0.8rem; margin-bottom: 0.625rem; }
   .hero-actions { align-self: center; }
   .hero-actions .button-primary { padding: 0.75rem 2rem; font-size: 0.875rem; width: auto; align-self: center; }
 }
 @media (max-width: 480px) {
-  .hero-new-right { max-width: 100%; height: 460px; }
-  .hero-new-layout { gap: 1.75rem; }
-  .hero-new-left { padding-top: 2rem; }
+  .hero-new-right {
+    max-width: 100%;
+    height: clamp(200px, 36svh, 300px);
+  }
+  .hero-new-layout { gap: 1rem; }
+  .hero-new-left { padding-top: 0.5rem; }
 }
 
 /* Partners marquee */
@@ -2939,15 +2957,20 @@ section#insights.insights-preview-section {
 @media (max-width: 480px) {
   .hero-section-new,
   .hero-full-container,
-  .hero-new-layout,
-  .hero-new-right {
-    overflow: hidden;
+  .hero-new-layout {
+    overflow: visible;
     max-width: 100%;
   }
-  .hero-new-right { width: 100%; height: 45svh; }
-  .hero-new-layout { padding: 0.75rem 1rem 1.25rem; gap: 1.5rem; }
-  .hero-new-left { padding-top: 2.25rem; }
-  .hero-globe-wrapper { inset: -6% -4%; overflow: hidden; }
+
+  .hero-new-right {
+    width: 100%;
+    height: clamp(200px, 36svh, 300px);
+    overflow: hidden;
+  }
+
+  .hero-new-layout { padding: 0.75rem 1rem 1.25rem; gap: 1rem; }
+  .hero-new-left { padding-top: 0.5rem; }
+  .hero-globe-wrapper { inset: 0; overflow: hidden; }
   .hero-title { font-size: clamp(1.25rem, 6.5vw, 1.6rem); }
   .hero-kicker { font-size: 0.7rem; margin-bottom: 0.4rem; }
   .hero-stats { gap: 0.75rem; }
@@ -3925,7 +3948,7 @@ main.contact-page > section.contact-form-only-section {
 
   section.newsletter-section-v2 {
     padding-top: 0 !important;
-    padding-bottom: clamp(2rem, 6vw, 3rem) !important;
+    padding-bottom: clamp(2.5rem, 8vw, 4rem) !important;
     background: #000000;
   }
 
