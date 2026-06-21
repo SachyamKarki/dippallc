@@ -189,15 +189,15 @@ export default function HeroGlobe() {
     });
 
     /* ── Rotation state ── */
-    const BASE    = globe.rotation.y;
-    let scrollDelta = 0;
+    // Start with Americas/Atlanta facing camera, drift slowly towards Europe
+    const BASE    = 0.0;
+    globe.rotation.y = BASE;
+    globe.rotation.x = 0.08;
+    let autoRotate  = 0;   // accumulates constant rightward drift
     let dragDeltaY  = 0;
     let dragDeltaX  = 0;
     let currentY    = BASE;
     let currentX    = globe.rotation.x;
-
-    function onScroll() { scrollDelta = window.scrollY / 260; }
-    window.addEventListener("scroll", onScroll, { passive: true });
 
     let isDragging = false, lastX = 0, lastY = 0, velX = 0, velY = 0;
     const canvas = renderer.domElement;
@@ -225,16 +225,13 @@ export default function HeroGlobe() {
     canvas.addEventListener("pointerup",    pointerUp);
     canvas.addEventListener("pointerleave", pointerUp);
 
-    let lastSY = -1, idleT = 0;
     const raf  = { id: 0 };
 
     function animate(t: number) {
       raf.id = requestAnimationFrame(animate);
 
-      const sy = window.scrollY;
-      if (sy !== lastSY) { lastSY = sy; idleT = t; }
-
-      if (!isDragging && t - idleT > 1500) dragDeltaY += 0.0005;
+      // Always drift right (towards Europe) — drag temporarily overrides
+      if (!isDragging) autoRotate += 0.0004;
 
       if (!isDragging && (Math.abs(velX) > 0.0001 || Math.abs(velY) > 0.0001)) {
         dragDeltaY += velX; dragDeltaX += velY;
@@ -242,8 +239,8 @@ export default function HeroGlobe() {
       }
 
       dragDeltaX = Math.max(-0.6, Math.min(0.6, dragDeltaX));
-      const targetY = BASE + scrollDelta + dragDeltaY;
-      const targetX = 0.1 + dragDeltaX;
+      const targetY = BASE + autoRotate + dragDeltaY;
+      const targetX = 0.08 + dragDeltaX;
       currentY += (targetY - currentY) * 0.07;
       currentX += (targetX - currentX) * 0.07;
 
@@ -320,7 +317,7 @@ export default function HeroGlobe() {
     return () => {
       cancelAnimationFrame(raf.id);
       ro.disconnect();
-      window.removeEventListener("scroll", onScroll);
+      // scroll listener removed (no longer used)
       canvas.removeEventListener("pointerdown",  pointerDown);
       canvas.removeEventListener("pointermove",  pointerMove);
       canvas.removeEventListener("pointerup",    pointerUp);
