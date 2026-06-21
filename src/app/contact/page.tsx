@@ -1,4 +1,4 @@
-import ContactForm from "@/components/sections/ContactForm";
+import ContactPageClient from "@/components/sections/ContactPageClient";
 
 export const metadata = {
   title: "Request a Consultation — DIPPA IT Solutions",
@@ -7,13 +7,5 @@ export const metadata = {
 };
 
 export default function ContactPage() {
-  return (
-    <main className="contact-page">
-      <section className="contact-form-only-section">
-        <div className="section-shell contact-form-only-shell">
-          <ContactForm simple />
-        </div>
-      </section>
-    </main>
-  );
+  return <ContactPageClient />;
 }

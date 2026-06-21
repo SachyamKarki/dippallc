@@ -60,8 +60,10 @@
   background: #ffffff;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: none;
+  --site-nav-offset: 81px;
 }
 .site-nav-light .site-nav-inner { height: 80px; }
+/* Compact nav on consultation page — removed; use standard nav height */
 .site-nav-light .nav-logo-link { color: #0a0a0a; }
 .site-nav-light .dippa-logo-text { color: #0a0a0a; }
 .site-nav-light .site-nav-link {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { cn } from "@/lib/utils";
 
 const faqs = [
   {
@@ -35,7 +36,7 @@ const faqs = [
   },
 ];
 
-export default function FAQSection() {
+export default function FAQSection({ onContactPage = false }: { onContactPage?: boolean }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const bodyRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -55,13 +56,23 @@ export default function FAQSection() {
   const toggle = (i: number) => setOpenIndex(openIndex === i ? null : i);
 
   return (
-    <section className="faq-section" id="faq">
-      <div className="section-shell">
+    <section className={cn("faq-section", onContactPage && "faq-section--contact")} id="faq">
+      <div className="section-shell faq-section-shell">
         <div className="faq-heading-block">
           <p className="faq-kicker">FAQ</p>
           <h2 className="faq-title">Questions we hear often.</h2>
           <p className="faq-subtitle">
-            If your question isn&apos;t answered here, <a href="/contact" className="underline underline-offset-2 text-[var(--accent)] font-semibold">send us a message</a> — we respond within one business day.
+            {onContactPage ? (
+              <>Everything below covers how we work, timelines, and engagement models — before you submit your inquiry.</>
+            ) : (
+              <>
+                If your question isn&apos;t answered here,{" "}
+                <a href="/contact" className="underline underline-offset-2 text-[var(--accent)] font-semibold">
+                  send us a message
+                </a>{" "}
+                — we respond within one business day.
+              </>
+            )}
           </p>
         </div>
 

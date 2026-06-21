@@ -27,7 +27,7 @@ export default function Chrome({ children }: { children: ReactNode }) {
         />
       )}
       {children}
-      <Footer />
+      {!isContactPage && <Footer />}
     </SiteAudioProvider>
   );
 }

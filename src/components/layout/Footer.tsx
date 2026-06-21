@@ -33,13 +33,7 @@ export default function Footer() {
             <p className="footer-tagline">
               End-to-end IT solutions for businesses that demand reliability. From infrastructure and networks to AI automation and support — we keep your operations running.
             </p>
-            <p className="footer-address">
-              270 17th St NW<br />
-              Atlanta, GA 30363-1205<br />
-              United States
-            </p>
 
-            {/* Contact info below address */}
             <div className="footer-inline-contact">
               <p className="footer-inline-mail-row">
                 <a href="mailto:info@thedippa.com" className="footer-inline-mail">info@thedippa.com</a>

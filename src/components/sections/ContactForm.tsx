@@ -2,7 +2,7 @@
 
 import { useMemo, useState, useRef, useEffect } from "react";
 import { Mail, MessageCircle, ChevronDown, Check } from "lucide-react";
-import { toast, Toaster } from "sonner";
+import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 
 type FormState = "idle" | "submitting" | "success" | "error";
@@ -34,6 +34,7 @@ export default function ContactForm({ simple = false }: ContactFormProps) {
   const [state, setState] = useState<FormState>("idle");
   const [contactMethod, setContactMethod] = useState<ContactMethod>("email");
   const [name, setName] = useState("");
+  const [company, setCompany] = useState("");
   const [email, setEmail] = useState("");
   const [countryCode, setCountryCode] = useState("+977");
   const [phone, setPhone] = useState("");
@@ -67,6 +68,7 @@ export default function ContactForm({ simple = false }: ContactFormProps) {
         `*NEW PROJECT INQUIRY — DIPPA IT Solutions*`,
         `━━━━━━━━━━━━━━━━━━━━`,
         `*Name:* ${name.trim()}`,
+        company.trim() ? `*Company:* ${company.trim()}` : null,
         `*Contact:* ${num}`,
         category ? `*Category:* ${category}` : null,
         ``,
@@ -98,7 +100,7 @@ export default function ContactForm({ simple = false }: ContactFormProps) {
       const res = await fetch(`${apiUrl}/api/contact/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, category, message }),
+        body: JSON.stringify({ name, company, email, category, message }),
       });
       if (res.ok) {
         setState("success");
@@ -131,12 +133,14 @@ export default function ContactForm({ simple = false }: ContactFormProps) {
   }
 
   return (
-    <>
-      <Toaster position="top-center" />
-      <form onSubmit={onSubmit} className={cn("cf-card", simple && "cf-card--simple")}>
+    <form onSubmit={onSubmit} className={cn("cf-card", simple && "cf-card--simple")}>
         <div className="cf-header">
           <h2 className="cf-title">{simple ? "Request a Consultation" : "Send an inquiry"}</h2>
-          {!simple && (
+          {simple ? (
+            <p className="cf-subtitle cf-subtitle--simple">
+              Share the essentials — we&apos;ll reply with next steps within one business day.
+            </p>
+          ) : (
             <p className="cf-subtitle">
               Share the essentials — we&apos;ll reply with next steps within 24 hours.
             </p>
@@ -232,61 +236,123 @@ export default function ContactForm({ simple = false }: ContactFormProps) {
           )}
         </div>
 
-        {/* Category dropdown */}
-        <div className="cf-field">
-          <label className="cf-label">Project category</label>
-          <div className="cf-dropdown" ref={dropdownRef}>
-            <button
-              type="button"
-              onClick={() => setCategoryOpen(!isCategoryOpen)}
-              className={cn("cf-input cf-dropdown-btn", isCategoryOpen && "cf-dropdown-btn--open")}
-            >
-              <span className={category ? "cf-dropdown-value" : "cf-dropdown-placeholder"}>
-                {category || "Select a category…"}
-              </span>
-              <ChevronDown
-                size={16}
-                className={cn("cf-dropdown-chevron", isCategoryOpen && "cf-dropdown-chevron--open")}
-              />
-            </button>
-            {isCategoryOpen && (
-              <div className="cf-dropdown-menu">
-                {categories.map((c, i) => (
+        {/* Category + message — side by side on consultation page */}
+        {simple ? (
+          <>
+            <div className="cf-row">
+              <div className="cf-field">
+                <label className="cf-label">Project category</label>
+                <div className="cf-dropdown" ref={dropdownRef}>
                   <button
-                    key={c}
                     type="button"
-                    onClick={() => { setCategory(c); setCategoryOpen(false); }}
-                    className={cn(
-                      "cf-dropdown-item",
-                      i > 0 && "cf-dropdown-item--border",
-                      category === c && "cf-dropdown-item--selected"
-                    )}
+                    onClick={() => setCategoryOpen(!isCategoryOpen)}
+                    className={cn("cf-input cf-dropdown-btn", isCategoryOpen && "cf-dropdown-btn--open")}
                   >
-                    {c}
-                    {category === c && <Check size={13} className="cf-dropdown-check" />}
+                    <span className={category ? "cf-dropdown-value" : "cf-dropdown-placeholder"}>
+                      {category || "Select a category…"}
+                    </span>
+                    <ChevronDown
+                      size={14}
+                      className={cn("cf-dropdown-chevron", isCategoryOpen && "cf-dropdown-chevron--open")}
+                    />
                   </button>
-                ))}
+                  {isCategoryOpen && (
+                    <div className="cf-dropdown-menu">
+                      {categories.map((c, i) => (
+                        <button
+                          key={c}
+                          type="button"
+                          onClick={() => { setCategory(c); setCategoryOpen(false); }}
+                          className={cn(
+                            "cf-dropdown-item",
+                            i > 0 && "cf-dropdown-item--border",
+                            category === c && "cf-dropdown-item--selected"
+                          )}
+                        >
+                          {c}
+                          {category === c && <Check size={12} className="cf-dropdown-check" />}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
-            )}
-          </div>
-        </div>
-
-        {/* Message */}
-        <div className="cf-field">
-          <label className="cf-label">
-            Message
-            {!simple && (
-              <span className="cf-label-hint">Describe your project and timeline</span>
-            )}
-          </label>
-          <textarea
-            className="cf-input cf-textarea"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            placeholder={simple ? "How can we help?" : "Tell us about your project objectives, technical landscape, and what success looks like..."}
-            required
-          />
-        </div>
+              <div className="cf-field">
+                <label className="cf-label">Company name</label>
+                <input
+                  className="cf-input"
+                  value={company}
+                  onChange={(e) => setCompany(e.target.value)}
+                  placeholder="Your company"
+                />
+              </div>
+            </div>
+            <div className="cf-field cf-field--message">
+              <label className="cf-label">Message</label>
+              <textarea
+                className="cf-input cf-textarea"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="How can we help?"
+                rows={6}
+                required
+              />
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="cf-field">
+              <label className="cf-label">Project category</label>
+              <div className="cf-dropdown" ref={dropdownRef}>
+                <button
+                  type="button"
+                  onClick={() => setCategoryOpen(!isCategoryOpen)}
+                  className={cn("cf-input cf-dropdown-btn", isCategoryOpen && "cf-dropdown-btn--open")}
+                >
+                  <span className={category ? "cf-dropdown-value" : "cf-dropdown-placeholder"}>
+                    {category || "Select a category…"}
+                  </span>
+                  <ChevronDown
+                    size={16}
+                    className={cn("cf-dropdown-chevron", isCategoryOpen && "cf-dropdown-chevron--open")}
+                  />
+                </button>
+                {isCategoryOpen && (
+                  <div className="cf-dropdown-menu">
+                    {categories.map((c, i) => (
+                      <button
+                        key={c}
+                        type="button"
+                        onClick={() => { setCategory(c); setCategoryOpen(false); }}
+                        className={cn(
+                          "cf-dropdown-item",
+                          i > 0 && "cf-dropdown-item--border",
+                          category === c && "cf-dropdown-item--selected"
+                        )}
+                      >
+                        {c}
+                        {category === c && <Check size={13} className="cf-dropdown-check" />}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="cf-field">
+              <label className="cf-label">
+                Message
+                <span className="cf-label-hint">Describe your project and timeline</span>
+              </label>
+              <textarea
+                className="cf-input cf-textarea"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Tell us about your project objectives, technical landscape, and what success looks like..."
+                required
+              />
+            </div>
+          </>
+        )}
 
         {/* Submit */}
         <div className={cn("cf-footer", simple && "cf-footer--simple")}>
@@ -320,6 +386,5 @@ export default function ContactForm({ simple = false }: ContactFormProps) {
           </button>
         </div>
       </form>
-    </>
   );
 }
