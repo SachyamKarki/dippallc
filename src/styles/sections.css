@@ -35,13 +35,20 @@ h2.newsletter-title,
 }
 @media (max-width: 1024px) {
   .hero-section-new {
-    align-items: center;
-    padding-top: 5rem;
+    align-items: stretch;
+    padding-top: 0;
     padding-bottom: 1.5rem;
     height: 100svh;
     min-height: unset;
     max-height: 100svh;
     overflow: hidden;
+  }
+
+  .hero-full-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
   }
 }
 @media (min-width: 1024px) {
@@ -134,8 +141,14 @@ h2.newsletter-title,
 .hero-cta-enter    { animation: fadeInUp 0.8s ease-out both; animation-delay: 0.5s; }
 .hero-right-enter  { animation: fadeInUp 1s   ease-out both; animation-delay: 0.4s; }
 @media (max-width: 1024px) {
-  .hero-new-layout { grid-template-columns: 1fr; text-align: center; padding: 1rem 1.5rem 2.5rem; gap: 2.5rem; }
-  .hero-new-left { align-items: center; text-align: center; gap: 0; padding-top: 3.5rem; }
+  .hero-new-layout {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: calc(0.5rem + env(safe-area-inset-top, 0px)) 1.5rem 2.5rem;
+    gap: 2rem;
+    min-height: 100%;
+  }
+  .hero-new-left { align-items: center; text-align: center; gap: 0; padding-top: 0; }
   .hero-stats { flex-wrap: wrap; justify-content: center; gap: 1.5rem; }
   .hero-stat-divider { display: none; }
   /* Globe moves to top on mobile */

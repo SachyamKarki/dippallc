@@ -74,25 +74,35 @@ export default function Navbar({ sticky = true, forceScrolled = false, lightNav 
   }, [forceScrolled]);
 
   useEffect(() => {
+    if (!isMenuOpen) return;
+
+    const scrollY = window.scrollY;
     const html = document.documentElement;
-    if (isMenuOpen) {
-      document.body.style.overflow = "hidden";
-      html.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-      html.style.overflow = "";
-    }
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.width = "100%";
+    document.body.style.overflow = "hidden";
+    html.style.overflow = "hidden";
+
     return () => {
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      document.body.style.width = "";
       document.body.style.overflow = "";
       html.style.overflow = "";
+      window.scrollTo(0, scrollY);
     };
   }, [isMenuOpen]);
 
   // Nav tone: white controls on dark sections, black on light sections
   useEffect(() => {
     const detectSurface = () => {
-      if (lightNav) {
-        setNavSurface("light");
+      if (lightNav || isMenuOpen) {
+        if (lightNav) setNavSurface("light");
         return;
       }
 
@@ -133,7 +143,7 @@ export default function Navbar({ sticky = true, forceScrolled = false, lightNav 
       window.removeEventListener("scroll", detectSurface);
       window.removeEventListener("resize", detectSurface);
     };
-  }, [lightNav, pathname]);
+  }, [isMenuOpen, lightNav, pathname]);
 
   const closeMenu = () => setIsMenuOpen(false);
 
@@ -243,16 +253,19 @@ export default function Navbar({ sticky = true, forceScrolled = false, lightNav 
         </div>
       </nav>
 
-      {/* Mobile backdrop */}
-      {isMenuOpen && (
-        <div
-          className="fixed inset-0 z-[97] bg-black/60 backdrop-blur-sm"
-          onClick={closeMenu}
-        />
-      )}
+      {/* Mobile backdrop — always mounted to avoid open/close flash */}
+      <div
+        className={`mobile-drawer-backdrop${isMenuOpen ? " mobile-drawer-backdrop-open" : ""}`}
+        onClick={closeMenu}
+        aria-hidden={!isMenuOpen}
+      />
 
       {/* Mobile drawer */}
-      <div className={`mobile-drawer${isMenuOpen ? " mobile-drawer-open" : ""}`}>
+      <div
+        className={`mobile-drawer${isMenuOpen ? " mobile-drawer-open" : ""}`}
+        aria-hidden={!isMenuOpen}
+        inert={isMenuOpen ? undefined : true}
+      >
         <div className="mobile-drawer-panel">
           <ul className="mobile-drawer-links">
             {navLinks.map((item) => {
