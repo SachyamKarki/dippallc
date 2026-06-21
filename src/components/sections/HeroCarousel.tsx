@@ -14,7 +14,7 @@ export default function HeroCarousel() {
       <div className="hero-new-layout">
         <div className={`hero-new-left ${isLoaded ? "hero-left-enter" : "opacity-0"}`}>
           <p className="hero-kicker">
-            From <span className="text-[#e32929]">Atlanta</span> to the world — one network at a time
+            From <span className="hero-kicker-accent">Atlanta</span> to the world — one network at a time
           </p>
 
           <h1 className="hero-title mt-4 lg:mt-6">

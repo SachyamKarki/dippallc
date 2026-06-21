@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { Volume2, VolumeX } from "lucide-react";
 import Button from "@/components/ui/Button";
 import DippaLogo from "@/components/layout/DippaLogo";
-import { navLinks } from "@/lib/data";
+import { navLinks, navLinkCounts } from "@/lib/data";
 import { useSiteAudio } from "@/components/layout/SiteAudioProvider";
 
 interface NavbarProps {
@@ -70,6 +70,21 @@ export default function Navbar({ sticky = true, forceScrolled = false, lightNav 
 
   const closeMenu = () => setIsMenuOpen(false);
 
+  const renderNavBadge = (href: string) => {
+    const count = navLinkCounts[href as keyof typeof navLinkCounts];
+    if (count != null) {
+      return (
+        <span className="nav-item-tag" aria-label={`${count} items`}>
+          {count}
+        </span>
+      );
+    }
+    if (href === "/careers") {
+      return <span className="nav-hiring-badge">Hiring</span>;
+    }
+    return null;
+  };
+
   if (isProjectPage) return null;
 
   const navClass = [
@@ -93,7 +108,6 @@ export default function Navbar({ sticky = true, forceScrolled = false, lightNav 
             <ul className="site-nav-links">
               {navLinks.map((item) => {
                 const isActive = pathname === item.href || pathname?.startsWith(item.href + "/");
-                const isCareers = item.href === "/careers";
                 return (
                   <li key={item.href} className="relative">
                     <Link
@@ -102,7 +116,7 @@ export default function Navbar({ sticky = true, forceScrolled = false, lightNav 
                       onClick={closeMenu}
                     >
                       {item.label}
-                      {isCareers && <span className="nav-hiring-badge">Hiring</span>}
+                      {renderNavBadge(item.href)}
                     </Link>
                     {isActive && <span className="nav-active-dot" aria-hidden="true" />}
                   </li>
@@ -159,7 +173,6 @@ export default function Navbar({ sticky = true, forceScrolled = false, lightNav 
           <ul className="mobile-drawer-links">
             {navLinks.map((item) => {
               const isActive = pathname === item.href;
-              const isCareers = item.href === "/careers";
               return (
                 <li key={item.href}>
                   <Link
@@ -168,7 +181,7 @@ export default function Navbar({ sticky = true, forceScrolled = false, lightNav 
                     className={`mobile-drawer-nav-link${isActive ? " mobile-drawer-nav-link-active" : ""}`}
                   >
                     <span>{item.label}</span>
-                    {isCareers && <span className="nav-hiring-badge">Hiring</span>}
+                    {renderNavBadge(item.href)}
                   </Link>
                 </li>
               );

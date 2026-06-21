@@ -73,7 +73,6 @@ export default function InsightsSection() {
               article={article}
               index={i}
               compact
-              priority={i < 2}
             />
           ))}
         </div>

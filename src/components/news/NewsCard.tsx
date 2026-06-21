@@ -81,6 +81,7 @@ export default function NewsCard({ article, index = 0, compact = false, priority
             fill
             unoptimized
             priority={priority}
+            loading={priority ? undefined : "lazy"}
             sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 25vw"
             className="news-card-img"
           />

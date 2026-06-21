@@ -44,8 +44,10 @@ const webImages = Array.from({ length: 32 }).map((_, i) => `/projects/${(i % 16)
 
 export default function InteractiveProjectGrid() {
   const router = useRouter();
+  const sectionRef = useRef<HTMLElement | null>(null);
   const stageRef = useRef<HTMLDivElement | null>(null);
   const viewportRef = useRef<HTMLDivElement | null>(null);
+  const [sceneReady, setSceneReady] = useState(false);
   const pointerRef = useRef({
     active: false,
     startX: 0,
@@ -65,6 +67,26 @@ export default function InteractiveProjectGrid() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setSceneReady(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "240px 0px" }
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!sceneReady) return;
+
     const stage = stageRef.current;
     const viewport = viewportRef.current;
 
@@ -114,13 +136,18 @@ export default function InteractiveProjectGrid() {
     const angleStep = (Math.PI * 2) / itemsPerRow;
 
     const textureLoader = new THREE.TextureLoader();
-    const siteTextures = mockSites.map((_, index) => {
-      const url = webImages[index % webImages.length];
+    const uniqueUrls = [...new Set(webImages.slice(0, 16))];
+    const textureByUrl = new Map<string, THREE.Texture>();
+    uniqueUrls.forEach((url) => {
       const texture = textureLoader.load(url);
       texture.colorSpace = THREE.SRGBColorSpace;
       texture.generateMipmaps = true;
       texture.minFilter = THREE.LinearMipmapLinearFilter;
-      return texture;
+      textureByUrl.set(url, texture);
+    });
+    const siteTextures = mockSites.map((_, index) => {
+      const url = webImages[index % webImages.length];
+      return textureByUrl.get(url)!;
     });
 
     Array.from({ length: totalCards }).forEach((_, index) => {
@@ -200,6 +227,7 @@ export default function InteractiveProjectGrid() {
       renderer.dispose();
       planeGeometry.dispose();
       siteTextures.forEach(t => t.dispose());
+      textureByUrl.forEach((t) => t.dispose());
       viewport.removeChild(renderer.domElement);
 
       scene.traverse((object: THREE.Object3D) => {
@@ -216,10 +244,10 @@ export default function InteractiveProjectGrid() {
         }
       });
     };
-  }, []);
+  }, [sceneReady]);
 
   return (
-    <section className="work-sphere-section" aria-labelledby="project-showcase-title">
+    <section ref={sectionRef} className="work-sphere-section" aria-labelledby="project-showcase-title">
       <div className="work-sphere-shell">
         <div
           ref={stageRef}

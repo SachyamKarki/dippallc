@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
@@ -59,13 +59,6 @@ export default function ServiceTabs() {
   const [activeTab, setActiveTab] = useState(services[0].id);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const imageRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    services.forEach((service) => {
-      const img = new window.Image();
-      img.src = service.image;
-    });
-  }, []);
 
   const activeService = services.find(s => s.id === activeTab) || services[0];
   const activeIndex = services.findIndex(s => s.id === activeTab);
@@ -187,21 +180,16 @@ export default function ServiceTabs() {
                     transition: 'transform 0.15s ease-out',
                   }}
                 >
-                  {services.map((service, index) => (
-                    <Image
-                      key={service.id}
-                      src={service.image}
-                      alt={service.name}
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 512px"
-                      quality={75}
-                      priority={index === 0}
-                      className={cn(
-                        "object-cover service-image-zoom transition-opacity duration-300",
-                        activeService.id === service.id ? "opacity-100 z-10" : "opacity-0 z-0"
-                      )}
-                    />
-                  ))}
+                  <Image
+                    key={activeService.id}
+                    src={activeService.image}
+                    alt={activeService.name}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 512px"
+                    quality={75}
+                    loading="lazy"
+                    className="object-cover service-image-zoom opacity-100 z-10"
+                  />
                   <div
                     className="absolute inset-0 pointer-events-none"
                     style={{

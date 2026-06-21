@@ -55,7 +55,7 @@ export default function JourneySection() {
               alt="Start your journey with Dippa"
               fill
               className="journey-v2-img"
-              priority
+              loading="lazy"
             />
             {/* Motivational overlay quote */}
             <div className="journey-v2-img-overlay">

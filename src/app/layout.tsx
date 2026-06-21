@@ -63,8 +63,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`scroll-smooth ${lato.variable} ${playfair.variable}`}>
       <head>
-        <link rel="preload" href="/earth-night.jpg" as="image" />
-        <link rel="preload" href="/projects/1.jpg" as="image" />
+        <link rel="preload" href="/earth-night.jpg" as="image" fetchPriority="high" />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
       </head>
       <body className="antialiased">

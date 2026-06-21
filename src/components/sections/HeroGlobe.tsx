@@ -70,6 +70,12 @@ export default function HeroGlobe() {
     const container = mountRef.current;
     if (!container) return;
 
+    // Warm cache for hero LCP texture (also preloaded in root layout)
+    const preload = new window.Image();
+    preload.fetchPriority = "high";
+    preload.decoding = "async";
+    preload.src = "/earth-night.jpg";
+
     const W = container.clientWidth  || 520;
     const H = container.clientHeight || 520;
 

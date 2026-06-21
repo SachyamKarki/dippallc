@@ -62,7 +62,7 @@ export default function TestimonialsSection() {
                   <div className="testimonial-person">
                     <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full bg-gray-100">
                       {t.image_url ? (
-                        <Image src={t.image_url} alt={t.name} fill className="testimonial-avatar" />
+                        <Image src={t.image_url} alt={t.name} fill className="testimonial-avatar" loading="lazy" />
                       ) : (
                         <div className="flex h-full w-full items-center justify-center text-sm font-bold text-gray-400">
                           {t.name.charAt(0)}

@@ -1,3 +1,5 @@
+import { examplePosts } from "@/lib/blog/examplePosts";
+
 export const studioStats = [
   { value: "48", suffix: "+", label: "high-trust launches shipped" },
   { value: "14", suffix: "d", label: "to first production prototype" },
@@ -447,3 +449,9 @@ export const blogPosts = [
     image: "/images/blog-consulting.png",
   },
 ] as const;
+
+/** Live item counts shown on navbar clothing tags */
+export const navLinkCounts: Partial<Record<(typeof navLinks)[number]["href"], number>> = {
+  "/products": allProducts.length,
+  "/news": examplePosts.length,
+};
