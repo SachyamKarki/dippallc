@@ -80,7 +80,7 @@ export default function TestimonialsSection() {
           <div className={`pointer-events-none absolute bottom-0 left-0 h-32 w-full bg-gradient-to-t from-white to-transparent transition-opacity duration-700 ${showAll ? "opacity-0" : "opacity-100"}`} />
         </div>
 
-        <div className="mt-16 flex justify-center">
+        <div className="mt-16 flex justify-start">
           <button
             onClick={() => {
               if (showAll) {
@@ -90,7 +90,7 @@ export default function TestimonialsSection() {
             }}
             className="button-primary"
           >
-            {showAll ? "Show less" : "View more testimonials"}
+            VIEW MORE
           </button>
         </div>
       </div>

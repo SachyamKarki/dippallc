@@ -113,7 +113,7 @@ export default function ServiceTabs() {
         <div className="sm:hidden w-full px-4 mt-4 flex flex-col divide-y divide-black/10">
           {services.map((service, index) => (
             <div key={service.id} className="py-6 first:pt-2">
-              <p style={{ fontFamily: 'var(--font-display)', fontSize: '0.8rem', letterSpacing: '0.18em', color: '#000', marginBottom: '0.5rem' }}>
+              <p style={{ fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#000', marginBottom: '0.5rem' }}>
                 {String(index + 1).padStart(2, "0")}{"  "}{service.name}
               </p>
               <p style={{ fontFamily: 'var(--font-main)', fontSize: '0.9375rem', fontWeight: 700, lineHeight: 1.35, color: '#000', marginBottom: '0.5rem', letterSpacing: '-0.02em' }}>

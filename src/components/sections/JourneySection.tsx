@@ -72,9 +72,6 @@ export default function JourneySection() {
             <p className="journey-v2-sub">
               Every engagement starts with understanding your business first. No templates, no guesswork — just a clear path from where you are to where you need to be.
             </p>
-            <Link href="/contact" className="button-primary journey-v2-hero-cta">
-              Get Started
-            </Link>
           </div>
         </div>
 
@@ -95,6 +92,12 @@ export default function JourneySection() {
               <p className="journey-v2-step-text">{step.text}</p>
             </div>
           ))}
+        </div>
+
+        <div className="journey-v2-cta-row">
+          <Link href="/contact" className="button-primary journey-v2-hero-cta">
+            Get Started
+          </Link>
         </div>
 
       </div>
