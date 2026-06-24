@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { FacebookIcon, InstagramIcon, LinkedInIcon } from "@/components/ui/Icons";
 import DippaLogo from "@/components/layout/DippaLogo";
-import { footerSocialLinks } from "@/lib/data";
+import { dippaMotto, footerSocialLinks } from "@/lib/data";
 
 const footerNav = [
   { label: "Overview", href: "/" },
@@ -35,9 +35,7 @@ export default function Footer() {
             <Link href="/" className="footer-logo-link" aria-label="Dippa home">
               <DippaLogo />
             </Link>
-            <p className="footer-tagline">
-              End-to-end IT solutions for businesses that demand reliability. From infrastructure and networks to AI automation and support — we keep your operations running.
-            </p>
+            <p className="footer-tagline">{dippaMotto}</p>
 
             <div className="footer-inline-contact">
               <p className="footer-inline-mail-row">

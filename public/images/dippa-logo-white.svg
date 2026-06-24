@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 88" fill="none" role="img" aria-label="DIPPA.">
+  <defs>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@800&amp;display=swap");
+      .dippa-wordmark {
+        font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+        font-size: 72px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        fill: #ffffff;
+      }
+    </style>
+  </defs>
+  <text x="0" y="66" class="dippa-wordmark">DIPPA.</text>
+</svg>

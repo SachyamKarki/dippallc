@@ -3,6 +3,7 @@ import { Lato, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import ScrollRevealProvider from "@/components/layout/ScrollRevealProvider";
 import Chrome from "@/components/layout/Chrome";
+import { dippaMotto } from "@/lib/data";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -19,11 +20,11 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   metadataBase: new URL("https://dippa.group"),
   title: {
-    default: "Dippa | Senior-Led Product Engineering & AI Orchestration",
+    default: `Dippa | ${dippaMotto}`,
     template: "%s | Dippa",
   },
   description:
-    "Dippa delivers high-stakes software transformations and autonomous AI agent systems for modern enterprise leadership. Built for speed, precision, and architectural excellence.",
+    `${dippaMotto}. Dippa delivers high-stakes software transformations and autonomous AI agent systems for modern enterprise leadership.`,
   keywords: [
     "enterprise software transformation",
     "autonomous AI orchestration",
@@ -33,8 +34,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "Dippa",
-    description:
-      "Premium software products, AI agent systems, and consulting-led execution.",
+    description: dippaMotto,
     url: "https://dippa.group",
     siteName: "Dippa",
     type: "website",
@@ -50,8 +50,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Dippa",
-    description:
-      "Premium software products, AI agent systems, and consulting-led execution.",
+    description: dippaMotto,
   },
 };
 

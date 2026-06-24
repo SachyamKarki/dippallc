@@ -1,5 +1,7 @@
 import { examplePosts } from "@/lib/blog/examplePosts";
 
+export const dippaMotto = "Aiming to Quantum Computing";
+
 export const studioStats = [
   { value: "48", suffix: "+", label: "high-trust launches shipped" },
   { value: "14", suffix: "d", label: "to first production prototype" },
