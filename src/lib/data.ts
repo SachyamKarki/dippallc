@@ -228,7 +228,48 @@ export const careers = [
   },
 ] as const;
 
+export const GANTABYA_LEGAL = {
+  privacy: "https://admin-web-three-amber.vercel.app/privacy",
+  terms: "https://admin-web-three-amber.vercel.app/terms",
+  support: "https://admin-web-three-amber.vercel.app/support",
+} as const;
+
 export const allProducts = [
+  {
+    slug: "gantabya",
+    name: "Gantabya",
+    description:
+      "Kathmandu Valley bus transit guide — plan journeys with official routes, road-following maps, traffic-aware estimates, and step-by-step trip guidance.",
+    category: "Mobile App",
+    image: "/images/gantabya.png",
+    href: "/projects/gantabya",
+    stack: ["React Native", "Apple Maps", "Transit Routing", "Live Traffic"],
+    stats: [
+      { label: "Valley Routes", value: "80", suffix: "+" },
+      { label: "Version", value: "1.0", suffix: ".0" },
+    ],
+    timeline: "Coming soon",
+    liveLink: "",
+    status: "coming-soon" as const,
+    legal: GANTABYA_LEGAL,
+    details: [
+      {
+        type: "narrative" as const,
+        title: "The Objective",
+        body: "Help riders across Kathmandu, Lalitpur, and Bhaktapur find the right bus, see where it actually travels on the road, and get clear boarding and alighting guidance.",
+      },
+      {
+        type: "narrative" as const,
+        title: "What it delivers",
+        body: "Direct and transfer trip search, road-snapped map paths, traffic-aware timing when available, road disruption alerts, and optional in-trip guidance — free, with no account required for v1.0.0.",
+      },
+      {
+        type: "impact" as const,
+        title: "Status",
+        body: "Gantabya is preparing for App Store launch. Product pages, privacy policy, and support are live while the public listing goes through review.",
+      },
+    ],
+  },
   {
     slug: "ops-canvas",
     name: "Ops Canvas",
