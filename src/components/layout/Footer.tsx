@@ -4,7 +4,6 @@ import Link from "next/link";
 import { FacebookIcon, InstagramIcon, LinkedInIcon } from "@/components/ui/Icons";
 import DippaLogo from "@/components/layout/DippaLogo";
 import NewsletterForm from "@/components/sections/NewsletterForm";
-import { COOKIE_SETTINGS_EVENT } from "@/components/layout/CookieConsent";
 import { dippaMotto, footerSocialLinks } from "@/lib/data";
 
 const footerNav = [
@@ -101,14 +100,6 @@ export default function Footer() {
             <Link href="/privacy" className="footer-legal-link">Privacy</Link>
             <span className="footer-legal-sep" aria-hidden="true">·</span>
             <Link href="/terms" className="footer-legal-link">Terms</Link>
-            <span className="footer-legal-sep" aria-hidden="true">·</span>
-            <button
-              type="button"
-              className="footer-legal-link footer-legal-link-btn"
-              onClick={() => window.dispatchEvent(new Event(COOKIE_SETTINGS_EVENT))}
-            >
-              Cookie settings
-            </button>
           </div>
         </div>
 
