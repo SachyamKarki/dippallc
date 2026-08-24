@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import Image from "next/image";
+import ProgressiveImage from "@/components/ui/ProgressiveImage";
 import { cn } from "@/lib/utils";
 
 const services = [
@@ -57,7 +57,6 @@ const services = [
 
 export default function ServiceTabs() {
   const [activeTab, setActiveTab] = useState(services[0].id);
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const imageRef = useRef<HTMLDivElement>(null);
 
   const activeService = services.find(s => s.id === activeTab) || services[0];
@@ -68,11 +67,12 @@ export default function ServiceTabs() {
     const rect = imageRef.current.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
-    setTilt({ x: y * -8, y: x * 8 });
+    imageRef.current.style.transform = `perspective(800px) rotateX(${y * -8}deg) rotateY(${x * 8}deg)`;
   };
 
   const handleMouseLeave = () => {
-    setTilt({ x: 0, y: 0 });
+    if (!imageRef.current) return;
+    imageRef.current.style.transform = "perspective(800px) rotateX(0deg) rotateY(0deg)";
   };
 
   return (
@@ -159,7 +159,6 @@ export default function ServiceTabs() {
                     <li
                       key={activeService.id + index}
                       className="st-text flex items-start gap-3 service-point-enter text-left leading-relaxed font-normal text-base opacity-85"
-                      style={{ animationDelay: `${0.3 + index * 0.12}s` }}
                     >
                       <div className="w-1.5 h-1.5 mt-2.5 shrink-0 rounded-full bg-black/30" />
                       <span>{point}</span>
@@ -176,11 +175,11 @@ export default function ServiceTabs() {
                   className="relative w-full aspect-square max-w-md lg:max-w-lg mx-auto overflow-hidden shadow-2xl service-image-enter"
                   style={{
                     borderRadius: '3rem 3rem 3rem 0',
-                    transform: `perspective(800px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-                    transition: 'transform 0.15s ease-out',
+                    transform: "perspective(800px) rotateX(0deg) rotateY(0deg)",
+                    transition: "transform 0.15s ease-out",
                   }}
                 >
-                  <Image
+                  <ProgressiveImage
                     key={activeService.id}
                     src={activeService.image}
                     alt={activeService.name}
@@ -189,12 +188,6 @@ export default function ServiceTabs() {
                     quality={75}
                     loading="lazy"
                     className="object-cover service-image-zoom opacity-100 z-10"
-                  />
-                  <div
-                    className="absolute inset-0 pointer-events-none"
-                    style={{
-                      background: `radial-gradient(circle at ${(tilt.y / 8 + 0.5) * 100}% ${(tilt.x / -8 + 0.5) * 100}%, rgba(255,255,255,0.12) 0%, transparent 60%)`,
-                    }}
                   />
                 </div>
               </div>
@@ -254,37 +247,44 @@ export default function ServiceTabs() {
 
 
         .service-content-enter {
-          animation: fadeInRight 0.6s ease-out both;
+          animation: fadeInRight 0.35s ease-out both;
         }
         .service-title-enter {
-          animation: fadeInUp 0.5s ease-out both;
-          animation-delay: 0.15s;
+          animation: fadeInUp 0.35s ease-out both;
         }
         .service-desc-enter {
-          animation: fadeInUp 0.5s ease-out both;
-          animation-delay: 0.25s;
+          animation: fadeInUp 0.35s ease-out both;
         }
         .service-point-enter {
-          animation: fadeInUp 0.45s ease-out both;
+          animation: fadeInUp 0.35s ease-out both;
         }
         .service-btn-enter {
-          animation: fadeInUp 0.5s ease-out both;
-          animation-delay: 0.55s;
+          animation: fadeInUp 0.35s ease-out both;
         }
         .service-counter-enter {
-          animation: counterSlide 0.4s ease-out both;
+          animation: counterSlide 0.3s ease-out both;
         }
         .service-image-enter {
-          animation: scaleIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
-          animation-delay: 0.15s;
+          animation: scaleIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
           position: relative;
           z-index: 1;
         }
         .service-image-zoom {
-          animation: slowZoom 12s ease-in-out infinite alternate;
+          transform: none;
         }
         .service-dot-pulse {
-          animation: dotPulse 2.5s ease-in-out infinite;
+          animation: none;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .service-content-enter,
+          .service-title-enter,
+          .service-desc-enter,
+          .service-point-enter,
+          .service-btn-enter,
+          .service-counter-enter,
+          .service-image-enter {
+            animation: none !important;
+          }
         }
       `}</style>
     </section>

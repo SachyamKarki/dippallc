@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Lato, Playfair_Display } from "next/font/google";
 import "./globals.css";
+import "../styles/buttons.css";
+import "../styles/layout.css";
+import "../styles/sections.css";
+import "../styles/pages.css";
 import ScrollRevealProvider from "@/components/layout/ScrollRevealProvider";
 import Chrome from "@/components/layout/Chrome";
 import { dippaMotto } from "@/lib/data";
@@ -62,7 +66,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`scroll-smooth ${lato.variable} ${playfair.variable}`}>
       <head>
-        <link rel="preload" href="/earth-night.jpg" as="image" fetchPriority="high" />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
       </head>
       <body className="antialiased">

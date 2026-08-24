@@ -6,7 +6,7 @@ import { allProducts, GANTABYA_LEGAL } from "@/lib/data";
 export const metadata: Metadata = {
   title: "Gantabya — DIPPA Products",
   description:
-    "Gantabya is Dippa’s Kathmandu Valley bus transit app. Coming soon to the App Store. Privacy, terms, and support available now.",
+    "Gantabya is Dippa’s Kathmandu Valley bus transit app. Privacy, terms, and support are live while the App Store listing is in review.",
 };
 
 export default function GantabyaProductPage() {
@@ -23,7 +23,7 @@ export default function GantabyaProductPage() {
               Dippa Product · Mobile App
             </p>
             <span className="mb-6 inline-flex rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-white">
-              Coming Soon
+              Mobile · Kathmandu Valley
             </span>
             <h1 className="text-[clamp(2.8rem,7vw,5.5rem)] font-bold leading-[0.95] tracking-[-0.04em]">
               {product.name}
@@ -33,7 +33,7 @@ export default function GantabyaProductPage() {
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <span className="inline-flex items-center rounded-xl bg-white px-5 py-3 text-sm font-bold text-[#192338]">
-                App Store — Coming Soon
+                App Store listing in review
               </span>
               <Link
                 href="/products"
@@ -98,7 +98,7 @@ export default function GantabyaProductPage() {
               <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">
                 Availability
               </p>
-              <h3 className="text-xl font-bold tracking-[-0.02em]">Coming soon to the App Store</h3>
+              <h3 className="text-xl font-bold tracking-[-0.02em]">Prepared for App Store release</h3>
               <p className="mt-3 text-sm leading-7 text-slate-600">
                 Gantabya v{product.stats.find((s) => s.label === "Version")?.value ?? "1.0"}
                 {product.stats.find((s) => s.label === "Version")?.suffix ?? ".0"} is prepared for

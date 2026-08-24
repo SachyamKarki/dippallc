@@ -50,15 +50,23 @@ export default function Navbar({ sticky = true, forceScrolled = false, lightNav 
       return;
     }
     const onScroll = () => {
-      const y = window.scrollY;
-      setScrolled(y > 24);
-      const doc = document.documentElement;
-      const total = doc.scrollHeight - doc.clientHeight;
-      setScrollProgress(total > 0 ? Math.min(100, (y / total) * 100) : 0);
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = 0;
+        const y = window.scrollY;
+        setScrolled(y > 24);
+        const doc = document.documentElement;
+        const total = doc.scrollHeight - doc.clientHeight;
+        setScrollProgress(total > 0 ? Math.min(100, (y / total) * 100) : 0);
+      });
     };
+    let rafId = 0;
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, [forceScrolled, lightNav]);
 
   // Track scroll progress even on forceScrolled pages
@@ -137,11 +145,20 @@ export default function Navbar({ sticky = true, forceScrolled = false, lightNav 
     };
 
     detectSurface();
-    window.addEventListener("scroll", detectSurface, { passive: true });
+    let rafId = 0;
+    const onScroll = () => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = 0;
+        detectSurface();
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", detectSurface);
     return () => {
-      window.removeEventListener("scroll", detectSurface);
+      window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", detectSurface);
+      if (rafId) cancelAnimationFrame(rafId);
     };
   }, [isMenuOpen, lightNav, pathname]);
 

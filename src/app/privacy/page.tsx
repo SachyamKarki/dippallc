@@ -41,12 +41,12 @@ We may also disclose information when required by law, court order, or governmen
   },
   {
     title: "5. Cookies",
-    content: `Our website uses cookies and similar tracking technologies to understand how visitors interact with our site. These include:
+    content: `Our website uses cookies and similar technologies. When you first visit, we ask you to accept cookies or continue with essential cookies only. Your choice is stored on this device. You can change it at any time using Cookie settings in the website footer.
 
-• **Essential cookies** — required for the site to function correctly.
-• **Analytics cookies** — help us understand traffic patterns and improve user experience.
+• **Essential cookies** — required for the site to function correctly, including remembering your cookie preference.
+• **Analytics cookies** — used only if you accept all cookies, to understand traffic patterns and improve the site.
 
-You can control cookie preferences through your browser settings. Disabling certain cookies may affect website functionality.`,
+Disabling non-essential cookies will not prevent you from using the website.`,
   },
   {
     title: "6. Your Rights",

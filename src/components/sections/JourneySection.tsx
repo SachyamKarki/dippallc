@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import ProgressiveImage from "@/components/ui/ProgressiveImage";
 import Link from "next/link";
 
 const steps = [
@@ -28,32 +27,22 @@ const steps = [
 ];
 
 export default function JourneySection() {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setIsVisible(true); },
-      { threshold: 0.1 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section id="journey" className="journey-v2-section" ref={sectionRef} data-nav-tone="light">
+    <section id="journey" className="journey-v2-section" data-nav-tone="light">
       <div className="journey-v2-glow" aria-hidden="true" />
 
       <div className="section-shell journey-v2-inner">
 
         {/* Hero row: image left, headline right */}
-        <div className={`journey-v2-hero-row ${isVisible ? "journey-v2-fade-up" : "opacity-0"}`}>
+        <div className="journey-v2-hero-row">
           {/* Person image */}
           <div className="journey-v2-img-wrap">
-            <Image
+            <ProgressiveImage
               src="/images/careers-whiteboard.png"
               alt="Start your journey with Dippa"
               fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              quality={75}
               className="journey-v2-img"
               loading="lazy"
             />
@@ -83,8 +72,7 @@ export default function JourneySection() {
             {steps.map((step, i) => (
               <div
                 key={step.number}
-                className={`journey-v2-step ${isVisible ? "journey-v2-fade-up" : "opacity-0"}`}
-                style={{ animationDelay: isVisible ? `${0.3 + i * 0.1}s` : "0s" }}
+                className="journey-v2-step"
               >
                 {/* Number badge + connector row */}
                 <div className="journey-v2-step-head">

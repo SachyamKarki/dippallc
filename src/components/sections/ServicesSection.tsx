@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Image from "next/image";
+import ProgressiveImage from "@/components/ui/ProgressiveImage";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -93,11 +93,13 @@ export default function ServicesSection() {
               </div>
 
               <div className="service-visual lg:w-1/2 h-[500px] relative rounded-[3rem] overflow-hidden grayscale hover:grayscale-0 transition-all duration-700">
-                <Image
+                <ProgressiveImage
                   src={service.image}
                   alt={service.title}
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
+                  quality={75}
+                  loading="lazy"
                   className="object-cover"
                 />
               </div>

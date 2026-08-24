@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import WhatsAppFloatingButton from "@/components/layout/WhatsAppFloatingButton";
+import CookieConsent from "@/components/layout/CookieConsent";
 import { SiteAudioProvider } from "@/components/layout/SiteAudioProvider";
 
 const NAVBAR_HIDDEN_PATHS = new Set<string>();
@@ -29,6 +30,7 @@ export default function Chrome({ children }: { children: ReactNode }) {
       {children}
       {!isContactPage && <Footer />}
       <WhatsAppFloatingButton />
+      <CookieConsent />
     </SiteAudioProvider>
   );
 }

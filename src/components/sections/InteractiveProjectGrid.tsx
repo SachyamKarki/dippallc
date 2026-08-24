@@ -3,8 +3,18 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import gsap from "gsap";
-import { useRouter } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
+import { bindVisibility } from "@/lib/motion";
+import {
+  areFrontImmersiveImagesCached,
+  getCachedImmersiveImage,
+  IMMERSIVE_IMAGE_URLS,
+  loadImmersiveImage,
+  loadImmersiveImagesPriority,
+} from "@/lib/immersiveAssets";
+import { setImmersiveFocus } from "@/lib/renderFocus";
+
+import { STUDIO_WEBSITES } from "@/lib/data";
 
 interface MockSite {
   id: number;
@@ -16,13 +26,7 @@ interface MockSite {
   url: string;
 }
 
-const REAL_PROJECTS = [
-  { title: "Unmarkd", accent: "#1a1a2e", surface: "#f0f0f5", ink: "#0a0a1a", layout: "editorial", url: "https://unmarkdofficial.com" },
-  { title: "LFG Burnego", accent: "#c0392b", surface: "#1a0a08", ink: "#f5e6e0", layout: "poster", url: "https://www.lfgburnego.com" },
-  { title: "Laxmi Pustak", accent: "#e67e22", surface: "#fdf6ec", ink: "#1a1008", layout: "catalog", url: "https://www.laxmipustak.com" },
-  { title: "Rabinson", accent: "#2980b9", surface: "#eaf4fb", ink: "#0a1820", layout: "minimal", url: "https://www.rabinson.info" },
-  { title: "Hoarding Board Nepal", accent: "#0d7a9e", surface: "#e8f6fb", ink: "#061820", layout: "editorial", url: "https://www.hoardingboardnepal.com" },
-  { title: "Season Food", accent: "#b5451b", surface: "#fdf3ee", ink: "#1a0a06", layout: "catalog", url: "https://seasonfood.com.np" },
+const FILLER_PROJECTS = [
   { title: "Stripe", accent: "#635bff", surface: "#f6f5ff", ink: "#0a0820", layout: "minimal", url: "https://stripe.com" },
   { title: "Linear", accent: "#5e6ad2", surface: "#f4f4fb", ink: "#0e0e1a", layout: "editorial", url: "https://linear.app" },
   { title: "Vercel", accent: "#000000", surface: "#f5f5f5", ink: "#0a0a0a", layout: "minimal", url: "https://vercel.com" },
@@ -33,6 +37,21 @@ const REAL_PROJECTS = [
   { title: "Railway", accent: "#b100e8", surface: "#f9eeff", ink: "#150520", layout: "poster", url: "https://railway.app" },
   { title: "Cal.com", accent: "#292929", surface: "#f5f5f5", ink: "#0a0a0a", layout: "minimal", url: "https://cal.com" },
   { title: "Supabase", accent: "#3ecf8e", surface: "#edfbf4", ink: "#061a0f", layout: "catalog", url: "https://supabase.com" },
+] as const;
+
+const STUDIO_PROJECT_STYLES = [
+  { accent: "#1a1a2e", surface: "#f0f0f5", ink: "#0a0a1a", layout: "editorial" },
+  { accent: "#c0392b", surface: "#1a0a08", ink: "#f5e6e0", layout: "poster" },
+  { accent: "#2980b9", surface: "#eaf4fb", ink: "#0a1820", layout: "minimal" },
+] as const;
+
+const REAL_PROJECTS = [
+  ...STUDIO_WEBSITES.map((site, i) => ({
+    title: site.name,
+    url: site.liveLink,
+    ...STUDIO_PROJECT_STYLES[i],
+  })),
+  ...FILLER_PROJECTS,
 ];
 
 const mockSites: readonly MockSite[] = Array.from({ length: 32 }, (_, i) => ({
@@ -41,13 +60,38 @@ const mockSites: readonly MockSite[] = Array.from({ length: 32 }, (_, i) => ({
 }));
 
 const webImages = Array.from({ length: 32 }).map((_, i) => `/projects/${(i % 16) + 1}.jpg`);
+const threeTextureCache = new Map<string, THREE.Texture>();
+
+function applyTextureSource(texture: THREE.Texture, url: string) {
+  const source = getCachedImmersiveImage(url);
+  if (!source || texture.image === source) return;
+  texture.image = source;
+  texture.needsUpdate = true;
+}
+
+function textureFromCache(url: string): THREE.Texture {
+  const existing = threeTextureCache.get(url);
+  if (existing) {
+    applyTextureSource(existing, url);
+    return existing;
+  }
+
+  const texture = new THREE.Texture();
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.generateMipmaps = false;
+  texture.minFilter = THREE.LinearFilter;
+  texture.magFilter = THREE.LinearFilter;
+  applyTextureSource(texture, url);
+  threeTextureCache.set(url, texture);
+  return texture;
+}
 
 export default function InteractiveProjectGrid() {
-  const router = useRouter();
   const sectionRef = useRef<HTMLElement | null>(null);
   const stageRef = useRef<HTMLDivElement | null>(null);
   const viewportRef = useRef<HTMLDivElement | null>(null);
   const [sceneReady, setSceneReady] = useState(false);
+  const [assetsReady, setAssetsReady] = useState(false);
   const pointerRef = useRef({
     active: false,
     startX: 0,
@@ -64,7 +108,10 @@ export default function InteractiveProjectGrid() {
   const groupRef = useRef<THREE.Group | null>(null);
   const [activeSite, setActiveSite] = useState(mockSites[0]);
   const [hoveredData, setHoveredData] = useState<{ link: string; title: string } | null>(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const tooltipRef = useRef<HTMLDivElement | null>(null);
+  const hoverKeyRef = useRef<string | null>(null);
+  const raycasterRef = useRef(new THREE.Raycaster());
+  const pointerNdcRef = useRef(new THREE.Vector2());
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -86,6 +133,35 @@ export default function InteractiveProjectGrid() {
 
   useEffect(() => {
     if (!sceneReady) return;
+    let cancelled = false;
+    setImmersiveFocus(true);
+
+    if (areFrontImmersiveImagesCached()) {
+      setAssetsReady(true);
+      void loadImmersiveImagesPriority();
+      return;
+    }
+
+    const failSafe = window.setTimeout(() => {
+      if (!cancelled) setAssetsReady(true);
+    }, 1800);
+
+    void loadImmersiveImagesPriority()
+      .then(() => {
+        if (!cancelled) setAssetsReady(true);
+      })
+      .catch(() => {
+        if (!cancelled) setAssetsReady(true);
+      });
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(failSafe);
+    };
+  }, [sceneReady]);
+
+  useEffect(() => {
+    if (!sceneReady || !assetsReady) return;
 
     const stage = stageRef.current;
     const viewport = viewportRef.current;
@@ -101,11 +177,14 @@ export default function InteractiveProjectGrid() {
     camera.position.set(0, 0, isMobile ? 56 : 64);
     camera.lookAt(0, 0, 0);
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    const renderer = new THREE.WebGLRenderer({
+      antialias: !isMobile,
+      alpha: true,
+      powerPreference: "high-performance",
+    });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1 : 1.25));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.1;
+    renderer.toneMapping = THREE.NoToneMapping;
     renderer.domElement.className = "work-sphere-webgl";
     viewport.appendChild(renderer.domElement);
 
@@ -127,27 +206,24 @@ export default function InteractiveProjectGrid() {
 
 
     const planeGeometry = new THREE.PlaneGeometry(16.2, 10.8);
-    // Expand cylinder radius to fill entire width of modern ultra-wide screens
     const radius = 48;
     const itemsPerRow = 12;
-    const totalCards = 84;
+    const totalCards = 48;
     const rowCount = Math.ceil(totalCards / itemsPerRow);
     const verticalStep = 18.0;
     const angleStep = (Math.PI * 2) / itemsPerRow;
 
-    const textureLoader = new THREE.TextureLoader();
-    const uniqueUrls = [...new Set(webImages.slice(0, 16))];
-    const textureByUrl = new Map<string, THREE.Texture>();
+    const uniqueUrls = IMMERSIVE_IMAGE_URLS;
     uniqueUrls.forEach((url) => {
-      const texture = textureLoader.load(url);
-      texture.colorSpace = THREE.SRGBColorSpace;
-      texture.generateMipmaps = true;
-      texture.minFilter = THREE.LinearMipmapLinearFilter;
-      textureByUrl.set(url, texture);
+      textureFromCache(url);
+      if (getCachedImmersiveImage(url)) return;
+      void loadImmersiveImage(url, "high").then(() => {
+        applyTextureSource(textureFromCache(url), url);
+      });
     });
     const siteTextures = mockSites.map((_, index) => {
       const url = webImages[index % webImages.length];
-      return textureByUrl.get(url)!;
+      return textureFromCache(url);
     });
 
     Array.from({ length: totalCards }).forEach((_, index) => {
@@ -208,7 +284,6 @@ export default function InteractiveProjectGrid() {
     };
 
     const tick = () => {
-      // Smooth interpolation for both rotation and vertical panning
       rotationRef.current.current += (rotationRef.current.target - rotationRef.current.current) * 0.08;
       verticalOffsetRef.current.current += (verticalOffsetRef.current.target - verticalOffsetRef.current.current) * 0.08;
 
@@ -219,16 +294,33 @@ export default function InteractiveProjectGrid() {
       renderer.render(scene, camera);
     };
 
-    gsap.ticker.add(tick);
+    let tickerOn = false;
+    const setTicker = (on: boolean) => {
+      if (on === tickerOn) return;
+      tickerOn = on;
+      if (on) gsap.ticker.add(tick);
+      else gsap.ticker.remove(tick);
+    };
+
+    const unbind = bindVisibility(viewport, (isActive) => {
+      setTicker(isActive);
+      if (isActive) tick();
+    });
+
+    tick();
+    const releaseFocus = window.setTimeout(() => setImmersiveFocus(false), 450);
 
     return () => {
+      window.clearTimeout(releaseFocus);
+      setImmersiveFocus(false);
+      unbind();
       resizeObserver.disconnect();
-      gsap.ticker.remove(tick);
+      setTicker(false);
       renderer.dispose();
       planeGeometry.dispose();
-      siteTextures.forEach(t => t.dispose());
-      textureByUrl.forEach((t) => t.dispose());
-      viewport.removeChild(renderer.domElement);
+      if (viewport.contains(renderer.domElement)) {
+        viewport.removeChild(renderer.domElement);
+      }
 
       scene.traverse((object: THREE.Object3D) => {
         const mesh = object as THREE.Mesh;
@@ -236,7 +328,9 @@ export default function InteractiveProjectGrid() {
           return;
         }
 
-        mesh.geometry?.dispose?.();
+        if (mesh.geometry && mesh.geometry !== planeGeometry) {
+          mesh.geometry.dispose?.();
+        }
         if (Array.isArray(mesh.material)) {
           mesh.material.forEach((material: THREE.Material) => material.dispose());
         } else {
@@ -244,7 +338,7 @@ export default function InteractiveProjectGrid() {
         }
       });
     };
-  }, [sceneReady]);
+  }, [sceneReady, assetsReady]);
 
   return (
     <section ref={sectionRef} className="work-sphere-section" aria-labelledby="project-showcase-title" data-nav-tone="dark">
@@ -265,22 +359,30 @@ export default function InteractiveProjectGrid() {
             const rect = stageRef.current?.getBoundingClientRect();
             if (!rect) return;
 
-            setMousePos({ x: event.clientX, y: event.clientY });
+            if (tooltipRef.current) {
+              tooltipRef.current.style.left = `${event.clientX}px`;
+              tooltipRef.current.style.top = `${event.clientY}px`;
+            }
 
-            // Raycasting for hover state
             if (cameraRef.current && groupRef.current) {
-              const mouseX = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-              const mouseY = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-
-              const raycaster = new THREE.Raycaster();
-              raycaster.setFromCamera(new THREE.Vector2(mouseX, mouseY), cameraRef.current);
-              const intersects = raycaster.intersectObjects(groupRef.current.children);
+              pointerNdcRef.current.set(
+                ((event.clientX - rect.left) / rect.width) * 2 - 1,
+                -((event.clientY - rect.top) / rect.height) * 2 + 1,
+              );
+              raycasterRef.current.setFromCamera(pointerNdcRef.current, cameraRef.current);
+              const intersects = raycasterRef.current.intersectObjects(groupRef.current.children);
 
               if (intersects.length > 0 && !pointerRef.current.active) {
                 const card = intersects[0].object as THREE.Mesh;
-                setHoveredData(card.userData as { link: string; title: string });
+                const data = card.userData as { link: string; title: string };
+                const key = data.title;
+                if (hoverKeyRef.current !== key) {
+                  hoverKeyRef.current = key;
+                  setHoveredData(data);
+                }
                 stageRef.current!.style.cursor = "pointer";
-              } else {
+              } else if (hoverKeyRef.current !== null) {
+                hoverKeyRef.current = null;
                 setHoveredData(null);
                 stageRef.current!.style.cursor = pointerRef.current.active ? "grabbing" : "grab";
               }
@@ -301,6 +403,7 @@ export default function InteractiveProjectGrid() {
           }}
           onPointerUp={(event) => {
             pointerRef.current.active = false;
+            hoverKeyRef.current = null;
             setHoveredData(null);
             try {
               event.currentTarget.releasePointerCapture(event.pointerId);
@@ -316,9 +419,8 @@ export default function InteractiveProjectGrid() {
               const mouseX = ((event.clientX - rect.left) / rect.width) * 2 - 1;
               const mouseY = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 
-              const raycaster = new THREE.Raycaster();
-              raycaster.setFromCamera(new THREE.Vector2(mouseX, mouseY), cameraRef.current);
-              const intersects = raycaster.intersectObjects(groupRef.current.children);
+              raycasterRef.current.setFromCamera(new THREE.Vector2(mouseX, mouseY), cameraRef.current);
+              const intersects = raycasterRef.current.intersectObjects(groupRef.current.children);
 
               if (intersects.length > 0) {
                 const clickedCard = intersects[0].object as THREE.Mesh;
@@ -331,6 +433,7 @@ export default function InteractiveProjectGrid() {
           }}
           onPointerCancel={(event) => {
             pointerRef.current.active = false;
+            hoverKeyRef.current = null;
             setHoveredData(null);
             try {
               event.currentTarget.releasePointerCapture(event.pointerId);
@@ -339,6 +442,7 @@ export default function InteractiveProjectGrid() {
             }
           }}
           onPointerLeave={() => {
+            hoverKeyRef.current = null;
             setHoveredData(null);
           }}
         >
@@ -358,10 +462,11 @@ export default function InteractiveProjectGrid() {
 
           {hoveredData && (
             <div
+              ref={tooltipRef}
               style={{
                 position: 'fixed',
-                left: mousePos.x,
-                top: mousePos.y,
+                left: 0,
+                top: 0,
                 transform: 'translate(-50%, -140%)',
                 padding: '10px 20px',
                 background: 'rgba(10, 10, 10, 0.9)',

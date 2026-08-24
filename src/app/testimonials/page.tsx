@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
+import ProgressiveImage from "@/components/ui/ProgressiveImage";
 import Link from "next/link";
 import PageHero from "@/components/ui/PageHero";
 import Spinner from "@/components/ui/Spinner";
@@ -56,11 +56,14 @@ export default function TestimonialsPage() {
                   <div className="testimonial-person">
                     <div className="relative w-12 h-12 overflow-hidden rounded-full bg-slate-200 flex-shrink-0">
                       {t.image_url ? (
-                        <Image
+                        <ProgressiveImage
                           src={t.image_url}
                           alt={t.name}
                           fill
+                          sizes="48px"
+                          quality={60}
                           className="testimonial-avatar"
+                          loading="lazy"
                         />
                       ) : (
                         <div className="absolute inset-0 flex items-center justify-center text-slate-400 font-bold">

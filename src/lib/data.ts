@@ -1,4 +1,5 @@
 import { examplePosts } from "@/lib/blog/examplePosts";
+import { WEBSITE_PROJECTS } from "@/lib/websites/content";
 
 export const dippaMotto = "Aiming to Quantum Computing";
 
@@ -99,6 +100,52 @@ export const operatingModel = [
     step: "04",
     title: "Scale with evidence",
     text: "We keep instrumentation close to the work, so iteration is based on outcomes, not assumptions or vanity metrics.",
+  },
+] as const;
+
+export const aboutEngagement = [
+  {
+    step: "01",
+    title: "Discover",
+    text: "We start with how the business runs today: the work, the systems, the constraints, and the owners. No solution is proposed until the operating problem is clear.",
+  },
+  {
+    step: "02",
+    title: "Recommend",
+    text: "You receive a scoped plan — architecture, sequence, risks, and what will not be built. Leadership can approve a path, not a vague ambition.",
+  },
+  {
+    step: "03",
+    title: "Build",
+    text: "The same team that framed the work implements it: software, AI workflows, or both. Progress stays visible against the agreed scope.",
+  },
+  {
+    step: "04",
+    title: "Transfer",
+    text: "We hand over documentation, controls, and operating practice so your people can run the system. Support continues if you want a next phase.",
+  },
+] as const;
+
+export const aboutValues = [
+  {
+    num: "01",
+    title: "Diagnose before we prescribe",
+    text: "Tools and models are easy to buy. The harder work is naming the process that should change, who is accountable, and what a good week looks like after go-live.",
+  },
+  {
+    num: "02",
+    title: "Advice that survives implementation",
+    text: "We do not separate strategy from delivery. The people who recommend the system stay close enough to build it, so the plan is honest about time, data, and risk.",
+  },
+  {
+    num: "03",
+    title: "AI with an operating model",
+    text: "Automation is useful only when it is observable, permissioned, and easy to override. We design agents and workflows that operators can inspect and trust.",
+  },
+  {
+    num: "04",
+    title: "Leave the organisation stronger",
+    text: "The engagement is successful when your team can run what we shipped — not when a demo looks impressive. Handover, documentation, and controls are part of the work.",
   },
 ] as const;
 
@@ -207,26 +254,7 @@ export const capabilities = [
   "Transformation advisory with embedded technical delivery",
 ] as const;
 
-export const careers = [
-  {
-    title: "Senior Product Engineer",
-    department: "Product Engineering",
-    type: "Full-time",
-    location: "Kathmandu / Hybrid",
-  },
-  {
-    title: "AI Systems Engineer",
-    department: "AI Agent Systems",
-    type: "Full-time",
-    location: "Remote",
-  },
-  {
-    title: "AI Solutions Architect",
-    department: "Creative Engineering",
-    type: "Contract",
-    location: "Kathmandu",
-  },
-] as const;
+export const careers = [] as const;
 
 export const GANTABYA_LEGAL = {
   privacy: "https://admin-web-three-amber.vercel.app/privacy",
@@ -234,13 +262,146 @@ export const GANTABYA_LEGAL = {
   support: "https://admin-web-three-amber.vercel.app/support",
 } as const;
 
+export const PRODUCT_SECTIONS = [
+  {
+    id: "saas",
+    label: "SaaS",
+    description:
+      "Subscription cloud products for commerce, lead generation, and growth — built to run in production with real users and real data.",
+  },
+  {
+    id: "websites",
+    label: "Websites",
+    description:
+      "Marketing sites, product landing pages, and company web presence — fast, accessible, and easy to maintain.",
+  },
+  {
+    id: "mobile-apps",
+    label: "Mobile Apps",
+    description:
+      "Native and cross-platform apps designed for everyday use on the device people carry.",
+  },
+  {
+    id: "internal-apps",
+    label: "Internal Apps",
+    description:
+      "Operator tools, dashboards, and internal platforms that help teams run day-to-day work with less friction.",
+  },
+] as const;
+
+export type ProductSectionId = (typeof PRODUCT_SECTIONS)[number]["id"];
+
+/** Client websites shown on the homepage project carousel (real Dippa builds). */
+export const STUDIO_WEBSITES = WEBSITE_PROJECTS.map((site) => ({
+  slug: site.slug,
+  name: site.name,
+  description: site.description,
+  category: site.category,
+  image: site.image,
+  liveLink: site.liveLink,
+  stack: site.stack,
+}));
+
 export const allProducts = [
+  {
+    slug: "sauji",
+    name: "Sauji",
+    sectionId: "saas" as const,
+    description:
+      "An AI commerce assistant for small merchants — take orders from Instagram DMs and chat in English or Nepali, keep inventory in sync, and run the whole shop from one mobile dashboard.",
+    category: "AI Commerce",
+    image: "/images/products/sauji.png",
+    href: "/projects/sauji",
+    stack: ["Expo", "React Native", "Express", "Firebase", "Google Gemini"],
+    stats: [
+      { label: "Languages", value: "2", suffix: "" },
+      { label: "Channels", value: "3", suffix: "+" },
+    ],
+    timeline: "In active development",
+    liveLink: "",
+    details: [
+      {
+        type: "narrative" as const,
+        title: "The problem",
+        body: "Small shop owners lose orders in DMs, juggle stock in notebooks, and cannot afford a full-time person to reply in English and Nepali around the clock.",
+      },
+      {
+        type: "narrative" as const,
+        title: "What it does",
+        body: "Sauji gives merchants a mobile ops hub — today's orders and revenue, low-stock alerts, and a Gemini-powered chat layer that turns natural messages into structured orders. Customers can text in English, Nepali, or Roman Nepali; send product photos for vision matching; and reach the shop through Instagram DMs connected to the same inventory.",
+      },
+      {
+        type: "narrative" as const,
+        title: "How it is built",
+        body: "Expo/React Native on the client with Firebase Auth and Firestore for live sync. An Express backend handles Gemini prompts, order parsing, image analysis, and Instagram webhook events. Business profile, payment methods, and delivery settings live in one place.",
+      },
+      {
+        type: "impact" as const,
+        title: "Status",
+        body: "Dashboard, inventory, orders, chat simulator, business profile, and connected accounts are implemented. Sauji is heading toward a pilot with local merchants.",
+      },
+    ],
+  },
+  {
+    slug: "scrapper",
+    name: "Scrapper",
+    sectionId: "saas" as const,
+    description:
+      "A lead-generation workspace — scrape Google Maps at scale, enrich contacts, verify emails, and launch outreach campaigns without switching between five different tools.",
+    category: "Lead Generation",
+    image: "/images/products/scrapper.png",
+    href: "/projects/scrapper",
+    stack: ["Flask", "Scrapy", "React", "Vite", "MongoDB", "Redis"],
+    stats: [
+      { label: "Pipeline stages", value: "4", suffix: "" },
+      { label: "Outreach channels", value: "2", suffix: "" },
+    ],
+    timeline: "In active development",
+    liveLink: "",
+    details: [
+      {
+        type: "narrative" as const,
+        title: "The problem",
+        body: "Outbound teams still copy leads from Maps into spreadsheets, verify emails by hand, and run campaigns from a separate inbox — slow, duplicated, and hard to trust.",
+      },
+      {
+        type: "narrative" as const,
+        title: "What it does",
+        body: "Scrapper is one SaaS surface for the full prospecting loop: run distributed Google Maps scrapes with proxy rotation, deduplicate and enrich contacts, verify deliverability, then enroll leads into email or LinkedIn outreach — with SPF, DKIM, and DMARC checks before anything sends.",
+      },
+      {
+        type: "narrative" as const,
+        title: "How it is built",
+        body: "Flask coordinates scrape jobs, enrichment pipelines, and campaign sends. A React/Vite frontend covers Lead Studio, scraper runs, link analysis, and team workspace. Redis queues fan work across workers; MongoDB stores deduplicated places keyed on Google's stable place_id.",
+      },
+      {
+        type: "impact" as const,
+        title: "Status",
+        body: "Scrape → enrich → verify → campaign flow is live end to end. Current focus is queue reliability, sender reputation controls, and production hardening.",
+      },
+    ],
+  },
+  ...WEBSITE_PROJECTS.map((site) => ({
+    slug: site.slug,
+    name: site.name,
+    sectionId: "websites" as const,
+    description: site.description,
+    category: site.category,
+    image: site.image,
+    href: `/projects/${site.slug}`,
+    stack: [...site.stack],
+    stats: [{ label: "Status", value: "Live", suffix: "" }],
+    timeline: site.timeline,
+    liveLink: site.liveLink,
+    details: site.details.map((d) => ({ ...d })),
+  })),
   {
     slug: "gantabya",
     name: "Gantabya",
+    sectionId: "mobile-apps" as const,
     description:
       "Kathmandu Valley bus transit guide — plan journeys with official routes, road-following maps, traffic-aware estimates, and step-by-step trip guidance.",
-    category: "Mobile App",
+    category: "Transit",
     image: "/images/gantabya.png",
     href: "/projects/gantabya",
     stack: ["React Native", "Apple Maps", "Transit Routing", "Live Traffic"],
@@ -248,9 +409,9 @@ export const allProducts = [
       { label: "Valley Routes", value: "80", suffix: "+" },
       { label: "Version", value: "1.0", suffix: ".0" },
     ],
-    timeline: "Coming soon",
+    timeline: "In App Store review",
     liveLink: "",
-    status: "coming-soon" as const,
+    status: "in-review" as const,
     legal: GANTABYA_LEGAL,
     details: [
       {
@@ -269,165 +430,6 @@ export const allProducts = [
         body: "Gantabya is preparing for App Store launch. Product pages, privacy policy, and support are live while the public listing goes through review.",
       },
     ],
-  },
-  {
-    slug: "ops-canvas",
-    name: "Ops Canvas",
-    description:
-      "A premium web operations cockpit for leadership teams that need unified visibility across delivery, finance, and growth.",
-    category: "Software Engineering",
-    image: "/images/blog-software.png",
-    href: "/projects/ops-canvas",
-    stack: ["Next.js", "PostgreSQL", "Real-time WebSockets", "Redis", "Custom Analytics Engine"],
-    stats: [
-      { label: "Data Latency", value: "85", suffix: "ms" },
-      { label: "Reporting Efficiency", value: "92", suffix: "%" },
-    ],
-    timeline: "14 weeks",
-    liveLink: "https://ops-canvas.dippa.group",
-    details: [
-      {
-        type: "narrative",
-        title: "The Objective",
-        body: "Standardizing the flow of multi-regional internal data for a logistics firm that was struggling with 14-day delays in financial reporting. The goal was to reach sub-second visibility across all operational nodes.",
-      },
-      {
-        type: "media",
-        image: "/projects/1.jpg",
-        caption: "Data Normalization Layer Architecture",
-      },
-      {
-        type: "narrative",
-        title: "The Challenge",
-        body: "Legacy ERP systems lacked modern API endpoints, requiring the development of custom middleware that could poll, transform, and stream data without impacting the performance of the source databases.",
-      },
-      {
-        type: "media",
-        image: "/projects/5.jpg",
-        caption: "Middleware Performance Monitoring Dashboard",
-      },
-      {
-        type: "narrative",
-        title: "The Execution",
-        body: "We implemented a custom event-bus architecture that normalizes incoming telemetry from legacy SAP systems and real-time GPS trackers into a unified Postgres layer, served via high-frequency WebSockets.",
-      },
-      {
-        type: "media",
-        image: "/projects/6.jpg",
-        caption: "Real-time Geospatial Visualization Layer",
-      },
-      {
-        type: "narrative",
-        title: "The User Experience",
-        body: "The final interface was designed as a high-density 'command center' for logistics coordinators, reducing the number of dashboard switches by 70% and placing critical intervention tools exactly where they are needed.",
-      },
-      {
-        type: "impact",
-        title: "Final Impact",
-        body: "Stakeholders now operate on zero-delay data, resulting in a documented $1.2M reduction in yearly operational waste through proactive anomaly detection.",
-      }
-    ]
-  },
-  {
-    slug: "agent-desk",
-    name: "Agent Desk",
-    description:
-      "A controlled AI support system that routes work, drafts resolutions, and escalates only what truly needs human attention.",
-    category: "AI & Automation",
-    image: "/images/blog-ai-automation.png",
-    href: "/projects/agent-desk",
-    stack: ["LangChain", "OpenAI GPT-4", "Pinecone DB", "Node.js", "Python"],
-    stats: [
-      { label: "Auto-Resolution", value: "61", suffix: "%" },
-      { label: "Agent Handling Time", value: "-40", suffix: "%" },
-    ],
-    timeline: "8 weeks",
-    liveLink: "https://agent-desk.dippa.group",
-    details: [
-      {
-        type: "narrative",
-        title: "The Problem",
-        body: "A scaling SaaS enterprise was experiencing a 300% increase in technical support volume. Response times were degrading, and the support team was burning out on repetitive queries.",
-      },
-      {
-        type: "media",
-        image: "/projects/2.jpg",
-        caption: "Automated Workflows & RAG Implementation",
-      },
-      {
-        type: "narrative",
-        title: "The Strategy",
-        body: "Instead of a simple chatbot, we designed a multi-agent system where one agent categorizes the intent, another retrieves relevant documentation, and a third synthesizes a highly contextual resolution draft for human review.",
-      },
-      {
-        type: "media",
-        image: "/projects/7.jpg",
-        caption: "Agent Reasoning Chain & Tool Calling Logs",
-      },
-      {
-        type: "narrative",
-        title: "The Infrastructure",
-        body: "By building a Retrieval Augmented Generation (RAG) system grounded in their actual technical documentation (1,500+ pages), we enabled AI agents to resolve L1/L2 tickets with 89% accuracy.",
-      },
-      {
-        type: "media",
-        image: "/projects/8.jpg",
-        caption: "Vector Database Performance & Embedding Analysis",
-      },
-      {
-        type: "impact",
-        title: "Final Impact",
-        body: "61% of all incoming tickets are now closed without human intervention, allowing the core team to focus exclusively on complex architectural consulting for clients.",
-      }
-    ]
-  },
-  {
-    slug: "clarity-sprint",
-    name: "Clarity Sprint",
-    description:
-      "A transformation engagement that combines diagnostics, product direction, and execution planning with a fast implementation start.",
-    category: "Strategic Consulting",
-    image: "/projects/3.jpg",
-    href: "/projects/clarity-sprint",
-    stack: ["Diagnostic Audit", "Execution Roadmap", "Rapid Prototyping", "Stakeholder Governance"],
-    stats: [
-      { label: "Diagnostic Phase", value: "15", suffix: " days" },
-      { label: "Deployment Cycle", value: "-72", suffix: "%" },
-    ],
-    timeline: "3 weeks",
-    liveLink: "https://clarity-sprint.dippa.group",
-    details: [
-      {
-        type: "narrative",
-        title: "The Strategy",
-        body: "Most digital transformations fail due to analysis paralysis. We replaced traditional multi-month consulting cycles with a high-velocity 15-day diagnostic pulse.",
-      },
-      {
-        type: "media",
-        image: "/projects/4.jpg",
-        caption: "Tactical Execution Planning Session",
-      },
-      {
-        type: "narrative",
-        title: "The Approach",
-        body: "We conducted over 40 hours of stakeholder interviews and technical audits in the first 5 days, identifying critical friction points that were costing the organization $50k per week in lost developer productivity.",
-      },
-      {
-        type: "media",
-        image: "/projects/9.jpg",
-        caption: "Technical Debt Mapping & Prioritization Matrix",
-      },
-      {
-        type: "narrative",
-        title: "The Delivery",
-        body: "We identified over $400k in annual software licensing overlap within the first 10 days and delivered a functional prototype of a consolidated platform by the end of week three.",
-      },
-      {
-        type: "impact",
-        title: "Final Impact",
-        body: "The client successfully pivoted their entire IT budget toward growth-focused internal engineering, abandoning three legacy vendors and shipping their first unified platform in 18 days.",
-      }
-    ]
   },
 ] as const;
 

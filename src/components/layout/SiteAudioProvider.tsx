@@ -41,74 +41,41 @@ export function SiteAudioProvider({ children }: { children: React.ReactNode }) {
     const audio = audioRef.current;
     if (!audio) return;
 
-    // 1. Restore previous time if available
-    try {
-        const savedTime = localStorage.getItem(TIME_KEY);
-        if (savedTime) {
-            audio.currentTime = parseFloat(savedTime);
-        }
-    } catch (e) {
-        console.error("Failed to restore audio time", e);
-    }
-
     if (!enabled) {
       audio.pause();
       return;
     }
 
-    // Start muted immediately (browsers always allow muted autoplay)
-    audio.muted = true;
-    audio.volume = 0.6;
-    const mutedPlay = audio.play().catch(() => {});
-
-    // Try to unmute immediately — if browser allows, great
-    const tryUnmute = async () => {
-      await mutedPlay;
-      try {
-        audio.muted = false;
-        // Some browsers throw if we try to unmute without interaction
-        await audio.play();
-      } catch {
-        // Couldn't unmute yet — will unmute on first interaction
-      }
-    };
-
-    void tryUnmute();
-
-    // Fallback: unmute on first user interaction (click, tap, scroll, key)
     let cleanedUp = false;
-    const onFirstInteraction = () => {
+
+    const startPlayback = () => {
       if (cleanedUp) return;
-      if (audio.paused) {
-        audio.muted = false;
-        audio.volume = 0.6;
-        void audio.play().catch(() => {});
-      } else {
-        audio.muted = false;
+      if (!audio.getAttribute("src")) audio.src = AUDIO_SRC;
+      try {
+        const savedTime = localStorage.getItem(TIME_KEY);
+        if (savedTime) audio.currentTime = parseFloat(savedTime);
+      } catch {
+        // Ignore storage failures
       }
-      window.removeEventListener("pointerdown", onFirstInteraction);
-      window.removeEventListener("keydown", onFirstInteraction);
-      window.removeEventListener("scroll", onFirstInteraction);
-      window.removeEventListener("touchstart", onFirstInteraction);
+      audio.muted = false;
+      audio.volume = 0.6;
+      void audio.play().catch(() => {});
     };
 
-    window.addEventListener("pointerdown", onFirstInteraction, { once: true });
-    window.addEventListener("keydown", onFirstInteraction, { once: true });
-    window.addEventListener("scroll", onFirstInteraction, { once: true });
-    window.addEventListener("touchstart", onFirstInteraction, { once: true });
+    window.addEventListener("pointerdown", startPlayback, { once: true });
+    window.addEventListener("keydown", startPlayback, { once: true });
+    window.addEventListener("touchstart", startPlayback, { once: true });
 
-    // 2. Periodically save time to persist across refresh
     const saveInterval = setInterval(() => {
-        if (audio && !audio.paused) {
-            localStorage.setItem(TIME_KEY, audio.currentTime.toString());
-        }
-    }, 1000);
+      if (audio && !audio.paused) {
+        localStorage.setItem(TIME_KEY, audio.currentTime.toString());
+      }
+    }, 4000);
 
-    // 3. Save time on page exit
     const handleUnload = () => {
-        if (audio) {
-            localStorage.setItem(TIME_KEY, audio.currentTime.toString());
-        }
+      if (audio && audio.currentTime) {
+        localStorage.setItem(TIME_KEY, audio.currentTime.toString());
+      }
     };
     window.addEventListener("beforeunload", handleUnload);
 
@@ -116,10 +83,9 @@ export function SiteAudioProvider({ children }: { children: React.ReactNode }) {
       cleanedUp = true;
       clearInterval(saveInterval);
       window.removeEventListener("beforeunload", handleUnload);
-      window.removeEventListener("pointerdown", onFirstInteraction);
-      window.removeEventListener("keydown", onFirstInteraction);
-      window.removeEventListener("scroll", onFirstInteraction);
-      window.removeEventListener("touchstart", onFirstInteraction);
+      window.removeEventListener("pointerdown", startPlayback);
+      window.removeEventListener("keydown", startPlayback);
+      window.removeEventListener("touchstart", startPlayback);
     };
   }, [enabled]);
 
@@ -132,7 +98,7 @@ export function SiteAudioProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <SiteAudioContext.Provider value={value}>
-      <audio ref={audioRef} src={AUDIO_SRC} loop preload="auto" />
+      <audio ref={audioRef} loop preload="none" />
       {children}
     </SiteAudioContext.Provider>
   );

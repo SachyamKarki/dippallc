@@ -115,3 +115,10 @@ export function fetchContactSubmissions() {
 export function submitContact(data: { name: string; email: string; category?: string; message: string }) {
   return request<{ success: boolean }>('/api/contact/', { method: 'POST', body: JSON.stringify(data) });
 }
+
+export function submitNewsletter(data: { email: string; source?: string }) {
+  return request<{ success: boolean; alreadySubscribed?: boolean }>('/api/newsletter/', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+}

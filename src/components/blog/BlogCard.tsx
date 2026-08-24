@@ -1,4 +1,4 @@
-import Image from "next/image";
+import ProgressiveImage from "@/components/ui/ProgressiveImage";
 import Link from "next/link";
 import type { BlogPreview } from "@/lib/blog/types";
 
@@ -57,12 +57,13 @@ export default function BlogCard(props: {
     <Link href={href} className={`blog-card ${isFeatured ? "blog-card-featured" : "blog-card-standard"}`}>
       <div className={`blog-card-media ${isFeatured ? "blog-card-media-featured" : "blog-card-media-standard"}`}>
         {props.article.imageUrl ? (
-          <Image
+          <ProgressiveImage
             src={props.article.imageUrl}
             alt={props.article.title}
             fill
-            unoptimized
             sizes={isFeatured ? "(max-width: 1024px) 100vw, 58vw" : "(max-width: 640px) 100vw, (max-width: 1279px) 50vw, 25vw"}
+            quality={75}
+            loading="lazy"
             className="blog-card-image"
           />
         ) : (

@@ -199,7 +199,6 @@
   padding: 0.1875rem 0.45rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  animation: badge-pulse 2.5s ease-in-out infinite;
 }
 @keyframes badge-pulse {
   0%, 100% { opacity: 1; }
@@ -672,5 +671,117 @@
   .whatsapp-float-icon {
     width: 1.5rem;
     height: 1.5rem;
+  }
+}
+
+/* ─── Cookie consent ─────────────────────────────────────── */
+.cookie-banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 120;
+  padding: 1.1rem 1.25rem calc(1.1rem + env(safe-area-inset-bottom, 0px));
+  background: #111111;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 -16px 40px rgba(0, 0, 0, 0.28);
+}
+.cookie-banner-inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+.cookie-banner-title {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  margin: 0 0 0.4rem;
+}
+.cookie-banner-text {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.72);
+  max-width: 46rem;
+}
+.cookie-banner-text a {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.cookie-banner-actions {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.65rem;
+}
+.cookie-banner-btn {
+  font-family: var(--font-main);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  padding: 0.7rem 1.15rem;
+  cursor: pointer;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.cookie-banner-btn-primary {
+  background: #fff;
+  color: #111;
+  border-color: #fff;
+}
+.cookie-banner-btn-primary:hover { background: #f3f3f3; }
+.cookie-banner-btn-secondary {
+  background: transparent;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.28);
+}
+.cookie-banner-btn-secondary:hover { border-color: rgba(255, 255, 255, 0.55); }
+
+body:has(.cookie-banner) .whatsapp-float {
+  bottom: calc(8.75rem + env(safe-area-inset-bottom, 0px));
+}
+
+@media (max-width: 899px) {
+  .cookie-banner {
+    padding: 1rem 1.15rem calc(1rem + env(safe-area-inset-bottom, 0px));
+  }
+  .cookie-banner-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.9rem;
+  }
+  .cookie-banner-text {
+    font-size: 0.8125rem;
+    line-height: 1.55;
+    max-width: none;
+  }
+  .cookie-banner-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+  .cookie-banner-btn {
+    width: 100%;
+    min-height: 2.75rem;
+    padding: 0.7rem 0.6rem;
+    font-size: 0.68rem;
+  }
+  body:has(.cookie-banner) .whatsapp-float {
+    bottom: calc(11.5rem + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+@media (max-width: 480px) {
+  .cookie-banner-btn { letter-spacing: 0.04em; }
+  body:has(.cookie-banner) .whatsapp-float {
+    bottom: calc(13rem + env(safe-area-inset-bottom, 0px));
   }
 }

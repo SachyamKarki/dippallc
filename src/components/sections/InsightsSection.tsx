@@ -1,73 +1,42 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Link from "next/link";
+import { useState } from "react";
 import NewsCard from "@/components/news/NewsCard";
 import { getExamplePostSummaries } from "@/lib/blog/examplePosts";
-import { toCardTitle, toCardExcerpt, normalizeWhitespace } from "@/lib/blog/utils";
-import type { Post } from "@/types";
 import type { BlogPreview } from "@/lib/blog/types";
 
-const PREVIEW_COUNT = 4;
+const INITIAL_COUNT = 3;
 
 export default function InsightsSection() {
-  const [articles, setArticles] = useState<BlogPreview[]>(() =>
-    getExamplePostSummaries()
-      .slice(0, PREVIEW_COUNT)
-      .map((p) => ({
-        slug: p.slug,
-        title: p.title,
-        tag: p.tag || "Insights",
-        excerpt: p.excerpt,
-        createdAt: p.createdAt,
-        cover: p.cover,
-        source: "example" as const,
-      }))
-  );
+  const [expanded, setExpanded] = useState(false);
 
-  useEffect(() => {
-    const api = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
-    fetch(`${api}/api/posts/`)
-      .then((r) => r.ok ? r.json() : [])
-      .then((posts: Post[]) => {
-        if (!posts.length) return;
-        const remote: BlogPreview[] = posts.map((p) => ({
-          slug: String(p.id),
-          title: toCardTitle(p.title),
-          tag: normalizeWhitespace(p.tag || "Insights"),
-          excerpt: toCardExcerpt(p.text),
-          imageUrl: p.image_url || undefined,
-          createdAt: p.created_at,
-          source: "backend" as const,
-        }));
-        const examples = getExamplePostSummaries().map((p) => ({
-          slug: p.slug,
-          title: p.title,
-          tag: p.tag || "Insights",
-          excerpt: p.excerpt,
-          createdAt: p.createdAt,
-          cover: p.cover,
-          source: "example" as const,
-        }));
-        const seen = new Set(remote.map((p) => p.slug));
-        const merged = [...remote, ...examples.filter((p) => !seen.has(p.slug))];
-        setArticles(merged.slice(0, PREVIEW_COUNT));
-      })
-      .catch(() => {});
-  }, []);
+  const articles: BlogPreview[] = getExamplePostSummaries().map((p) => ({
+    slug: p.slug,
+    title: p.title,
+    tag: p.tag || "Case Study",
+    category: p.category,
+    excerpt: p.excerpt,
+    createdAt: p.createdAt,
+    cover: p.cover,
+    source: "example" as const,
+    caseStudy: p.caseStudy,
+  }));
+
+  const visible = expanded ? articles : articles.slice(0, INITIAL_COUNT);
+  const canExpand = articles.length > INITIAL_COUNT && !expanded;
 
   return (
-    <section id="insights" className="insights-preview-section reveal" data-nav-tone="light">
-      <div className="section-shell">
-        <div className="w-full mb-4 lg:mb-6">
-          <h2 className="st-title text-4xl lg:text-5xl font-bold tracking-tight leading-[1.2] mt-0 mb-4 sm:mb-6 text-left max-w-4xl">
-            Our Case Studies &amp; Latest Blogs
-          </h2>
+    <section id="insights" className="insights-preview-section" data-nav-tone="light">
+      <div className="section-shell insights-preview-shell">
+        <div className="insights-preview-heading-row">
+          <h2 className="st-title insights-preview-heading">Case Studies</h2>
+          <p className="insights-preview-sub">
+            3 AI case studies · 2 networking studies · 1 security study
+          </p>
         </div>
 
-        {/* 4-column card grid */}
         <div className="insights-preview-grid">
-          {articles.map((article, i) => (
+          {visible.map((article, i) => (
             <NewsCard
               key={article.slug}
               article={article}
@@ -77,12 +46,18 @@ export default function InsightsSection() {
           ))}
         </div>
 
-        {/* View More button */}
-        <div className="insights-preview-actions">
-          <Link href="/news" className="button-primary" aria-label="View more articles">
-            View More
-          </Link>
-        </div>
+        {canExpand ? (
+          <div className="insights-preview-actions">
+            <button
+              type="button"
+              className="button-primary"
+              aria-expanded={expanded}
+              onClick={() => setExpanded(true)}
+            >
+              View More
+            </button>
+          </div>
+        ) : null}
       </div>
     </section>
   );

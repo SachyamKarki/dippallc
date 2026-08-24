@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   if (slug === "gantabya") {
     return {
       title: "Gantabya — DIPPA Products",
-      description: "Kathmandu Valley bus transit guide by Dippa. Coming soon.",
+      description: "Kathmandu Valley bus transit guide by Dippa. Now in App Store review.",
     };
   }
   const project = allProducts.find((p) => p.slug === slug);
@@ -29,6 +29,8 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
   const { slug } = await params;
   const project = allProducts.find((p) => p.slug === slug);
   if (!project) return notFound();
+
+  const details = "details" in project && project.details ? project.details : [];
 
   return (
     <main className="bg-[#fcfcfb] text-black" data-nav-tone="light">
@@ -99,6 +101,25 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
           </div>
         </div>
       </section>
+
+      {details.length > 0 ? (
+        <section className="border-t border-slate-200/70 py-16 md:py-24">
+          <div className="section-shell mx-auto max-w-3xl px-5">
+            <div className="flex flex-col gap-12 md:gap-14">
+              {details.map((block) => (
+                <article key={block.title}>
+                  <h2 className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">
+                    {block.title}
+                  </h2>
+                  <p className="mt-4 text-base leading-8 text-slate-700 md:text-[1.0625rem] md:leading-[1.85]">
+                    {block.body}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
     </main>
   );
 }

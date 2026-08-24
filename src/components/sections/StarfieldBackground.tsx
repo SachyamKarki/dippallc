@@ -1,5 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
+import { bindVisibility, prefersReducedMotion } from "@/lib/motion";
+import { subscribeImmersiveFocus } from "@/lib/renderFocus";
 
 export default function StarfieldBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -7,14 +9,17 @@ export default function StarfieldBackground() {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
-    let animId: number;
+    let animId = 0;
     let W = 0, H = 0;
-
-    const STAR_COUNT = 220;
-    const SHOOTING_MAX = 6;
+    let active = true;
+    let yieldToImmersive = false;
+    const reduced = prefersReducedMotion();
+    const isMobile = window.innerWidth < 768;
+    const STAR_COUNT = isMobile ? 50 : 80;
+    const SHOOTING_MAX = reduced || isMobile ? 0 : 2;
 
     type Star = { x: number; y: number; r: number; alpha: number; twinkleSpeed: number; twinklePhase: number };
     type Shoot = { x: number; y: number; len: number; speed: number; angle: number; alpha: number; trail: number; active: boolean; delay: number };
@@ -34,9 +39,9 @@ export default function StarfieldBackground() {
       stars = Array.from({ length: STAR_COUNT }, () => ({
         x: Math.random() * W,
         y: Math.random() * H,
-        r: Math.random() * 1.5 + 0.3,
+        r: Math.random() * 1.4 + 0.3,
         alpha: Math.random() * 0.6 + 0.2,
-        twinkleSpeed: Math.random() * 0.012 + 0.004,
+        twinkleSpeed: Math.random() * 0.01 + 0.003,
         twinklePhase: Math.random() * Math.PI * 2,
       }));
     }
@@ -58,21 +63,28 @@ export default function StarfieldBackground() {
 
     shoots = Array.from({ length: SHOOTING_MAX }, newShoot);
 
-    let t = 0;
-    function draw() {
+    function paintStars() {
       ctx!.clearRect(0, 0, W, H);
-
-      // static stars
       for (const s of stars) {
-        s.twinklePhase += s.twinkleSpeed;
         const a = s.alpha * (0.6 + 0.4 * Math.sin(s.twinklePhase));
         ctx!.beginPath();
         ctx!.arc(s.x, s.y, s.r, 0, Math.PI * 2);
         ctx!.fillStyle = `rgba(255,255,255,${a})`;
         ctx!.fill();
       }
+    }
 
-      // shooting stars
+    function draw() {
+      if (!active || yieldToImmersive) {
+        animId = 0;
+        return;
+      }
+      paintStars();
+
+      for (const s of stars) {
+        s.twinklePhase += s.twinkleSpeed;
+      }
+
       for (const sh of shoots) {
         if (sh.delay > 0) { sh.delay--; continue; }
         if (!sh.active) continue;
@@ -101,18 +113,50 @@ export default function StarfieldBackground() {
         }
       }
 
-      t++;
       animId = requestAnimationFrame(draw);
     }
 
     resize();
-    draw();
+
+    if (reduced) {
+      paintStars();
+    } else {
+      draw();
+    }
 
     const ro = new ResizeObserver(resize);
     ro.observe(canvas);
 
+    const unbind = reduced
+      ? () => {}
+      : bindVisibility(canvas, (isActive) => {
+          active = isActive;
+          if (active && !yieldToImmersive && !animId) animId = requestAnimationFrame(draw);
+          else if ((!active || yieldToImmersive) && animId) {
+            cancelAnimationFrame(animId);
+            animId = 0;
+          }
+        });
+
+    const unsubFocus = reduced
+      ? () => {}
+      : subscribeImmersiveFocus((busy) => {
+          yieldToImmersive = busy;
+          if (busy) {
+            if (animId) {
+              cancelAnimationFrame(animId);
+              animId = 0;
+            }
+          } else if (active && !animId) {
+            animId = requestAnimationFrame(draw);
+          }
+        });
+
     return () => {
+      active = false;
       cancelAnimationFrame(animId);
+      unbind();
+      unsubFocus();
       ro.disconnect();
     };
   }, []);

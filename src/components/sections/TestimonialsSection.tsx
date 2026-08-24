@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import Image from "next/image";
-import { gsap } from "gsap";
+import ProgressiveImage from "@/components/ui/ProgressiveImage";
 import type { Testimonial } from "@/types";
 
 const FALLBACK: Testimonial[] = [
@@ -45,11 +44,8 @@ export default function TestimonialsSection() {
 
   useEffect(() => {
     if (!containerRef.current || !gridRef.current) return;
-    if (showAll) {
-      gsap.to(containerRef.current, { height: gridRef.current.offsetHeight, duration: 0.8, ease: "power4.inOut" });
-    } else {
-      gsap.to(containerRef.current, { height: getCollapsedHeight(), duration: 0.8, ease: "power4.inOut" });
-    }
+    const nextHeight = showAll ? gridRef.current.offsetHeight : getCollapsedHeight();
+    containerRef.current.style.height = `${nextHeight}px`;
   }, [showAll, items]);
 
   useEffect(() => {
@@ -74,14 +70,14 @@ export default function TestimonialsSection() {
         </div>
 
         <div className="relative">
-          <div ref={containerRef} className="overflow-hidden" style={{ height: 400 }}>
+          <div ref={containerRef} className="overflow-hidden testimonials-collapse" style={{ height: 400 }}>
             <div ref={gridRef} className="testimonials-grid">
               {items.map((t) => (
                 <article key={t.id} className="testimonial-card">
                   <div className="testimonial-person">
                     <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full bg-gray-100">
                       {t.image_url ? (
-                        <Image src={t.image_url} alt={t.name} fill className="testimonial-avatar" loading="lazy" />
+                        <ProgressiveImage src={t.image_url} alt={t.name} fill sizes="56px" quality={60} className="testimonial-avatar" loading="lazy" />
                       ) : (
                         <div className="flex h-full w-full items-center justify-center text-sm font-bold text-gray-400">
                           {t.name.charAt(0)}

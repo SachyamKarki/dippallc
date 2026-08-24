@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import ProgressiveImage from "@/components/ui/ProgressiveImage";
 import { businesses, leadership } from "@/lib/data";
 import { CodeIcon, CpuIcon, CompassIcon } from "@/components/ui/Icons";
 
@@ -73,10 +73,13 @@ export default function CompanyInfoPage() {
               <div key={business.name} className={`flex flex-col lg:flex-row gap-16 items-center ${i % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}>
                 <div className="flex-1 w-full relative group">
                   <div className="aspect-[16/9] rounded-[2.5rem] overflow-hidden border border-slate-200 shadow-2xl relative">
-                    <Image
+                    <ProgressiveImage
                       src={business.image}
                       alt={business.name}
                       fill
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      quality={75}
+                      loading="lazy"
                       className="object-cover group-hover:scale-105 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
@@ -117,7 +120,7 @@ export default function CompanyInfoPage() {
             {leadership.map((person) => (
               <div key={person.name} className="bg-white p-8 rounded-[2rem] border border-slate-200 hover:shadow-xl transition-all group">
                 <div className="w-20 h-20 rounded-2xl overflow-hidden mb-6 border border-slate-100">
-                  <Image src={person.avatar} alt={person.name} width={80} height={80} className="object-cover" />
+                  <ProgressiveImage src={person.avatar} alt={person.name} width={80} height={80} sizes="80px" quality={75} className="object-cover" loading="lazy" />
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-1">{person.name}</h3>
                 <p className="text-xs font-bold text-blue-600 uppercase tracking-widest mb-4">{person.role}</p>

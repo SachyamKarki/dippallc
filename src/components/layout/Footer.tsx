@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { FacebookIcon, InstagramIcon, LinkedInIcon } from "@/components/ui/Icons";
 import DippaLogo from "@/components/layout/DippaLogo";
+import NewsletterForm from "@/components/sections/NewsletterForm";
+import { COOKIE_SETTINGS_EVENT } from "@/components/layout/CookieConsent";
 import { dippaMotto, footerSocialLinks } from "@/lib/data";
 
 const footerNav = [
@@ -79,12 +81,11 @@ export default function Footer() {
 
           {/* Newsletter */}
           <div className="footer-newsletter">
-            <p className="footer-newsletter-label">IT tips &amp; updates</p>
-            <form className="footer-newsletter-form">
-              <input type="email" placeholder="Work email" className="footer-newsletter-input" />
-              <button type="submit" className="footer-newsletter-btn-sm">Subscribe</button>
-            </form>
-            <p className="footer-newsletter-sub">No noise. Only signal.</p>
+            <p className="footer-newsletter-label">Briefings</p>
+            <NewsletterForm variant="footer" source="footer" />
+            <p className="footer-newsletter-sub">
+              Occasional notes on delivery and applied AI. Unsubscribe at any time.
+            </p>
           </div>
         </div>
 
@@ -100,6 +101,14 @@ export default function Footer() {
             <Link href="/privacy" className="footer-legal-link">Privacy</Link>
             <span className="footer-legal-sep" aria-hidden="true">·</span>
             <Link href="/terms" className="footer-legal-link">Terms</Link>
+            <span className="footer-legal-sep" aria-hidden="true">·</span>
+            <button
+              type="button"
+              className="footer-legal-link footer-legal-link-btn"
+              onClick={() => window.dispatchEvent(new Event(COOKIE_SETTINGS_EVENT))}
+            >
+              Cookie settings
+            </button>
           </div>
         </div>
 

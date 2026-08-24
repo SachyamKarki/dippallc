@@ -59,6 +59,44 @@ export default function BlogContentRenderer(props: {
             );
           }
 
+          if (block.type === "image") {
+            return (
+              <figure key={index} className="my-12 overflow-hidden rounded-[1.5rem] border border-gray-100">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={block.src} alt={block.alt} className="h-auto w-full object-cover" />
+                {block.caption ? (
+                  <figcaption className="px-6 py-4 text-sm leading-relaxed text-gray-600">
+                    {block.caption}
+                  </figcaption>
+                ) : null}
+              </figure>
+            );
+          }
+
+          if (block.type === "references") {
+            return (
+              <section key={index} className="mt-16 border-t border-gray-200 pt-10">
+                <h2 className="mb-6 text-2xl font-black tracking-tight text-black">
+                  {block.title ?? "References & citations"}
+                </h2>
+                <ol className="space-y-3">
+                  {block.items.map((item) => (
+                    <li key={item.id} id={`ref-${item.id}`} className="text-sm leading-relaxed text-gray-700">
+                      <span className="font-bold text-black">[{item.id}]</span>{" "}
+                      {item.url ? (
+                        <a href={item.url} target="_blank" rel="noopener noreferrer" className="underline">
+                          {item.text}
+                        </a>
+                      ) : (
+                        item.text
+                      )}
+                    </li>
+                  ))}
+                </ol>
+              </section>
+            );
+          }
+
           return (
             <p key={index} className="mt-8 text-[1.08rem] leading-8 text-black/80 font-medium md:text-[1.12rem]">
               {block.text}
