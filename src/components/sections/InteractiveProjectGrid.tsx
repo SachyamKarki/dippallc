@@ -171,10 +171,18 @@ export default function InteractiveProjectGrid() {
     }
 
     const scene = new THREE.Scene();
-    const isMobile = window.innerWidth < 768;
-    const camera = new THREE.PerspectiveCamera(isMobile ? 48 : 32, 1, 0.1, 500);
-    // Adjusted camera further back to increase visible 3D depth and curvature
-    camera.position.set(0, 0, isMobile ? 56 : 64);
+    const viewportWidth = window.innerWidth;
+    const isMobile = viewportWidth < 768;
+    const isNarrowPhone = viewportWidth <= 390;
+    const camera = new THREE.PerspectiveCamera(
+      isNarrowPhone ? 54 : isMobile ? 48 : 32,
+      1,
+      0.1,
+      500
+    );
+    // Pull the camera slightly farther back on narrow phones so the 360 wall
+    // reads as a curved stage instead of feeling cramped at 360px widths.
+    camera.position.set(0, 0, isNarrowPhone ? 60 : isMobile ? 56 : 64);
     camera.lookAt(0, 0, 0);
 
     const renderer = new THREE.WebGLRenderer({
@@ -205,12 +213,15 @@ export default function InteractiveProjectGrid() {
     scene.add(rimLight);
 
 
-    const planeGeometry = new THREE.PlaneGeometry(16.2, 10.8);
-    const radius = 48;
+    const planeGeometry = new THREE.PlaneGeometry(
+      isNarrowPhone ? 14.8 : 16.2,
+      isNarrowPhone ? 9.8 : 10.8
+    );
+    const radius = isNarrowPhone ? 44 : 48;
     const itemsPerRow = 12;
     const totalCards = 48;
     const rowCount = Math.ceil(totalCards / itemsPerRow);
-    const verticalStep = 18.0;
+    const verticalStep = isNarrowPhone ? 16.5 : 18.0;
     const angleStep = (Math.PI * 2) / itemsPerRow;
 
     const uniqueUrls = IMMERSIVE_IMAGE_URLS;
