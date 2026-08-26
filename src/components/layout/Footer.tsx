@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { FacebookIcon, InstagramIcon, LinkedInIcon } from "@/components/ui/Icons";
 import DippaLogo from "@/components/layout/DippaLogo";
-import NewsletterForm from "@/components/sections/NewsletterForm";
 import { dippaMotto, footerSocialLinks } from "@/lib/data";
 
 const footerNav = [
@@ -28,8 +27,8 @@ export default function Footer() {
     <footer className="footer-root">
       <div className="footer-shell">
 
-        {/* ── Main grid: brand | nav | newsletter ── */}
-        <div className="footer-top">
+        {/* ── Main grid: brand | nav ── */}
+        <div className="footer-top footer-top-no-newsletter">
 
           {/* Brand */}
           <div className="footer-brand">
@@ -77,15 +76,6 @@ export default function Footer() {
               ))}
             </ul>
           </nav>
-
-          {/* Newsletter */}
-          <div className="footer-newsletter">
-            <p className="footer-newsletter-label">Briefings</p>
-            <NewsletterForm variant="footer" source="footer" />
-            <p className="footer-newsletter-sub">
-              Occasional notes on delivery and applied AI. Unsubscribe at any time.
-            </p>
-          </div>
         </div>
 
         {/* Wordmark */}

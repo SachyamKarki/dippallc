@@ -3,7 +3,7 @@ export const IMMERSIVE_IMAGE_URLS = Array.from(
   (_, i) => `/projects/${i + 1}.jpg`,
 );
 
-const CACHE_NAME = "dippa-360-v1";
+const CACHE_NAME = "dippa-360-v2";
 const FRONT_COUNT = 8;
 
 type ImmersiveSource = HTMLImageElement | ImageBitmap;
@@ -62,14 +62,8 @@ function imageFromUrl(url: string): Promise<HTMLImageElement> {
 }
 
 async function decodeBlob(blob: Blob, url: string): Promise<ImmersiveSource> {
-  if (typeof createImageBitmap === "function") {
-    try {
-      return await createImageBitmap(blob);
-    } catch {
-      // Fall through to an object-URL image decode.
-    }
-  }
-
+  // Prefer HTMLImageElement over ImageBitmap. Three.js texture uploads treat
+  // ImageBitmap orientation differently and were showing the 360 cards upside down.
   let objectUrl = objectUrls.get(url);
   if (!objectUrl) {
     objectUrl = URL.createObjectURL(blob);
@@ -88,6 +82,10 @@ export function areFrontImmersiveImagesCached() {
   return IMMERSIVE_IMAGE_URLS.slice(0, FRONT_COUNT).every((url) =>
     getCachedImmersiveImage(url),
   );
+}
+
+export function areAllImmersiveImagesCached() {
+  return IMMERSIVE_IMAGE_URLS.every((url) => getCachedImmersiveImage(url));
 }
 
 export function loadImmersiveImage(
@@ -131,12 +129,9 @@ export function prefetchImmersiveImages(priority: FetchPriority = "low") {
 }
 
 /**
- * Decode the first ring of cards at high priority, kick the rest immediately,
- * then resolve so the 360 scene can mount without waiting on every file.
+ * Decode every immersive still at high priority so the 360 wall never mounts
+ * with soft placeholders or missing cards.
  */
 export async function loadImmersiveImagesPriority() {
-  const front = IMMERSIVE_IMAGE_URLS.slice(0, FRONT_COUNT);
-  const rest = IMMERSIVE_IMAGE_URLS.slice(FRONT_COUNT);
-  rest.forEach((url) => void loadImmersiveImage(url, "high"));
-  await Promise.all(front.map((url) => loadImmersiveImage(url, "high")));
+  await Promise.all(IMMERSIVE_IMAGE_URLS.map((url) => loadImmersiveImage(url, "high")));
 }

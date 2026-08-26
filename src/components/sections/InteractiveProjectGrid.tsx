@@ -6,7 +6,7 @@ import gsap from "gsap";
 import { ArrowUpRight } from "lucide-react";
 import { bindVisibility } from "@/lib/motion";
 import {
-  areFrontImmersiveImagesCached,
+  areAllImmersiveImagesCached,
   getCachedImmersiveImage,
   IMMERSIVE_IMAGE_URLS,
   loadImmersiveImage,
@@ -64,23 +64,34 @@ const threeTextureCache = new Map<string, THREE.Texture>();
 
 function applyTextureSource(texture: THREE.Texture, url: string) {
   const source = getCachedImmersiveImage(url);
-  if (!source || texture.image === source) return;
-  texture.image = source;
+  if (!source) return;
+  if (texture.image !== source) {
+    texture.image = source;
+  }
+  // HTMLImageElement uploads expect flipY=true. ImageBitmap (if ever used) does not.
+  texture.flipY = !(typeof ImageBitmap !== "undefined" && source instanceof ImageBitmap);
   texture.needsUpdate = true;
 }
 
-function textureFromCache(url: string): THREE.Texture {
+function configureTextureQuality(texture: THREE.Texture, anisotropy = 1) {
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.generateMipmaps = true;
+  texture.minFilter = THREE.LinearMipmapLinearFilter;
+  texture.magFilter = THREE.LinearFilter;
+  texture.anisotropy = Math.max(1, Math.min(anisotropy, 16));
+  texture.needsUpdate = true;
+}
+
+function textureFromCache(url: string, anisotropy = 1): THREE.Texture {
   const existing = threeTextureCache.get(url);
   if (existing) {
     applyTextureSource(existing, url);
+    configureTextureQuality(existing, anisotropy);
     return existing;
   }
 
   const texture = new THREE.Texture();
-  texture.colorSpace = THREE.SRGBColorSpace;
-  texture.generateMipmaps = false;
-  texture.minFilter = THREE.LinearFilter;
-  texture.magFilter = THREE.LinearFilter;
+  configureTextureQuality(texture, anisotropy);
   applyTextureSource(texture, url);
   threeTextureCache.set(url, texture);
   return texture;
@@ -136,15 +147,14 @@ export default function InteractiveProjectGrid() {
     let cancelled = false;
     setImmersiveFocus(true);
 
-    if (areFrontImmersiveImagesCached()) {
+    if (areAllImmersiveImagesCached()) {
       setAssetsReady(true);
-      void loadImmersiveImagesPriority();
       return;
     }
 
     const failSafe = window.setTimeout(() => {
       if (!cancelled) setAssetsReady(true);
-    }, 1800);
+    }, 6000);
 
     void loadImmersiveImagesPriority()
       .then(() => {
@@ -170,31 +180,39 @@ export default function InteractiveProjectGrid() {
       return;
     }
 
+    // Drop any HMR/stale GPU textures so orientation fixes always take effect.
+    threeTextureCache.forEach((texture) => texture.dispose());
+    threeTextureCache.clear();
+
     const scene = new THREE.Scene();
     const viewportWidth = window.innerWidth;
     const isMobile = viewportWidth < 768;
     const isNarrowPhone = viewportWidth <= 390;
     const camera = new THREE.PerspectiveCamera(
-      isNarrowPhone ? 54 : isMobile ? 48 : 32,
+      isNarrowPhone ? 58 : isMobile ? 52 : 36,
       1,
       0.1,
       500
     );
-    // Pull the camera slightly farther back on narrow phones so the 360 wall
-    // reads as a curved stage instead of feeling cramped at 360px widths.
-    camera.position.set(0, 0, isNarrowPhone ? 60 : isMobile ? 56 : 64);
+    // Sit inside a tighter cylinder so the wall wraps more on the z-axis.
+    camera.position.set(0, 0, isNarrowPhone ? 48 : isMobile ? 46 : 56);
     camera.lookAt(0, 0, 0);
 
     const renderer = new THREE.WebGLRenderer({
-      antialias: !isMobile,
+      antialias: true,
       alpha: true,
       powerPreference: "high-performance",
+      // Keep canvas sharp on retina / high-DPI phones and desktops.
+      precision: "highp",
     });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1 : 1.25));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.NoToneMapping;
     renderer.domElement.className = "work-sphere-webgl";
     viewport.appendChild(renderer.domElement);
+
+    const maxAnisotropy = renderer.capabilities.getMaxAnisotropy();
+    const textureAnisotropy = Math.min(maxAnisotropy, isMobile ? 8 : 16);
 
     const pitchGroup = new THREE.Group();
     scene.add(pitchGroup);
@@ -202,39 +220,41 @@ export default function InteractiveProjectGrid() {
     const carouselGroup = new THREE.Group();
     pitchGroup.add(carouselGroup);
 
-    scene.add(new THREE.AmbientLight(0xffffff, 1.45));
+    scene.add(new THREE.AmbientLight(0xffffff, 1.55));
 
-    const keyLight = new THREE.DirectionalLight(0xf7f2e7, 1.8);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 1.65);
     keyLight.position.set(6, 8, 10);
     scene.add(keyLight);
 
-    const rimLight = new THREE.PointLight(0xaad3ff, 1.7, 50);
+    const rimLight = new THREE.PointLight(0xffffff, 1.15, 60);
     rimLight.position.set(-10, 2, -8);
     scene.add(rimLight);
 
 
     const planeGeometry = new THREE.PlaneGeometry(
-      isNarrowPhone ? 14.8 : 16.2,
-      isNarrowPhone ? 9.8 : 10.8
+      isNarrowPhone ? 13.8 : isMobile ? 14.8 : 15.0,
+      isNarrowPhone ? 9.2 : isMobile ? 9.8 : 10.0
     );
-    const radius = isNarrowPhone ? 44 : 48;
+    // Tighter radius = stronger wrap along z (more curved wall).
+    const radius = isNarrowPhone ? 34 : isMobile ? 36 : 40;
     const itemsPerRow = 12;
-    const totalCards = 48;
-    const rowCount = Math.ceil(totalCards / itemsPerRow);
-    const verticalStep = isNarrowPhone ? 16.5 : 18.0;
+    // Phone: 5 cards per column so the taller stage fills cleanly.
+    const rowCount = isMobile ? 5 : 4;
+    const totalCards = itemsPerRow * rowCount;
+    const verticalStep = isNarrowPhone ? 14.0 : isMobile ? 14.8 : 17.0;
     const angleStep = (Math.PI * 2) / itemsPerRow;
 
     const uniqueUrls = IMMERSIVE_IMAGE_URLS;
     uniqueUrls.forEach((url) => {
-      textureFromCache(url);
+      textureFromCache(url, textureAnisotropy);
       if (getCachedImmersiveImage(url)) return;
       void loadImmersiveImage(url, "high").then(() => {
-        applyTextureSource(textureFromCache(url), url);
+        applyTextureSource(textureFromCache(url, textureAnisotropy), url);
       });
     });
     const siteTextures = mockSites.map((_, index) => {
       const url = webImages[index % webImages.length];
-      return textureFromCache(url);
+      return textureFromCache(url, textureAnisotropy);
     });
 
     Array.from({ length: totalCards }).forEach((_, index) => {
@@ -242,8 +262,9 @@ export default function InteractiveProjectGrid() {
 
       const material = new THREE.MeshStandardMaterial({
         map: siteTextures[siteIndex],
-        metalness: 0.04,
-        roughness: 0.84,
+        metalness: 0,
+        roughness: 0.72,
+        envMapIntensity: 0,
       });
 
       const card = new THREE.Mesh(planeGeometry, material);
@@ -251,12 +272,14 @@ export default function InteractiveProjectGrid() {
       const col = index % itemsPerRow;
 
       const angle = col * angleStep;
-      // Stagger odd columns downwards by half a row
-      const staggerOffset = col % 2 === 1 ? -(verticalStep / 2) : 0;
+      // Symmetric stagger so the center black gap lines up behind DIPPA at rest.
+      const staggerOffset = col % 2 === 1 ? -(verticalStep / 4) : verticalStep / 4;
       const y = ((rowCount - 1) / 2 - row) * verticalStep + staggerOffset;
 
       card.position.set(Math.sin(angle) * radius, y, Math.cos(angle) * radius);
-      card.lookAt(0, y, 0);
+      // Face the inward camera without lookAt(), which can invert card "up".
+      card.rotation.order = "YXZ";
+      card.rotation.set(0, angle + Math.PI, 0);
       card.userData = {
         link: mockSites[siteIndex].url,
         title: mockSites[siteIndex].title

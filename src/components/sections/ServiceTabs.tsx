@@ -10,7 +10,7 @@ const services = [
     name: "Web Development",
     title: "Engineering high authority digital environments.",
     description: "High-performance institutional platforms engineered for technical integrity, architectural precision, and maximum dependability.",
-    image: "/images/service-web-dev.jpg",
+    image: "/images/service-web-dev-square.jpg",
     points: [
       "Custom architectural design and full stack implementation for scalable, high traffic web applications.",
       "Performance auditing and code level optimization to ensure sub second response times and maximum availability.",
@@ -22,7 +22,7 @@ const services = [
     name: "App Development",
     title: "Native and cross platform mobile experiences.",
     description: "High-performance mobile apps engineered for seamless integration and maximum user engagement.",
-    image: "/images/service-app-dev.jpg",
+    image: "/images/service-app-dev-square.jpg",
     points: [
       "End to end engineering of cross platform and native mobile applications tailored for high user retention.",
       "Consultative UI/UX systems design to ensure complex operational logic translates intuitively to mobile devices.",
@@ -34,7 +34,7 @@ const services = [
     name: "AI Automation",
     title: "Autonomous agents for complex workflows.",
     description: "Intelligent systems that automate complex workflows across your tool stack with full observability and human-in-the-loop controls.",
-    image: "/images/service-ai-agent-real.jpg",
+    image: "/images/service-ai-automation-user.jpg",
     points: [
       "Integration of LLM powered autonomous agents to handle complex, multi step business workflows.",
       "Consultative auditing of your current operational stack to identify high leverage automation opportunities.",
@@ -46,7 +46,7 @@ const services = [
     name: "Software Development",
     title: "Operating systems for high stakes business.",
     description: "Custom distributed applications that eliminate operational bottlenecks and centralize fragmented business data.",
-    image: "/images/service-software-dev.jpg",
+    image: "/images/service-software-engineering.jpg",
     points: [
       "Strategic modernization of legacy internal systems to eliminate technical debt and operational bottlenecks.",
       "Development of bespoke, distributed enterprise applications to centralize fragmented business data.",
@@ -92,6 +92,20 @@ export default function ServiceTabs() {
         <div className="sm:hidden w-full mt-4 flex flex-col divide-y divide-black/10">
           {services.map((service, index) => (
             <div key={service.id} className="py-6 first:pt-2">
+              <div
+                className="relative w-full aspect-square max-w-sm mx-auto mb-5 overflow-hidden shadow-xl"
+                style={{ borderRadius: "2.2rem 2.2rem 2.2rem 0" }}
+              >
+                <ProgressiveImage
+                  src={service.image}
+                  alt={service.name}
+                  fill
+                  sizes="(max-width: 640px) 90vw, 384px"
+                  quality={90}
+                  loading="lazy"
+                  className="object-cover object-center"
+                />
+              </div>
               <p style={{ fontFamily: 'var(--font-main)', fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#000', marginBottom: '0.5rem' }}>
                 {String(index + 1).padStart(2, "0")}{"  "}{service.name}
               </p>
@@ -134,10 +148,10 @@ export default function ServiceTabs() {
           </div>
 
           <div className="w-full pt-5 pb-4 mt-4 sm:pt-6 sm:mt-5 lg:pt-8 lg:mt-6 transition-all duration-1000">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 xl:gap-14 items-center">
               <div
                 key={activeService.id + "-text"}
-                className="space-y-5 lg:space-y-6 service-content-enter text-left flex flex-col items-start"
+                className="space-y-5 lg:space-y-6 service-content-enter text-left flex flex-col items-start min-w-0"
               >
                 <div className="flex flex-col w-full items-start">
                   <div className="service-counter-enter mb-2 flex flex-wrap items-center justify-start gap-x-2 gap-y-1">
@@ -167,14 +181,14 @@ export default function ServiceTabs() {
                 </ul>
               </div>
 
-              <div className="relative" key={activeService.id + "-img-wrap"}>
+              <div className="relative w-full min-w-0" key={activeService.id + "-img-wrap"}>
                 <div
                   ref={imageRef}
                   onMouseMove={handleMouseMove}
                   onMouseLeave={handleMouseLeave}
-                  className="relative w-full aspect-square max-w-md lg:max-w-lg mx-auto overflow-hidden shadow-2xl service-image-enter"
+                  className="relative w-full aspect-square max-w-[34rem] xl:max-w-[40rem] mx-auto overflow-hidden shadow-2xl service-image-enter"
                   style={{
-                    borderRadius: '3rem 3rem 3rem 0',
+                    borderRadius: "2rem 2rem 2rem 0",
                     transform: "perspective(800px) rotateX(0deg) rotateY(0deg)",
                     transition: "transform 0.15s ease-out",
                   }}
@@ -184,10 +198,10 @@ export default function ServiceTabs() {
                     src={activeService.image}
                     alt={activeService.name}
                     fill
-                    sizes="(max-width: 1024px) 100vw, 512px"
-                    quality={75}
+                    sizes="(max-width: 1024px) 90vw, (max-width: 1440px) 40rem, 640px"
+                    quality={90}
                     loading="lazy"
-                    className="object-cover service-image-zoom opacity-100 z-10"
+                    className="object-cover object-[center_center] service-image-zoom opacity-100 z-10"
                   />
                 </div>
               </div>

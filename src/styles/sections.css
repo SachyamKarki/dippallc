@@ -1297,6 +1297,7 @@ section#journey.journey-v2-section {
 @media (min-width: 1024px) {
   .footer-top { grid-template-columns: 1fr 1fr 1fr; gap: 4rem; }
   .footer-newsletter { grid-column: auto; max-width: none; }
+  .footer-top-no-newsletter { grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.8fr); gap: 4rem; }
 }
 
 /* Contact & Social rows */
@@ -3416,7 +3417,7 @@ section#insights.insights-preview-section {
 @media (max-width: 640px) {
   .work-sphere-stage { border-radius: 1.5rem; }
   .work-sphere-shell { padding: 0 1rem; }
-  .work-sphere-stage { height: 70vh; min-height: 420px; }
+  .work-sphere-stage { height: 70vh; min-height: 460px; max-height: 620px; }
 }
 
 /* Journey section image on small screens */
@@ -3438,7 +3439,7 @@ section#insights.insights-preview-section {
   .insights-preview-grid { grid-template-columns: 1fr; }
 }
 
-/* Newsletter form on mobile */
+/* Newsletter form on mobile — keep signature leaf corner */
 @media (max-width: 640px) {
   .newsletter-title { font-size: clamp(1.25rem, 6vw, 1.6rem); }
   .newsletter-form { gap: 0.85rem; align-items: stretch; }
@@ -3446,10 +3447,10 @@ section#insights.insights-preview-section {
     flex-direction: column;
     width: 100%;
     max-width: 100%;
-    border-radius: 0.85rem;
+    border-radius: 2.2rem 2.2rem 2.2rem 0;
     overflow: hidden;
     background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.12);
+    border: 1.5px solid rgba(255,255,255,0.18);
     gap: 0;
   }
   .newsletter-input {
@@ -3460,13 +3461,14 @@ section#insights.insights-preview-section {
     padding: 0.95rem 1.1rem;
   }
   .newsletter-input-wrap:focus-within {
-    border-color: rgba(255,255,255,0.28);
+    border-color: rgba(255,255,255,0.32);
     background: rgba(255,255,255,0.07);
   }
   .newsletter-submit {
     width: 100% !important;
     align-self: stretch !important;
-    border-radius: 0 !important;
+    /* Bottom edge of the leaf: round bottom-right, sharp bottom-left */
+    border-radius: 0 0 2.2rem 0 !important;
     min-height: 3rem;
     padding: 0.85rem 1.25rem !important;
     font-size: 0.8125rem;
@@ -3475,6 +3477,7 @@ section#insights.insights-preview-section {
     max-width: 100%;
     padding: 1.15rem 1.2rem;
     text-align: left;
+    border-radius: 2.2rem 2.2rem 2.2rem 0;
   }
 }
 
@@ -4218,7 +4221,6 @@ main.contact-page > section.contact-form-only-section {
   .news-card-title         { font-size: 1.15rem; min-height: auto; }
   .news-card-title-compact { font-size: 1.1rem; min-height: auto; }
   .news-card-excerpt      { font-size: 0.9375rem; }
-  .work-sphere-stage-title { font-size: 1rem; }
 }
 
 /* ─── What We Offer section mobile ─────────────────────────── */
@@ -4240,9 +4242,9 @@ main.contact-page > section.contact-form-only-section {
   }
   .work-sphere-shell { padding: 0 0.75rem; overflow: hidden; }
   .work-sphere-stage {
-    height: 60vh;
-    min-height: 360px;
-    max-height: 480px;
+    height: 70vh;
+    min-height: 460px;
+    max-height: 620px;
     border-radius: 1.25rem;
     overflow: hidden;
     max-width: 100%;
@@ -4250,7 +4252,17 @@ main.contact-page > section.contact-form-only-section {
   .work-sphere-viewport { overflow: hidden; max-width: 100%; }
   .work-sphere-canvas,
   .work-sphere-webgl { max-width: 100% !important; overflow: hidden; }
-  .work-sphere-stage-title { font-size: clamp(1rem, 5vw, 1.5rem); }
+  .work-sphere-stage-copy {
+    align-items: center;
+    justify-content: center;
+  }
+  .work-sphere-stage-shell-top {
+    height: 12%;
+  }
+  .work-sphere-stage-vignette {
+    height: 28%;
+  }
+  .work-sphere-stage-title { font-size: clamp(1.75rem, 8vw, 2.5rem); }
 }
 
 @media (max-width: 390px) {
@@ -4261,9 +4273,9 @@ main.contact-page > section.contact-form-only-section {
     padding: 0 0.625rem;
   }
   .work-sphere-stage {
-    height: 54vh;
-    min-height: 320px;
-    max-height: 400px;
+    height: 66vh;
+    min-height: 420px;
+    max-height: 560px;
     border-radius: 1rem;
   }
   .work-sphere-stage-shell-left,
@@ -4271,13 +4283,13 @@ main.contact-page > section.contact-form-only-section {
     width: 4.5%;
   }
   .work-sphere-stage-shell-top {
-    height: 18%;
+    height: 12%;
   }
   .work-sphere-stage-vignette {
-    height: 34%;
+    height: 28%;
   }
   .work-sphere-stage-title {
-    font-size: 0.92rem;
+    font-size: clamp(1.6rem, 9vw, 2.25rem);
     letter-spacing: -0.03em;
   }
 }

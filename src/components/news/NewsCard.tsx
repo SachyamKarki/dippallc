@@ -16,15 +16,15 @@ export function cardAccent(index: number) {
 }
 
 const FALLBACK_IMAGES: Record<string, string> = {
-  "Software systems": "/images/service-software-dev.jpg",
-  "AI orchestration": "/images/service-ai-agent-real.jpg",
+  "Software systems": "/images/service-software-engineering.jpg",
+  "AI orchestration": "/images/service-ai-automation-user.jpg",
   "Consulting": "/images/service-sales-lead.jpg",
   "Technical Architecture": "/images/service-systems.jpg",
   "Architecture": "/images/service-systems.jpg",
   "Operating model": "/images/service-automation-real.jpg",
-  "Engineering": "/images/service-app-dev.jpg",
+  "Engineering": "/images/service-app-dev-square.jpg",
   "Infrastructure": "/images/service-webapp.jpg",
-  "Case Study": "/images/service-web-dev.jpg",
+  "Case Study": "/images/service-web-dev-square.jpg",
 };
 
 function resolveImage(article: BlogPreview): string {

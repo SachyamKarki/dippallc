@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
-import Link from "next/link";
 import { submitNewsletter } from "@/lib/api";
 
 const STORAGE_KEY = "dippa_newsletter_subscribed";
@@ -161,10 +160,6 @@ export default function NewsletterForm({
           <a href="mailto:info@thedippa.com">info@thedippa.com</a>.
         </p>
       )}
-      <p className="newsletter-disclaimer">
-        Occasional briefings only. See our{" "}
-        <Link href="/privacy">Privacy Policy</Link>. Unsubscribe at any time.
-      </p>
     </form>
   );
 }

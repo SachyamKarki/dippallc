@@ -1,16 +1,9 @@
 import ProgressiveImage from "@/components/ui/ProgressiveImage";
 import Link from "next/link";
 import type { BlogPreview } from "@/lib/blog/types";
+import { formatDate } from "@/lib/blog/utils";
 
 type Variant = "featured" | "standard" | "compact";
-
-function formatDate(date: string) {
-  return new Date(date).toLocaleDateString(undefined, {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
-}
 
 function articleLabel(tag: string) {
   if (/ai|agent/i.test(tag)) return "Field Note";

@@ -1,5 +1,6 @@
 export function formatDate(date: string, options: { month?: "short" | "long" } = {}) {
-  return new Date(date).toLocaleDateString(undefined, {
+  // Fixed locale so SSR and client always match (avoids hydration mismatch).
+  return new Date(date).toLocaleDateString("en-US", {
     month: options.month || "short",
     day: "numeric",
     year: "numeric",
